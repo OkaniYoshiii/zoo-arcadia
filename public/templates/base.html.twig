@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Le Zoo qui vous fera vivre une expérience inoublibale. Venez découvrir nos animaux : du lion à la gazelle en passant par l'éléphant. Visites gratuites en petit train, restauration et bien plus encore !">
+    <title>ARCADIA - Accueil</title>
+    <link rel="stylesheet" href="{{ CSS_DIR }}/style.css">
+    <script src="{{ JS_DIR }}/script.js" type="module" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="navbar | size-large">
+            <a class="site-brand" href="/">
+                <img class="site-logo" src="{{ IMG_DIR }}/logo-arcadia.webp" width="" height="" alt="Logo du Zoo d'Arcadia">
+                <span class="site-name">Zoo <span class="color-primary">Arcadia</span></span>
+            </a>
+            <button class="menu-toggle" aria-expanded="false" aria-controls="primary-navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </button>
+            <nav id="primary-navigation" class="primary-navigation">
+                <ul class="nav-links">
+                    <li class="nav-link"><a href="/">Accueil</a></li>
+                    <li class="nav-link"><a href="/services">Nos services</a></li>
+                    <li class="nav-link"><a href="/habitats">Nos habitats</a></li>
+                    <li class="nav-link"><a href="/connexion">Connexion</a></li>
+                    <li class="nav-link"><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+    <footer>
+        <ul class="size-large">
+            <li><a href="">Politique de confidentialité</a></li>
+            <li><a href="">Mentions légales</a></li>
+        </ul>
+    </footer>
+</body>
+</html>

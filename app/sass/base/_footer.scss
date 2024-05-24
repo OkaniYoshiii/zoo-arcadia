@@ -1,0 +1,20 @@
+@use '../abstracts/fonctions' as *;
+
+body > footer {
+    padding-block: 2rem;
+    font-size: constrain(0.8rem, 1rem, 320px);
+
+    ul {
+        display: flex;
+        justify-content: space-between;
+
+        padding: 0;
+
+        list-style-type: none;
+
+        li {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}

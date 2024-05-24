@@ -1,0 +1,107 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/fonctions" as *;
+
+// BREAKPOINT SIZES
+$break-medium: 900px;
+
+// Site header
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    padding-block: 1rem;
+    background-color: white;
+}
+
+// Navbar
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+        color: $color-txt;
+    }
+}
+
+.site-brand {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    text-decoration: unset;
+    text-transform: uppercase;
+    font-size: constrain(1.5rem, 2rem, 320px);
+    font-weight: bold;
+    white-space: nowrap;
+    color: $color-txt;
+}
+
+.site-logo {
+    max-height: 60px;
+    aspect-ratio: 1;
+}
+
+.menu-toggle {
+    display: none;
+    
+    @media screen and (max-width: $break-medium) {
+        display: block;
+    }
+}
+
+.primary-navigation {
+    @media screen and (max-width: $break-medium) {
+        display: none;
+
+        position: fixed;
+        inset: 5rem 0 0 0;
+        background-color: white;
+    }
+}
+
+.menu-toggle[aria-expanded="true"] + .primary-navigation {
+    display: block;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    column-gap: 2rem;
+    justify-content: space-between;
+    list-style-type: none;
+    
+    &, li {
+        padding-left: 0;
+        margin: 0;
+    }
+    
+    @media screen and (max-width: $break-medium) {
+        flex-direction: column;
+        row-gap: 1rem;
+
+        margin: 1rem;
+
+        li {
+            border-bottom: 1px solid $color-contrast;
+        }
+    }
+}
+
+.nav-link > a {
+    &:hover {
+        text-decoration: none;
+    }
+
+    @media screen and (max-width: $break-medium) {
+        display: block;
+        padding-block: 1rem 0.5rem;
+        text-decoration: none;
+
+        &:hover {
+            font-weight: bold;
+        }
+    }
+}

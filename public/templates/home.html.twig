@@ -1,0 +1,277 @@
+{% extends "base.html.twig" %}
+
+{% block main %}
+    <section class="hero-banner">
+        <div class="size-medium">
+            <div>
+                <h1 class="hero-banner__title">Arcadia</h1>
+                <p class="hero-banner__subtitle">Parc animalier</p>
+                <p class="hero-banner__catchphrase">Un univers de merveilles s'offre à vous</p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2 class="size-medium">Vivez une aventure sans précédent</h2>
+        <div class="gallery gallery--3 | size-large mb-2em">
+            <div class="gallery__content">
+                <div>
+                    <p class="color-primary">Exploration</p>
+                    <img class="rounded-img" src="{{ IMG_DIR }}/original-images/img-hyena.jpg" width="" height="" alt="">
+                </div>
+                <div>
+                    <p class="color-primary">Emerveillement</p>
+                    <img class="rounded-img" src="{{ IMG_DIR }}/original-images/img-elephant.jpg" width="" height="" alt="">
+                </div>
+                <div>
+                    <p class="color-primary">Découverte</p>
+                    <img class="rounded-img" src="{{ IMG_DIR }}/original-images/img-lion.jpg" width="" height="" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="size-medium">
+            <p>Notre zoo, situé près de la forêt de Brocéliande, en Bretagne, dispose de nombreuses activités centrés autour des animaux. Ces derniers, provienent de nombreux endroits de la planète afin de vous proposer une expérience entièrement dépaysante et vous permettant de découviri toute la beauté que la planète a a nous offrir.</p>
+            <p>Elevés dans des environnement proches de ceux de leur état naturel, les animaux du parc sont très variés. De l'éléphant, au lion, en passant par l'autruche ou la gazelle, nous vous proposons de vous immisser des un environnement semi-naturel où vous serez époustouflés !</p>
+        </div>
+    </section>
+    <section class="domains__section">
+        <div>
+            <h2 class="domains__title | size-medium"><button>&lt;</button>Nos domaines : <button>&gt;</button></h2>
+            <ul class="domains">
+                {% for domainName, domain in domains %}
+                    <li class="domain">
+                        <h3 class="domain__name | size-medium">{{ domainName }}</h3>
+                        <div class="domain__animals gallery gallery--slider">
+                            <div class="gallery__content">
+                                {% for name, img_src in domain.animals %}
+                                    <a class="gallery__slide rounded-img--with-caption" href="/animaux/animal?id=x">
+                                        <img class="rounded-img" src="{{ img_src }}" width="" height="" alt="">
+                                        <p class="caption">{{ name }}</p>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                            <fieldset class="gallery__controls">
+                                <legend class="visually-hidden">Séléctionnez un animal :</legend>
+                                {% set firstValue = domain.animals|first %}
+                                {% for name, img_src in domain.animals %}
+                                    <label class="visually-hidden"for="animal-control-{{ name|lower }}">{{ name }}</label>
+                                    <input type="radio" name="{{ domainName|lower }}-animal-control" id="animal-control-{{ name|lower }}" {% if img_src == firstValue %} checked {% endif %}>
+                                {% endfor %}
+                            </fieldset>
+                        </div>
+                        <div class="domain__description | size-medium">
+                            <p>Environement propre aux régions chaudes, la savane regroupe de nombreux animaux comme  zèbres, les gnous, les éléphants, les girafes, les autruches, les gazelles et les buffles.</p>
+                            <p>A Arcadia, nous avons fait notre maximum afin de recréer un environnement réprésentant le plus fidèlement possible l'état naturel de la savane. </p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+    <section>
+        <div class="size-medium">
+            <h2>Les valeurs qui nous animent</h2>
+            <div class="media-and-text">
+                <div class="media-and-text__media rounded-img--with-caption">
+                    <img class="rounded-img" src="{{ IMG_DIR }}/original-images/img-earth.jpg" width="" height="" alt="La planète terre entourée de feuilles d'arbre vertes.">
+                    <h3 class="caption">Ecologie</h3>
+                </div>
+                <div class="media-and-text__content">
+                    <p>Nous sommes très fiers de pouvoir dire que nous sommes 100% indépendants énergétiquement et ce, grâce à de nombreuses installations énergétiques présentes dans notre zoo. Ceci constitue un grand pas vers la sauvegarde de notre planète et nous sommes heureux de pouvoir affirmer notre engagement écologique et oeuvrer à l'assurance d'une vie meilleures pour les générations à venir.</p>
+                    <p>La sauvegarde de nos animaux comme de l'énergie utilisée dans le zoo sont fondamentales pour l'intégrité de la planète !</p>
+                </div>
+            </div>
+            <div class="media-and-text">
+                <div class="media-and-text__media rounded-img--with-caption">
+                    <img class="rounded-img" src="{{ IMG_DIR }}/original-images/img-zebra.jpg" width="" height="" alt="Un zèbre dans la savane réalisant un saut.">
+                    <h3 class="caption">Bien être animal</h3>
+                </div>
+                <div class="media-and-text__content">
+                    <p>Par ailleurs, à Arcadia, la santé et le bien être de nos animaux est une priorité ! Nous tenons à ce que chaque animal se sente bien, dispose de tout ce dont il a besoin et puisse vivvre dans les meilleurs conditions possibles.</p>
+                    <p>Pour cela, nous mettons tout en oeuvre matin, midi et soir grâce à une équipe de vétérinaires et soignants dévoués à ces tâches.</p>
+                    <p>D'ailleurs, nous vous mettons à disposition tout un ensemble d'informations concernant nos animaux, allez y jeter un oeil !</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="services__section">
+        <div class="services">
+            <h2 class="services__title">Nos services</h2>
+            <div class="service gallery gallery--slider | size-large">
+                <div class="gallery__content">
+                    {% for name, img_src in services %}
+                        <a href="" class="gallery__slide rounded-img--with-caption">
+                            <img class="service__img rounded-img" src="{{ img_src }}" width="" height="" alt="">
+                            <p class="service__name caption">{{ name }}</p>
+                        </a>
+                    {% endfor %}
+                </div>
+                <fieldset class="gallery__controls">
+                    <legend class="visually-hidden">Séléctionnez un service :</legend>
+                    {% set firstValue = services|first %}
+                    {% for name, img_src in services %}
+                        <label class="visually-hidden" for="gallery-control-{{ name|lower }}">{{ name }}</label>
+                        <input type="radio" name="service-gallery-control" id="gallery-control-{{ name|lower }}" {% if img_src == firstValue %} checked {% endif %}>
+                    {% endfor %}
+                </fieldset>
+            </div>
+            
+        </div>
+    </section>
+    <section>
+        <div class="size-medium">
+            <h2>Alors ? Qu'attendez-vous ?</h2>
+            <div>
+                <h3 class="txt-centered">Horaires d'ouverture</h3>
+                <p>Nous sommes principalement ouvert le mercredi, le samedi et le dimanche afin que vous et votre famille puise profiter pleinement de l'expérience Aracdia !</p>
+                <div class="table__wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Horaire</th>
+                                <th>Lundi</th>
+                                <th>Mardi</th>
+                                <th>Mercredi</th>
+                                <th>Jeudi</th>
+                                <th>Vendredi</th>
+                                <th>Samedi</th>
+                                <th>Dimanche</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">8h-9h</th>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">9h-10h</th>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">10h-11h</th>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">11h-12h</th>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">12h-13h</th>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">13h-14h</th>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">14h-15h</th>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">15h-16h</th>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">16h-17h</th>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <h3 class="txt-centered">Où nous retrouver ?</h3>
+                <p>Retrouvez-nous, au 9 avenue des Acacias, près de la forêt de Brocéliande, en Bretagne</p>
+                {# <iframe src="" frameborder="0">Carte Google Maps indiquant la position du zoo Arcadia</iframe> #}
+                <img src="{{ IMG_DIR }}/original-images/img-map.png" width="" height="" alt="">
+            </div>
+        </div>
+    </section>
+    <section class="feedbacks__section">
+        <div class="size-medium">
+            <h2 class="color-primary">Vos avis comptent pour nous :</h2>
+            <div>
+                <h3 class="fw-bold color-primary">Rédiger un avis</h3>
+                <form id="feedbacks-form" class="feedbacks__form form" method="POST" action="">
+                    <div class="pseudonym">
+                        <label class="fw-bold color-primary" for="pseudo">Pseudonyme :</label>
+                        <input type="text" name="pseudo" id="pseudo">
+                    </div>
+                    <div class="content">
+                        <label class="fw-bold color-primary" for="feedback">Avis :</label>
+                        <textarea form="feedbacks-form" type="text" name="feedback" id="feedback"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="feedbacks">
+                {% for feedback in feedbacks %}
+                    <div>
+                        <p><span class="fw-bold color-primary">Publié le : </span>{{ feedback.publish_date }}</p>
+                        <p><span class="fw-bold color-primary">Par : </span>{{ feedback.user }}</p>
+                        <p>{{ feedback.content }}</p>
+                    </div>
+                    <hr>
+                {% endfor %}
+                <div class="fw-bold d-flex justify-content-between">
+                    <p>&lt;&lt; Page précédente</p>
+                    <p>Page {{ pages.current }} sur {{ pages.total }}</p>
+                    <p>Page suivante &gt;&gt;</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

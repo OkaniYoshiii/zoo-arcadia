@@ -1,0 +1,252 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/fonctions" as *;
+@use "../abstracts/mixins" as *;
+@use "sass:math";
+@use "sass:list";
+
+h2 { text-align: center; }
+
+.hero-banner {
+    position: relative;
+
+    text-align: center;
+    padding-block: constrain(9rem, 14rem, 320px);
+
+    line-height: 1;
+
+    > div {
+        position: relative;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0,0,0,0.5);
+    }
+    
+    &__title {
+        margin-block: 0;
+
+        font-size: constrain(3.75rem, 8rem, 320px);
+        font-weight: 900;
+
+        text-transform: uppercase;
+        color: $color-secondary;
+    }
+
+    &__subtitle {
+        margin-block: 0 1rem;
+
+        font-size: constrain(1.5rem, 2rem, 320px);
+        color: $color-contrast;
+
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+    &__catchphrase {
+        margin-block: 0;
+
+        font-size: constrain(1rem, 1.25rem, 320px);
+        color:  $color-contrast;
+
+        font-weight: bold;
+    }
+
+    $backgrounds: ("bg-savannah-bridge.jpg", "bg-africa.jpg");
+    @include srcset($backgrounds);
+}
+
+
+
+section:nth-of-type(even){
+    h2, h3 {
+        color: $color-primary;
+    }
+}
+
+section:nth-of-type(odd){
+    h2, h3 {
+        color: $color-secondary;
+    }
+}
+
+.domains {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    transition: translate 500ms ease-in-out;
+
+    > li {
+        scroll-snap-align: center;
+
+        padding: 0;
+        margin: 0;
+    }
+
+    &__section {
+        position: relative;
+
+        overflow-x: hidden;
+        $backgrounds: ("bg-africa.jpg", "bg-savannah-bridge.jpg");
+        @include srcset($backgrounds);
+    
+        padding-block: 6rem;
+
+        > div {
+            position: relative;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0,0,0,0.35);
+        }
+    }
+
+    &__title {
+        font-size: constrain(1.5rem, 2.5rem, 320px);
+        margin-block: 0 0.5rem;
+    
+        button:first-of-type {
+            display: inline-block;
+            margin-right: 1rem;
+        }
+
+        button:last-of-type {
+            display: inline-block;
+            margin-left: 1rem;
+        }
+    }
+}
+
+.domain {
+    &__name {
+        font-size: constrain(2.5rem, 4.5rem, 320px);
+        text-align: center;
+        margin-block: 0 2rem;
+        text-decoration: underline;
+        text-transform: uppercase;
+    }
+
+    &__animals {
+        max-width: min(100%, $size-extralarge);
+        margin-inline: auto;
+    }
+
+    &__animals-controls {
+        text-align: center;
+        border: none;
+        margin-bottom: 5.5rem;
+
+        input {
+            cursor: pointer;
+            display: inline-block;
+            padding: 0.25rem;
+            width: 25px;
+            aspect-ratio: 1;
+        }
+
+        @media screen and (min-width: 900px) {
+            display: none;
+        }
+    }
+
+    .rounded-gallery, [class*="rounded-gallery--"] {
+        margin-top: 5.5rem;
+    }
+
+    &__description {
+        color: white;
+    }
+}
+
+.services {
+    position: relative;
+
+    &__section {
+        position: relative;
+
+        $backgrounds: ("bg-steam-train","bg-africa");
+        @include srcset($backgrounds);
+
+        padding-block: 6rem;
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0,0,0,0.35);
+        }
+    }
+
+    &__title {
+        font-size: constrain(1.5rem, 2.5rem, 320px);
+        text-align: center;
+        margin-block: 0;
+    }
+
+    & > *:not(:last-child) {
+        margin-bottom: 2.5rem;
+    }
+}
+
+.table__wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    font-size: constrain(0.75rem, 1rem, 600px);
+    text-align: center;
+
+    border-collapse: collapse;
+
+    thead {
+        border-bottom: 1px solid rgb(160 160 160);
+    }
+
+    thead th:first-child,
+    tbody th {
+        border-right: 1px solid rgb(160 160 160);
+    }
+    
+    td, th {
+        padding: constrain(0.4rem, 0.75rem, 320px) 0.75rem;
+    }
+
+    img {
+        display: inline;
+    }
+}
+
+.feedbacks {
+    &__section {
+        padding-block: 6rem;
+        background-color: rgb(245,245,245);
+    }
+
+    hr {
+        border: 1px solid $color-primary;
+    }
+}
+
+.feedbacks__form {
+    .pseudonym,
+    .content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content textarea {
+        flex-basis: 150px;
+    }
+}

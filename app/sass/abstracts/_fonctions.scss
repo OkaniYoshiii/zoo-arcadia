@@ -1,0 +1,31 @@
+@use "sass:math";
+@use "variables" as *;
+
+@function remToPx($value) {
+    @if math.unit($value) != "rem" { @error "Argument $value is not mesured in rem units"; }
+
+    @return math.div($value, 1rem) * $fs-default;
+}
+
+@function constrain($minSize, $maxSize, $growthStart) {
+    @if $minSize > $maxSize { @error "$minSize is greater than $maxSize"; }
+    @if math.unit($minSize) != "px" and math.unit($minSize) != "rem" { @error "$minSize unit should be in pixels or rem"; }
+    @if math.unit($maxSize) != "px" and math.unit($maxSize) != "rem" { @error "$maxSize unit should be in pixels or rem"; }
+    @if math.unit($growthStart) != "px" { @error "$growthStart unit should be in pixels"; }
+
+    $minSizeCopy: $minSize;
+    $maxSizeCopy: $maxSize;
+
+    @if math.unit($minSize) == "rem" { $minSizeCopy: remToPx($minSize); }
+    @if math.unit($maxSize) == "rem" { $maxSizeCopy: remToPx($maxSize); }
+    @if math.unit($growthStart) == "rem" { $growthStart: remToPx($growthStart); }
+       
+    $growthScale: math.div($minSizeCopy, $growthStart * 0.01) * 1vw;
+
+    $growthScaleFactor: math.div($growthScale, 1vw);
+    $growthEnd: math.div($maxSize, $growthScaleFactor * 0.01);
+
+    // @debug "@function constrain : Element will start to grow at #{$growthStart} and will stop growing at #{$growthEnd}";
+
+    @return clamp($minSize, $growthScale, $maxSize);
+}

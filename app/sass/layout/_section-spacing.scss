@@ -1,0 +1,7 @@
+section:not(:last-of-type) {
+    margin-bottom: 6rem;
+}
+
+section > div[class*="size-"]:only-child > *:not(:last-child) {
+    margin-bottom: 3rem;
+}

@@ -1,0 +1,582 @@
+@font-face {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: normal;
+  src: url(../fonts/inter/Inter-Regular.otf);
+}
+@font-face {
+  font-family: Inter;
+  font-weight: 700;
+  font-style: normal;
+  src: url(../fonts/inter/Inter-Bold.otf);
+}
+@font-face {
+  font-family: Inter;
+  font-weight: 900;
+  font-style: normal;
+  src: url(../fonts/inter/Inter-ExtraBold.otf);
+}
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  margin: 0;
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  font-size: inherit;
+  color: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding-block: 1rem;
+  background-color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar a {
+  color: rgb(50, 50, 50);
+}
+
+.site-brand {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  text-decoration: unset;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 7.5vw, 2rem);
+  font-weight: bold;
+  white-space: nowrap;
+  color: rgb(50, 50, 50);
+}
+
+.site-logo {
+  max-height: 60px;
+  aspect-ratio: 1;
+}
+
+.menu-toggle {
+  display: none;
+}
+@media screen and (max-width: 900px) {
+  .menu-toggle {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .primary-navigation {
+    display: none;
+    position: fixed;
+    inset: 5rem 0 0 0;
+    background-color: white;
+  }
+}
+
+.menu-toggle[aria-expanded=true] + .primary-navigation {
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  column-gap: 2rem;
+  justify-content: space-between;
+  list-style-type: none;
+}
+.nav-links, .nav-links li {
+  padding-left: 0;
+  margin: 0;
+}
+@media screen and (max-width: 900px) {
+  .nav-links {
+    flex-direction: column;
+    row-gap: 1rem;
+    margin: 1rem;
+  }
+  .nav-links li {
+    border-bottom: 1px solid rgb(225, 225, 225);
+  }
+}
+
+.nav-link > a:hover {
+  text-decoration: none;
+}
+@media screen and (max-width: 900px) {
+  .nav-link > a {
+    display: block;
+    padding-block: 1rem 0.5rem;
+    text-decoration: none;
+  }
+  .nav-link > a:hover {
+    font-weight: bold;
+  }
+}
+
+body > footer {
+  padding-block: 2rem;
+  font-size: clamp(0.8rem, 4vw, 1rem);
+}
+body > footer ul {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  list-style-type: none;
+}
+body > footer ul li {
+  margin: 0;
+  padding: 0;
+}
+
+.gallery {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.15rem;
+}
+.gallery__content {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(200px, 1fr);
+  gap: clamp(1rem, 5vw, 2rem);
+}
+.gallery__content img {
+  display: block;
+  max-width: min(100%, 350px);
+  margin-inline: auto;
+  width: fit-content;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 100%;
+}
+.gallery__content p {
+  max-width: min(100%, 350px);
+  margin-inline: auto;
+}
+
+@media screen and (max-width: 750px) {
+  .gallery--3 .gallery__content {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .gallery--4 .gallery__content {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .gallery--5 .gallery__content {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 1350px) {
+  .gallery--6 .gallery__content {
+    display: block;
+  }
+}
+
+.gallery--slider {
+  overflow: hidden;
+}
+.gallery--slider .gallery__slide {
+  transition: translate 500ms ease-in-out;
+}
+@media screen and (max-width: 900px) {
+  .gallery--slider .gallery__slide {
+    padding-inline: 2rem;
+  }
+}
+@media screen and (max-width: 900px) {
+  .gallery--slider .gallery__content {
+    grid-auto-columns: 100%;
+    gap: 0;
+  }
+}
+.gallery--slider .gallery__controls {
+  text-align: center;
+  border: none;
+}
+.gallery--slider .gallery__controls input {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.25rem;
+  width: 25px;
+  aspect-ratio: 1;
+}
+@media screen and (min-width: 900px) {
+  .gallery--slider .gallery__controls {
+    display: none;
+  }
+}
+
+.rounded-img {
+  display: block;
+  width: fit-content;
+  aspect-ratio: 1;
+  object-fit: cover;
+  margin-inline: auto;
+  border-radius: 100%;
+}
+.rounded-img--with-caption {
+  position: relative;
+}
+.rounded-img--with-caption > .caption {
+  position: absolute;
+  inset: auto 1rem 5% 1rem;
+  text-align: center;
+  line-height: 1;
+  background-color: lightgray;
+  padding-block: 1rem;
+  margin: 0 auto;
+}
+
+.media-and-text {
+  display: flex;
+  gap: clamp(1rem, 5vw, 2rem);
+  flex-wrap: wrap;
+}
+.media-and-text > .media-and-text__media {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: 350px;
+  margin-inline: auto;
+}
+.media-and-text > .media-and-text__content {
+  flex-grow: 100;
+  flex-shrink: 1;
+  flex-basis: 350px;
+}
+
+.form input, .form textarea {
+  font-size: 1rem;
+  border: 1px solid rgb(84, 169, 0);
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+section:not(:last-of-type) {
+  margin-bottom: 6rem;
+}
+
+section > div[class*=size-]:only-child > *:not(:last-child) {
+  margin-bottom: 3rem;
+}
+
+h2 {
+  text-align: center;
+}
+
+.hero-banner {
+  position: relative;
+  text-align: center;
+  padding-block: clamp(9rem, 45vw, 14rem);
+  line-height: 1;
+  background: url("../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
+}
+.hero-banner > div {
+  position: relative;
+}
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.hero-banner__title {
+  margin-block: 0;
+  font-size: clamp(3.75rem, 18.75vw, 8rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: rgb(245, 230, 0);
+}
+.hero-banner__subtitle {
+  margin-block: 0 1rem;
+  font-size: clamp(1.5rem, 7.5vw, 2rem);
+  color: rgb(225, 225, 225);
+  text-decoration: underline;
+  font-weight: bold;
+}
+.hero-banner__catchphrase {
+  margin-block: 0;
+  font-size: clamp(1rem, 5vw, 1.25rem);
+  color: rgb(225, 225, 225);
+  font-weight: bold;
+}
+@media screen and (max-width: 960px) {
+  .hero-banner {
+    background: url("../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
+  }
+}
+@media screen and (max-width: 640px) {
+  .hero-banner {
+    background: url("../img/original-images/bg-africa.jpg") center/cover no-repeat;
+  }
+}
+
+section:nth-of-type(even) h2, section:nth-of-type(even) h3 {
+  color: rgb(84, 169, 0);
+}
+
+section:nth-of-type(odd) h2, section:nth-of-type(odd) h3 {
+  color: rgb(245, 230, 0);
+}
+
+.domains {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: translate 500ms ease-in-out;
+}
+.domains > li {
+  scroll-snap-align: center;
+  padding: 0;
+  margin: 0;
+}
+.domains__section {
+  position: relative;
+  overflow-x: hidden;
+  background: url("../img/original-images/bg-africa.jpg") center/cover no-repeat;
+  padding-block: 6rem;
+}
+@media screen and (max-width: 960px) {
+  .domains__section {
+    background: url("../img/original-images/bg-africa.jpg") center/cover no-repeat;
+  }
+}
+@media screen and (max-width: 640px) {
+  .domains__section {
+    background: url("../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
+  }
+}
+.domains__section > div {
+  position: relative;
+}
+.domains__section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+.domains__title {
+  font-size: clamp(1.5rem, 7.5vw, 2.5rem);
+  margin-block: 0 0.5rem;
+}
+.domains__title button:first-of-type {
+  display: inline-block;
+  margin-right: 1rem;
+}
+.domains__title button:last-of-type {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.domain__name {
+  font-size: clamp(2.5rem, 12.5vw, 4.5rem);
+  text-align: center;
+  margin-block: 0 2rem;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+.domain__animals {
+  max-width: min(100%, 1400px);
+  margin-inline: auto;
+}
+.domain__animals-controls {
+  text-align: center;
+  border: none;
+  margin-bottom: 5.5rem;
+}
+.domain__animals-controls input {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.25rem;
+  width: 25px;
+  aspect-ratio: 1;
+}
+@media screen and (min-width: 900px) {
+  .domain__animals-controls {
+    display: none;
+  }
+}
+.domain .rounded-gallery, .domain [class*=rounded-gallery--] {
+  margin-top: 5.5rem;
+}
+.domain__description {
+  color: white;
+}
+
+.services {
+  position: relative;
+}
+.services__section {
+  position: relative;
+  background: url("../img/original-images/bg-steam-train") center/cover no-repeat;
+  padding-block: 6rem;
+}
+@media screen and (max-width: 960px) {
+  .services__section {
+    background: url("../img/original-images/bg-steam-train") center/cover no-repeat;
+  }
+}
+@media screen and (max-width: 640px) {
+  .services__section {
+    background: url("../img/original-images/bg-africa") center/cover no-repeat;
+  }
+}
+.services__section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+.services__title {
+  font-size: clamp(1.5rem, 7.5vw, 2.5rem);
+  text-align: center;
+  margin-block: 0;
+}
+.services > *:not(:last-child) {
+  margin-bottom: 2.5rem;
+}
+
+.table__wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  text-align: center;
+  border-collapse: collapse;
+}
+table thead {
+  border-bottom: 1px solid rgb(160, 160, 160);
+}
+table thead th:first-child,
+table tbody th {
+  border-right: 1px solid rgb(160, 160, 160);
+}
+table td, table th {
+  padding: clamp(0.4rem, 2vw, 0.75rem) 0.75rem;
+}
+table img {
+  display: inline;
+}
+
+.feedbacks__section {
+  padding-block: 6rem;
+  background-color: rgb(245, 245, 245);
+}
+.feedbacks hr {
+  border: 1px solid rgb(84, 169, 0);
+}
+
+.feedbacks__form .pseudonym,
+.feedbacks__form .content {
+  display: flex;
+  flex-direction: column;
+}
+.feedbacks__form .content textarea {
+  flex-basis: 150px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.color-primary {
+  color: rgb(84, 169, 0) !important;
+}
+
+.color-secondary {
+  color: rgb(245, 230, 0) !important;
+}
+
+.color-contrast {
+  color: rgb(225, 225, 225) !important;
+}
+
+.size-small {
+  max-width: min(100% - 2rem, 700px);
+  margin-inline: auto;
+}
+
+.size-medium {
+  max-width: min(100% - 2rem, 900px);
+  margin-inline: auto;
+}
+
+.size-large {
+  max-width: min(100% - 2rem, 1200px);
+  margin-inline: auto;
+}
+
+.size-extralarge {
+  max-width: min(100% - 2rem, 1400px);
+  margin-inline: auto;
+}
+
+.fw-bold {
+  font-weight: bold;
+}
+
+.txt-centered {
+  text-align: center;
+}
+
+.mb-2em {
+  margin-bottom: 2em;
+}
+
+.mb-2rem {
+  margin-bottom: 2rem;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+/*# sourceMappingURL=style.css.map */

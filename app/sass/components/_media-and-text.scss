@@ -1,0 +1,21 @@
+@use '../abstracts/fonctions' as *;
+
+.media-and-text {
+    display: flex;
+    gap: constrain(1rem, 2rem, 320px);
+    flex-wrap: wrap;
+
+    & > &__media {
+        flex-grow: 0;
+        flex-shrink: 1;
+        flex-basis: 350px;
+
+        margin-inline: auto;
+    }
+
+    & > &__content {
+        flex-grow: 100;
+        flex-shrink: 1;
+        flex-basis: 350px;
+    }
+}
