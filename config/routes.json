@@ -1,0 +1,10 @@
+{
+    "GET" : {
+        "/" : ["home.html.twig", "HomeController"],
+        "/services" : ["services.html.twig", "ServicesController"],
+        "/habitats" : ["habitats.html.twig", "HabitatsController"],
+        "/connexion" : ["login.html.twig", "LoginController"],
+        "/contact" : ["contact.html.twig", "ContactController"],
+        "/admin" : ["admin.html.twig", "AdminController"]
+    }
+}
