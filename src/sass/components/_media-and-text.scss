@@ -6,7 +6,7 @@
     flex-wrap: wrap;
 
     &--reversed {
-        flex-wrap: wrap-reverse;
+        flex-direction: row-reverse;
     }
 
     & > &__media {

@@ -333,7 +333,7 @@ body > footer ul li {
   flex-wrap: wrap;
 }
 .media-and-text--reversed {
-  flex-wrap: wrap-reverse;
+  flex-direction: row-reverse;
 }
 .media-and-text > .media-and-text__media {
   flex-grow: 0;
