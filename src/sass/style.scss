@@ -1,3 +1,6 @@
+@use 'abstracts/fonts';
+@use 'abstracts/utility-classes';
+
 @use 'base/default';
 @use 'base/header';
 @use 'base/footer';
@@ -8,5 +11,3 @@
 @use 'components/form';
 
 @use 'layout/section-spacing';
-
-@use 'abstracts/utility-classes';

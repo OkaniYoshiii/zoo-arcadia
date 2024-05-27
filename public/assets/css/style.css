@@ -16,6 +16,78 @@
   font-style: normal;
   src: url(../fonts/inter/Inter-ExtraBold.otf);
 }
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.color-primary {
+  color: rgb(84, 169, 0) !important;
+}
+
+.color-secondary {
+  color: rgb(245, 230, 0) !important;
+}
+
+.color-contrast {
+  color: rgb(225, 225, 225) !important;
+}
+
+.size-small {
+  max-width: min(100% - 2rem, 700px);
+  margin-inline: auto;
+}
+
+.size-medium {
+  max-width: min(100% - 2rem, 900px);
+  margin-inline: auto;
+}
+
+.size-large {
+  max-width: min(100% - 2rem, 1200px);
+  margin-inline: auto;
+}
+
+.size-extralarge {
+  max-width: min(100% - 2rem, 1400px);
+  margin-inline: auto;
+}
+
+.fw-bold {
+  font-weight: bold;
+}
+
+.txt-centered {
+  text-align: center;
+}
+
+.mb-2em {
+  margin-bottom: 2em;
+}
+
+.mb-2rem {
+  margin-bottom: 2rem;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
 html {
   font-size: 16px;
 }
@@ -288,78 +360,6 @@ section:not(:last-of-type) {
 
 section > div[class*=size-]:only-child > *:not(:last-child) {
   margin-bottom: 3rem;
-}
-
-.visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-}
-
-.visibility-hidden {
-  visibility: hidden;
-}
-
-.color-primary {
-  color: rgb(84, 169, 0) !important;
-}
-
-.color-secondary {
-  color: rgb(245, 230, 0) !important;
-}
-
-.color-contrast {
-  color: rgb(225, 225, 225) !important;
-}
-
-.size-small {
-  max-width: min(100% - 2rem, 700px);
-  margin-inline: auto;
-}
-
-.size-medium {
-  max-width: min(100% - 2rem, 900px);
-  margin-inline: auto;
-}
-
-.size-large {
-  max-width: min(100% - 2rem, 1200px);
-  margin-inline: auto;
-}
-
-.size-extralarge {
-  max-width: min(100% - 2rem, 1400px);
-  margin-inline: auto;
-}
-
-.fw-bold {
-  font-weight: bold;
-}
-
-.txt-centered {
-  text-align: center;
-}
-
-.mb-2em {
-  margin-bottom: 2em;
-}
-
-.mb-2rem {
-  margin-bottom: 2rem;
-}
-
-.d-flex {
-  display: flex;
-}
-
-.justify-content-between {
-  justify-content: space-between;
 }
 
 /*# sourceMappingURL=style.css.map */
