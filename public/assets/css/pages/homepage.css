@@ -1,0 +1,239 @@
+@font-face {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: normal;
+  src: url(../fonts/inter/Inter-Regular.otf);
+}
+@font-face {
+  font-family: Inter;
+  font-weight: 700;
+  font-style: normal;
+  src: url(../fonts/inter/Inter-Bold.otf);
+}
+@font-face {
+  font-family: Inter;
+  font-weight: 900;
+  font-style: normal;
+  src: url(../fonts/inter/Inter-ExtraBold.otf);
+}
+h2 {
+  text-align: center;
+}
+
+.hero-banner {
+  position: relative;
+  text-align: center;
+  padding-block: clamp(9rem, 45vw, 14rem);
+  line-height: 1;
+  background: url("../../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
+}
+.hero-banner > div {
+  position: relative;
+}
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.hero-banner__title {
+  margin-block: 0;
+  font-size: clamp(3.75rem, 18.75vw, 8rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: rgb(245, 230, 0);
+}
+.hero-banner__subtitle {
+  margin-block: 0 1rem;
+  font-size: clamp(1.5rem, 7.5vw, 2rem);
+  color: rgb(225, 225, 225);
+  text-decoration: underline;
+  font-weight: bold;
+}
+.hero-banner__catchphrase {
+  margin-block: 0;
+  font-size: clamp(1rem, 5vw, 1.25rem);
+  color: rgb(225, 225, 225);
+  font-weight: bold;
+}
+@media screen and (max-width: 960px) {
+  .hero-banner {
+    background: url("../../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
+  }
+}
+@media screen and (max-width: 640px) {
+  .hero-banner {
+    background: url("../../img/original-images/bg-africa.jpg") center/cover no-repeat;
+  }
+}
+
+section:nth-of-type(even) h2, section:nth-of-type(even) h3 {
+  color: rgb(84, 169, 0);
+}
+
+section:nth-of-type(odd) h2, section:nth-of-type(odd) h3 {
+  color: rgb(245, 230, 0);
+}
+
+.domains {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: translate 500ms ease-in-out;
+}
+.domains > li {
+  scroll-snap-align: center;
+  padding: 0;
+  margin: 0;
+}
+.domains__section {
+  position: relative;
+  overflow-x: hidden;
+  background: url("../../img/original-images/bg-africa.jpg") center/cover no-repeat;
+  padding-block: 6rem;
+}
+@media screen and (max-width: 960px) {
+  .domains__section {
+    background: url("../../img/original-images/bg-africa.jpg") center/cover no-repeat;
+  }
+}
+@media screen and (max-width: 640px) {
+  .domains__section {
+    background: url("../../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
+  }
+}
+.domains__section > div {
+  position: relative;
+}
+.domains__section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+.domains__title {
+  font-size: clamp(1.5rem, 7.5vw, 2.5rem);
+  margin-block: 0 0.5rem;
+}
+.domains__title button:first-of-type {
+  display: inline-block;
+  margin-right: 1rem;
+}
+.domains__title button:last-of-type {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.domain__name {
+  font-size: clamp(2.5rem, 12.5vw, 4.5rem);
+  text-align: center;
+  margin-block: 0 2rem;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+.domain__animals {
+  max-width: min(100%, 1400px);
+  margin-inline: auto;
+}
+.domain__animals-controls {
+  text-align: center;
+  border: none;
+  margin-bottom: 5.5rem;
+}
+.domain__animals-controls input {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.25rem;
+  width: 25px;
+  aspect-ratio: 1;
+}
+@media screen and (min-width: 900px) {
+  .domain__animals-controls {
+    display: none;
+  }
+}
+.domain .rounded-gallery, .domain [class*=rounded-gallery--] {
+  margin-top: 5.5rem;
+}
+.domain__description {
+  color: white;
+}
+
+.services {
+  position: relative;
+}
+.services__section {
+  position: relative;
+  background: url("../../img/original-images/bg-steam-train") center/cover no-repeat;
+  padding-block: 6rem;
+}
+@media screen and (max-width: 960px) {
+  .services__section {
+    background: url("../../img/original-images/bg-steam-train") center/cover no-repeat;
+  }
+}
+@media screen and (max-width: 640px) {
+  .services__section {
+    background: url("../../img/original-images/bg-africa") center/cover no-repeat;
+  }
+}
+.services__section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+.services__title {
+  font-size: clamp(1.5rem, 7.5vw, 2.5rem);
+  text-align: center;
+  margin-block: 0;
+}
+.services > *:not(:last-child) {
+  margin-bottom: 2.5rem;
+}
+
+.table__wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  text-align: center;
+  border-collapse: collapse;
+}
+table thead {
+  border-bottom: 1px solid rgb(160, 160, 160);
+}
+table thead th:first-child,
+table tbody th {
+  border-right: 1px solid rgb(160, 160, 160);
+}
+table td, table th {
+  padding: clamp(0.4rem, 2vw, 0.75rem) 0.75rem;
+}
+table img {
+  display: inline;
+}
+
+.feedbacks__section {
+  padding-block: 6rem;
+  background-color: rgb(245, 245, 245);
+}
+.feedbacks hr {
+  border: 1px solid rgb(84, 169, 0);
+}
+
+.feedbacks__form .pseudonym,
+.feedbacks__form .content {
+  display: flex;
+  flex-direction: column;
+}
+.feedbacks__form .content textarea {
+  flex-basis: 150px;
+}
+
+/*# sourceMappingURL=homepage.css.map */

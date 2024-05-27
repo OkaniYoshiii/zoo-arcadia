@@ -1,0 +1,12 @@
+@use '../abstracts/variables' as *;
+
+h1 {
+    color: $color-primary;
+}
+
+h2 {
+    color: $color-primary;
+
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $color-primary;
+}

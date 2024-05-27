@@ -4,6 +4,8 @@
 @use "sass:math";
 @use "sass:list";
 
+$imgPath: '../../img/original-images';
+
 h2 { text-align: center; }
 
 .hero-banner {
@@ -54,7 +56,7 @@ h2 { text-align: center; }
         font-weight: bold;
     }
 
-    $backgrounds: ("bg-savannah-bridge.jpg", "bg-africa.jpg");
+    $backgrounds: ('#{$imgPath}/bg-savannah-bridge.jpg', '#{$imgPath}/bg-africa.jpg');
     @include srcset($backgrounds);
 }
 
@@ -94,7 +96,7 @@ section:nth-of-type(odd){
         position: relative;
 
         overflow-x: hidden;
-        $backgrounds: ("bg-africa.jpg", "bg-savannah-bridge.jpg");
+        $backgrounds: ('#{$imgPath}/bg-africa.jpg', '#{$imgPath}/bg-savannah-bridge.jpg');
         @include srcset($backgrounds);
     
         padding-block: 6rem;
@@ -174,7 +176,7 @@ section:nth-of-type(odd){
     &__section {
         position: relative;
 
-        $backgrounds: ("bg-steam-train","bg-africa");
+        $backgrounds: ('#{$imgPath}/bg-steam-train','#{$imgPath}/bg-africa');
         @include srcset($backgrounds);
 
         padding-block: 6rem;

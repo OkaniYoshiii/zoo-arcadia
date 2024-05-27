@@ -1,0 +1,29 @@
+@font-face {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: normal;
+  src: url(../fonts/inter/Inter-Regular.otf);
+}
+@font-face {
+  font-family: Inter;
+  font-weight: 700;
+  font-style: normal;
+  src: url(../fonts/inter/Inter-Bold.otf);
+}
+@font-face {
+  font-family: Inter;
+  font-weight: 900;
+  font-style: normal;
+  src: url(../fonts/inter/Inter-ExtraBold.otf);
+}
+h1 {
+  color: rgb(84, 169, 0);
+}
+
+h2 {
+  color: rgb(84, 169, 0);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgb(84, 169, 0);
+}
+
+/*# sourceMappingURL=services.css.map */

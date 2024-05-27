@@ -2,10 +2,10 @@
 @use "sass:math";
 
 @mixin srcset($backgrounds) {
-    background: url('../img/original-images/#{list.nth($backgrounds, 1)}') center/cover no-repeat;
+    background: url('#{list.nth($backgrounds, 1)}') center/cover no-repeat;
     @for $i from 1 through list.length($backgrounds) {
         @media screen and (max-width: math.div(1920px, $i + 1)) {
-            background: url('../img/original-images/#{list.nth($backgrounds, $i)}') center/cover no-repeat;
+            background: url('#{list.nth($backgrounds, $i)}') center/cover no-repeat;
         }
     }
 }

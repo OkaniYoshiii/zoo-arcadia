@@ -5,6 +5,10 @@
     gap: constrain(1rem, 2rem, 320px);
     flex-wrap: wrap;
 
+    &--reversed {
+        flex-wrap: wrap-reverse;
+    }
+
     & > &__media {
         flex-grow: 0;
         flex-shrink: 1;
