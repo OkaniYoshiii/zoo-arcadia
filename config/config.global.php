@@ -14,8 +14,8 @@ define('ASSETS_DIR', 'assets');
 define('CSS_DIR', ASSETS_DIR . '/css');
 define('JS_DIR', ASSETS_DIR . '/js');
 define('IMG_DIR', ASSETS_DIR . '/images');
-define('TEMPLATE_DIR', 'templates');
-define('TEMPLATE_PARTS_DIR', 'templates/template-parts');
+define('TEMPLATE_DIR', '../templates');
+define('TEMPLATE_PARTS_DIR', '../templates/template-parts');
 
 // REQUIRED FOR AUTOLOADER
 define('SRC_FOLDERS', [APP_DIR, CONTROLLER_DIR, MODELS_DIR, ENTITIES_DIR, OBJECTS_DIR, INTERFACES_DIR]);
