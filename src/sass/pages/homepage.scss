@@ -9,23 +9,15 @@ $imgPath: '../../img/original-images';
 h2 { text-align: center; }
 
 .hero-banner {
-    position: relative;
-
     text-align: center;
     padding-block: constrain(9rem, 14rem, 320px);
 
     line-height: 1;
 
-    > div {
-        position: relative;
-    }
-
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-color: rgba(0,0,0,0.5);
-    }
+    $backgrounds: ('#{$imgPath}/bg-savannah-bridge.jpg', '#{$imgPath}/bg-africa.jpg');
+    @include srcset($backgrounds);
+    
+    @include bg-darken(0.5);
     
     &__title {
         margin-block: 0;
@@ -56,8 +48,7 @@ h2 { text-align: center; }
         font-weight: bold;
     }
 
-    $backgrounds: ('#{$imgPath}/bg-savannah-bridge.jpg', '#{$imgPath}/bg-africa.jpg');
-    @include srcset($backgrounds);
+    
 }
 
 
@@ -96,21 +87,12 @@ section:nth-of-type(odd){
         position: relative;
 
         overflow-x: hidden;
+
         $backgrounds: ('#{$imgPath}/bg-africa.jpg', '#{$imgPath}/bg-savannah-bridge.jpg');
         @include srcset($backgrounds);
+        @include bg-darken(0.35);
     
         padding-block: 6rem;
-
-        > div {
-            position: relative;
-        }
-
-        &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-color: rgba(0,0,0,0.35);
-        }
     }
 
     &__title {
@@ -181,12 +163,7 @@ section:nth-of-type(odd){
 
         padding-block: 6rem;
 
-        &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-color: rgba(0,0,0,0.35);
-        }
+        @include bg-darken(0.5);
     }
 
     &__title {

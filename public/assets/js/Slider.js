@@ -1,8 +1,10 @@
-export { Slider } ;
-
+export { Slider };
 class Slider {
     translateValue = 0;
-
+    element;
+    slides;
+    buttons;
+    activeSlide;
     constructor(sliderSelector, slidesSelector, sliderButtonsSelector) {
         this.element = document.querySelector(sliderSelector);
         this.slides = Array.from(document.querySelectorAll(slidesSelector));
@@ -10,8 +12,9 @@ class Slider {
         this.activeSlide = this.slides[0];
         this.init();
     }
-
     init() {
-        this.buttons.forEach((btn) => { btn.addEventListener('click', this.translate.bind(this))})
+        if (this.buttons === null)
+            return;
+        this.buttons.forEach((btn) => { btn.addEventListener('click', this.translate.bind(this)); });
     }
 }

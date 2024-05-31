@@ -1,9 +1,6 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/fonctions" as *;
 
-// BREAKPOINT SIZES
-$break-medium: 900px;
-
 // Site header
 .site-header {
     position: sticky;

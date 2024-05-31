@@ -9,3 +9,40 @@
         }
     }
 }
+
+@mixin bg-darken($strength, $hoverModifier: 0) {
+    @if ($strength + $hoverModifier > 1) { @error '$strength + $hoverModifier can\'t be greater than 1'; }
+
+    & {
+        position: relative;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0,0,0, $strength);
+
+        @if ($hoverModifier != 0) {
+        }
+    }
+
+    & > * {
+        position: relative;
+    }
+
+    @if ($hoverModifier != 0) {
+        & {
+            cursor: pointer;
+        }
+
+        &::before {
+            transition: 250ms background-color;
+        }
+
+        &:hover::before {
+            background-color: rgba(0,0,0, $strength + $hoverModifier);
+        }
+    }
+
+}

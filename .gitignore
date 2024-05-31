@@ -2,4 +2,4 @@
 node_modules
 vendor
 composer.lock
-app/config/env-variables.php
+config/config.local.php

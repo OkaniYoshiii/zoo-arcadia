@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block main %}
+    <section class="panels__section">
+        <div class="size-large">
+            <h1 class="txt-centered color-primary">Nos habitats</h1>
+            <div class="panels"> 
+            {% for habitat in habitats %}
+                <div class="panel" style="--background: url({{ IMG_DIR }}/original-images/{{ habitat['img'] }})">
+                    <h2 class="panel__title">{{ habitat['name'] }}</h2>
+                    <div class="panel__content">
+                        <p class="size-medium">{{ habitat['description'] }}</p>
+                        <div>
+                            <ul>
+                                {% for specie in habitat['species'] %}
+                                    <li>{{ specie['name'] }}</li>
+                                {% endfor %}
+                            </ul>
+                            <ul>
+                                {% for specie in habitat['species'] %}
+                                    {% for animal in specie['animals'] %}
+                                        <li>{{ animal['name'] }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

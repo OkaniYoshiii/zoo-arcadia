@@ -14,9 +14,8 @@
 }
 
 // RENDERING
-.visibility-hidden {
-    visibility: hidden;
-}
+.hidden { visibility: hidden;}
+.d-none { display: none; }
 
 // COLOR
 .color-primary { color: $color-primary !important; }
@@ -41,6 +40,27 @@
 
 .size-extralarge {
     max-width: min(100% - 2rem, $size-extralarge);
+    margin-inline: auto;
+}
+
+// Si une classe 'size-' est dans un conteneur avec un classe 'size-', alors, retirer les marges
+[class*="size-"] .size-small {
+    max-width: min(100%, $size-small);
+    margin-inline: auto;
+}
+
+[class*="size-"] .size-medium {
+    max-width: min(100%, $size-medium);
+    margin-inline: auto;
+}
+
+[class*="size-"] size-large  {
+    max-width: min(100%, $size-large);
+    margin-inline: auto;
+}
+
+[class*="size-"] .size-extralarge {
+    max-width: min(100%, $size-extralarge);
     margin-inline: auto;
 }
 

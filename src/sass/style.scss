@@ -1,13 +1,14 @@
-@use 'abstracts/fonts';
-@use 'abstracts/utility-classes';
+@use './abstracts/fonts';
+@use './abstracts/utility-classes';
 
-@use 'base/default';
-@use 'base/header';
-@use 'base/footer';
+@use './base/default';
+@use './base/header';
+@use './base/footer';
 
-@use 'components/gallery.scss';
-@use 'components/rounded-img';
-@use 'components/media-and-text';
-@use 'components/form';
+@use './components/gallery.scss';
+@use './components/rounded-img';
+@use './components/media-and-text';
+@use './components/form';
+@use './components/panels';
 
-@use 'layout/section-spacing';
+@use './layout/section-spacing';

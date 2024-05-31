@@ -2,7 +2,7 @@
 $color-primary: rgba(84, 169, 0);
 $color-secondary: rgba(245, 230, 0);
 $color-txt: rgba(50, 50, 50);
-$color-contrast: rgba(225, 225, 225);
+$color-contrast: rgba(240, 240, 240);
 
 // FONTS
 $font-inter: Inter, sans-serif;
@@ -15,3 +15,8 @@ $size-small: 700px;
 $size-medium: 900px;
 $size-large: 1200px;
 $size-extralarge: 1400px;
+
+// BREAKPOINTS
+
+$break-small: 700px;
+$break-medium: 900px;

@@ -3,13 +3,22 @@ h2 {
 }
 
 .hero-banner {
-  position: relative;
   text-align: center;
   padding-block: clamp(9rem, 45vw, 14rem);
   line-height: 1;
   background: url("../../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
 }
-.hero-banner > div {
+@media screen and (max-width: 960px) {
+  .hero-banner {
+    background: url("../../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
+  }
+}
+@media screen and (max-width: 640px) {
+  .hero-banner {
+    background: url("../../img/original-images/bg-africa.jpg") center/cover no-repeat;
+  }
+}
+.hero-banner {
   position: relative;
 }
 .hero-banner::before {
@@ -17,6 +26,9 @@ h2 {
   position: absolute;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
+}
+.hero-banner > * {
+  position: relative;
 }
 .hero-banner__title {
   margin-block: 0;
@@ -28,25 +40,15 @@ h2 {
 .hero-banner__subtitle {
   margin-block: 0 1rem;
   font-size: clamp(1.5rem, 7.5vw, 2rem);
-  color: rgb(225, 225, 225);
+  color: rgb(240, 240, 240);
   text-decoration: underline;
   font-weight: bold;
 }
 .hero-banner__catchphrase {
   margin-block: 0;
   font-size: clamp(1rem, 5vw, 1.25rem);
-  color: rgb(225, 225, 225);
+  color: rgb(240, 240, 240);
   font-weight: bold;
-}
-@media screen and (max-width: 960px) {
-  .hero-banner {
-    background: url("../../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
-  }
-}
-@media screen and (max-width: 640px) {
-  .hero-banner {
-    background: url("../../img/original-images/bg-africa.jpg") center/cover no-repeat;
-  }
 }
 
 section:nth-of-type(even) h2, section:nth-of-type(even) h3 {
@@ -87,7 +89,7 @@ section:nth-of-type(odd) h2, section:nth-of-type(odd) h3 {
     background: url("../../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
   }
 }
-.domains__section > div {
+.domains__section {
   position: relative;
 }
 .domains__section::before {
@@ -95,6 +97,9 @@ section:nth-of-type(odd) h2, section:nth-of-type(odd) h3 {
   position: absolute;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.35);
+}
+.domains__section > * {
+  position: relative;
 }
 .domains__title {
   font-size: clamp(1.5rem, 7.5vw, 2.5rem);
@@ -162,11 +167,17 @@ section:nth-of-type(odd) h2, section:nth-of-type(odd) h3 {
     background: url("../../img/original-images/bg-africa") center/cover no-repeat;
   }
 }
+.services__section {
+  position: relative;
+}
 .services__section::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.services__section > * {
+  position: relative;
 }
 .services__title {
   font-size: clamp(1.5rem, 7.5vw, 2.5rem);
