@@ -14,8 +14,8 @@
 }
 
 // RENDERING
-.hidden { visibility: hidden;}
-.d-none { display: none; }
+.hidden { visibility: hidden !important;}
+.d-none { display: none !important; }
 
 // COLOR
 .color-primary { color: $color-primary !important; }

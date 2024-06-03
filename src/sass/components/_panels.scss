@@ -1,90 +1,78 @@
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
+@use "sass:math";
 
-$popInOutDuration: 1500ms;
+$translateDuration: 850ms;
 
 .panels {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    grid-auto-rows: 500px;
-    gap: 1rem;
+    margin-block: 2rem;
 
-    @media screen and (max-width: $break-medium) {
-        grid-auto-flow: row;
-        grid-auto-columns: initial;
-        grid-auto-rows: minmax(250px, 1fr);
+    background: var(--background) center/cover no-repeat;
+    @include bg-darken(0.5);
+
+    &__controls {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        grid-auto-rows: 1fr;
+        gap: 1rem;
+        
+        animation: translateUp $translateDuration forwards;
+
+        @media screen and (max-width: $break-medium) {
+            grid-auto-flow: row;
+        }
     }
 
-    &__section {
+    &__control {
         background: var(--background) center/cover no-repeat;
-        
-        &:has(.panel.active) {
-            animation: popOut $popInOutDuration forwards;
-        }
+        @include bg-darken(0.35, 0.15);
+        transition: scale 250ms;
 
-        &:has(.panel.open) {
-            animation: popIn 1750ms forwards;
-            @include bg-darken(0.5);
+        color: $color-contrast;
+        text-align: center;
+
+        &:hover,
+        &:focus{
+            scale: 0.95 
         }
     }
 }
 
 .panel {
-    background: var(--background) center/cover no-repeat;
-
-    transition: scale 350ms ease-in-out;
-
-    @include bg-darken(0.35, 0.15);
-
+    padding-block: 2rem;
+        
     &__title {
+        margin-top: 0;
+
+        font-size: 3rem;
         color: $color-contrast;
         text-align: center;
+
+        @supports (animation: translateUp $translateDuration 250ms forwards) {
+            opacity: 0;
+            animation: translateUp 750ms forwards;
+        }
     }
 
     &__content {
-        display: none;
-
         color: white;
-    }
 
-    &:hover {
-        scale: 0.975;
-    }
-    
-    &.active {
-        cursor: default;
-    }
-
-    &.open {
-        background: unset;
-
-        &::before {
-            content: unset;
-        }
-
-        .panel__content {
-            display: block;
+        @supports (animation: translateUp $translateDuration 250ms forwards) {
+            opacity: 0;
+            animation: translateUp $translateDuration 250ms forwards;
         }
     }
 }
 
-@keyframes popIn {
+@keyframes translateUp {
     0% {
-        clip-path: circle(0%);
+        opacity: 0;
+        translate: 0 150px;
     }
 
     100% {
-        clip-path: circle(100%);
-    }
-}
-
-@keyframes popOut {
-    0% {
-        clip-path: circle(100%);
-    }
-
-    100% {
-        clip-path: circle(0%);
+        opacity: 1;
+        translate: 0 0px;
     }
 }
