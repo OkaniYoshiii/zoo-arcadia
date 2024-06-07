@@ -8,7 +8,7 @@ $translateDuration: 850ms;
     margin-block: 2rem;
 
     background: var(--background) center/cover no-repeat;
-    @include bg-darken(0.5);
+    @include bg-darken(0.65);
 
     &__controls {
         display: grid;
@@ -26,7 +26,7 @@ $translateDuration: 850ms;
 
     &__control {
         background: var(--background) center/cover no-repeat;
-        @include bg-darken(0.35, 0.15);
+        @include bg-darken(0.5, 0.15);
         transition: scale 250ms;
 
         color: $color-contrast;

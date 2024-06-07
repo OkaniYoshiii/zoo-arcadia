@@ -1,7 +1,15 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ CSS_DIR }}/pages/habitats.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="module" src="{{ JS_DIR }}/habitats.js"></script>
+{% endblock %}
+
 {% block main %}
-    <h1 class="txt-centered color-primary">Nos habitats</h1>
+    <h1 id="page-title" class="txt-centered color-primary">Nos habitats</h1>
     <section>
         <div class="panels__controls | size-large">
             {% for habitat in habitats %}
@@ -12,24 +20,51 @@
         </div>
         <div class="panels" style="--background: url({{ IMG_DIR }}/original-images/{{ habitats[0]['img'] }})"> 
         {% for habitat in habitats %}
-            <div class="panel | size-large {% if loop.index0 != 0 %}d-none{% endif %}" id="panel-{{ habitat['name']|replace({' ':'-'})|lower }}">
+            <div class="panel | size-medium {% if loop.index0 != 0 %}d-none{% endif %}" id="panel-{{ habitat['name']|replace({' ':'-'})|lower }}">
                 <h2 class="panel__title | color-secondary">{{ habitat['name'] }}</h2>
                 <div class="panel__content">
-                    <p class="size-medium">{{ habitat['description'] }}</p>
-                    <div>
-                        <ul>
-                            {% for specie in habitat['species'] %}
-                                <li>{{ specie['name'] }}</li>
-                            {% endfor %}
-                        </ul>
-                        <ul>
-                            {% for specie in habitat['species'] %}
-                                {% for animal in specie['animals'] %}
-                                    <li>{{ animal['name'] }}</li>
-                                {% endfor %}
-                            {% endfor %}
-                        </ul>
-                    </div>
+                    <p>{{ habitat['description'] }}</p>
+                    <h3>Espèces dans l'habitat :</h3>
+                    <ul class="species-list">
+                        {% for specie in habitat['species'] %}
+                            <li>
+                                <h4 class="specie__name">{{ specie['name'] }}</h4>
+                                <ul class="animals-list | list-unstyled">
+                                    {% for animal in specie['animals'] %}
+                                        {% set dialogId = 'animal-dialog-' ~ animal['id'] %}
+                                        <li class="animal">
+                                            <button class="rounded-img--with-caption" aria-controls="{{ dialogId }}">
+                                                <img class="rounded-img" src="{{ IMG_DIR }}/original-images/{{ animal['imgs'][0] }}" alt="">
+                                                <h5 class="caption">{{ animal['name'] }}</h5>
+                                            </button>
+                                            <dialog class="dialog animal__dialog" id="{{ dialogId }}">
+                                                <div class="dialog__content">
+                                                    <div class="dialog__header">
+                                                        <h5 class="animal__name">{{ animal['name'] }}</h5>
+                                                    </div>
+                                                    <div class="dialog__body">
+                                                        {% for img in animal['imgs'] %}
+                                                            <img class="animal__img" src="{{ IMG_DIR }}/original-images/{{ img }}" alt="">
+                                                        {% endfor %}
+                                                        <p>Etat de l'animal :{{ animal['state'] }}</p>
+                                                        <p>Nourriture proposée :</p>
+                                                        <ul>
+                                                            {% for foodName, foodQuantity in animal['foods'] %}
+                                                                <li>{{ foodName }} - {{ foodQuantity }} par jour</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                        <p>Dernière visite du vétérinaire : {{ animal['last_visite_date'] }}</p>
+                                                        <p>Avis du vétérinaire : {{ animal['veterynary_review'] }}</p>
+                                                        <button class="toggle">Fermer</button>
+                                                    </div>
+                                                </div>
+                                            </dialog>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         {% endfor %}

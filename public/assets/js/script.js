@@ -1,6 +1,5 @@
 import { DomainsSlider } from "./DomainsSlider";
 import { GallerySlider } from "./GallerySlider";
-import { Panels } from "./Panels";
 import { NavMenu } from "./NavMenu";
 new NavMenu('.menu-toggle');
 new DomainsSlider('.domains', '.domain', '.domains__title button');
@@ -10,4 +9,3 @@ sliders.forEach((slider) => {
         return;
     new GallerySlider(slider);
 });
-new Panels('.panels');

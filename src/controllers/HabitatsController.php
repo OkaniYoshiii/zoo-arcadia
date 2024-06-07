@@ -13,16 +13,44 @@ class HabitatsController implements Controller
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum ornare purus, at egestas massa rhoncus in. Suspendisse pulvinar nibh non laoreet volutpat. Vivamus libero mauris, lacinia ac rhoncus et, efficitur a nisl. Duis turpis nibh, porttitor in felis in, congue dignissim ex. Ut et nisi dapibus, lobortis ligula id, facilisis libero. Nunc arcu arcu, congue ac suscipit sit amet, elementum eget nibh. Nulla tristique cursus ipsum in bibendum. Donec molestie finibus sapien in egestas. Integer semper diam eget velit mattis, vel tincidunt purus semper. Mauris ut aliquam nibh. Duis libero felis, suscipit sed erat at, varius consectetur dui. Proin sollicitudin sed tortor id semper. Phasellus metus leo, aliquam in hendrerit eget, fringilla sit amet metus. Nunc mi risus, facilisis sed ornare a, posuere in mauris. In blandit massa tellus. Nulla maximus erat et eros viverra interdum.',
                 'species' => [
                     [
-                        'name' => 'Lion',
+                        'name' => 'Gnou',
                         'animals' => [
                             [
-                                'name' => 'Thomas'
+                                'id' => 845,
+                                'name' => 'Thomas',
+                                'imgs' => ['img-wildebeest.jpg'],
+                                'state' => 'healthy',
+                                'foods' => [
+                                    'Orge' => '30g',
+                                    'Céréales' => '1kg'
+                                ],
+                                'last_visit_date' => '05/29/2021',
+                                'veterynary_review' => 'Elle va super bien cette grosse bébête !'
+
                             ],
                             [
-                                'name' => 'Patate'
+                                'id' => 56,
+                                'name' => 'Thomas',
+                                'imgs' => ['img-wildebeest.jpg'],
+                                'state' => 'healthy',
+                                'foods' => [
+                                    'Orge' => '30g',
+                                    'Céréales' => '1kg'
+                                ],
+                                'last_visit_date' => '05/29/2021',
+                                'veterynary_review' => 'Elle va super bien cette grosse bébête !'
                             ],
                             [
-                                'name' => 'Hamburger'
+                                'id' => 46165,
+                                'name' => 'Thomas',
+                                'imgs' => ['img-wildebeest.jpg'],
+                                'state' => 'healthy',
+                                'foods' => [
+                                    'Orge' => '30g',
+                                    'Céréales' => '1kg'
+                                ],
+                                'last_visit_date' => '05/29/2021',
+                                'veterynary_review' => 'Elle va super bien cette grosse bébête !'
                             ]
                         ]
                     ],
@@ -30,10 +58,28 @@ class HabitatsController implements Controller
                         'name' => 'Hyene',
                         'animals' => [
                             [
-                                'name' => 'Thomas'
+                                'id' => 7852,
+                                'name' => 'Thomas',
+                                'imgs' => ['img-hyena.jpg'],
+                                'state' => 'healthy',
+                                'foods' => [
+                                    'Orge' => '30g',
+                                    'Céréales' => '1kg'
+                                ],
+                                'last_visit_date' => '05/29/2021',
+                                'veterynary_review' => 'Elle va super bien cette grosse bébête !'
                             ],
                             [
-                                'name' => 'Patate'
+                                'id' => 154,
+                                'name' => 'Thomas',
+                                'imgs' => ['img-hyena.jpg'],
+                                'state' => 'healthy',
+                                'foods' => [
+                                    'Orge' => '30g',
+                                    'Céréales' => '1kg'
+                                ],
+                                'last_visit_date' => '05/29/2021',
+                                'veterynary_review' => 'Elle va super bien cette grosse bébête !'
                             ]
                         ]
                     ]
@@ -48,56 +94,89 @@ class HabitatsController implements Controller
                         'name' => 'Lion',
                         'animals' => [
                             [
-                                'name' => 'Thomas'
+                                'id' => 3654,
+                                'name' => 'Thomas',
+                                'imgs' => ['img-giraffe.jpg'],
+                                'state' => 'healthy',
+                                'foods' => [
+                                    'Orge' => '30g',
+                                    'Céréales' => '1kg'
+                                ],
+                                'last_visit_date' => '05/29/2021',
+                                'veterynary_review' => 'Elle va super bien cette grosse bébête !'
                             ],
                             [
-                                'name' => 'Patate'
+                                'id' => 8463,
+                                'name' => 'Thomas',
+                                'imgs' => ['img-giraffe.jpg'],
+                                'state' => 'healthy',
+                                'foods' => [
+                                    'Orge' => '30g',
+                                    'Céréales' => '1kg'
+                                ],
+                                'last_visit_date' => '05/29/2021',
+                                'veterynary_review' => 'Elle va super bien cette grosse bébête !'
                             ],
                             [
-                                'name' => 'Hamburger'
+                                'id' => 64452,
+                                'name' => 'Thomas',
+                                'imgs' => ['img-giraffe.jpg'],
+                                'state' => 'healthy',
+                                'foods' => [
+                                    'Orge' => '30g',
+                                    'Céréales' => '1kg'
+                                ],
+                                'last_visit_date' => '05/29/2021',
+                                'veterynary_review' => 'Elle va super bien cette grosse bébête !'
                             ]
                         ]
                     ]
                 ]
             ],
             [
-                'name' => 'Aquatique',
-                'img' => 'bg-submarine.jpg',
+                'name' => 'Marais',
+                'img' => 'bg-swamp.jpg',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum ornare purus, at egestas massa rhoncus in. Suspendisse pulvinar nibh non laoreet volutpat. Vivamus libero mauris, lacinia ac rhoncus et, efficitur a nisl. Duis turpis nibh, porttitor in felis in, congue dignissim ex. Ut et nisi dapibus, lobortis ligula id, facilisis libero. Nunc arcu arcu, congue ac suscipit sit amet, elementum eget nibh. Nulla tristique cursus ipsum in bibendum. Donec molestie finibus sapien in egestas. Integer semper diam eget velit mattis, vel tincidunt purus semper. Mauris ut aliquam nibh. Duis libero felis, suscipit sed erat at, varius consectetur dui. Proin sollicitudin sed tortor id semper. Phasellus metus leo, aliquam in hendrerit eget, fringilla sit amet metus. Nunc mi risus, facilisis sed ornare a, posuere in mauris. In blandit massa tellus. Nulla maximus erat et eros viverra interdum.',
                 'species' => [
                     [
                         'name' => 'Lion',
                         'animals' => [
                             [
-                                'name' => 'Thomas'
+                                'id' => 15448,
+                                'name' => 'Thomas',
+                                'imgs' => ['img-giraffe.jpg'],
+                                'state' => 'healthy',
+                                'foods' => [
+                                    'Orge' => '30g',
+                                    'Céréales' => '1kg'
+                                ],
+                                'last_visit_date' => '05/29/2021',
+                                'veterynary_review' => 'Elle va super bien cette grosse bébête !'
                             ],
                             [
-                                'name' => 'Patate'
+                                'id' => 4785,
+                                'name' => 'Thomas',
+                                'imgs' => ['img-giraffe.jpg'],
+                                'state' => 'healthy',
+                                'foods' => [
+                                    'Orge' => '30g',
+                                    'Céréales' => '1kg'
+                                ],
+                                'last_visit_date' => '05/29/2021',
+                                'veterynary_review' => 'Elle va super bien cette grosse bébête !'
                             ],
                             [
-                                'name' => 'Hamburger'
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            [
-                'name' => 'Arctique',
-                'img' => 'bg-arctic.jpg',
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum ornare purus, at egestas massa rhoncus in. Suspendisse pulvinar nibh non laoreet volutpat. Vivamus libero mauris, lacinia ac rhoncus et, efficitur a nisl. Duis turpis nibh, porttitor in felis in, congue dignissim ex. Ut et nisi dapibus, lobortis ligula id, facilisis libero. Nunc arcu arcu, congue ac suscipit sit amet, elementum eget nibh. Nulla tristique cursus ipsum in bibendum. Donec molestie finibus sapien in egestas. Integer semper diam eget velit mattis, vel tincidunt purus semper. Mauris ut aliquam nibh. Duis libero felis, suscipit sed erat at, varius consectetur dui. Proin sollicitudin sed tortor id semper. Phasellus metus leo, aliquam in hendrerit eget, fringilla sit amet metus. Nunc mi risus, facilisis sed ornare a, posuere in mauris. In blandit massa tellus. Nulla maximus erat et eros viverra interdum.',
-                'species' => [
-                    [
-                        'name' => 'Lion',
-                        'animals' => [
-                            [
-                                'name' => 'Thomas'
+                                'id' => 965478,
+                                'name' => 'Thomas',
+                                'imgs' => ['img-giraffe.jpg'],
+                                'state' => 'healthy',
+                                'foods' => [
+                                    'Orge' => '30g',
+                                    'Céréales' => '1kg'
+                                ],
+                                'last_visit_date' => '05/29/2021',
+                                'veterynary_review' => 'Elle va super bien cette grosse bébête !'
                             ],
-                            [
-                                'name' => 'Patate'
-                            ],
-                            [
-                                'name' => 'Hamburger'
-                            ]
                         ]
                     ]
                 ]

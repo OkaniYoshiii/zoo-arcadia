@@ -1,0 +1,32 @@
+@use '../abstracts/variables' as *;
+@use 'sass:math';
+
+.species-list {
+    list-style-type: none;
+
+    padding-left: 0;
+}
+
+.specie__name {
+    padding-bottom: 0.5rem;
+
+    font-size: 1.5rem;
+
+    border-bottom: 2px solid currentColor;
+}
+
+.animals-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+
+    list-style-type: none;
+}
+
+.animal__name {
+    color: $color-primary;
+    font-size: 1.25rem;
+    text-decoration: underline;
+
+    margin-top: 0;
+}
