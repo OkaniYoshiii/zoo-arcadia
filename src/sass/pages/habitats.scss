@@ -1,10 +1,46 @@
 @use '../abstracts/variables' as *;
 @use 'sass:math';
 
+.species {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
 .species-list {
     list-style-type: none;
 
     padding-left: 0;
+
+    &__title {
+        padding-bottom: 0.5rem;
+        
+        font-size: 2rem;
+        color: white;
+
+        border-bottom: 2px solid $color-contrast;
+    }
+}
+
+.species__controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: 1rem;
+
+    text-align: left;
+}
+
+.species__control {
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+
+    background-color: rgb(150, 255, 150);
+
+    &[aria-expanded="true"] {
+        background-color: $color-primary;
+        color: white;
+    }
 }
 
 .specie__name {

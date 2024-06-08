@@ -24,47 +24,54 @@
                 <h2 class="panel__title | color-secondary">{{ habitat['name'] }}</h2>
                 <div class="panel__content">
                     <p>{{ habitat['description'] }}</p>
-                    <h3>Espèces dans l'habitat :</h3>
-                    <ul class="species-list">
-                        {% for specie in habitat['species'] %}
-                            <li>
-                                <h4 class="specie__name">{{ specie['name'] }}</h4>
-                                <ul class="animals-list | list-unstyled">
-                                    {% for animal in specie['animals'] %}
-                                        {% set dialogId = 'animal-dialog-' ~ animal['id'] %}
-                                        <li class="animal">
-                                            <button class="rounded-img--with-caption" aria-controls="{{ dialogId }}">
-                                                <img class="rounded-img" src="{{ IMG_DIR }}/original-images/{{ animal['imgs'][0] }}" alt="">
-                                                <h5 class="caption">{{ animal['name'] }}</h5>
-                                            </button>
-                                            <dialog class="dialog animal__dialog" id="{{ dialogId }}">
-                                                <div class="dialog__content">
-                                                    <div class="dialog__header">
-                                                        <h5 class="animal__name">{{ animal['name'] }}</h5>
-                                                    </div>
-                                                    <div class="dialog__body">
-                                                        {% for img in animal['imgs'] %}
-                                                            <img class="animal__img" src="{{ IMG_DIR }}/original-images/{{ img }}" alt="">
-                                                        {% endfor %}
-                                                        <p>Etat de l'animal :{{ animal['state'] }}</p>
-                                                        <p>Nourriture proposée :</p>
-                                                        <ul>
-                                                            {% for foodName, foodQuantity in animal['foods'] %}
-                                                                <li>{{ foodName }} - {{ foodQuantity }} par jour</li>
+                    <h3 class="species-list__title">Espèces dans l'habitat :</h3>
+                    <div class="species">
+                        <ul class="species__controls">
+                            {% for specie in habitat['species'] %}
+                                <button class="species__control" aria-controls="{{ specie['name']|lower|replace({' ':'-'}) }}" aria-expanded="{{ loop.index0 == 0 ? 'true' : 'false' }}">{{ specie['name'] }}</button>
+                            {% endfor %}
+                        </ul>
+                        <ul class="species-list">
+                            {% for specie in habitat['species'] %}
+                                <li {% if not loop.index0 == 0 %} class="d-none" {% endif %}>
+                                    <h4 class="specie__name">{{ specie['name'] }}</h4>
+                                    <ul class="animals-list | list-unstyled">
+                                        {% for animal in specie['animals'] %}
+                                            {% set dialogId = 'animal-dialog-' ~ animal['id'] %}
+                                            <li class="animal">
+                                                <button class="rounded-img--with-caption" aria-controls="{{ dialogId }}">
+                                                    <img class="rounded-img" src="{{ IMG_DIR }}/original-images/{{ animal['imgs'][0] }}" alt="">
+                                                    <h5 class="caption">{{ animal['name'] }}</h5>
+                                                </button>
+                                                <dialog class="dialog animal__dialog" id="{{ dialogId }}">
+                                                    <div class="dialog__content">
+                                                        <div class="dialog__header">
+                                                            <h5 class="animal__name">{{ animal['name'] }}</h5>
+                                                        </div>
+                                                        <div class="dialog__body">
+                                                            {% for img in animal['imgs'] %}
+                                                                <img class="animal__img" src="{{ IMG_DIR }}/original-images/{{ img }}" alt="">
                                                             {% endfor %}
-                                                        </ul>
-                                                        <p>Dernière visite du vétérinaire : {{ animal['last_visite_date'] }}</p>
-                                                        <p>Avis du vétérinaire : {{ animal['veterynary_review'] }}</p>
-                                                        <button class="toggle">Fermer</button>
+                                                            <p>Etat de l'animal :{{ animal['state'] }}</p>
+                                                            <p>Nourriture proposée :</p>
+                                                            <ul>
+                                                                {% for foodName, foodQuantity in animal['foods'] %}
+                                                                    <li>{{ foodName }} - {{ foodQuantity }} par jour</li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                            <p>Dernière visite du vétérinaire : {{ animal['last_visite_date'] }}</p>
+                                                            <p>Avis du vétérinaire : {{ animal['veterynary_review'] }}</p>
+                                                            <button class="toggle">Fermer</button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </dialog>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                                                </dialog>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
         {% endfor %}
