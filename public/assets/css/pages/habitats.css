@@ -1,55 +1,17 @@
-@keyframes translateUp {
-  0% {
-    opacity: 0;
-    translate: 0 150px;
-  }
-  100% {
-    opacity: 1;
-    translate: 0 0px;
-  }
-}
-.species {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
-.species__title {
-  font-size: 2rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid rgb(240, 240, 240);
-}
-.species__controls {
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: 4rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 1rem;
-  align-self: start;
-  text-align: left;
-}
-.species__controls > .button {
-  flex-grow: 1;
-}
-.species__list {
-  flex-grow: 10;
-  flex-shrink: 1;
-  flex-basis: 15rem;
-}
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 2 | @use '../abstracts/animations';
+ *   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *   '
+ *   src\sass\pages\habitats.scss 2:1  root stylesheet */
 
-@supports (animation: translateUp 750ms) {
-  .specie {
-    animation: translateUp 750ms;
-  }
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 2 \2502  @use '../abstracts/animations';\d\a   \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   src\\sass\\pages\\habitats.scss 2:1  root stylesheet";
 }
-
-.animal__name {
-  color: rgb(84, 169, 0);
-  font-size: 1.25rem;
-  text-decoration: underline;
-  margin-top: 0;
-}
-
-/*# sourceMappingURL=habitats.css.map */
