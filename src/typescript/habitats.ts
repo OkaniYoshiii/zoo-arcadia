@@ -1,5 +1,6 @@
 import { Panels } from "./Panels";
 import { Dialog }  from "./Dialog";
+import { Filter } from "./Filter";
 
 new Panels('.panels');
 
@@ -17,3 +18,5 @@ document.querySelectorAll('[aria-controls]').forEach((element) => {
         new Dialog(controlledElement, element);
     }
 })
+
+new Filter(document.querySelectorAll('.species__controls > .button'), true);
