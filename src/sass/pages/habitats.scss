@@ -1,62 +1,50 @@
 @use '../abstracts/variables' as *;
+@use '../abstracts/animations';
 @use 'sass:math';
 
 .species {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 2rem;
-}
-
-.species-list {
-    list-style-type: none;
-
-    padding-left: 0;
 
     &__title {
-        padding-bottom: 0.5rem;
-        
         font-size: 2rem;
-        color: white;
+
+        padding-bottom: 0.5rem;
 
         border-bottom: 2px solid $color-contrast;
     }
-}
 
-.species__controls {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    row-gap: 1rem;
+    &__controls {
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 4rem;
 
-    text-align: left;
-}
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 1rem;
+        align-self: start;
+    
+        text-align: left;
 
-.species__control {
-    border-radius: 10px;
-    padding: 0.5rem 1rem;
+        > .button {
+            flex-grow: 1;
+        }
+    }
 
-    background-color: rgb(150, 255, 150);
-
-    &[aria-expanded="true"] {
-        background-color: $color-primary;
-        color: white;
+    &__list {
+        flex-grow: 10;
+        flex-shrink: 1;
+        flex-basis: 15rem;
     }
 }
 
-.specie__name {
-    padding-bottom: 0.5rem;
-
-    font-size: 1.5rem;
-
-    border-bottom: 2px solid currentColor;
-}
-
-.animals-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
-
-    list-style-type: none;
+.specie {
+    @supports (animation: translateUp 750ms) {
+        animation: translateUp 750ms;
+    }
 }
 
 .animal__name {

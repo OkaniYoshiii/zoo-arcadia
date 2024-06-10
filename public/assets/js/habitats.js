@@ -14,4 +14,4 @@ document.querySelectorAll('[aria-controls]').forEach((element) => {
         new Dialog(controlledElement, element);
     }
 });
-new Filter(document.querySelectorAll('.species__controls > .button'), true);
+new Filter(document.querySelectorAll('.species__controls > .button'));

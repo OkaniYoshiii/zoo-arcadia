@@ -1,0 +1,26 @@
+@use '../abstracts/variables' as *;
+
+$border-radius: 5px;
+
+.button, .button-active {
+    border-radius: $border-radius;
+
+    padding: 0.5rem 1rem;
+
+    color: $color-txt;
+
+    background-color: $color-btn;
+
+    transition: scale 250ms;
+
+    &[aria-expanded="true"], &--active {
+        background-color: $color-primary;
+        
+        color: $color-contrast;
+        font-weight: bold;
+    }
+
+    &:hover {
+        scale: 0.95;
+    }
+}

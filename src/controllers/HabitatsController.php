@@ -10,7 +10,7 @@ class HabitatsController implements Controller
             [
                 'name' => 'Savane',
                 'img' => 'bg-savannah-bridge.jpg',
-                'description' => 'Environement propre aux régions chaudes, la savane regroupe de nombreux animaux comme  zèbres, les gnous, les éléphants, les girafes, les autruches, les gazelles et les buffles. A Arcadia, nous avons fait notre maximum afin de recréer un environnement réprésentant le plus fidèlement possible l\'état naturel de la savane. ',
+                'description' => 'Environement propre aux régions chaudes, la savane regroupe de nombreux animaux comme  zèbres, les gnous, les éléphants, les girafes, les autruches, les gazelles et les buffles. <br><br> A Arcadia, nous avons fait notre maximum afin de recréer un environnement réprésentant le plus fidèlement possible l\'état naturel de la savane. ',
                 'species' => [
                     [
                         'name' => 'Gnou',

@@ -1,3 +1,4 @@
+@use '../abstracts/variables' as *;
 @use '../abstracts/fonctions' as *;
 
 .rounded-img {
@@ -17,13 +18,15 @@
         > .caption {
             position: absolute;
             inset: auto 1rem 5% 1rem;
+
+            padding-block: 1rem;
+            margin: 0 auto;
     
             text-align: center;
             line-height: 1;
-            background-color: lightgray;
-    
-            padding-block: 1rem;
-            margin: 0 auto;
+            color: white;
+
+            background-color: $color-primary;
         }
     }
 }
