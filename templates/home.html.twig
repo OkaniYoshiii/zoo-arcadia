@@ -249,14 +249,14 @@
             <h2 class="color-primary">Vos avis comptent pour nous :</h2>
             <div>
                 <h3 class="fw-bold color-primary">Rédiger un avis</h3>
-                <form id="feedbacks-form" class="feedbacks__form form" method="POST" action="">
-                    <div class="pseudonym">
-                        <label class="fw-bold color-primary" for="pseudo">Pseudonyme :</label>
-                        <input type="text" name="pseudo" id="pseudo">
+                <form id="feedbacks-form" class="form" method="POST" action="">
+                    <div class="form-input">
+                        <label class="form-input__label" for="pseudo">Pseudonyme :</label>
+                        <input class="form-input__input" type="text" name="pseudo" id="pseudo">
                     </div>
-                    <div class="content">
-                        <label class="fw-bold color-primary" for="feedback">Avis :</label>
-                        <textarea form="feedbacks-form" type="text" name="feedback" id="feedback"></textarea>
+                    <div class="form-input">
+                        <label class="form-input__label" for="feedback">Avis :</label>
+                        <textarea class="form-input__input" form="feedbacks-form" type="text" name="feedback" id="feedback"></textarea>
                     </div>
                 </form>
             </div>

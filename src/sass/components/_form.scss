@@ -1,11 +1,33 @@
 @use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
 
 .form {
-    input, textarea {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+
+    &__submit-btn {
+        align-self: flex-start;
+
+        @include btn(true);
+    }
+}
+
+.form-input {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+
+    &__label {
+        color: $color-primary;
+        font-weight: bold;
+    }
+
+    &__input {
         font-size: 1rem;
         
-        border: 1px solid $color-primary;
-        border-radius: 5px;
+        border: 2px solid $color-primary;
+        border-radius: 10px;
 
         padding: 0.5rem;
     }

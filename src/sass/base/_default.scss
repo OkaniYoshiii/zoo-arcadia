@@ -16,6 +16,12 @@ img {
     max-width: 100%;
 }
 
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    color: $color-primary;
+}
+
 h1, h2, h3, h4 {
     line-height: 1;
 }

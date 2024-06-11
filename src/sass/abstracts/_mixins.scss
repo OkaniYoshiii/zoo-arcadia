@@ -1,3 +1,4 @@
+@use './variables' as *;
 @use "sass:list";
 @use "sass:math";
 
@@ -44,5 +45,19 @@
             background-color: rgba(0,0,0, $strength + $hoverModifier);
         }
     }
+}
 
+@mixin btn($isActive: false) {
+    border: none;
+    border-radius: 5px;
+
+    padding: 0.5rem 1rem;
+
+    color: if($isActive == true,  $color-contrast, $color-txt);
+    font-weight: if($isActive == true, bold, inherit);
+
+    background-color: if($isActive == true,  $color-primary, $color-btn);
+
+    cursor: pointer;
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.25);
 }
