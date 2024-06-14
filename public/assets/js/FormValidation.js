@@ -7,7 +7,6 @@ class FormValidation {
         this.#checkArguments(arguments);
         this.#form = form;
         this.#fields = this.#form.elements;
-        console.log(this.#fields);
         this.#init();
     }
     #init() {
@@ -19,11 +18,13 @@ class FormValidation {
         const emailRegexp = /^[A-Za-z\-\.]+@[A-Za-z\-]+\.[A-Za-z]{2,6}$/;
         const formData = new FormData(this.#form);
         for (const [key, value] of formData) {
-            if (key !== 'password' && key !== 'email')
-                window.location.href = '/';
+            const field = this.#fields.namedItem(key);
+            if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement && field !== null && field.required) {
+                if (value === '')
+                    this.#errors[key] = 'Veuillez remplir correctement les champs obligatoires';
+            }
             if (key === 'password') {
                 if (value === '') {
-                    this.#fields;
                     this.#errors.password = 'Le mot de passe ne doit pas être vide.';
                 }
             }
