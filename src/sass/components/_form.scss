@@ -11,6 +11,14 @@
 
         @include btn(true);
     }
+
+    &__error-output {
+        display: none;
+
+        &.error {
+            display: block;
+        }
+    }
 }
 
 .form-input {
@@ -31,9 +39,10 @@
 
         padding: 0.5rem;
 
-        &.error {
+        &:focus:invalid, &.error {
             border-color: red;
             box-shadow: 0 0 5px red;
         }
     }
 }
+

@@ -415,6 +415,12 @@ body > footer ul li {
   cursor: pointer;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
 }
+.form__error-output {
+  display: none;
+}
+.form__error-output.error {
+  display: block;
+}
 
 .form-input {
   display: flex;
@@ -431,7 +437,7 @@ body > footer ul li {
   border-radius: 10px;
   padding: 0.5rem;
 }
-.form-input__input.error {
+.form-input__input:focus:invalid, .form-input__input.error {
   border-color: red;
   box-shadow: 0 0 5px red;
 }
