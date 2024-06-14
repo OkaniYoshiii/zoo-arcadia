@@ -19,4 +19,6 @@ document.querySelectorAll('[aria-controls]').forEach((element) => {
     }
 })
 
-new Filter(document.querySelectorAll('.species__controls > .button'));
+new Filter(document.querySelectorAll('#panel-savane .species__controls > .button'));
+new Filter(document.querySelectorAll('#panel-jungle .species__controls > .button'));
+new Filter(document.querySelectorAll('#panel-marais .species__controls > .button'));
