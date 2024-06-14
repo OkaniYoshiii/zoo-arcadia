@@ -11,4 +11,3 @@ sliders.forEach((slider) => {
     
     new GallerySlider(slider);
 });
-

@@ -1,18 +1,25 @@
 {% extends "base.html.twig" %}
 
+{% block javascripts %}
+    <script src="{{ JS_DIR }}/login.js" type="module"></script>
+{% endblock %}
+
 {% block main %}
     <section class="size-small">
         <h1>Connexion</h1>
-        <form class="form" action="" method="POST">
+        <form novalidate id="loginForm" class="form" action="" method="POST">
             <div class="form-input">
                 <label class="form-input__label" for="email">Adresse mail :</label>
-                <input class="form-input__input" type="email" name="email" id="email" pattern="^[A-Za-z\-\.]+@[A-Za-z\-]+\.[A-Za-z]{2,6}" title="L'email doit commencer par une suite de caractères, puis un arobase, une autre suite de caractères et une extension (.com par exemple)" required>
+                <input class="form-input__input" type="email" name="email" id="email" pattern="^[A-Za-z\-\.]+@[A-Za-z\-]+\.[A-Za-z]{2,6}$" title="L'email doit commencer par une suite de caractères, puis un arobase, une autre suite de caractères et une extension (.com par exemple)" required>
             </div>
             <div class="form-input">
                 <label class="form-input__label" for="password">Mot de passe :</label>
                 <input class="form-input__input" type="password" name="password" id="password" required>
             </div>
             <input class="form__submit-btn" type="submit" value="Se connecter">
+            <div class="form-output">
+                <p id="output"></p>
+            </div>
         </form>
     </section>
 {% endblock %}
