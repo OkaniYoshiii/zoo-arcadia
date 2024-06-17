@@ -1,8 +1,6 @@
 <?php 
 
-use Interfaces\Controller;
-
-class AdminController implements Controller
+class AdminDashboardController 
 {
     public function getVariables(): array
     {

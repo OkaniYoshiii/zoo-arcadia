@@ -1,8 +1,6 @@
 <?php 
 
-use Interfaces\Controller;
-
-class ServicesController implements Controller
+class ServicesController 
 {
     public function getVariables(): array
     {

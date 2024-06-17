@@ -1,8 +1,6 @@
 <?php 
 
-use Interfaces\Controller;
-
-class ContactController implements Controller
+class ContactController 
 {
     public function getVariables(): array
     {

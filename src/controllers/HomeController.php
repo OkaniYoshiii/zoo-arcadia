@@ -1,8 +1,6 @@
 <?php
 
-use Interfaces\Controller;
-
-class HomeController implements Controller {
+class HomeController {
     public function getVariables() : array  {
         $domains = [
             "Savane" => [
@@ -49,7 +47,7 @@ class HomeController implements Controller {
             "current" => 1,
             "total" => 1
         ];
-        
+
         return ["domains" => $domains, "services" => $services, "feedbacks" => $feedbacks, "pages" => $pages];
     }
 }

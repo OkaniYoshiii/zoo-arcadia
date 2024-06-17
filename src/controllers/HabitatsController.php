@@ -1,8 +1,7 @@
 <?php 
 
-use Interfaces\Controller;
 
-class HabitatsController implements Controller
+class HabitatsController 
 {
     public function getVariables(): array
     {

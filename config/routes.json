@@ -5,6 +5,26 @@
         "/habitats" : ["habitats.html.twig", "HabitatsController"],
         "/connexion" : ["login.html.twig", "LoginController"],
         "/contact" : ["contact.html.twig", "ContactController"],
-        "/admin" : ["admin.html.twig", "AdminController"]
+
+        "/admin" : ["admin/admin.html.twig", "AdminDashboardController"],
+        "/admin/utilisateurs" : ["admin/users.html.twig", "UsersCrudController"],
+        "/admin/horaires" : ["admin/schedules.html.twig", "SchedulesCrudController"],
+        "/admin/avis" : ["admin/notices.html.twig", "NoticesCrudController"],
+        "/admin/rapports-employe" : ["admin/employe-reports.html.twig", "EmployeeReportsCrudController"],
+        "/admin/animaux" : ["admin/animals.html.twig", "AnimalsCrudController"],
+        "/admin/habitats" : ["admin/habitats.html.twig", "HabitatsCrudController"],
+        "/admin/services" : ["admin/services.html.twig", "ServicesCrudController"],
+        "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController"]
+    },
+
+    "POST" : {
+        "/admin/utilisateurs" : ["admin/users.html.twig", "UsersCrudController"],
+        "/admin/horaires" : ["admin/schedules.html.twig", "SchedulesCrudController"],
+        "/admin/avis" : ["admin/notices.html.twig", "NoticesCrudController"],
+        "/admin/rapports-employe" : ["admin/employe-reports.html.twig", "EmployeeReportsCrudController"],
+        "/admin/animaux" : ["admin/animals.html.twig", "AnimalsCrudController"],
+        "/admin/habitats" : ["admin/habitats.html.twig", "HabitatsCrudController"],
+        "/admin/services" : ["admin/services.html.twig", "ServicesCrudController"],
+        "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController"]
     }
 }

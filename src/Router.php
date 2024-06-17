@@ -28,10 +28,11 @@ class Router
         $controllerName = $routes[REQUEST['method']][REQUEST['uri']][1] ?? null;
 
         if(is_null($controllerName)) throw new \Exception('No controller found for uri : ' . REQUEST['uri']);
-        if(!file_exists(CONTROLLER_DIR . '/' . $controllerName . '.php')) throw new \Exception('Controller \'' . CONTROLLER_DIR . '/' . $controllerName . '.php' . ' does not exists !');
+        if(!file_exists(CONTROLLER_DIR . '/' . $controllerName . '.php') && !file_exists(CONTROLLER_DIR . '/admin/' . $controllerName . '.php')) throw new \Exception('Controller \'' . CONTROLLER_DIR . '/' . $controllerName . '.php' . ' does not exists !');
         
         $this->currentRoute['template'] = $templateName;
         $this->currentRoute['controller'] = $controllerName;
+        $this->currentRoute['method'] = $this->currentRoute['method'];
     }
 
     public function getCurrentRoute() : array|null {

@@ -1,8 +1,6 @@
 <?php 
 
-use Interfaces\Controller;
-
-class LoginController implements Controller
+class LoginController
 {
     public function getVariables(): array
     {
