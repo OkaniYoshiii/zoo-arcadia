@@ -18,7 +18,7 @@
                                 <input class="form-input__input" type="email" name="username" id="username" placeholder="test@test.com" required>
                             </div>
                             <div class="form-input">
-                                <label class="form-input__label" for="firsname">Prénom</label>
+                                <label class="form-input__label" for="firstname">Prénom</label>
                                 <input class="form-input__input" type="text" name="firstname" id="firstname" placeholder="John" required>
                             </div>
                             <div class="form-input">
@@ -30,10 +30,12 @@
                                 <input class="form-input__input" type="password" name="password" id="password" required>
                             </div>
                             <div class="form-input">
-                                <label class="form-input__label" for="roleName">Séléctionnez un rôle</label>
+                                <label class="form-input__label" for="roleId">Séléctionnez un rôle</label>
                                 <select class="form-input__input" name="roleId" id="roleId" required>
                                     {% for role in roles %}
-                                        <option value="{{ role.roleId }}" {% if role.name == user.roleName %}selected{% endif %}>{{ role.name }}</option>
+                                        {% if role.name != 'ROLE_ADMIN' %}
+                                            <option value="{{ role.roleId }}" {% if role.name == user.roleName %}selected{% endif %}>{{ role.name }}</option>
+                                        {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
@@ -51,6 +53,11 @@
                         {{ user.lastname }}
                         {{ user.roleName }}
                         <button class="dialog-btn button--active">Modifier</button>
+                        <form action="" method="POST">
+                            <input type="hidden" name="userId" value="{{ user.userId }}">
+                            <input type="hidden" name="crudAction" value="DELETE">
+                            <input type="submit" class="button--active" value="Supprimer">
+                        </form>
                     </li>
                     <dialog class="dialog">
                         <div class="dialog__content">
@@ -63,22 +70,28 @@
                                     <input class="form-input__input" type="email" name="username" id="username" value="{{ user.username }}" required>
                                 </div>
                                 <div class="form-input">
-                                    <label class="form-input__label" for="firsname">Prénom</label>
-                                    <input class="form-input__input" type="text" name="firsname" id="firstname" value="{{ user.firstname }}" required>
+                                    <label class="form-input__label" for="firstname">Prénom</label>
+                                    <input class="form-input__input" type="text" name="firstname" id="firstname" value="{{ user.firstname }}" required>
                                 </div>
                                 <div class="form-input">
                                     <label class="form-input__label" for="lastname">Nom</label>
                                     <input class="form-input__input" type="text" name="lastname" id="lastname" value="{{ user.lastname }}" required>
                                 </div>
                                 <div class="form-input">
-                                    <label class="form-input__label" for="roleName">Séléctionnez un rôle</label>
-                                    <select class="form-input__input" name="roleName" id="roleName" required>
+                                    <label class="form-input__label" for="password">Mot de passe</label>
+                                    <input class="form-input__input" type="password" name="password" id="password" required>
+                                </div>
+                                <div class="form-input">
+                                    <label class="form-input__label" for="roleId">Séléctionnez un rôle</label>
+                                    <select class="form-input__input" name="roleId" id="roleId" required>
                                         {% for role in roles %}
-                                            <option value="{{ role.id }}" {% if role.name == user.roleName %}selected{% endif %}>{{ role.name }}</option>
+                                            {% if role.name != 'ROLE_ADMIN' %}
+                                                <option value="{{ role.roleId }}" {% if role.name == user.roleName %}selected{% endif %}>{{ role.name }}</option>
+                                            {% endif %}
                                         {% endfor %}
                                     </select>
                                 </div>
-                                <input type="hidden" name="userId" value="{{ user.id }}">
+                                <input type="hidden" name="userId" value="{{ user.userId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
                                 <button class="form__submit-btn" type="submit">Confirmer</button>
                             </form>

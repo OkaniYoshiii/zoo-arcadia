@@ -24,11 +24,11 @@ class UsersTable extends Database
         self::$statement->execute();
     }
 
-    static function updateUser(int $userId, array $properties) : void
+    static function updateUser(array $properties) : void
     {
-        self::$statement = self::$pdo->prepare('UPDATE users SET users.username = :username, users.firstname = :firstname, users.lastname = :lastname, users.role_id = :roleId WHERE user.user_id = :userId');
+        self::$statement = self::$pdo->prepare('UPDATE users SET users.username = :username, users.firstname = :firstname, users.lastname = :lastname, users.role_id = :role_id WHERE users.user_id = :user_id');
         
-        self::$statement->bindParam(':userId', $userId);
+        self::$statement->bindParam(':user_id', $properties['userId']);
         self::$statement->bindParam(':username', $properties['username']);
         self::$statement->bindParam(':firstname', $properties['firstname']);
         self::$statement->bindParam(':lastname', $properties['lastname']);
@@ -41,7 +41,7 @@ class UsersTable extends Database
     {
         self::$statement = self::$pdo->prepare('DELETE FROM users WHERE users.user_id = :user_id');
         
-        self::$statement->bindParam(':userId', $userId);
+        self::$statement->bindParam(':user_id', $userId);
 
         self::$statement->execute();
     }
