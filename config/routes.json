@@ -14,7 +14,9 @@
         "/admin/animaux" : ["admin/animals.html.twig", "AnimalsCrudController"],
         "/admin/habitats" : ["admin/habitats.html.twig", "HabitatsCrudController"],
         "/admin/services" : ["admin/services.html.twig", "ServicesCrudController"],
-        "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController"]
+        "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController"],
+
+        "/sleekdb" : ["sleekdb.html.twig", "SleekDbController"]
     },
 
     "POST" : {

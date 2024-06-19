@@ -1,5 +1,6 @@
 {
     "require": {
-        "twig/twig": "^3.10"
+        "twig/twig": "^3.10",
+        "rakibtg/sleekdb": "^2.15"
     }
 }
