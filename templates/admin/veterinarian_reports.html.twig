@@ -1,0 +1,110 @@
+{% extends "admin/admin.html.twig" %}
+
+{% block main %}
+    <section>
+        <div class="size-medium">
+            <h1>Liste des rapports vétérinaires :</h1>
+            {% for error in formErrors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+            <button class="dialog-btn button--active">Ajouter un rapport vétérinaire</button>
+            <dialog class="dialog">
+                <div class="dialog__content">
+                    <div class="dialog__header">
+                        <h2>Ajout d'un rapport vétérinaire</h2>
+                        <form class="form" action="" method="POST" autocomplete="off">
+                            <div class="form-input">
+                                <label class="form-input__label" for="firstname">Prénom</label>
+                                <input class="form-input__input" type="text" name="firstname" id="firstname" placeholder="John" required>
+                            </div>
+                            <div class="form-input">
+                                <label class="form-input__label" for="detail">Détail</label>
+                                <input class="form-input__input" type="text" name="detail" id="detail" placeholder="Doe" required>
+                            </div>
+                            <div class="form-input">
+                                <label class="form-input__label" for="animalId">Animal concerné</label>
+                                <select name="animalId" id="animalId">
+                                    {% for animal in animals %}
+                                        <option value="{{ animal.animalId }}">{{ animal.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input class="form-input__input" type="number" name="animalId" id="animalId" required>
+                            </div>
+                            <div class="form-input">
+                                <label class="form-input__label" for="foodTypeId">Type de nourriture</label>
+                                <select name="foodTypeId" id="foodTypeId">
+                                    {% for foodType in foodTypes %}
+                                        <option value="{{ foodType.foodTypeId }}">{{ foodType.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input class="form-input__input" type="number" name="animalId" id="animalId" required>
+                            </div>
+                            <div class="form-input">
+                                <label class="form-input__label" for="foodQuantity">Quantité de nourriture reçue</label>
+                                <input class="form-input__input" type="number" name="foodQuantity" id="foodQuantity" required>
+                            </div>
+                            <input type="hidden" name="date" value="{{ "now"|date('m-d-Y') }}">
+                            <input type="hidden" name="crudAction" value="CREATE">
+                            <button class="form__submit-btn" type="submit">Confirmer</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
+            <ul>
+                {% for user in users %}
+                    <li>
+                        {{ user.username }}
+                        {{ user.firstname }}
+                        {{ user.lastname }}
+                        {{ user.roleName }}
+                        <button class="dialog-btn button--active">Modifier</button>
+                        <form action="" method="POST">
+                            <input type="hidden" name="userId" value="{{ user.userId }}">
+                            <input type="hidden" name="crudAction" value="DELETE">
+                            <input type="submit" class="button--active" value="Supprimer">
+                        </form>
+                    </li>
+                    <dialog class="dialog">
+                        <div class="dialog__content">
+                            <div class="dialog__header">
+                                <h2 class="dialog__title">Modification utilisateur :</h2>
+                            </div>
+                            <form class="form" action="" method="POST" autocomplete="off">
+                                <div class="form-input">
+                                    <label class="form-input__label" for="username">Email</label>
+                                    <input class="form-input__input" type="email" name="username" id="username" value="{{ user.username }}" required>
+                                </div>
+                                <div class="form-input">
+                                    <label class="form-input__label" for="firstname">Prénom</label>
+                                    <input class="form-input__input" type="text" name="firstname" id="firstname" value="{{ user.firstname }}" required>
+                                </div>
+                                <div class="form-input">
+                                    <label class="form-input__label" for="lastname">Nom</label>
+                                    <input class="form-input__input" type="text" name="lastname" id="lastname" value="{{ user.lastname }}" required>
+                                </div>
+                                <div class="form-input">
+                                    <label class="form-input__label" for="password">Mot de passe</label>
+                                    <input class="form-input__input" type="password" name="password" id="password" required>
+                                </div>
+                                <div class="form-input">
+                                    <label class="form-input__label" for="roleId">Séléctionnez un rôle</label>
+                                    <select class="form-input__input" name="roleId" id="roleId" required>
+                                        {% for role in roles %}
+                                            {% if role.name != 'ROLE_ADMIN' %}
+                                                <option value="{{ role.roleId }}" {% if role.name == user.roleName %}selected{% endif %}>{{ role.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <input type="hidden" name="userId" value="{{ user.userId }}">
+                                <input type="hidden" name="crudAction" value="UPDATE">
+                                <button class="form__submit-btn" type="submit">Confirmer</button>
+                            </form>
+                        </div>
+                    </dialog>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+{% endblock %}

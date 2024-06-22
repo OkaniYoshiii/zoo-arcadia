@@ -1,13 +1,52 @@
 <?php
 
+namespace App\Entity;
+
 class Animal
 {
-    public function __construct(string $firstname, string $state, Breed $breed, Habitat $habitat, VeterinarianReport $veterinarian_report, AnimalImage $animal_image)
+    private int $animal_id;
+    private string $firstname;
+    private string $state;
+    private int $breed_id;
+    private int $habitat_id;
+
+    /**
+     * Get the value of animal_id
+     */ 
+    public function getAnimalId()
     {
-        $this->firstname = $firstname;
-        $this->state = $state;
-        $this->breed = $breed;
-        $this->habitat = $habitat;
-        $this->veterinarian_report = $veterinarian_report;
+        return $this->animal_id;
+    }
+
+    /**
+     * Get the value of firstname
+     */ 
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Get the value of state
+     */ 
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Get the value of breed_id
+     */ 
+    public function getBreedId()
+    {
+        return $this->breed_id;
+    }
+
+    /**
+     * Get the value of habitat_id
+     */ 
+    public function getHabitatId()
+    {
+        return $this->habitat_id;
     }
 }

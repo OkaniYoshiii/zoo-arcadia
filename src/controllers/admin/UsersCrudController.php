@@ -1,6 +1,8 @@
 <?php
 
-class UsersCrudController
+use App\Interface\AbstractCrudController;
+
+class UsersCrudController implements AbstractCrudController
 {
     private static array $formInputErrors = [];
     private static array $formData;
