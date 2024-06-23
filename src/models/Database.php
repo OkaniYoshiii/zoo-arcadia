@@ -18,4 +18,14 @@ class Database {
         self::$pdo = null;
         self::$statement = null;
     }
+
+    public static function truncate()
+    {
+        $calledClass = get_called_class();
+        if($calledClass == 'Database') return;
+        if(!str_ends_with($calledClass, 'Table')) return;
+
+        $targetTable = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', (str_replace('Table','',$calledClass))));
+        self::$pdo->query('TRUNCATE TABLE ' . $targetTable);
+    }
 }

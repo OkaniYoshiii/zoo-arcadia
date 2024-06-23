@@ -14,7 +14,11 @@ class FoodTypesTable extends Database implements TableInterface
 
     static public function create(array $properties) : void
     {
+        self::$statement = self::$pdo->prepare('INSERT INTO food_types (food_types.name) VALUES (:name)');
 
+        self::$statement->bindParam(':name', $properties['name']);
+
+        self::$statement->execute();
     }
 
     static public function update(array $properties) : void

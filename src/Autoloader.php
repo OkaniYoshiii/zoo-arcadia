@@ -2,12 +2,12 @@
 
 class Autoloader
 {
-    static function register()
+    public static function register()
     {
         spl_autoload_register(__CLASS__ . '::autoload');
     }
 
-    static function autoload(string $className)
+    public static function autoload(string $className)
     {
         // Garde uniquement le nom de la classe lorsque cette dernière contient un namespace
         if(self::isNamespaced($className)) {
@@ -22,7 +22,7 @@ class Autoloader
         }
     }
 
-    static function isNamespaced($className)
+    public static function isNamespaced($className)
     {
         return str_contains($className, '\\');
     }
