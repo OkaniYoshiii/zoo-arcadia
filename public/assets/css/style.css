@@ -1,19 +1,136 @@
-/* Error: Can't find stylesheet to import.
- *    ,
- * 13 | @use './components/dialog';
- *    | ^^^^^^^^^^^^^^^^^^^^^^^^^^
- *    '
- *   src\sass\style.scss 13:1  root stylesheet */
+@font-face {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: normal;
+  src: url(../fonts/inter/Inter-Regular.otf);
+}
+@font-face {
+  font-family: Inter;
+  font-weight: 700;
+  font-style: normal;
+  src: url(../fonts/inter/Inter-Bold.otf);
+}
+@font-face {
+  font-family: Inter;
+  font-weight: 900;
+  font-style: normal;
+  src: url(../fonts/inter/Inter-ExtraBold.otf);
+}
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
 
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
+.hidden {
+  visibility: hidden !important;
+}
+
+.d-none {
+  display: none !important;
+}
+
+.color-primary {
+  color: rgb(84, 169, 0) !important;
+}
+
+.color-secondary {
+  color: rgb(245, 230, 0) !important;
+}
+
+.color-contrast {
+  color: rgb(240, 240, 240) !important;
+}
+
+.size-small {
+  max-width: min(100% - 2rem, 700px);
+  margin-inline: auto;
+}
+
+.size-medium {
+  max-width: min(100% - 2rem, 900px);
+  margin-inline: auto;
+}
+
+.size-large {
+  max-width: min(100% - 2rem, 1200px);
+  margin-inline: auto;
+}
+
+.size-extralarge {
+  max-width: min(100% - 2rem, 1400px);
+  margin-inline: auto;
+}
+
+[class*=size-] .size-small {
+  max-width: min(100%, 700px);
+  margin-inline: auto;
+}
+
+[class*=size-] .size-medium {
+  max-width: min(100%, 900px);
+  margin-inline: auto;
+}
+
+[class*=size-] size-large {
+  max-width: min(100%, 1200px);
+  margin-inline: auto;
+}
+
+[class*=size-] .size-extralarge {
+  max-width: min(100%, 1400px);
+  margin-inline: auto;
+}
+
+.fw-bold {
+  font-weight: bold;
+}
+
+.txt-centered {
+  text-align: center;
+}
+
+.mb-2em {
+  margin-bottom: 2em;
+}
+
+.mb-2rem {
+  margin-bottom: 2rem;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.list-unstyled {
+  margin: 0;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  margin: 0;
+  line-height: 1.6;
+}
+
+img {
   display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a    \2577 \a 13 \2502  @use './components/dialog';\d\a    \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   src\\sass\\style.scss 13:1  root stylesheet";
+  max-width: 100%;
 }
 
 h1 {

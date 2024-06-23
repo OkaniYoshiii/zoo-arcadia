@@ -18,6 +18,8 @@
     },
 
     "POST" : {
+        "/" : ["home.html.twig", "HomeController"],
+        
         "/admin/utilisateurs" : ["admin/users.html.twig", "UsersCrudController"],
         "/admin/horaires" : ["admin/schedules.html.twig", "SchedulesCrudController"],
         "/admin/avis" : ["admin/notices.html.twig", "NoticesCrudController"],

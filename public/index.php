@@ -31,5 +31,8 @@ try {
     die();
 }
 
+use SleekDB\Store;
+define('FeedbacksDB', new Store("feedbacks", '../sleekdb', ["timeout" => false]));
+
 // CONTROLLERS AUTOINSTANCIATION
 $core = new Core();

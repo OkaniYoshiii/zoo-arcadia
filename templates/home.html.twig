@@ -4,6 +4,10 @@
     <link rel="stylesheet" href="{{ CSS_DIR }}/pages/homepage.css">
 {% endblock %}
 
+{% block javascripts %}
+    <script type="module" src="{{ JS_DIR ~ '/homepage.js' }}"></script>
+{% endblock %}
+
 {% block main %}
     <section class="hero-banner">
         <div class="size-medium">
@@ -249,22 +253,23 @@
             <h2 class="color-primary">Vos avis comptent pour nous :</h2>
             <div>
                 <h3 class="fw-bold color-primary">Rédiger un avis</h3>
-                <form id="feedbacks-form" class="form" method="POST" action="">
+                <form id="feedback-form" class="form" method="POST" action="">
                     <div class="form-input">
-                        <label class="form-input__label" for="pseudo">Pseudonyme :</label>
-                        <input class="form-input__input" type="text" name="pseudo" id="pseudo">
+                        <label class="form-input__label" for="username">Pseudonyme :</label>
+                        <input class="form-input__input" type="text" name="username" id="username">
                     </div>
                     <div class="form-input">
-                        <label class="form-input__label" for="feedback">Avis :</label>
-                        <textarea class="form-input__input" form="feedbacks-form" type="text" name="feedback" id="feedback"></textarea>
+                        <label class="form-input__label" for="content">Avis :</label>
+                        <textarea class="form-input__input" form="feedback-form" type="text" name="content" id="content"></textarea>
                     </div>
+                    <button class="button--active">Donner votre avis</button>
                 </form>
             </div>
             <div class="feedbacks">
                 {% for feedback in feedbacks %}
                     <div>
                         <p><span class="fw-bold color-primary">Publié le : </span>{{ feedback.publish_date }}</p>
-                        <p><span class="fw-bold color-primary">Par : </span>{{ feedback.user }}</p>
+                        <p><span class="fw-bold color-primary">Par : </span>{{ feedback.username }}</p>
                         <p>{{ feedback.content }}</p>
                     </div>
                     <hr>
