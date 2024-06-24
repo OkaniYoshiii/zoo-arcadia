@@ -7,7 +7,6 @@ class FeedBackValidationController
 {
     private static int $maxPerPage = 1;
     private static array $formData;
-    private static array $requestParams;
 
     public function getVariables() : array
     {
@@ -18,17 +17,6 @@ class FeedBackValidationController
         return [
             'feedbacks' => $feedbacks,
         ];
-    }
-
-    public function getJson() 
-    {
-        self::$requestParams = [
-            'page' => $_GET['page'],
-        ];
-
-        $feedbacks = FeedbacksDB->findAll(['date' => 'desc'], 15, self::$maxPerPage * (self::$requestParams['page'] - 1));
-        if(count($feedbacks) === 0) return;
-        echo json_encode($feedbacks);
     }
 
     public function processFormData() : void

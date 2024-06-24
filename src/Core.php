@@ -20,10 +20,6 @@ class Core {
                 $controller->processFormData();
             }
 
-            // if(!empty($_GET)) {
-            //     $controller->getJson();
-            // }
-
             if(str_contains(ROUTE['uri'], '/api') && is_null(ROUTE['template'])) {
                 $controller->getJsonData();
             }
