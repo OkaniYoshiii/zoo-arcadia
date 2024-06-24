@@ -1,4 +1,4 @@
-import { Dialog } from "./Dialog";
+import { Dialog } from "./components/Dialog";
 
 const dialogs = document.querySelectorAll('.dialog') as NodeListOf<HTMLDialogElement>;
 const btns = document.querySelectorAll('.dialog-btn') as NodeListOf<HTMLButtonElement>;

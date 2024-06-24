@@ -1,6 +1,6 @@
-import { Panels } from "./Panels";
-import { Dialog } from "./Dialog";
-import { Filter } from "./Filter";
+import { Panels } from "./components/Panels";
+import { Dialog } from "./components/Dialog";
+import { Filter } from "./components/Filter";
 new Panels('.panels');
 const dialogs = document.querySelectorAll('.animal__dialog');
 const btns = document.querySelectorAll('.animal__btn');

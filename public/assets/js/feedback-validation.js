@@ -1,4 +1,4 @@
-import { Paginator } from "./Paginator";
+import { Paginator } from "./components/Paginator";
 const previousPageBtn = document.querySelector(".feedback-paginator button[data-type='paginator'][data-action='previous']");
 const nextPageBtn = document.querySelector(".feedback-paginator button[data-type='paginator'][data-action='next']");
 const paginator = new Paginator(previousPageBtn, nextPageBtn, '/api/feedbacks');

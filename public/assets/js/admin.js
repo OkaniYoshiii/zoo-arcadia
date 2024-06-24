@@ -1,4 +1,4 @@
-import { Dialog } from "./Dialog";
+import { Dialog } from "./components/Dialog";
 const dialogs = document.querySelectorAll('.dialog');
 const btns = document.querySelectorAll('.dialog-btn');
 for (let i = 0; i < dialogs.length; i++) {

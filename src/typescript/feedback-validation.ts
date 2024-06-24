@@ -1,5 +1,5 @@
-import { Paginator } from "./Paginator";
-import { PageDataType } from "./Paginator";
+import { Paginator } from "./components/Paginator";
+import { PageDataType } from "./components/Paginator";
 
 type FeedbackDataType = {
     'maxPerPage' : number,

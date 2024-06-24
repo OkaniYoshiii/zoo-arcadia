@@ -1,4 +1,3 @@
-// import { Slider } from "./Slider";
 export { GallerySlider };
 
 class GallerySlider {
