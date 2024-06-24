@@ -20,15 +20,15 @@ class Router
         $this->currentRoute['method'] = REQUEST['method'];
         $this->currentRoute['uri'] = REQUEST['uri'];
 
-        $templateName = $routes[REQUEST['method']][REQUEST['uri']][0] ?? null;
+        $templateName = $routes[REQUEST['method']][REQUEST['uri']][0];
 
-        if(is_null($templateName)) throw new \Exception('No route found for uri : ' . REQUEST['uri']);
+        if(empty($templateName) && !is_null($templateName)) throw new \Exception('No route found for uri : ' . REQUEST['uri']);
         if(!file_exists(TEMPLATE_DIR . '/' . $templateName)) throw new \Exception('Template \'' . TEMPLATE_DIR . '/' . $templateName . '\' does not exists !');
 
         $controllerName = $routes[REQUEST['method']][REQUEST['uri']][1] ?? null;
 
         if(is_null($controllerName)) throw new \Exception('No controller found for uri : ' . REQUEST['uri']);
-        if(!file_exists(CONTROLLER_DIR . '/' . $controllerName . '.php') && !file_exists(CONTROLLER_DIR . '/admin/' . $controllerName . '.php')) throw new \Exception('Controller \'' . CONTROLLER_DIR . '/' . $controllerName . '.php' . ' does not exists !');
+        if(!file_exists(CONTROLLER_DIR . '/' . $controllerName . '.php') && !file_exists(CONTROLLER_DIR . '/admin/' . $controllerName . '.php' ) && !file_exists(CONTROLLER_DIR . '/api/' . $controllerName . '.php' )) throw new \Exception('Controller \'' . CONTROLLER_DIR . '/' . $controllerName . '.php' . ' does not exists !');
         
         $this->currentRoute['template'] = $templateName;
         $this->currentRoute['controller'] = $controllerName;

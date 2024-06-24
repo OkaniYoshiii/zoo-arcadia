@@ -20,10 +20,21 @@ class Core {
                 $controller->processFormData();
             }
 
-            $variables = $controller->getVariables();
-        }
+            // if(!empty($_GET)) {
+            //     $controller->getJson();
+            // }
 
-        echo TWIG->render(ROUTE['template'], $variables);
+            if(str_contains(ROUTE['uri'], '/api') && is_null(ROUTE['template'])) {
+                $controller->getJsonData();
+            }
+
+            if(!is_null(ROUTE['template'])) {
+                $variables = $controller->getVariables();
+            }
+        }
+        if(!is_null(ROUTE['template'])) {
+            echo TWIG->render(ROUTE['template'], $variables);
+        }
 
         Database::disconnect();
     }

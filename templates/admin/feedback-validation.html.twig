@@ -1,0 +1,49 @@
+{% extends "admin/admin.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ CSS_DIR ~ '/pages/admin/feedback-validation.css' }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="module" src="{{ JS_DIR ~ '/feedback-validation.js'}}"></script>
+{% endblock %}
+
+{% block main %}
+    <section>
+        <div class="size-medium">
+            <h1>Validation des avis du site</h1>
+            <h2>Liste des avis :</h2>
+                <ul class="feedbacks | list-unstyled">  
+                </ul>
+            <div class="feedback-paginator | d-flex justify-content-between">
+                <button data-type="paginator" data-action="previous">Page précédente</button>
+                <button data-type="paginator" data-action="next">Page suivante</button>
+            </div>
+        </div>
+    </section>
+
+    <template id="feedback-template">
+        <li class="feedback">
+            <p><span class="fw-bold color-primary">Publié le : </span><span data-property="date"></span></p>
+            <p><span class="fw-bold color-primary">Par : </span><span data-property="username"></span></p>
+            <p><span class="fw-bold color-primary">Contenu : </span><span data-property="content"></span><br></p>
+            <form class="feedback-validation-form" action="" method="POST" autocomplete="off">
+                <fieldset>
+                    <legend>Valider l'avis ?</legend>
+                    <div class="feedback-validation-form__inputs">
+                        <div class="form-input">
+                            <label class="form-input__label" for="feedback-validation-true">Oui</label>
+                            <input class="form-input__input" type="radio" value="true" name="isValidated" id="feedback-validation-true">
+                        </div>
+                        <div class="form-input">
+                            <label class="form-input__label" for="feedback-validation-false">Non</label>
+                            <input class="form-input__input" type="radio" value="false" name="isValidated" id="feedback-validation-false">
+                        </div>
+                        <input type="hidden" name="feedbackId" value="">
+                    </div>
+                </fieldset>
+                <button class="button--active">Confirmer</button>
+            </form>
+        </li>
+    </template>
+{% endblock %}

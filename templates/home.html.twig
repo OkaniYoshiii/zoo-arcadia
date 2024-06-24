@@ -262,13 +262,14 @@
                         <label class="form-input__label" for="content">Avis :</label>
                         <textarea class="form-input__input" form="feedback-form" type="text" name="content" id="content"></textarea>
                     </div>
-                    <button class="button--active">Donner votre avis</button>
+                    <input type="hidden" name="date" value="{{ "now"|date('d/m/Y') }}">
+                    <button class="button--active">Donner votre avis</button> 
                 </form>
             </div>
             <div class="feedbacks">
                 {% for feedback in feedbacks %}
-                    <div>
-                        <p><span class="fw-bold color-primary">Publié le : </span>{{ feedback.publish_date }}</p>
+                    <div class="feedback">
+                        <p><span class="fw-bold color-primary">Publié le : </span>{{ feedback.date }}</p>
                         <p><span class="fw-bold color-primary">Par : </span>{{ feedback.username }}</p>
                         <p>{{ feedback.content }}</p>
                     </div>

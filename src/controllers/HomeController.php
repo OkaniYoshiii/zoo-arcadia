@@ -39,12 +39,6 @@ class HomeController {
             "Visite des habitats" => "https://picsum.photos/600"
         ];
         
-        // $feedbacks = [ 
-        //     ["publish_date" => "05-02-2024", "user" => "Jean Marie Guillemot", "content" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore ratione qui neque soluta impedit, aspernatur illum? Amet fugiat, natus, asperiores enim harum laudantium veniam voluptatum, quaerat qui exercitationem distinctio sed."],
-        //     ["publish_date" => "06-02-2022", "user" => "Baptiste LeGuillemet", "content" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore ratione qui neque soluta impedit, aspernatur illum? Amet fugiat, natus, asperiores enim harum laudantium veniam voluptatum, quaerat qui exercitationem distinctio sed."],
-        //     ["publish_date" => "25-06-2021", "user" => "Pierre Patate", "content" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore ratione qui neque soluta impedit, aspernatur illum? Amet fugiat, natus, asperiores enim harum laudantium veniam voluptatum, quaerat qui exercitationem distinctio sed."]
-        // ];
-        
         $pages = [
             "current" => 1,
             "total" => 1
@@ -53,7 +47,7 @@ class HomeController {
         return [
             "domains" => $domains,
             "services" => $services,
-            "feedbacks" => self::getAllFeedbacks(),
+            "feedbacks" => self::getAllValidatedFeedbacks(),
             "pages" => $pages
         ];
     }
@@ -62,23 +56,30 @@ class HomeController {
     {
         self::$formData = [
             'username' => $_POST['username'] ?? null,
-            'content' => $_POST['content'] ?? null
+            'content' => $_POST['content'] ?? null,
+            'date' => $_POST['date'] ?? null
         ];
 
+        $feedbacks = self::getAllValidatedFeedbacks();
+        
         self::createFeedback();
-        $feedbacks = self::getAllFeedbacks();
 
-        echo json_encode(self::$formData);
+        echo json_encode($feedbacks);
         die();
     }
 
     public static function createFeedback() : void
     {
-        FeedbacksDB->insert(['username' => self::$formData['username'], 'content' => self::$formData['content']]);
+        FeedbacksDB->insert([
+            'username' => self::$formData['username'],
+            'content' => self::$formData['content'],
+            'date' => self::$formData['date'],
+            'is_validated' => false
+        ]);
     }
 
-    public static function getAllFeedbacks() : array
+    public static function getAllValidatedFeedbacks() : array
     {
-        return FeedbacksDB->findAll();
+        return FeedbacksDB->findBy(['is_validated', '===', 'true'],['date' => 'desc']);
     }
 }
