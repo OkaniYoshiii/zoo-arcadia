@@ -8,6 +8,26 @@ class Role
     private string $name;
 
     /**
+     * Get the value of role_id
+     */ 
+    public function getRole_id()
+    {
+        return $this->role_id;
+    }
+
+    /**
+     * Set the value of role_id
+     *
+     * @return  self
+     */ 
+    public function setRole_id($role_id)
+    {
+        $this->role_id = $role_id;
+
+        return $this;
+    }
+
+    /**
      * Get the value of name
      */ 
     public function getName()
@@ -16,10 +36,14 @@ class Role
     }
 
     /**
-     * Get the value of id
+     * Set the value of name
+     *
+     * @return  self
      */ 
-    public function getRoleId()
+    public function setName($name)
     {
-        return $this->role_id;
+        $this->name = $name;
+
+        return $this;
     }
 }
