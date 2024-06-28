@@ -21,18 +21,6 @@ class VeterinarianReport
     }
 
     /**
-     * Set the value of veterinarian_report_id
-     *
-     * @return  self
-     */ 
-    public function setVeterinarianReportId($veterinarian_report_id)
-    {
-        $this->veterinarian_report_id = $veterinarian_report_id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of date
      */ 
     public function getDate()

@@ -17,18 +17,6 @@ class Habitat
     }
 
     /**
-     * Set the value of habitat_id
-     *
-     * @return  self
-     */ 
-    public function setHabitatId($habitat_id)
-    {
-        $this->habitat_id = $habitat_id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of name
      */ 
     public function getName()

@@ -16,18 +16,6 @@ class FoodType
     }
 
     /**
-     * Set the value of food_type_id
-     *
-     * @return  self
-     */ 
-    public function setFoodTypeId($food_type_id)
-    {
-        $this->food_type_id = $food_type_id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of name
      */ 
     public function getName()

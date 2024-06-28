@@ -10,21 +10,9 @@ class Role
     /**
      * Get the value of role_id
      */ 
-    public function getRole_id()
+    public function getRoleId()
     {
         return $this->role_id;
-    }
-
-    /**
-     * Set the value of role_id
-     *
-     * @return  self
-     */ 
-    public function setRole_id($role_id)
-    {
-        $this->role_id = $role_id;
-
-        return $this;
     }
 
     /**

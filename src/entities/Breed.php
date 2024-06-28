@@ -16,18 +16,6 @@ class Breed
     }
 
     /**
-     * Set the value of breed_id
-     *
-     * @return  self
-     */ 
-    public function setBreedId($breed_id)
-    {
-        $this->breed_id = $breed_id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of name
      */ 
     public function getName()

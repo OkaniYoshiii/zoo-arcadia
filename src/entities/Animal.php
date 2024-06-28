@@ -20,18 +20,6 @@ class Animal
     }
 
     /**
-     * Set the value of animal_id
-     *
-     * @return  self
-     */ 
-    public function setAnimalId($animal_id)
-    {
-        $this->animal_id = $animal_id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of firstname
      */ 
     public function getFirstname()

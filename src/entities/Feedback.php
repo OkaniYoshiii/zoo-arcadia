@@ -21,18 +21,6 @@ class Feedback
     }
 
     /**
-     * Set the value of feedback_id
-     *
-     * @return  self
-     */ 
-    public function setFeedbackId($feedback_id)
-    {
-        $this->feedback_id = $feedback_id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of username
      */ 
     public function getUsername()
