@@ -11,11 +11,43 @@ class User
     private string $role_name;
 
     /**
+     * Get the value of user_id
+     */ 
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set the value of user_id
+     *
+     * @return  self
+     */ 
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
      * Get the value of username
      */ 
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Set the value of username
+     *
+     * @return  self
+     */ 
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     /**
@@ -27,11 +59,35 @@ class User
     }
 
     /**
+     * Set the value of firstname
+     *
+     * @return  self
+     */ 
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
      * Get the value of lastname
      */ 
     public function getLastname()
     {
         return $this->lastname;
+    }
+
+    /**
+     * Set the value of lastname
+     *
+     * @return  self
+     */ 
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
     }
 
     /**
@@ -43,10 +99,14 @@ class User
     }
 
     /**
-     * Get the value of id
+     * Set the value of role_name
+     *
+     * @return  self
      */ 
-    public function getUserId()
+    public function setRoleName($role_name)
     {
-        return $this->user_id;
+        $this->role_name = $role_name;
+
+        return $this;
     }
 }
