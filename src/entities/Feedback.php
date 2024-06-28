@@ -12,24 +12,24 @@ class Feedback
     private DateTime $date;
     private bool $is_validated;
 
-    public function  __construct(array $properties)
-    {
-        foreach($properties as $key => $value)
-        {
-            match($key) {
-                'date' => $this->date = DateTime::createFromFormat('d/m/Y', $value),
-                '_id' => $this->feedback_id = $value,
-                default => $this->{$key} = $value,
-            };
-        }
-    }
-
     /**
      * Get the value of feedback_id
      */ 
     public function getFeedbackId()
     {
         return $this->feedback_id;
+    }
+
+    /**
+     * Set the value of feedback_id
+     *
+     * @return  self
+     */ 
+    public function setFeedbackId($feedback_id)
+    {
+        $this->feedback_id = $feedback_id;
+
+        return $this;
     }
 
     /**
@@ -41,11 +41,35 @@ class Feedback
     }
 
     /**
+     * Set the value of username
+     *
+     * @return  self
+     */ 
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
      * Get the value of content
      */ 
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set the value of content
+     *
+     * @return  self
+     */ 
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
     }
 
     /**
@@ -57,10 +81,38 @@ class Feedback
     }
 
     /**
+     * Set the value of date
+     *
+     * @return  self
+     */ 
+    public function setDate(string|DateTime $date)
+    {
+        match(gettype($date)) 
+        {
+            'string' => $this->date = DateTime::createFromFormat('d/m/Y', $date),
+            'object' => $this->date = $date,
+        };
+
+        return $this;
+    }
+
+    /**
      * Get the value of is_validated
      */ 
     public function getIsValidated()
     {
         return $this->is_validated;
+    }
+
+    /**
+     * Set the value of is_validated
+     *
+     * @return  self
+     */ 
+    public function setIsValidated($is_validated)
+    {
+        $this->is_validated = $is_validated;
+
+        return $this;
     }
 }
