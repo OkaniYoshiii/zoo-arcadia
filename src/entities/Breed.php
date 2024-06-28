@@ -7,6 +7,13 @@ class Breed
     private int $breed_id;
     private string $name;
 
+    public function __construct(array $properties = null)
+    {
+        if(is_null($properties)) return;
+
+        $this->setName($properties['name']);
+    }
+
     /**
      * Get the value of breed_id
      */ 

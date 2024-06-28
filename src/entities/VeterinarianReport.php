@@ -12,6 +12,18 @@ class VeterinarianReport
     private int $food_type_id;
     private int $animal_id;
 
+    public function __construct(array $properties = null)
+    {
+        if(is_null($properties)) return;
+
+        $this->setDate($properties['date']);
+        $this->setDetail($properties['detail']);
+        $this->setFoodQuantity($properties['food_quantity']);
+        $this->setUserId($properties['user_id']);
+        $this->setFoodTypeId($properties['food_type_id']);
+        $this->setAnimalId($properties['animal_id']);
+    }
+
     /**
      * Get the value of veterinarian_report_id
      */ 

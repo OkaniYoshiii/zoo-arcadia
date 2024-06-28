@@ -7,6 +7,13 @@ class Role
     private int $role_id;
     private string $name;
 
+    public function __construct(array $properties = null)
+    {
+        if(is_null($properties)) return;
+        
+        $this->setName($properties['name']);
+    }
+
     /**
      * Get the value of role_id
      */ 

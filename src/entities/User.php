@@ -10,6 +10,16 @@ class User
     private string $lastname;
     private string $role_name;
 
+    public function __construct(array $properties = null)
+    {
+        if(is_null($properties)) return;
+
+        $this->setUsername($properties['username']);
+        $this->setFirstname($properties['firstname']);
+        $this->setLastname($properties['lastname']);
+        $this->setRoleName($properties['role_name']);
+    }
+
     /**
      * Get the value of user_id
      */ 

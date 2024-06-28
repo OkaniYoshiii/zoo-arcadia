@@ -7,6 +7,13 @@ class FoodType
     private int $food_type_id;
     private string $name;
 
+    public function __construct(array $properties = null)
+    {
+        if(is_null($properties)) return;
+
+        $this->setName($properties['name']);
+    }
+
     /**
      * Get the value of food_type_id
      */ 

@@ -8,6 +8,14 @@ class Habitat
     private string $name;
     private string $description;
 
+    public function __construct(array $properties = null)
+    {
+        if(is_null($properties)) return;
+
+        $this->setName($properties['name']);
+        $this->setDescription($properties['description']);
+    }
+
     /**
      * Get the value of habitat_id
      */ 

@@ -11,6 +11,17 @@ class Animal
     private int $habitat_id;
     private int|null $views;
 
+    public function __construct(array $properties = null)
+    {
+        if(is_null($properties)) return;
+
+        $this->setFirstname($properties['firstname']);
+        $this->setState($properties['state']);
+        $this->setBreedId($properties['breed_id']);
+        $this->setHabitatId($properties['habitat_id']);
+        $this->setViews($properties['views'] ?? null);
+    }
+
     /**
      * Get the value of animal_id
      */ 

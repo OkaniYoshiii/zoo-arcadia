@@ -12,6 +12,16 @@ class Feedback
     private DateTime $date;
     private bool $is_validated;
 
+    public function __construct(array $properties = null)
+    {
+        if(is_null($properties)) return;
+
+        $this->setUsername($properties['username']);
+        $this->setContent($properties['content']);
+        $this->setDate($properties['date']);
+        $this->setIsValidated($properties['is_validated']);
+    }
+
     /**
      * Get the value of feedback_id
      */ 
