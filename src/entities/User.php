@@ -8,7 +8,8 @@ class User
     private string $username;
     private string $firstname;
     private string $lastname;
-    private string $role_name;
+    private string $password;
+    private string $role_id;
 
     public function __construct(array $properties = null)
     {
@@ -17,7 +18,7 @@ class User
         $this->setUsername($properties['username']);
         $this->setFirstname($properties['firstname']);
         $this->setLastname($properties['lastname']);
-        $this->setRoleName($properties['role_name']);
+        $this->setRoleId($properties['role_id']);
     }
 
     /**
@@ -89,21 +90,41 @@ class User
     }
 
     /**
-     * Get the value of role_name
+     * Get the value of password
      */ 
-    public function getRoleName()
+    public function getPassword()
     {
-        return $this->role_name;
+        return $this->password;
     }
 
     /**
-     * Set the value of role_name
+     * Set the value of password
      *
      * @return  self
      */ 
-    public function setRoleName($role_name)
+    public function setPassword($password)
     {
-        $this->role_name = $role_name;
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of role_id
+     */ 
+    public function getRoleId()
+    {
+        return $this->role_id;
+    }
+
+    /**
+     * Set the value of role_id
+     *
+     * @return  self
+     */ 
+    public function setRoleId($role_id)
+    {
+        $this->role_id = $role_id;
 
         return $this;
     }
