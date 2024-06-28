@@ -1,0 +1,27 @@
+.feedbacks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.feedback {
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: rgb(240, 240, 240);
+}
+
+.feedback-validation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.feedback-validation-form fieldset {
+  border-radius: 5px;
+  font-weight: bold;
+}
+.feedback-validation-form__inputs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/*# sourceMappingURL=feedback-validation.css.map */

@@ -1,6 +1,6 @@
-import { DomainsSlider } from "./DomainsSlider";
-import { GallerySlider } from "./GallerySlider";
-import { NavMenu } from "./NavMenu";
+import { DomainsSlider } from "./components/DomainsSlider";
+import { GallerySlider } from "./components/GallerySlider";
+import { NavMenu } from "./components/NavMenu";
 
 new NavMenu('.menu-toggle');
 new DomainsSlider('.domains', '.domain', '.domains__title button');

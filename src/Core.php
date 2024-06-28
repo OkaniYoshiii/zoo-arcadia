@@ -16,14 +16,21 @@ class Core {
             $controllerName = ROUTE['controller'];
             $controller = new $controllerName();
 
-            if(ROUTE['method'] === 'POST') {
+            if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $controller->processFormData();
             }
 
-            $variables = $controller->getVariables();
-        }
+            if(str_contains(ROUTE['uri'], '/api') && is_null(ROUTE['template'])) {
+                $controller->getJsonData();
+            }
 
-        echo TWIG->render(ROUTE['template'], $variables);
+            if(!is_null(ROUTE['template'])) {
+                $variables = $controller->getVariables();
+            }
+        }
+        if(!is_null(ROUTE['template'])) {
+            echo TWIG->render(ROUTE['template'], $variables);
+        }
 
         Database::disconnect();
     }

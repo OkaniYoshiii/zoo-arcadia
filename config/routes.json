@@ -14,10 +14,16 @@
         "/admin/animaux" : ["admin/animals.html.twig", "AnimalsCrudController"],
         "/admin/habitats" : ["admin/habitats.html.twig", "HabitatsCrudController"],
         "/admin/services" : ["admin/services.html.twig", "ServicesCrudController"],
-        "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController"]
+        "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController"],
+        "/admin/validation-avis" : ["admin/feedback-validation.html.twig", "FeedbackValidationController"],
+
+        "/api/feedbacks" : [null, "FeedbackApiController"]
     },
 
     "POST" : {
+        "/" : ["home.html.twig", "HomeController"],
+        
+        "/admin" : ["admin/admin.html.twig", "AdminDashboardController"],
         "/admin/utilisateurs" : ["admin/users.html.twig", "UsersCrudController"],
         "/admin/horaires" : ["admin/schedules.html.twig", "SchedulesCrudController"],
         "/admin/avis" : ["admin/notices.html.twig", "NoticesCrudController"],
@@ -25,6 +31,7 @@
         "/admin/animaux" : ["admin/animals.html.twig", "AnimalsCrudController"],
         "/admin/habitats" : ["admin/habitats.html.twig", "HabitatsCrudController"],
         "/admin/services" : ["admin/services.html.twig", "ServicesCrudController"],
-        "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController"]
+        "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController"],
+        "/admin/validation-avis" : ["admin/feedback-validation.html.twig", "FeedbackValidationController"]
     }
 }

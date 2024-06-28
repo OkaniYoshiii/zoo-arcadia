@@ -9,7 +9,13 @@ class AnimalsTable extends Database implements TableInterface
     {
         self::$statement = self::$pdo->query('SELECT * FROM animals');
 
-        return self::$statement->fetchAll(PDO::FETCH_CLASS, Animal::class);
+        $animals = self::$statement->fetchAll(PDO::FETCH_CLASS, Animal::class);
+        $animals = array_map(function(Animal $animal) {
+            $animalsViews = AnimalsViewsDB->findById($animal->getAnimalId())['views'];
+            if(!is_null($animalsViews)) $animal->setViews($animalsViews);
+            return $animal;
+        }, $animals);
+        return $animals;
     }
 
     static public function create(array $properties) : void
