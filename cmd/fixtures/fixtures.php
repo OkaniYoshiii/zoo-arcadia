@@ -1,6 +1,9 @@
 <?php
 
+use App\Entity\Animal;
+use App\Entity\Breed;
 use App\Entity\FoodType;
+use App\Models\Table\AnimalsTable;
 use App\Models\Table\BreedsTable;
 use App\Models\Table\FoodTypesTable;
 use App\Models\Table\HabitatsTable;
@@ -73,26 +76,26 @@ $animals = [
     [
         'firstname' => 'Pierre',
         'state' => 'Malade',
-        'breed_id' => $breeds[0],
-        'habitat_id' => $habitats[0],
+        'breed_name' => $breeds[0]['name'],
+        'habitat_name' => $habitats[0]['name'],
     ],
     [
         'firstname' => 'Pierre',
         'state' => 'Malade',
-        'breed_id' => $breeds[0],
-        'habitat_id' => $habitats[0],
+        'breed_name' => $breeds[0]['name'],
+        'habitat_name' => $habitats[0]['name'],
     ],
     [
         'firstname' => 'Pierre',
         'state' => 'Malade',
-        'breed_id' => $breeds[0],
-        'habitat_id' => $habitats[0],
+        'breed_name' => $breeds[0]['name'],
+        'habitat_name' => $habitats[0]['name'],
     ],
     [
         'firstname' => 'Pierre',
         'state' => 'Malade',
-        'breed_id' => $breeds[0],
-        'habitat_id' => $habitats[0],
+        'breed_name' => $breeds[0]['name'],
+        'habitat_name' => $habitats[0]['name'],
     ]
 ];
 
@@ -104,34 +107,37 @@ function createFoodTypes(array $foodTypes) : void
 {
     FoodTypesTable::truncate();
     
-    foreach($foodTypes as $type)
+    foreach($foodTypes as $foodType)
     {
-        $foodType = new FoodType();
-        $foodType->setName($type);
-        FoodTypesTable::create($foodType);
+        $entity = new FoodType($foodType);
+        FoodTypesTable::create($entity);
     }
 }
 
-function createBreeds(array $values) : void
+function createBreeds(array $breeds) : void
 {
     BreedsTable::truncate();
 
-    foreach($values as $value)
+    foreach($breeds as $breed)
     {
-        $properties = ['name' => $value];
-        BreedsTable::create($properties);
+        $entity = new Breed($breed);
+        BreedsTable::create($entity);
     }
 }
 
 
-function createAnimals(array $values) : void
-{
-    $breeds = BreedsTable::getAll();
-    $habitats = HabitatsTable::getAll();
-    
-    foreach($breeds as $breed)
+function createAnimals(array $animals) : void
+{  
+    foreach($animals as $animal)
     {
-        $values['breed_id'][] = $breed->getBreedId();
+        $breed = BreedsTable::getOneBy('name', $animal['breed_name']);
+        $animal['breed_id'] = ($breed) ? $breed->getBreedId() : null;
+
+        $habitat = HabitatsTable::getOneBy('name', $animal['habitat_name']);
+        $animal['habitat_id'] = ($habitat) ? $habitat->getHabitatId() : null;
+
+        $entity = new Animal($animal);
+        AnimalsTable::create($entity);
     };
 }
 

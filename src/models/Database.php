@@ -25,6 +25,9 @@ class Database {
         if($calledClass == 'Database') return;
         if(!str_ends_with($calledClass, 'Table')) return;
 
+        $calledClass = explode('\\', $calledClass);
+        $calledClass = end($calledClass);
+
         $targetTable = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', (str_replace('Table','',$calledClass))));
         self::$pdo->query('TRUNCATE TABLE ' . $targetTable);
     }
