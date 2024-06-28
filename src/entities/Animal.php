@@ -20,11 +20,35 @@ class Animal
     }
 
     /**
+     * Set the value of animal_id
+     *
+     * @return  self
+     */ 
+    public function setAnimalId($animal_id)
+    {
+        $this->animal_id = $animal_id;
+
+        return $this;
+    }
+
+    /**
      * Get the value of firstname
      */ 
     public function getFirstname()
     {
         return $this->firstname;
+    }
+
+    /**
+     * Set the value of firstname
+     *
+     * @return  self
+     */ 
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+
+        return $this;
     }
 
     /**
@@ -36,6 +60,18 @@ class Animal
     }
 
     /**
+     * Set the value of state
+     *
+     * @return  self
+     */ 
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
      * Get the value of breed_id
      */ 
     public function getBreedId()
@@ -44,11 +80,35 @@ class Animal
     }
 
     /**
+     * Set the value of breed_id
+     *
+     * @return  self
+     */ 
+    public function setBreedId($breed_id)
+    {
+        $this->breed_id = $breed_id;
+
+        return $this;
+    }
+
+    /**
      * Get the value of habitat_id
      */ 
     public function getHabitatId()
     {
         return $this->habitat_id;
+    }
+
+    /**
+     * Set the value of habitat_id
+     *
+     * @return  self
+     */ 
+    public function setHabitatId($habitat_id)
+    {
+        $this->habitat_id = $habitat_id;
+
+        return $this;
     }
 
     /**

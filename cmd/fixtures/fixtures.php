@@ -1,6 +1,8 @@
 <?php
 
 use App\Entity\FoodType;
+use App\Models\Table\BreedsTable;
+use App\Models\Table\FoodTypesTable;
 use App\Models\Table\HabitatsTable;
 
 $rootDir = './';
