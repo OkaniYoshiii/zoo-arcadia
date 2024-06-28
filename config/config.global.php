@@ -2,6 +2,10 @@
 
 if(!isset($rootDir)) $rootDir = '../';
 
+// Autorise la création de fixtures sur l'application via la CLI
+// ATTENTION : ceci écrase toutes les données de votre base de données !
+define('ALLOW_FIXTURES_CREATION', false);
+
 // SRC DIRECTORY
 define('APP_DIR', $rootDir . 'src');
 define('CONFIG_DIR', $rootDir . 'config');
