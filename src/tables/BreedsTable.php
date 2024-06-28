@@ -1,8 +1,13 @@
 <?php
 
-use App\Interface\TableInterface;
+namespace App\Models\Table;
 
-class BreedsTable extends Database implements TableInterface
+use App\Entity\Breed;
+use App\Interfaces\Tables\BreedsTableInterface;
+use Database;
+use PDO;
+
+class BreedsTable extends Database implements BreedsTableInterface
 {
     public static function getAll() : array
     {
@@ -10,7 +15,7 @@ class BreedsTable extends Database implements TableInterface
         return self::$statement->fetchAll(PDO::FETCH_CLASS, Breed::class);
     }
 
-    public static function create(array $properties) : void
+    public static function create(Breed $properties) : void
     {
        self::$statement = self::$pdo->prepare('INSERT INTO breeds (breeds.name) VALUES (:name)');
 
@@ -19,7 +24,7 @@ class BreedsTable extends Database implements TableInterface
        self::$statement->execute();
     }
 
-    public static function update(array $properties) : void 
+    public static function update(Breed $properties) : void 
     {
 
     }
@@ -29,7 +34,7 @@ class BreedsTable extends Database implements TableInterface
 
     }
 
-    public static function isAlreadyRegistered(array $properties) : bool 
+    public static function isAlreadyRegistered(Breed $properties) : bool 
     {
         return false;
     }

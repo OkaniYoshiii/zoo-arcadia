@@ -1,9 +1,13 @@
 <?php
 
-use App\Entity\Animal;
-use App\Interface\TableInterface;
+namespace App\Models\Table;
 
-class AnimalsTable extends Database implements TableInterface
+use App\Entity\Animal;
+use App\Interfaces\Tables\AnimalsTableInterface;
+use Database;
+use PDO;
+
+class AnimalsTable extends Database implements AnimalsTableInterface
 {
     static public function getAll() : array
     {
@@ -18,12 +22,12 @@ class AnimalsTable extends Database implements TableInterface
         return $animals;
     }
 
-    static public function create(array $properties) : void
+    static public function create(Animal $properties) : void
     {
 
     }
 
-    static public function update(array $properties) : void
+    static public function update(Animal $properties) : void
     {
 
     }
@@ -31,7 +35,7 @@ class AnimalsTable extends Database implements TableInterface
     {
 
     }
-    static public function isAlreadyRegistered(array $properties) : bool
+    static public function isAlreadyRegistered(Animal $properties) : bool
     {
         return false;
     }

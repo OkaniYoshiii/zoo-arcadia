@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Entity;
+
 class Role
 {
     private int $role_id;

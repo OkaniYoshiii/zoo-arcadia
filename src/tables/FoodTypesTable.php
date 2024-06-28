@@ -1,9 +1,13 @@
 <?php
 
-use App\Entity\FoodType;
-use App\Interface\TableInterface;
+namespace App\Models\Table;
 
-class FoodTypesTable extends Database implements TableInterface
+use App\Entity\FoodType;
+use App\Interfaces\Tables\FoodTypesTableInterface;
+use Database;
+use PDO;
+
+class FoodTypesTable extends Database implements FoodTypesTableInterface
 {
     static public function getAll() : array
     {
@@ -12,7 +16,7 @@ class FoodTypesTable extends Database implements TableInterface
         return self::$statement->fetchAll(PDO::FETCH_CLASS, FoodType::class);
     }
 
-    static public function create(array $properties) : void
+    static public function create(FoodType $properties) : void
     {
         self::$statement = self::$pdo->prepare('INSERT INTO food_types (food_types.name) VALUES (:name)');
 
@@ -21,7 +25,7 @@ class FoodTypesTable extends Database implements TableInterface
         self::$statement->execute();
     }
 
-    static public function update(array $properties) : void
+    static public function update(FoodType $properties) : void
     {
 
     }
@@ -31,7 +35,7 @@ class FoodTypesTable extends Database implements TableInterface
 
     }
 
-    static public function isAlreadyRegistered(array $properties): bool
+    static public function isAlreadyRegistered(FoodType $properties): bool
     {
         return false;
     }

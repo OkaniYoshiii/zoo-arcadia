@@ -10,6 +10,7 @@ define('ADMIN_CONTROLLER_DIR', CONTROLLER_DIR . '/admin');
 define('API_CONTROLLER_DIR', CONTROLLER_DIR . '/api');
 
 define('MODELS_DIR', APP_DIR . '/models');
+define('TABLES_DIR', APP_DIR . '/tables');
 define('ENTITIES_DIR', APP_DIR . '/entities');
 define('OBJECTS_DIR', APP_DIR . '/objects');
 define('INTERFACES_DIR', APP_DIR . '/interfaces');
@@ -23,6 +24,6 @@ define('TEMPLATE_DIR', $rootDir . 'templates');
 define('TEMPLATE_PARTS_DIR', $rootDir . 'templates/template-parts');
 
 // REQUIRED FOR AUTOLOADER
-define('SRC_FOLDERS', [APP_DIR, CONTROLLER_DIR, MODELS_DIR, ENTITIES_DIR, OBJECTS_DIR, INTERFACES_DIR, ADMIN_CONTROLLER_DIR, API_CONTROLLER_DIR]);
+define('SRC_FOLDERS', [APP_DIR, CONTROLLER_DIR, MODELS_DIR, ENTITIES_DIR, OBJECTS_DIR, INTERFACES_DIR, ADMIN_CONTROLLER_DIR, API_CONTROLLER_DIR, TABLES_DIR]);
 
 require_once 'config.local.php';

@@ -1,9 +1,13 @@
 <?php
 
-use App\Entity\VeterinarianReport;
-use App\Interface\TableInterface;
+namespace App\Models\Table;
 
-class VeterinarianReportsTable extends Database implements TableInterface
+use App\Entity\VeterinarianReport;
+use App\Interfaces\Tables\VeterinarianReportsTableInterface;
+use Database;
+use PDO;
+
+class VeterinarianReportsTable extends Database implements VeterinarianReportsTableInterface
 {
     static public function getAll() : array
     {
@@ -12,12 +16,12 @@ class VeterinarianReportsTable extends Database implements TableInterface
         return self::$statement->fetchAll(PDO::FETCH_CLASS, VeterinarianReport::class);
     }
 
-    static public function create(array $properties) : void
+    static public function create(VeterinarianReport $report) : void
     {
 
     }
 
-    static public function update(array $properties) : void
+    static public function update(VeterinarianReport $report) : void
     {
 
     }
@@ -31,14 +35,14 @@ class VeterinarianReportsTable extends Database implements TableInterface
         self::$statement->execute();
     }
 
-    static function isAlreadyRegistered(array $properties) : bool
+    static function isAlreadyRegistered(VeterinarianReport $report) : bool
     {
         self::$statement = self::$pdo->prepare('SELECT id FROM veterinarianReports as vr WHERE vr.date = :date AND vr.food_quantity = :food_quantity AND vr.user_id = :user_id AND vr.animal_id = :animal_id');
 
-        self::$statement->bindParam(':date', $properties['date']);
-        self::$statement->bindParam(':food_quantity', $properties['foodQuantity']);
-        self::$statement->bindParam(':user_id', $properties['userId']);
-        self::$statement->bindParam(':animal_id', $properties['animalId']);
+        self::$statement->bindParam(':date', $report->getDate());
+        self::$statement->bindParam(':food_quantity', $report->getFoodQuantity());
+        self::$statement->bindParam(':user_id', $report->getUserId());
+        self::$statement->bindParam(':animal_id', $report->getAnimalId());
 
         self::$statement->execute();
         $result = self::$statement->fetch();

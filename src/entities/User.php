@@ -1,6 +1,6 @@
 <?php
 
-use App\Entity\Role;
+namespace App\Entity;
 
 class User 
 {
