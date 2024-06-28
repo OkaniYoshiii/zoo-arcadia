@@ -9,6 +9,7 @@ class Animal
     private string $state;
     private int $breed_id;
     private int $habitat_id;
+    private int|null $views;
 
     /**
      * Get the value of animal_id
@@ -48,5 +49,25 @@ class Animal
     public function getHabitatId()
     {
         return $this->habitat_id;
+    }
+
+    /**
+     * Get the value of views
+     */ 
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+     * Set the value of views
+     *
+     * @return  self
+     */ 
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
     }
 }

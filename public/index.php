@@ -22,17 +22,18 @@ define('REQUEST', (array) new Request());
 // CURRENT ROUTE CONSTANT
 use App\Router;
 
-// try {
+try {
     $router = new Router(CONFIG_DIR . '/routes.json');
     define('ROUTE', $router->getCurrentRoute());
-// } catch(Exception $e) {
-//     http_response_code(404);
-//     echo TWIG->render('404.html.twig',[]);
-//     die();
-// }
+} catch(Exception $e) {
+    http_response_code(404);
+    echo TWIG->render('404.html.twig',[]);
+    die();
+}
 
 use SleekDB\Store;
-define('FeedbacksDB', new Store("feedbacks", '../sleekdb', ["timeout" => false]));
+define('FeedbacksDB', new Store('feedbacks', '../sleekdb', ['timeout' => false]));
+define('AnimalsViewsDB', new Store('animalViews', '../sleekdb', ['timeout' => false]));
 
 // CONTROLLERS AUTOINSTANCIATION
 $core = new Core();

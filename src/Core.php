@@ -16,7 +16,7 @@ class Core {
             $controllerName = ROUTE['controller'];
             $controller = new $controllerName();
 
-            if(ROUTE['method'] === 'POST') {
+            if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $controller->processFormData();
             }
 
