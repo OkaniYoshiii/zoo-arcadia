@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Entity;
-
 class FoodType
 {
     private int $food_type_id;
@@ -15,6 +13,18 @@ class FoodType
     public function getFoodTypeId()
     {
         return $this->food_type_id;
+    }
+
+    /**
+     * Set the value of food_type_id
+     *
+     * @return  self
+     */ 
+    public function setFoodTypeId($food_type_id)
+    {
+        $this->food_type_id = $food_type_id;
+
+        return $this;
     }
 
     /**
