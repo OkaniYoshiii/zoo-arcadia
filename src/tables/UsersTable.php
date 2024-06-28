@@ -5,6 +5,7 @@ namespace App\Models\Table;
 use App\Entity\User;
 use App\Interfaces\Tables\UsersTableInterface;
 use Database;
+use Exception;
 use PDO;
 
 class UsersTable extends Database implements UsersTableInterface
@@ -66,5 +67,17 @@ class UsersTable extends Database implements UsersTableInterface
     
         $result = self::$statement->fetch();
         return !empty($result);
+    }
+
+    static public function getOneBy(string $property, $value): User
+    {
+        if(!property_exists(User::class, $property)) throw new Exception('Property ' . $property . ' does not exist on Entity Animal.');
+        self::$statement = self::$pdo->prepare('SELECT * FROM users WHERE :property = :val');
+        
+        self::$statement->bindParam(':property', $property);
+        self::$statement->bindParam(':val', $value);
+
+        self::$statement->execute();
+        return self::$statement->fetch(PDO::FETCH_CLASS, User::class);
     }
 }

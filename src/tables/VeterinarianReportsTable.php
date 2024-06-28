@@ -5,6 +5,7 @@ namespace App\Models\Table;
 use App\Entity\VeterinarianReport;
 use App\Interfaces\Tables\VeterinarianReportsTableInterface;
 use Database;
+use Exception;
 use PDO;
 
 class VeterinarianReportsTable extends Database implements VeterinarianReportsTableInterface
@@ -47,5 +48,17 @@ class VeterinarianReportsTable extends Database implements VeterinarianReportsTa
         self::$statement->execute();
         $result = self::$statement->fetch();
         return !empty($result);
+    }
+
+    static public function getOneBy(string $property, $value): VeterinarianReport
+    {
+        if(!property_exists(VeterinarianReport::class, $property)) throw new Exception('Property ' . $property . ' does not exist on Entity Animal.');
+        self::$statement = self::$pdo->prepare('SELECT * FROM veterinarian_reports WHERE :property = :val');
+        
+        self::$statement->bindParam(':property', $property);
+        self::$statement->bindParam(':val', $value);
+
+        self::$statement->execute();
+        return self::$statement->fetch(PDO::FETCH_CLASS, VeterinarianReport::class);
     }
 }

@@ -8,4 +8,5 @@ interface FoodTypesTableInterface extends TableInterface {
     static public function create(FoodType $foodType) : void;
     static public function update(FoodType $foodType) : void;
     static public function isAlreadyRegistered(FoodType $foodType) : bool;
+    static public function getOneBy(string $property, $value) : FoodType;
 }

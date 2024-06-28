@@ -19,52 +19,80 @@ if(!ALLOW_FIXTURES_CREATION) {
 Database::connect();
 
 $habitats = [
-    'Savane',
-    'Jungle',
-    'Marais'
+    [
+        'name' => 'Savane',
+        'description' => 'lorem ipsum',
+    ],
+    [
+        'name' => 'Jungle',
+        'description' => 'lorem ipsum',
+    ],
+    [
+        'name' => 'Marais',
+        'description' => 'lorem ipsum',
+    ],
 ];
 
 $foodTypes = [
-    'Céréales',
-    'Céréales',
-    'Orge',
-    'Blé',
-    'Viande',
-    'Patate',
+    [
+        'name' => 'Céréales',
+    ],
+    [
+        'name' => 'Orge',
+    ],
+    [
+        'name' => 'Blé',
+    ],
+    [
+        'name' => 'Viande',
+    ],
+    [
+        'name' => 'Patate',
+    ],
 ];
 
 $breeds = [
-    'Lion',
-    'Zèbre',
-    'Hyene',
-    'Elephant',
-    'Tigre'
+    [
+        'name' => 'Lion',
+    ],
+    [
+        'name' => 'Zèbre',
+    ],
+    [
+        'name' => 'Hyene',
+    ],
+    [
+        'name' => 'Elephant',
+    ],
+    [
+        'name' => 'Tigre',
+    ],
 ];
 
 $animals = [
     [
         'firstname' => 'Pierre',
         'state' => 'Malade',
-        'breed' => $breeds[0],
-        'habitat' => $habitats[0],
+        'breed_id' => $breeds[0],
+        'habitat_id' => $habitats[0],
     ],
     [
         'firstname' => 'Pierre',
         'state' => 'Malade',
-        'breed' => $breeds[0],
-        'habitat' => $habitats[0],
+        'breed_id' => $breeds[0],
+        'habitat_id' => $habitats[0],
     ],
     [
         'firstname' => 'Pierre',
         'state' => 'Malade',
-        'breed' => $breeds[0],
-        'habitat' => $habitats[0],
+        'breed_id' => $breeds[0],
+        'habitat_id' => $habitats[0],
     ],
     [
         'firstname' => 'Pierre',
         'state' => 'Malade',
-        'breed' => $breeds[0],
-        'habitat' => $habitats[0],
+        'breed_id' => $breeds[0],
+        'habitat_id' => $habitats[0],
     ]
 ];
 

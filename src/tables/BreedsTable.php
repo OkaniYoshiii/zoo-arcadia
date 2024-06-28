@@ -5,17 +5,18 @@ namespace App\Models\Table;
 use App\Entity\Breed;
 use App\Interfaces\Tables\BreedsTableInterface;
 use Database;
+use Exception;
 use PDO;
 
 class BreedsTable extends Database implements BreedsTableInterface
 {
-    public static function getAll() : array
+    static public function getAll() : array
     {
         self::$statement = self::$pdo->query('SELECT * FROM breeds');
         return self::$statement->fetchAll(PDO::FETCH_CLASS, Breed::class);
     }
 
-    public static function create(Breed $properties) : void
+    static public function create(Breed $properties) : void
     {
        self::$statement = self::$pdo->prepare('INSERT INTO breeds (breeds.name) VALUES (:name)');
 
@@ -24,18 +25,30 @@ class BreedsTable extends Database implements BreedsTableInterface
        self::$statement->execute();
     }
 
-    public static function update(Breed $properties) : void 
+    static public function update(Breed $properties) : void 
     {
 
     }
 
-    public static function delete(int $id) : void 
+    static public function delete(int $id) : void 
     {
 
     }
 
-    public static function isAlreadyRegistered(Breed $properties) : bool 
+    static public function isAlreadyRegistered(Breed $properties) : bool 
     {
         return false;
+    }
+
+    static public function getOneBy(string $property, $value): Breed
+    {
+        if(!property_exists(Breed::class, $property)) throw new Exception('Property ' . $property . ' does not exist on Entity Animal.');
+        self::$statement = self::$pdo->prepare('SELECT * FROM breeds WHERE :property = :val');
+        
+        self::$statement->bindParam(':property', $property);
+        self::$statement->bindParam(':val', $value);
+
+        self::$statement->execute();
+        return self::$statement->fetch(PDO::FETCH_CLASS, Breed::class);
     }
 }

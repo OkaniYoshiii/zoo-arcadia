@@ -5,6 +5,7 @@ namespace App\Models\Table;
 use App\Entity\Role;
 use App\Interfaces\Tables\RolesTableInterface;
 use Database;
+use Exception;
 use PDO;
 
 class RolesTable extends Database implements RolesTableInterface
@@ -34,5 +35,17 @@ class RolesTable extends Database implements RolesTableInterface
     static public function isAlreadyRegistered(Role $role) : bool
     {
         return false;
+    }
+
+    static public function getOneBy(string $property, $value): Role
+    {
+        if(!property_exists(Role::class, $property)) throw new Exception('Property ' . $property . ' does not exist on Entity Animal.');
+        self::$statement = self::$pdo->prepare('SELECT * FROM roles WHERE :property = :val');
+        
+        self::$statement->bindParam(':property', $property);
+        self::$statement->bindParam(':val', $value);
+
+        self::$statement->execute();
+        return self::$statement->fetch(PDO::FETCH_CLASS, Role::class);
     }
 }

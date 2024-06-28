@@ -5,6 +5,7 @@ namespace App\Models\Table;
 use App\Entity\FoodType;
 use App\Interfaces\Tables\FoodTypesTableInterface;
 use Database;
+use Exception;
 use PDO;
 
 class FoodTypesTable extends Database implements FoodTypesTableInterface
@@ -38,5 +39,17 @@ class FoodTypesTable extends Database implements FoodTypesTableInterface
     static public function isAlreadyRegistered(FoodType $properties): bool
     {
         return false;
+    }
+
+    static public function getOneBy(string $property, $value): FoodType
+    {
+        if(!property_exists(FoodType::class, $property)) throw new Exception('Property ' . $property . ' does not exist on Entity Animal.');
+        self::$statement = self::$pdo->prepare('SELECT * FROM food_types WHERE :property = :val');
+        
+        self::$statement->bindParam(':property', $property);
+        self::$statement->bindParam(':val', $value);
+
+        self::$statement->execute();
+        return self::$statement->fetch(PDO::FETCH_CLASS, FoodType::class);
     }
 }
