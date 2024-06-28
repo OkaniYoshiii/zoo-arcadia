@@ -10,7 +10,7 @@ use PDO;
 
 class VeterinarianReportsTable extends Database implements VeterinarianReportsTableInterface
 {
-    static public function getAll() : array
+    static public function getAll() : array|false
     {
         self::$statement = self::$pdo->query('SELECT vr.date, vr.detail, vr.food_quantity FROM veterinarian_reports as vr');
         
@@ -19,7 +19,23 @@ class VeterinarianReportsTable extends Database implements VeterinarianReportsTa
 
     static public function create(VeterinarianReport $report) : void
     {
+        self::$statement = self::$pdo->prepare('INSERT INTO veterinarian_reports AS vr (vr.date, vr.detail, vr.food_quantity, vr.user_id, vr.food_type_id, vr.animal_id) VALUES (:date, :detail, :food_quantity, :user_id, :food_type_id, :animal_id)');
 
+        $date = $report->getDate();
+        $detail = $report->getDetail();
+        $food_quantity = $report->getFoodQuantity();
+        $user_id = $report->getUserId();
+        $food_type_id = $report->getFoodTypeId();
+        $animal_id = $report->getAnimalId();
+
+        self::$statement->bindParam(':date', $date);
+        self::$statement->bindParam(':detail', $detail);
+        self::$statement->bindParam(':food_quantity', $food_quantity);
+        self::$statement->bindParam(':user_id', $user_id);
+        self::$statement->bindParam(':food_type_id', $food_type_id);
+        self::$statement->bindParam(':animal_id', $animal_id);
+
+        self::$statement->execute();
     }
 
     static public function update(VeterinarianReport $report) : void
@@ -50,15 +66,15 @@ class VeterinarianReportsTable extends Database implements VeterinarianReportsTa
         return !empty($result);
     }
 
-    static public function getOneBy(string $property, $value): VeterinarianReport
+    static public function getOneBy(string $property, $value): VeterinarianReport|false
     {
         if(!property_exists(VeterinarianReport::class, $property)) throw new Exception('Property ' . $property . ' does not exist on Entity Animal.');
-        self::$statement = self::$pdo->prepare('SELECT * FROM veterinarian_reports WHERE :property = :val');
+        self::$statement = self::$pdo->prepare('SELECT * FROM veterinarian_reports WHERE ' . $property . ' = :val');
         
-        self::$statement->bindParam(':property', $property);
         self::$statement->bindParam(':val', $value);
 
         self::$statement->execute();
-        return self::$statement->fetch(PDO::FETCH_CLASS, VeterinarianReport::class);
+        self::$statement->setFetchMode(PDO::FETCH_CLASS, VeterinarianReport::class);
+        return self::$statement->fetch();
     }
 }

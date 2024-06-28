@@ -10,7 +10,7 @@ use PDO;
 
 class UsersTable extends Database implements UsersTableInterface
 {
-    static public function getAll() : array
+    static public function getAll() : array|false
     {
         self::$statement = self::$pdo->query('SELECT users.user_id, users.username, users.firstname, users.lastname, roles.name as role_name FROM users LEFT JOIN roles ON users.role_id = roles.role_id');
         
@@ -19,15 +19,19 @@ class UsersTable extends Database implements UsersTableInterface
 
     static public function create(User $user) : void
     {
-        self::$statement = self::$pdo->prepare('INSERT INTO users (users.username, users.pwd, users.firstname, users.lastname, users.role_id) VALUES (:username, :pwd, :firstname, :lastname, :role_id)');
+        self::$statement = self::$pdo->prepare('INSERT INTO users (`username`, `pwd`, `firstname`, `lastname`, `role_id`) VALUES (:username, :pwd, :firstname, :lastname, :role_id)');
         
-        $pwd_hashed = password_hash(hash_hmac("sha256", $user->getPassword(), APP_SECRET), PASSWORD_DEFAULT);
+        $username = $user->getUsername();
+        $password = password_hash(hash_hmac("sha256", $user->getPassword(), APP_SECRET), PASSWORD_DEFAULT);
+        $firstname = $user->getFirstname();
+        $lastname = $user->getLastname();
+        $role_id = $user->getRoleId();
 
-        self::$statement->bindParam(':username', $user->getUsername());
-        self::$statement->bindParam(':pwd', $pwd_hashed);
-        self::$statement->bindParam(':firstname', $user->getFirstname());
-        self::$statement->bindParam(':lastname', $user->getLastname());
-        self::$statement->bindParam(':role_id', $user->getRoleId());
+        self::$statement->bindParam(':username', $username);
+        self::$statement->bindParam(':pwd', $password);
+        self::$statement->bindParam(':firstname', $firstname);
+        self::$statement->bindParam(':lastname', $lastname);
+        self::$statement->bindParam(':role_id', $role_id);
 
         self::$statement->execute();
     }
@@ -36,11 +40,17 @@ class UsersTable extends Database implements UsersTableInterface
     {
         self::$statement = self::$pdo->prepare('UPDATE users SET users.username = :username, users.firstname = :firstname, users.lastname = :lastname, users.role_id = :role_id WHERE users.user_id = :user_id');
         
-        self::$statement->bindParam(':user_id', $user->getId());
-        self::$statement->bindParam(':username', $user->getUsername());
-        self::$statement->bindParam(':firstname', $user->getFirstname());
-        self::$statement->bindParam(':lastname', $user->getLastname());
-        self::$statement->bindParam(':role_id', $user->getRoleId());
+        $user_id = $user->getUserId();
+        $username = $user->getUsername();
+        $firstname = $user->getFirstname();
+        $lastname = $user->getLastname();
+        $role_id = $user->getRoleId();
+
+        self::$statement->bindParam(':user_id', $user_id);
+        self::$statement->bindParam(':username', $username);
+        self::$statement->bindParam(':firstname', $firstname);
+        self::$statement->bindParam(':lastname', $lastname);
+        self::$statement->bindParam(':role_id', $role_id);
 
         self::$statement->execute();
     }
@@ -69,15 +79,15 @@ class UsersTable extends Database implements UsersTableInterface
         return !empty($result);
     }
 
-    static public function getOneBy(string $property, $value): User
+    static public function getOneBy(string $property, $value): User|false
     {
         if(!property_exists(User::class, $property)) throw new Exception('Property ' . $property . ' does not exist on Entity Animal.');
-        self::$statement = self::$pdo->prepare('SELECT * FROM users WHERE :property = :val');
+        self::$statement = self::$pdo->prepare('SELECT * FROM users WHERE ' . $property . ' = :val');
         
-        self::$statement->bindParam(':property', $property);
         self::$statement->bindParam(':val', $value);
 
         self::$statement->execute();
-        return self::$statement->fetch(PDO::FETCH_CLASS, User::class);
+        self::$statement->setFetchMode(PDO::FETCH_CLASS, User::class);
+        return self::$statement->fetch();
     }
 }

@@ -10,16 +10,22 @@ use PDO;
 
 class RolesTable extends Database implements RolesTableInterface
 {
-    static public function getAll() : array
+    static public function getAll() : array|false
     {
-        self::$statement = self::$pdo->query('SELECT roles.role_id, roles.name FROM roles');
+        self::$statement = self::$pdo->query('SELECT * FROM roles');
         
         return self::$statement->fetchAll(PDO::FETCH_CLASS, 'Role');
     }
 
     static public function create(Role $role) : void
     {
-        echo 'Bien le bonjour';
+        self::$statement = self::$pdo->prepare('INSERT INTO roles (`name`) VALUES (:name)');
+
+        $name = $role->getName();
+
+        self::$statement->bindParam(':name', $name);
+
+        self::$statement->execute();
     }
 
     static public function update(Role $role) : void
@@ -37,15 +43,15 @@ class RolesTable extends Database implements RolesTableInterface
         return false;
     }
 
-    static public function getOneBy(string $property, $value): Role
+    static public function getOneBy(string $property, $value): Role|false
     {
         if(!property_exists(Role::class, $property)) throw new Exception('Property ' . $property . ' does not exist on Entity Animal.');
-        self::$statement = self::$pdo->prepare('SELECT * FROM roles WHERE :property = :val');
+        self::$statement = self::$pdo->prepare('SELECT * FROM roles WHERE ' . $property . ' = :val');
         
-        self::$statement->bindParam(':property', $property);
         self::$statement->bindParam(':val', $value);
 
         self::$statement->execute();
-        return self::$statement->fetch(PDO::FETCH_CLASS, Role::class);
+        self::$statement->setFetchMode(PDO::FETCH_CLASS, Role::class);
+        return self::$statement->fetch();
     }
 }

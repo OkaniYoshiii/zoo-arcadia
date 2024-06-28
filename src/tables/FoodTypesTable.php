@@ -10,18 +10,20 @@ use PDO;
 
 class FoodTypesTable extends Database implements FoodTypesTableInterface
 {
-    static public function getAll() : array
+    static public function getAll() : array|false
     {
         self::$statement = self::$pdo->query('SELECT * FROM food_types');
 
         return self::$statement->fetchAll(PDO::FETCH_CLASS, FoodType::class);
     }
 
-    static public function create(FoodType $properties) : void
+    static public function create(FoodType $foodType) : void
     {
-        self::$statement = self::$pdo->prepare('INSERT INTO food_types (food_types.name) VALUES (:name)');
+        self::$statement = self::$pdo->prepare('INSERT INTO food_types (`name`) VALUES (:name)');
 
-        self::$statement->bindParam(':name', $properties['name']);
+        $name = $foodType->getName();
+        
+        self::$statement->bindParam(':name', $name);
 
         self::$statement->execute();
     }
@@ -41,15 +43,15 @@ class FoodTypesTable extends Database implements FoodTypesTableInterface
         return false;
     }
 
-    static public function getOneBy(string $property, $value): FoodType
+    static public function getOneBy(string $property, $value): FoodType|false
     {
         if(!property_exists(FoodType::class, $property)) throw new Exception('Property ' . $property . ' does not exist on Entity Animal.');
-        self::$statement = self::$pdo->prepare('SELECT * FROM food_types WHERE :property = :val');
+        self::$statement = self::$pdo->prepare('SELECT * FROM food_types WHERE ' . $property . ' :val');
         
-        self::$statement->bindParam(':property', $property);
         self::$statement->bindParam(':val', $value);
 
         self::$statement->execute();
-        return self::$statement->fetch(PDO::FETCH_CLASS, FoodType::class);
+        self::$statement->setFetchMode(PDO::FETCH_CLASS, FoodType::class);
+        return self::$statement->fetch();
     }
 }
