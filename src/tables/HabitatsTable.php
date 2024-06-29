@@ -18,13 +18,15 @@ class HabitatsTable extends Database implements HabitatsTableInterface
     
     static public function create(Habitat $habitat) : void
     {
-        self::$statement = self::$pdo->prepare('INSERT INTO habitats (`name`, `description`) VALUES (:name, :description)');
+        self::$statement = self::$pdo->prepare('INSERT INTO habitats (`name`, `description`, `veterinarian_comments`) VALUES (:name, :description, :veterinarian_comments)');
 
         $name = $habitat->getName();
         $description = $habitat->getDescription();
-        
+        $veterinarian_comments = $habitat->getVeterinarianComments();
+
         self::$statement->bindParam(':name', $name);
         self::$statement->bindParam(':description', $description);
+        self::$statement->bindParam(':veterinarian_comments', $veterinarian_comments);
 
         self::$statement->execute();
     }

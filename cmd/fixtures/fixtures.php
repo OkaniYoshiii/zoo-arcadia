@@ -3,6 +3,7 @@
 use App\Entity\Animal;
 use App\Entity\Breed;
 use App\Entity\FoodType;
+use App\Entity\Habitat;
 use App\Models\Table\AnimalsTable;
 use App\Models\Table\BreedsTable;
 use App\Models\Table\FoodTypesTable;
@@ -24,15 +25,18 @@ Database::connect();
 $habitats = [
     [
         'name' => 'Savane',
-        'description' => 'lorem ipsum',
+        'description' => 'bonjour',
+        'veterinarian_comments' => 'bonjour',
     ],
     [
         'name' => 'Jungle',
-        'description' => 'lorem ipsum',
+        'description' => 'bonjour',
+        'veterinarian_comments' => 'bonjour',
     ],
     [
         'name' => 'Marais',
-        'description' => 'lorem ipsum',
+        'description' => 'bonjour',
+        'veterinarian_comments' => 'bonjour',
     ],
 ];
 
@@ -101,6 +105,7 @@ $animals = [
 
 createFoodTypes($foodTypes);
 createBreeds($breeds);
+createHbaitats($habitats);
 createAnimals($animals);
 
 function createFoodTypes(array $foodTypes) : void
@@ -125,6 +130,16 @@ function createBreeds(array $breeds) : void
     }
 }
 
+function createHbaitats(array $habitats) : void 
+{
+    HabitatsTable::truncate();
+    
+    foreach($habitats as $habitat)
+    {
+        $entity = new Habitat($habitat);
+        HabitatsTable::create($entity);
+    }
+}
 
 function createAnimals(array $animals) : void
 {  

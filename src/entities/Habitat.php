@@ -15,6 +15,8 @@ class Habitat
 
         $this->setName($properties['name']);
         $this->setDescription($properties['description']);
+        if(!isset($properties['veterinarian_comments'])) $properties['veterinarian_comments'] = null;
+        $this->setVeterinarianComments($properties['veterinarian_comments']);
     }
 
     /**
@@ -68,7 +70,7 @@ class Habitat
     /**
      * Get the value of veterinarian_comments
      */ 
-    public function getVeterinarian_comments()
+    public function getVeterinarianComments()
     {
         return $this->veterinarian_comments;
     }
@@ -78,7 +80,7 @@ class Habitat
      *
      * @return  self
      */ 
-    public function setVeterinarian_comments($veterinarian_comments)
+    public function setVeterinarianComments($veterinarian_comments)
     {
         $this->veterinarian_comments = $veterinarian_comments;
 
