@@ -4,11 +4,13 @@ use App\Entity\Animal;
 use App\Entity\Breed;
 use App\Entity\FoodType;
 use App\Entity\Habitat;
+use App\Entity\HabitatImage;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Models\Table\AnimalsTable;
 use App\Models\Table\BreedsTable;
 use App\Models\Table\FoodTypesTable;
+use App\Models\Table\HabitatImagesTable;
 use App\Models\Table\HabitatsTable;
 use App\Models\Table\RolesTable;
 use App\Models\Table\UsersTable;
@@ -80,6 +82,21 @@ $habitats = [
     ],
 ];
 
+$habitatImages = [
+    [
+        'name' => IMG_DIR . '/bg-savannah-bridge.webp',
+        'habitat' => $habitats[0],
+    ],
+    [
+        'name' => IMG_DIR . '/bg-jungle.webp',
+        'habitat' => $habitats[1],
+    ],
+    [
+        'name' => IMG_DIR . '/bg-africa.webp',
+        'habitat' => $habitats[2],
+    ],
+];
+
 $foodTypes = [
     [
         'name' => 'Céréales',
@@ -148,6 +165,7 @@ createUsers($users);
 createFoodTypes($foodTypes);
 createBreeds($breeds);
 createHabitats($habitats);
+createHabitatImages($habitatImages);
 createAnimals($animals);
 
 function createRoles(array $roles) : void
@@ -207,8 +225,24 @@ function createHabitats(array $habitats) : void
     }
 }
 
+function createHabitatImages(array $habitatImages) : void
+{
+    HabitatImagesTable::truncate();
+
+    foreach($habitatImages as $habitatImage)
+    {
+        $habitat = new Habitat($habitatImage['habitat']);
+        $habitatImage['habitat_id'] = HabitatsTable::getIdOf($habitat);
+
+        $entity = new HabitatImage($habitatImage);
+        HabitatImagesTable::create($entity);
+    }
+}
+
 function createAnimals(array $animals) : void
 {  
+    AnimalsTable::truncate();
+    
     foreach($animals as $animal)
     {
         $breed = BreedsTable::getOneBy('name', $animal['breed_name']);

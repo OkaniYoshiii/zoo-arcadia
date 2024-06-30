@@ -55,4 +55,20 @@ class HabitatsTable extends Database implements HabitatsTableInterface
         self::$statement->setFetchMode(PDO::FETCH_CLASS, Habitat::class);
         return self::$statement->fetch();
     }
+
+    static public function getIdOf(Habitat $habitat) : int
+    {
+        self::$statement = self::$pdo->prepare('SELECT habitat_id FROM habitats WHERE `name` = :name AND `description` = :description AND `veterinarian_comments` = :veterinarian_comments');
+
+        $name = $habitat->getName();
+        $description = $habitat->getDescription();
+        $veterinarian_comments = $habitat->getVeterinarianComments();
+
+        self::$statement->bindParam(':name', $name);
+        self::$statement->bindParam(':description', $description);
+        self::$statement->bindParam(':veterinarian_comments', $veterinarian_comments);
+
+        self::$statement->execute();
+        return self::$statement->fetch()[0];
+    }
 }

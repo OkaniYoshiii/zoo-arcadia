@@ -9,4 +9,5 @@ interface HabitatsTableInterface extends TableInterface {
     static public function update(Habitat $habitat) : void;
     static public function isAlreadyRegistered(Habitat $habitat) : bool;
     static public function getOneBy(string $property, $value) : Habitat|false;
+    static public function getIdOf(Habitat $habitat) : int|false;
 }
