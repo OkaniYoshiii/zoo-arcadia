@@ -16,6 +16,7 @@ class User
         if(is_null($properties)) return;
 
         $this->setUsername($properties['username']);
+        $this->setPassword($properties['pwd']);
         $this->setFirstname($properties['firstname']);
         $this->setLastname($properties['lastname']);
         $this->setRoleId($properties['role_id']);
