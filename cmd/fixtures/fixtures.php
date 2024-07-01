@@ -1,19 +1,25 @@
 <?php
 
 use App\Entity\Animal;
+use App\Entity\AnimalImage;
 use App\Entity\Breed;
 use App\Entity\FoodType;
+use App\Entity\FoodUnit;
 use App\Entity\Habitat;
 use App\Entity\HabitatImage;
 use App\Entity\Role;
 use App\Entity\User;
+use App\Entity\VeterinarianReport;
+use App\Models\Table\AnimalImagesTable;
 use App\Models\Table\AnimalsTable;
 use App\Models\Table\BreedsTable;
 use App\Models\Table\FoodTypesTable;
+use App\Models\Table\FoodUnitsTable;
 use App\Models\Table\HabitatImagesTable;
 use App\Models\Table\HabitatsTable;
 use App\Models\Table\RolesTable;
 use App\Models\Table\UsersTable;
+use App\Models\Table\VeterinarianReportsTable;
 
 $rootDir = './';
 
@@ -46,21 +52,21 @@ $users = [
         'pwd' => 'admin',
         'firstname' => 'José',
         'lastname' => '',
-        'role_name' => $roles[0]['name'],
+        'role_id' => 1,
     ],
     [
         'username' => 'employee@test.com',
         'pwd' => 'employee',
         'firstname' => 'Damien',
         'lastname' => 'Dupont',
-        'role_name' => $roles[1]['name'],
+        'role_id' => 2,
     ],
     [
         'username' => 'veterinarian@test.com',
         'pwd' => 'veterinarian',
         'firstname' => 'Michelle',
         'lastname' => 'Crossing',
-        'role_name' => $roles[2]['name'],
+        'role_id' => 3,
     ],
 ];
 
@@ -85,15 +91,15 @@ $habitats = [
 $habitatImages = [
     [
         'name' => IMG_DIR . '/bg-savannah-bridge.webp',
-        'habitat' => $habitats[0],
+        'habitat_id' => 1,
     ],
     [
         'name' => IMG_DIR . '/bg-jungle.webp',
-        'habitat' => $habitats[1],
+        'habitat_id' => 2,
     ],
     [
         'name' => IMG_DIR . '/bg-africa.webp',
-        'habitat' => $habitats[2],
+        'habitat_id' => 3,
     ],
 ];
 
@@ -137,27 +143,74 @@ $animals = [
     [
         'firstname' => 'Pierre',
         'state' => 'Malade',
-        'breed_name' => $breeds[0]['name'],
-        'habitat_name' => $habitats[0]['name'],
+        'breed_id' => 1,
+        'habitat_id' => 1,
     ],
     [
-        'firstname' => 'Pierre',
-        'state' => 'Malade',
-        'breed_name' => $breeds[0]['name'],
-        'habitat_name' => $habitats[0]['name'],
+        'firstname' => 'Mathieu',
+        'state' => 'Sain',
+        'breed_id' => 2,
+        'habitat_id' => 2,
     ],
     [
-        'firstname' => 'Pierre',
-        'state' => 'Malade',
-        'breed_name' => $breeds[0]['name'],
-        'habitat_name' => $habitats[0]['name'],
+        'firstname' => 'Patate',
+        'state' => 'Blessé',
+        'breed_id' => 3,
+        'habitat_id' => 1,
     ],
     [
-        'firstname' => 'Pierre',
-        'state' => 'Malade',
-        'breed_name' => $breeds[0]['name'],
-        'habitat_name' => $habitats[0]['name'],
+        'firstname' => 'Pomme',
+        'state' => 'Sain',
+        'breed_id' => 1,
+        'habitat_id' => 3,
     ]
+];
+
+$foodUnits = [
+    [
+        'name' => 'mg',
+    ],
+    [
+        'name' => 'g',
+    ],
+    [
+        'name' => 'kg',
+    ],
+];
+
+$veterinarianReports = [
+    [
+        'date' => date('Y-m-d', strtotime('2022-05-23')),
+        'detail' => 'Prise de sang et tests oculaires. Aucun soucis à signaler.',
+        'food_quantity' => 30,
+        'food_unit_id' => 2, 
+        'user_id' => 3,
+        'food_type_id' => 2,
+        'animal_id' => 1,
+    ],
+];
+
+$animalImages = [
+    [
+        'name' => IMG_DIR . '/img-elephant.webp',
+        'animal_id' => 1,
+    ],
+    [
+        'name' => IMG_DIR . '/img-giraffa-1.webp',
+        'animal_id' => 2,
+    ],
+    [
+        'name' => IMG_DIR . '/img-giraffa-2.webp',
+        'animal_id' => 3,
+    ],
+    [
+        'name' => IMG_DIR . '/img-giraffa-3.webp',
+        'animal_id' => 2,
+    ],
+    [
+        'name' => IMG_DIR . '/img-gorilla.webp',
+        'animal_id' => 4,
+    ],
 ];
 
 createRoles($roles);
@@ -167,6 +220,9 @@ createBreeds($breeds);
 createHabitats($habitats);
 createHabitatImages($habitatImages);
 createAnimals($animals);
+createFoodUnits($foodUnits);
+createVeterinarianReports($veterinarianReports);
+createAnimalImages($animalImages);
 
 function createRoles(array $roles) : void
 {
@@ -185,8 +241,6 @@ function createUsers(array $users) : void
 
     foreach($users as $user)
     {
-        $role = RolesTable::getOneBy('name', $user['role_name']);
-        $user['role_id'] = ($role) ? $role->getRoleId() : null;
         $entity = new User($user);
         UsersTable::create($entity);
     }
@@ -195,7 +249,7 @@ function createUsers(array $users) : void
 function createFoodTypes(array $foodTypes) : void
 {
     FoodTypesTable::truncate();
-    
+
     foreach($foodTypes as $foodType)
     {
         $entity = new FoodType($foodType);
@@ -231,9 +285,6 @@ function createHabitatImages(array $habitatImages) : void
 
     foreach($habitatImages as $habitatImage)
     {
-        $habitat = new Habitat($habitatImage['habitat']);
-        $habitatImage['habitat_id'] = HabitatsTable::getIdOf($habitat);
-
         $entity = new HabitatImage($habitatImage);
         HabitatImagesTable::create($entity);
     }
@@ -245,16 +296,42 @@ function createAnimals(array $animals) : void
     
     foreach($animals as $animal)
     {
-        $breed = BreedsTable::getOneBy('name', $animal['breed_name']);
-        $animal['breed_id'] = ($breed) ? $breed->getBreedId() : null;
-
-        $habitat = HabitatsTable::getOneBy('name', $animal['habitat_name']);
-        $animal['habitat_id'] = ($habitat) ? $habitat->getHabitatId() : null;
-
         $entity = new Animal($animal);
         AnimalsTable::create($entity);
-    };
+    }
 }
 
+function createFoodUnits(array $foodUnits) : void
+{
+    FoodUnitsTable::truncate();
+
+    foreach($foodUnits as $foodUnit)
+    {
+        $entity = new FoodUnit($foodUnit);
+        FoodUnitsTable::create($entity);
+    }
+}
+
+function createVeterinarianReports(array $veterinarianReports) : void
+{
+    VeterinarianReportsTable::truncate();
+
+    foreach($veterinarianReports as $veterinarianReport)
+    {
+        $entity = new VeterinarianReport($veterinarianReport);
+        VeterinarianReportsTable::create($entity);
+    }
+}
+
+function createAnimalImages(array $animalImages) : void
+{
+    AnimalImagesTable::truncate();
+
+    foreach($animalImages as $animalImage)
+    {
+        $entity = new AnimalImage($animalImage);
+        AnimalImagesTable::create($entity);
+    }
+}
 
 Database::disconnect();

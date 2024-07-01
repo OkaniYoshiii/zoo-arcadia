@@ -54,4 +54,16 @@ class FoodTypesTable extends Database implements FoodTypesTableInterface
         self::$statement->setFetchMode(PDO::FETCH_CLASS, FoodType::class);
         return self::$statement->fetch();
     }
+
+    static public function getIdOf(FoodType $foodType) : int|false
+    {
+        self::$statement = self::$pdo->prepare('SELECT food_tye_id FROM food_types WHERE `name` = :name');
+
+        $name = $foodType->getName();
+
+        self::$statement->bindParam(':name', $name);
+
+        self::$statement->execute();
+        return self::$statement->fetch()[0];
+    }
 }

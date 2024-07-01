@@ -21,12 +21,14 @@ CREATE TABLE veterinarian_reports (
     date DATETIME NOT NULL,
     detail TEXT(1000) NOT NULL,
     food_quantity DECIMAL(2) NOT NULL,
-    user_id INT(11),
-    food_type_id INT(11),
-    animal_id INT(11),
+    user_id INT(11) NOT NULL,
+    food_type_id INT(11) NOT NULL,
+    food_unit_id INT(11) NOT NULL,
+    animal_id INT(11) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (food_type_id) REFERENCES food_types(food_type_id),
-    FOREIGN KEY (animal_id) REFERENCES animals(animal_id)
+    FOREIGN KEY (animal_id) REFERENCES animals(animal_id),
+    FOREIGN KEY (food_type_id) REFERENCES food_types(food_type_id)
 );
 
 CREATE TABLE food_types (
@@ -68,4 +70,9 @@ CREATE TABLE habitat_images (
     name VARCHAR(50) NOT NULL,
     habitat_id INT(11),
     FOREIGN KEY (habitat_id) REFERENCES habitats(habitat_id)
+);
+
+CREATE TABLE food_units (
+    food_unit_id INT(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    name VARCHAR(10) NOT NULL
 );

@@ -5,9 +5,10 @@ namespace App\Entity;
 class VeterinarianReport
 {
     private int $veterinarian_report_id;
-    private \Datetime $date;
+    private string $date;
     private string $detail;
     private int $food_quantity;
+    private int $food_unit_id;
     private int $user_id;
     private int $food_type_id;
     private int $animal_id;
@@ -148,6 +149,26 @@ class VeterinarianReport
     public function setAnimalId($animal_id)
     {
         $this->animal_id = $animal_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of food_unit_id
+     */ 
+    public function getFoodUnitId()
+    {
+        return $this->food_unit_id;
+    }
+
+    /**
+     * Set the value of food_unit_id
+     *
+     * @return  self
+     */ 
+    public function setFoodUnitId($food_unit_id)
+    {
+        $this->food_unit_id = $food_unit_id;
 
         return $this;
     }

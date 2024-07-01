@@ -19,7 +19,7 @@ class VeterinarianReportsTable extends Database implements VeterinarianReportsTa
 
     static public function create(VeterinarianReport $report) : void
     {
-        self::$statement = self::$pdo->prepare('INSERT INTO veterinarian_reports AS vr (vr.date, vr.detail, vr.food_quantity, vr.user_id, vr.food_type_id, vr.animal_id) VALUES (:date, :detail, :food_quantity, :user_id, :food_type_id, :animal_id)');
+        self::$statement = self::$pdo->prepare('INSERT INTO veterinarian_reports (`date`, `detail`, `food_quantity`, `user_id`, `food_type_id`, `animal_id`) VALUES (:date, :detail, :food_quantity, :user_id, :food_type_id, :animal_id)');
 
         $date = $report->getDate();
         $detail = $report->getDetail();

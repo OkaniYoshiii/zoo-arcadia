@@ -55,7 +55,7 @@ class HabitatImagesTable extends Database implements HabitatImagesTableInterface
         return self::$statement->fetch();
     }
 
-    static public function getIdOf(HabitatImage $habitatImage) : int
+    static public function getIdOf(HabitatImage $habitatImage) : int|false
     {
         self::$statement = self::$pdo->prepare('SELECT habitat_image_id FROM habitat_images WHERE `name` = :name AND `habitat_id` = :id');
 
