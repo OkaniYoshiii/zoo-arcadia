@@ -13,6 +13,8 @@ define('CONTROLLER_DIR', APP_DIR . '/controllers');
 define('ADMIN_CONTROLLER_DIR', CONTROLLER_DIR . '/admin');
 define('API_CONTROLLER_DIR', CONTROLLER_DIR . '/api');
 
+define('UTILITIES_DIR', APP_DIR . '/utilities');
+
 define('MODELS_DIR', APP_DIR . '/models');
 define('TABLES_DIR', APP_DIR . '/tables');
 define('ENTITIES_DIR', APP_DIR . '/entities');
@@ -27,6 +29,7 @@ define('ASSETS_DIR', 'assets');
 define('CSS_DIR', ASSETS_DIR . '/css');
 define('JS_DIR', ASSETS_DIR . '/js');
 define('IMG_DIR', ASSETS_DIR . '/images');
+define('UPLOAD_DIR', 'uploads');
 define('TEMPLATE_DIR', $rootDir . 'templates');
 define('TEMPLATE_PARTS_DIR', $rootDir . 'templates/template-parts');
 
@@ -34,6 +37,7 @@ define('TEMPLATE_PARTS_DIR', $rootDir . 'templates/template-parts');
 define('SRC_FOLDERS', [
     APP_DIR,
     CONTROLLER_DIR,
+    UTILITIES_DIR,
     MODELS_DIR,
     ENTITIES_DIR,
     OBJECTS_DIR,

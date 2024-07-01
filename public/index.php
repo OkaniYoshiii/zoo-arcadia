@@ -34,6 +34,7 @@ try {
 use SleekDB\Store;
 define('FeedbacksDB', new Store('feedbacks', '../sleekdb', ['timeout' => false]));
 define('AnimalsViewsDB', new Store('animalViews', '../sleekdb', ['timeout' => false]));
+define('ServicesDB', new Store('services', '../sleekdb', ['timeout' => false]));
 
 // CONTROLLERS AUTOINSTANCIATION
 $core = new Core();

@@ -1,0 +1,36 @@
+{% extends "admin/admin.html.twig" %}
+
+{% block main %}
+    <section>
+        <div class="size-medium">
+            <h1>Administration des services du zoo</h1>
+            <h2>Liste des services</h2>
+            <ul class="list-unstyled">
+                {% for service in services %}
+                    <li>
+                        <p>{{ service.name }}</p>
+                        <p>{{ service.description }}</p>
+                        <img src="{{ UPLOAD_DIR ~ '/' ~ service.img }}" alt="">
+                    </li>
+                {% endfor %}
+            </ul>
+            <h2>Ajouter un service</h2>
+            <form class="form" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
+                <div class="form-input">
+                    <label for="serviceName" class="form-input__label">Nom du service</label>
+                    <input type="text" name="serviceName" id="serviceName" class="form-input__input">
+                </div>
+                <div class="form-input">
+                    <label for="serviceDescription" class="form-input__label">Description du service</label>
+                    <input type="text" name="serviceDescription" id="serviceDescription" class="form-input__input">
+                </div>
+                <div class="form-input">
+                    <label for="serviceImg" class="form-input__label">Image du service</label>
+                    <input type="file" name="serviceImg" id="serviceImg" class="form-input__input">
+                </div>
+                <input type="hidden" name="crudAction" value="CREATE">
+                <button class="form__submit-btn" type="submit">Confirmer</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}
