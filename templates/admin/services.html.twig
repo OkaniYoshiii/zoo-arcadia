@@ -7,10 +7,16 @@
             <h2>Liste des services</h2>
             <ul class="list-unstyled">
                 {% for service in services %}
-                    <li>
-                        <p>{{ service.name }}</p>
-                        <p>{{ service.description }}</p>
-                        <img src="{{ UPLOAD_DIR ~ '/' ~ service.img }}" alt="">
+                    <li class="media-and-text">
+                        <div class="media-and-text__content">
+                            <h3>Nom du service :</h3>
+                            <p>{{ service.name }}</p>
+                            <h3>Description du service :</h3>
+                            <p>{{ service.description }}</p>
+                        </div>
+                        <div class="media-and-text__media">
+                            <img class="rounded-img" src="{{ UPLOAD_DIR ~ '/' ~ service.img }}" alt="">
+                        </div>
                     </li>
                 {% endfor %}
             </ul>
