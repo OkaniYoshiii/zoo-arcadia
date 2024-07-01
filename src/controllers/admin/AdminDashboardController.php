@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+use App\Models\Table\AnimalsTable;
 
 class AdminDashboardController 
 {
@@ -28,7 +30,6 @@ class AdminDashboardController
         $analytics = file_get_contents("php://input") ?? null;
 
         if(!is_null($analytics)) {
-            file_put_contents('../log.txt',$analytics);
             $analytics = json_decode($analytics, true);
             foreach($analytics['animals'] as $id => $views) {
                 $animal = AnimalsViewsDB->findById($id);
