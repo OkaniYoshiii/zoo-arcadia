@@ -34,10 +34,16 @@ class ServicesCrudController
     private function createService() : void
     {
         if(!isset($_FILES['serviceImg'])) throw new Exception('serviceImg must be sent by the form to process it correctly');
+        if($this->isServiceAlreadyRegistered()) throw new Exception('Service is already registered.');
         $this->imgUploader->upload($_FILES['serviceImg']);
         $filename = $this->imgUploader->getUploadedFileName();
 
         ServicesDB->insert(['name' => $_POST['serviceName'], 'description' => $_POST['serviceDescription'], 'img' => $filename]);        
+    }
+
+    private function isServiceAlreadyRegistered() : bool 
+    {
+        return empty(ServicesDB->findBy(['serviceName', '=', $_POST['serviceName']]));
     }
 
     private function updateService() : void

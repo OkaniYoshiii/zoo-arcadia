@@ -11,7 +11,6 @@ class ImgUploader
     private array $allowedExtensions = ['jpg', 'webp', 'png'];
     private array $allowedMimeTypes = ['image/jpeg', 'image/webp', 'image/png'];
     private int $maxFilesizeInMo = 5;
-    private string $uploadedFilePath;
 
     public function upload(array $file) : void
     {
