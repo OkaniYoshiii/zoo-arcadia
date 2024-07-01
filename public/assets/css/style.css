@@ -382,6 +382,7 @@ body > footer ul li {
   flex-shrink: 1;
   flex-basis: 250px;
   align-self: center;
+  max-width: 400px;
   margin-inline: auto;
 }
 .media-and-text > .media-and-text__media > img {
