@@ -112,6 +112,14 @@
   justify-content: space-between;
 }
 
+.align-items-center {
+  align-items: center;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
 .list-unstyled {
   margin: 0;
   padding-left: 0;
