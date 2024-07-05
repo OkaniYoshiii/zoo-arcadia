@@ -1,6 +1,10 @@
 <?php
 
+use App\Entity\VeterinarianReport;
 use App\Interface\CrudControllerInterface;
+use App\Models\Table\AnimalsTable;
+use App\Models\Table\FoodTypesTable;
+use App\Models\Table\VeterinarianReportsTable;
 
 class VeterinarianReportsCrudController implements CrudControllerInterface
 {
@@ -49,11 +53,13 @@ class VeterinarianReportsCrudController implements CrudControllerInterface
         if(empty(self::$formData['foodQuantity'])) self::$formInputErrors[] = 'Le nom de l\'utilisateur est vide';
         if(empty(self::$formData['animalId'])) self::$formInputErrors[] = 'Le mot de passe renseigné est vide';
         if(empty(self::$formData['foodTypeId'])) self::$formInputErrors[] = 'Le mot de passe renseigné est vide';
-        if(VeterinarianReportsTable::isAlreadyRegistered(self::$formData)) self::$formInputErrors[] = 'L\'utilisateur renseigné existe déjà !';
+
+        $entity = new VeterinarianReport(self::$formData);
+        if(VeterinarianReportsTable::isAlreadyRegistered($entity)) self::$formInputErrors[] = 'L\'utilisateur renseigné existe déjà !';
 
         if(!empty(self::$formInputErrors)) return;
 
-        VeterinarianReportsTable::create(self::$formData);
+        VeterinarianReportsTable::create($entity);
     }
 
     private static function updateEntity()
@@ -70,9 +76,11 @@ class VeterinarianReportsCrudController implements CrudControllerInterface
         if(empty(self::$formData['foodQuantity'])) self::$formInputErrors[] = 'Le nom de l\'utilisateur est vide';
         if(empty(self::$formData['animalId'])) self::$formInputErrors[] = 'Le mot de passe renseigné est vide';
         if(empty(self::$formData['foodTypeId'])) self::$formInputErrors[] = 'Le mot de passe renseigné est vide';
-        if(VeterinarianReportsTable::isAlreadyRegistered(self::$formData)) self::$formInputErrors[] = 'L\'utilisateur renseigné existe déjà !';
+        
+        $entity = new VeterinarianReport(self::$formData);
+        if(VeterinarianReportsTable::isAlreadyRegistered($entity)) self::$formInputErrors[] = 'L\'utilisateur renseigné existe déjà !';
     
-        VeterinarianReportsTable::update(self::$formData);
+        VeterinarianReportsTable::update($entity);
     }
 
     private static function deleteEntity()

@@ -25,7 +25,7 @@
                                 <label class="form-input__label" for="animalId">Animal concerné</label>
                                 <select name="animalId" id="animalId">
                                     {% for animal in animals %}
-                                        <option value="{{ animal.animalId }}">{{ animal.name }}</option>
+                                        <option value="{{ animal.animalId }}">{{ animal.firstname }}</option>
                                     {% endfor %}
                                 </select>
                                 <input class="form-input__input" type="number" name="animalId" id="animalId" required>

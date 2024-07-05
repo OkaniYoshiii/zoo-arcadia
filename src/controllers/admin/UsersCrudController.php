@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Table\RolesTable;
+use App\Models\Table\UsersTable;
+
 class UsersCrudController
 {
     private static array $formInputErrors = [];
@@ -8,8 +11,8 @@ class UsersCrudController
     public function getVariables() : array
     {
         return [
-            'users' => UsersTable::getUsers(),
-            'roles' => RolesTable::getRoles(),
+            'users' => UsersTable::getAll(),
+            'roles' => RolesTable::getAll(),
             'formErrors' => self::$formInputErrors,
         ];
     }

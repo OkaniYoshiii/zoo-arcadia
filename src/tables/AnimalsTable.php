@@ -15,9 +15,11 @@ class AnimalsTable extends Database implements AnimalsTableInterface
         self::$statement = self::$pdo->query('SELECT * FROM animals');
 
         $animals = self::$statement->fetchAll(PDO::FETCH_CLASS, Animal::class);
-        $animals = array_map(function(Animal $animal) {
-            $animalsViews = AnimalsViewsDB->findById($animal->getAnimalId())['views'];
-            if(!is_null($animalsViews)) $animal->setViews($animalsViews);
+        $animals = array_map(function(Animal $entity) {
+            $animal = AnimalsViewsDB->findById($entity->getAnimalId());
+            if (isset($animal['views']) && !is_null($animal['views'])) {
+                $entity->setViews($animal['views']);
+            }
             return $animal;
         }, $animals);
         return $animals;
