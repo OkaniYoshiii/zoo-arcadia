@@ -70,6 +70,12 @@ class HomeController {
 
     public static function createFeedback() : void
     {
+        match(null) {
+            self::$formData['username'] => throw new Exception('Username is null'),
+            self::$formData['content'] => throw new Exception('Content is null'),
+            self::$formData['date'] => throw new Exception('Date is null'),
+        };
+
         FeedbacksDB->insert([
             'username' => self::$formData['username'],
             'content' => self::$formData['content'],

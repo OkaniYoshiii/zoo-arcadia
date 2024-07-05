@@ -5,7 +5,6 @@ use App\Objects\Request;
 
 class FeedBackValidationController
 {
-    private static int $maxPerPage = 1;
     private static array $formData;
 
     public function getVariables() : array
@@ -13,7 +12,6 @@ class FeedBackValidationController
         $feedbacks = FeedbacksDB->findAll();
 
         $feedbacks = array_map(function($feedback) {return new Feedback($feedback); }, $feedbacks);
-        $feedbacks['maxPerPage'] = self::$maxPerPage; 
         return [
             'feedbacks' => $feedbacks,
         ];

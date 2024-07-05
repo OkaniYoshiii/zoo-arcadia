@@ -2,7 +2,7 @@
 
 class FeedbackApiController
 {
-    private static int $maxPerPage = 1;
+    private static int $maxPerPage = 3;
 
     public function getJsonData()
     {
