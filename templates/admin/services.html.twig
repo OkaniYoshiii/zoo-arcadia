@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="form-input">
                                     <label for="serviceDescription" class="form-input__label">Description du service</label>
-                                    <input type="text" name="serviceDescription" id="serviceDescription" class="form-input__input" value="{{ service.description }}">
+                                    <textarea class="form-input__input" name="serviceDescription" id="serviceDescription" rows="10">{{ service.description }}</textarea>
                                 </div>
                                 <div class="form-input">
                                     <label for="serviceImg" class="form-input__label">Image du service</label>
@@ -50,7 +50,7 @@
                                     <input class="form-input__input" type="file" name="serviceImg" id="serviceImg">
                                 </div>
                                 <input type="hidden" name="serviceId" value="{{ service.serviceId }}">
-                                <input type="hidden" name="crudAction" value="CREATE">
+                                <input type="hidden" name="crudAction" value="UPDATE">
                                 <button class="form__submit-btn" type="submit">Confirmer</button>
                             </form>
                         </div>

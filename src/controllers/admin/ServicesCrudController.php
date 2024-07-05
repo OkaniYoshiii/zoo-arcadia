@@ -52,11 +52,15 @@ class ServicesCrudController
         if(is_numeric($_POST['serviceDescription'])) throw new Exception('Service description must not be an integer or a numeric string. Received : ' .  $_POST['service_description']);
         if(!isset($_POST['serviceId'])) throw new Exception('serviceId must be send by the form to process it correctly.');
         if(intval($_POST['serviceId']) === 0) throw new Exception('Service ID must be an integer or a numeric string. Received : ' . $_POST['service_id']);
-        if(isset($_FILES['serviceImg'])) {
-
+        
+        $updateValues = ['name' =>  $_POST['serviceName'], 'description' => $_POST['serviceDescription']];
+        
+        if(isset($_FILES['serviceImg']) && $_FILES['serviceImg']['error'] === 0) {
+            $this->imgUploader->upload($_FILES['serviceImg']);
+            $updateValues['img'] = $this->imgUploader->getUploadedFileName();
         }
 
-        ServicesDB->updateOrInsert(['_id', (int) $_POST['serviceId'], 'name' =>  $_POST['serviceName'], 'description' => $_POST['serviceDescription']]);        
+        ServicesDB->updateById($_POST['serviceId'], $updateValues);        
     }
 
     private function deleteService() : void
