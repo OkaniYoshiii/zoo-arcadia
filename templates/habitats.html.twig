@@ -38,9 +38,9 @@
                                     <ul class="gallery gallery--fluid animals-list | list-unstyled">
                                         <div class="gallery__content">
                                             {% for animal in specie['animals'] %}
-                                                {% set dialogId = 'animal-dialog-' ~ animal['id'] %}
+                                                {% set dialogId = 'animal-dialog-' ~ specie['name'] ~ animal['id'] %}
                                                 <li class="gallery__item animal">
-                                                    <button class="rounded-img--with-caption" aria-controls="{{ dialogId }}">
+                                                    <button class="rounded-img--with-caption" aria-controls="{{ dialogId }}" data-dialog-id="{{ dialogId }}">
                                                         <img class="rounded-img" src="{{ IMG_DIR }}/original-images/{{ animal['imgs'][0] }}" alt="">
                                                         <h5 class="caption">{{ animal['name'] }}</h5>
                                                     </button>
@@ -66,7 +66,6 @@
                                                                 </ul>
                                                                 <p><span class="fw-bold">Dernière visite du vétérinaire :</span> {{ animal['last_visit_date'] }}</p>
                                                                 <p><span class="fw-bold">Avis du vétérinaire :</span> {{ animal['veterynary_review'] }}</p>
-                                                                <button class="toggle button button--active">Fermer</button>
                                                             </div>
                                                         </div>
                                                     </div>

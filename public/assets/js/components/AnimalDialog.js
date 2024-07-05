@@ -4,18 +4,15 @@ export { AnimalDialog };
 class AnimalDialog extends Dialog {
     static #animalsData = { animals: {} };
     #animalId;
-    constructor(element, openBtn) {
-        super(element, openBtn);
-        super.init();
+    constructor(openBtn) {
+        super(openBtn);
         this.#init();
     }
     #init() {
-        if (super.element !== null) {
-            super.element.addEventListener('click', this.#registerViews.bind(this));
-        }
-        const animalId = super.element?.dataset.animalId;
+        super.element.addEventListener('click', this.#registerViews.bind(this));
+        const animalId = super.element.dataset.animalId;
         if (animalId === undefined)
-            return;
+            throw new Error('Dialog element must have a data-animal-id attribute. This attribute value must be the id of the animal.');
         this.#animalId = Number(animalId);
         _a.#animalsData.animals[this.#animalId] = 0;
     }

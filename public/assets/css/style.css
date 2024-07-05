@@ -558,6 +558,9 @@ body > footer ul li {
   font-size: clamp(1.5rem, 7.5vw, 2rem);
   margin-block: 0;
 }
+.dialog__toggle {
+  align-self: flex-start;
+}
 
 .button, .button-active {
   border: none;
