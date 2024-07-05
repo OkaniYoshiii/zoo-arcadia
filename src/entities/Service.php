@@ -13,6 +13,8 @@ class Service
     {
         if(is_null($properties)) return;
 
+        if(isset($properties['_id'])) $this->service_id = $properties['_id'];
+
         $this->setName($properties['name']);
         $this->setDescription($properties['description']);
         $this->setImg($properties['img']);
