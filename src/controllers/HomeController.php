@@ -1,5 +1,7 @@
 <?php
 
+use App\Entity\Service;
+
 class HomeController {
     private static array $formData;
 
@@ -33,16 +35,12 @@ class HomeController {
             ]
         ];
         
-        $services = [
-            "Restauration" => "https://picsum.photos/500",
-            "Visite en petit train" => "https://picsum.photos/400",
-            "Visite des habitats" => "https://picsum.photos/600"
-        ];
-        
         $pages = [
             "current" => 1,
             "total" => 1
         ];
+
+        $services = array_map(function(array $service) { return new Service($service); }, ServicesDB->findAll(null, 3));
 
         return [
             "domains" => $domains,

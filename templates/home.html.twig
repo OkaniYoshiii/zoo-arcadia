@@ -106,19 +106,18 @@
             <h2 class="services__title">Nos services</h2>
             <div class="service gallery gallery--slider | size-large">
                 <div class="gallery__content">
-                    {% for name, img_src in services %}
+                    {% for service in services %}
                         <a href="/services" class="gallery__slide rounded-img--with-caption">
-                            <img class="service__img rounded-img" src="{{ img_src }}" width="" height="" alt="">
-                            <p class="service__name caption">{{ name }}</p>
+                            <img class="service__img rounded-img" src="{{ UPLOAD_DIR ~ '/' ~ service.img }}" width="" height="" alt="">
+                            <p class="service__name caption">{{ service.name }}</p>
                         </a>
                     {% endfor %}
                 </div>
                 <fieldset class="gallery__controls">
                     <legend class="visually-hidden">Séléctionnez un service :</legend>
-                    {% set firstValue = services|first %}
-                    {% for name, img_src in services %}
-                        <label class="visually-hidden" for="gallery-control-{{ name|lower }}">{{ name }}</label>
-                        <input type="radio" name="service-gallery-control" id="gallery-control-{{ name|lower }}" {% if img_src == firstValue %} checked {% endif %}>
+                    {% for service in services %}
+                        <label class="visually-hidden" for="gallery-control-{{ service.name|lower }}">{{ service.name }}</label>
+                        <input type="radio" name="service-gallery-control" id="gallery-control-{{ service.name|lower }}" {% if service == services|first %} checked {% endif %}>
                     {% endfor %}
                 </fieldset>
             </div>
