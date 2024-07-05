@@ -19,8 +19,6 @@ class ServicesCrudController
 
     public function processFormData() : void
     {
-        if(is_numeric($_POST['serviceName'])) throw new Exception('Service name must not be an integer or a numeric string. Received : ' . $_POST['service_name']);
-        if(is_numeric($_POST['serviceDescription'])) throw new Exception('Service description must not be an integer or a numeric string. Received : ' .  $_POST['service_description']);
         $this->imgUploader = new ImgUploader();
 
         if(!isset($_POST['crudAction'])) throw new Exception('CrudAction need to be defined in the form. Possible values are : CREATE, UPDATE, DELETE');
@@ -33,6 +31,8 @@ class ServicesCrudController
     
     private function createService() : void
     {
+        if(is_numeric($_POST['serviceName'])) throw new Exception('Service name must not be an integer or a numeric string. Received : ' . $_POST['service_name']);
+        if(is_numeric($_POST['serviceDescription'])) throw new Exception('Service description must not be an integer or a numeric string. Received : ' .  $_POST['service_description']);
         if(!isset($_FILES['serviceImg'])) throw new Exception('serviceImg must be sent by the form to process it correctly');
         if($this->isServiceAlreadyRegistered()) throw new Exception('Service is already registered.');
         $this->imgUploader->upload($_FILES['serviceImg']);
@@ -43,11 +43,13 @@ class ServicesCrudController
 
     private function isServiceAlreadyRegistered() : bool 
     {
-        return empty(ServicesDB->findBy(['serviceName', '=', $_POST['serviceName']]));
+        return !empty(ServicesDB->findBy(['name', '=', $_POST['serviceName']]));
     }
 
     private function updateService() : void
     {
+        if(is_numeric($_POST['serviceName'])) throw new Exception('Service name must not be an integer or a numeric string. Received : ' . $_POST['service_name']);
+        if(is_numeric($_POST['serviceDescription'])) throw new Exception('Service description must not be an integer or a numeric string. Received : ' .  $_POST['service_description']);
         if(!isset($_POST['serviceId'])) throw new Exception('serviceId must be send by the form to process it correctly.');
         if(intval($_POST['serviceId']) === 0) throw new Exception('Service ID must be an integer or a numeric string. Received : ' . $_POST['service_id']);
         if(isset($_FILES['serviceImg'])) {

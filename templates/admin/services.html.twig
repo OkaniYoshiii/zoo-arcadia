@@ -18,18 +18,19 @@
                             </div>
                             <div>
                                 <h3>Description du service :</h3>
-                                <p>{{ service.description }}</p>
+                                <p>{{ service.description|nl2br }}</p>
                             </div>
                             <div class="d-flex gap-1">
-                                <button class="dialog-btn button--active" data-dialog-id="dialog-modify-service">Modifier le service</button>
-                                <button class="dialog-btn button--active" data-dialog-id="dialog-delete-service">Supprimer le service</button>
+                                <button class="dialog-btn button--active" data-dialog-id="dialog-modify-service-{{ service.serviceId }}">Modifier le service</button>
+                                <button class="dialog-btn button--active" data-dialog-id="dialog-delete-service-{{ service.serviceId }}">Supprimer le service</button>
                             </div>
                         </div>
                         <div class="media-and-text__media">
                             <img class="rounded-img" src="{{ UPLOAD_DIR ~ '/' ~ service.img }}" alt="">
                         </div>
                     </li>
-                    <dialog id="dialog-modify-service" class="dialog">
+                    <hr>
+                    <dialog id="dialog-modify-service-{{ service.serviceId }}" class="dialog">
                         <div class="dialog__content">
                             <div class="dialog__header">
                                 <h2 class="dialog__title">Modifier un service</h2>
@@ -54,7 +55,7 @@
                             </form>
                         </div>
                     </dialog>
-                    <dialog id="dialog-delete-service" class="dialog">
+                    <dialog id="dialog-delete-service-{{ service.serviceId }}" class="dialog">
                         <div class="dialog__content">
                             <div class="dialog__header">
                                 <h2>Supprimer un service</h2>
@@ -62,8 +63,8 @@
                             <form action="" method="POST" autocomplete="off">
                                 <p>Êtes vous sûr de vouloir supprimer ce service ?</p>
                                 <div class="d-flex justify-content-between">
-                                    <button class="button--active" type="submit" name="deleteService" value="yes">Oui</button>
-                                    <button class="button--active" type="submit" name="deleteService" value="no">Non</button>
+                                    <input class="button--active" type="submit" value="Oui">
+                                    <input class="button--active" type="submit" value="Non" formmethod="dialog">
                                 </div>
                                 <input type="hidden" name="serviceId" value="{{ service.serviceId }}">
                                 <input type="hidden" name="crudAction" value="DELETE">
@@ -84,7 +85,7 @@
                         </div>
                         <div class="form-input">
                             <label for="serviceDescription" class="form-input__label">Description du service</label>
-                            <input type="text" name="serviceDescription" id="serviceDescription" class="form-input__input">
+                            <textarea class="form-input__input" name="serviceDescription" id="serviceDescription" rows="10"></textarea>
                         </div>
                         <div class="form-input">
                             <label for="serviceImg" class="form-input__label">Image du service</label>
