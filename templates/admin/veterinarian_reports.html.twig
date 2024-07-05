@@ -7,8 +7,8 @@
             {% for error in formErrors %}
                 <p class="error">{{ error }}</p>
             {% endfor %}
-            <button class="dialog-btn button--active">Ajouter un rapport vétérinaire</button>
-            <dialog class="dialog">
+            <button class="dialog-btn button--active" data-dialog-id="dialog-add-veterinarian-report">Ajouter un rapport vétérinaire</button>
+            <dialog id="dialog-add-veterinarian-report" class="dialog">
                 <div class="dialog__content">
                     <div class="dialog__header">
                         <h2>Ajout d'un rapport vétérinaire</h2>
@@ -57,14 +57,14 @@
                         {{ user.firstname }}
                         {{ user.lastname }}
                         {{ user.roleName }}
-                        <button class="dialog-btn button--active">Modifier</button>
+                        <button class="dialog-btn button--active" data-dialog-id="dialog-modify-veterinarian-report">Modifier</button>
                         <form action="" method="POST">
                             <input type="hidden" name="userId" value="{{ user.userId }}">
                             <input type="hidden" name="crudAction" value="DELETE">
                             <input type="submit" class="button--active" value="Supprimer">
                         </form>
                     </li>
-                    <dialog class="dialog">
+                    <dialog id="dialog-modify-veterinarian-report" class="dialog">
                         <div class="dialog__content">
                             <div class="dialog__header">
                                 <h2 class="dialog__title">Modification utilisateur :</h2>

@@ -5,19 +5,16 @@ class AnimalDialog extends Dialog {
     static #animalsData : { animals : { [key : number] : number } } = { animals : {}};
     #animalId : number;
 
-    constructor(element : HTMLDialogElement, openBtn : HTMLButtonElement) {
-        super(element, openBtn);
-        super.init();
+    constructor(openBtn : Element) {
+        super(openBtn);
         this.#init()
     }
 
     #init() {
-        if(super.element !== null) {
-            super.element.addEventListener('click', this.#registerViews.bind(this));
-        }
+        super.element.addEventListener('click', this.#registerViews.bind(this));
 
-        const animalId = super.element?.dataset.animalId;
-        if(animalId === undefined) return;
+        const animalId = super.element.dataset.animalId;
+        if(animalId === undefined) throw new Error('Dialog element must have a data-animal-id attribute. This attribute value must be the id of the animal.');
         this.#animalId = Number(animalId);
 
         AnimalDialog.#animalsData.animals[this.#animalId] = 0;
