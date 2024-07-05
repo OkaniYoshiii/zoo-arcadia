@@ -6,14 +6,14 @@
 
 {% block main %}
     <h1 class="txt-centered ">Nos services</h1>
-    {% for name, description in services %}
+    {% for service in services %}
         <section>
             <div class="size-medium">
-                <h2 class="">{{ name }}</h2>
+                <h2 class="">{{ service.name }}</h2>
                 <div class="media-and-text {% if loop.index % 2 == 0 %}media-and-text--reversed{% endif %}">
-                    <div class="media-and-text__media"><img class="rounded-img" src="{{ IMG_DIR }}/original-images/img-placeholder.png"></div>
+                    <div class="media-and-text__media"><img class="rounded-img" src="{{ UPLOAD_DIR ~ '/' ~ service.img }}"></div>
                     <div class="media-and-text__content">
-                        <p>{{ description }}</p>
+                        <p>{{ service.description|nl2br }}</p>
                     </div>
                 </div>
             </div>
