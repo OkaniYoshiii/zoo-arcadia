@@ -10,7 +10,7 @@ use PDO;
 
 class AnimalsTable extends Database implements AnimalsTableInterface
 {
-    static public function getAll() : array|false
+    static public function getAll(array $joins = []) : array|false
     {
         self::$statement = self::$pdo->query('SELECT * FROM animals');
 

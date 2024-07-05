@@ -22,7 +22,7 @@ class AdminDashboardController
          */
         $animals = AnimalsTable::getAll();
 
-        return ['animalsViews' => $animals];
+        return ['animals' => $animals];
     }
 
     public function processFormData() : void

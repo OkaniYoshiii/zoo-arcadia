@@ -10,7 +10,7 @@ use PDO;
 
 class HabitatsTable extends Database implements HabitatsTableInterface
 {
-    static public function getAll() : array|false
+    static public function getAll(array $joins = []) : array|false
     {
         self::$statement = self::$pdo->query('SELECT * FROM habitats');
         return self::$statement->fetchAll(PDO::FETCH_CLASS, Habitat::class);

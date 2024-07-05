@@ -10,7 +10,7 @@ use PDO;
 
 class AnimalImagesTable extends Database implements AnimalImagesTableInterface
 {
-    static public function getAll() : array|false
+    static public function getAll(array $joins = []) : array|false
     {
         self::$statement = self::$pdo->query('SELECT * FROM animal_images');
         return self::$statement->fetchAll(PDO::FETCH_CLASS, AnimalImage::class);

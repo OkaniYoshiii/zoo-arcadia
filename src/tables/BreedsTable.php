@@ -10,7 +10,7 @@ use PDO;
 
 class BreedsTable extends Database implements BreedsTableInterface
 {
-    static public function getAll() : array|false
+    static public function getAll(array $joins = []) : array|false
     {
         self::$statement = self::$pdo->query('SELECT * FROM breeds');
         return self::$statement->fetchAll(PDO::FETCH_CLASS, Breed::class);

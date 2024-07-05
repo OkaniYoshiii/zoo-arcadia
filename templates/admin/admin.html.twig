@@ -55,15 +55,19 @@
             <div class="size-medium">
                 <h1>Espace administration</h1>
                 <p>Bienvenue dans votre espace d'administration.</p>
-                <h2>Animaux ayant été le plus visionné dernièrement :</h2>
+                <h2>Nombre de vues par animal :</h2>
                 <ul>
-                    {% for animal in most_viewed_animals %}
-                        <li>{{ animal.name }}</li>
+                    {% for animal in animals %}
+                        <li>
+                            <h3>{{ animal.firstname }}</h3>
+                            <p>Habitat : {{ animal.habitat.name }}</p>
+                            <p>Espèce : {{ animal.breed.name }}</p>
+                            <p>Nombre de vues : {{ animal.views }}</p>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
-        </section>
-        
+        </section> 
         {% endblock %}
     </main>
     <footer>

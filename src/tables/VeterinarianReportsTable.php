@@ -10,7 +10,7 @@ use PDO;
 
 class VeterinarianReportsTable extends Database implements VeterinarianReportsTableInterface
 {
-    static public function getAll() : array|false
+    static public function getAll(array $joins = []) : array|false
     {
         self::$statement = self::$pdo->query('SELECT vr.date, vr.detail, vr.food_quantity FROM veterinarian_reports as vr');
         

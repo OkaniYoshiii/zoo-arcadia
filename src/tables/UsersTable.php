@@ -10,7 +10,7 @@ use PDO;
 
 class UsersTable extends Database implements UsersTableInterface
 {
-    static public function getAll() : array|false
+    static public function getAll(array $joins = []) : array|false
     {
         self::$statement = self::$pdo->query('SELECT users.user_id, users.username, users.firstname, users.lastname, users.role_id FROM users');
         
