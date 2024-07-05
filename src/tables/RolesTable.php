@@ -14,7 +14,7 @@ class RolesTable extends Database implements RolesTableInterface
     {
         self::$statement = self::$pdo->query('SELECT * FROM roles');
         
-        return self::$statement->fetchAll(PDO::FETCH_CLASS, 'Role');
+        return self::$statement->fetchAll(PDO::FETCH_CLASS, Role::class);
     }
 
     static public function create(Role $role) : void

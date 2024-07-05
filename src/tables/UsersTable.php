@@ -12,9 +12,9 @@ class UsersTable extends Database implements UsersTableInterface
 {
     static public function getAll() : array|false
     {
-        self::$statement = self::$pdo->query('SELECT users.user_id, users.username, users.firstname, users.lastname, roles.name as role_name FROM users LEFT JOIN roles ON users.role_id = roles.role_id');
+        self::$statement = self::$pdo->query('SELECT users.user_id, users.username, users.firstname, users.lastname, users.role_id FROM users');
         
-        return self::$statement->fetchAll(PDO::FETCH_CLASS, 'User');
+        return self::$statement->fetchAll(PDO::FETCH_CLASS, User::class);
     }
 
     static public function create(User $user) : void
@@ -57,9 +57,9 @@ class UsersTable extends Database implements UsersTableInterface
 
     static function delete(int $id) : void
     {
-        self::$statement = self::$pdo->prepare('DELETE FROM users WHERE users.user_id = :user_id');
+        self::$statement = self::$pdo->prepare('DELETE FROM users WHERE user_id = :user_id');
         
-        self::$statement->bindParam(':user_id', $userId);
+        self::$statement->bindParam(':user_id', $id, PDO::PARAM_INT);
 
         self::$statement->execute();
     }

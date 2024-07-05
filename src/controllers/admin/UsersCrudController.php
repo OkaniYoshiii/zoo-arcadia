@@ -1,5 +1,6 @@
 <?php
 
+use App\Entity\User;
 use App\Models\Table\RolesTable;
 use App\Models\Table\UsersTable;
 
@@ -47,11 +48,13 @@ class UsersCrudController
         if(empty(self::$formData['firstname'])) self::$formInputErrors[] = 'Le prénom de l\'utilisateur est vide';
         if(empty(self::$formData['lastname'])) self::$formInputErrors[] = 'Le nom de l\'utilisateur est vide';
         if(empty(self::$formData['password'])) self::$formInputErrors[] = 'Le mot de passe renseigné est vide';
-        if(UsersTable::isUserAlreadyRegistered(self::$formData)) self::$formInputErrors[] = 'L\'utilisateur renseigné existe déjà !';
+
+        $entity = new User(self::$formData);
+        if(UsersTable::isAlreadyRegistered($entity)) self::$formInputErrors[] = 'L\'utilisateur renseigné existe déjà !';
 
         if(!empty(self::$formInputErrors)) return;
 
-        UsersTable::createUser(self::$formData);
+        UsersTable::create($entity);
     }
 
     private static function updateUser()
@@ -69,11 +72,12 @@ class UsersCrudController
 
         if(!empty(self::$formInputErrors)) return;
 
-        UsersTable::updateUser(self::$formData);
+        $entity = new User(self::$formData);
+        UsersTable::update($entity);
     }
 
     private static function deleteUser()
     {
-        UsersTable::deleteUser(self::$formData['userId']);
+        UsersTable::delete(self::$formData['userId']);
     }
 }
