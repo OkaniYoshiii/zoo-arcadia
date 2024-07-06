@@ -31,11 +31,6 @@ trait TableTrait
         
         foreach($entity->getObjectVars() as $name => $value)
         {
-            if($entity::class === User::class) {
-                if($name === 'pwd' || $name === 'password') {
-                    $value = password_hash(hash_hmac("sha256", $value, APP_SECRET), PASSWORD_DEFAULT);
-                } 
-            }
             Database::$statement->bindValue($name, $value);
         }
 
@@ -100,7 +95,7 @@ trait TableTrait
     {
         self::checkConstantsDeclaration();
 
-        Database::$pdo->query('TRUNCATE TABLE ' . self::TABLE_NAME());
+        Database::$pdo->query('TRUNCATE TABLE ' . self::TABLE_NAME);
     }
 
     private static function checkConstantsDeclaration() : void

@@ -23,8 +23,8 @@ class AnimalsTable
         foreach($animals as $animal)
         {
             $animalViews = AnimalsViewsDB->findById($animal->getAnimalId());
-            if(!$animalViews) continue;
-            $animal->setViews($animalViews['views']); 
+            $views = ($animalViews) ? $animalViews['views'] : 0;
+            $animal->setViews($views); 
         }
         
         return $animals;

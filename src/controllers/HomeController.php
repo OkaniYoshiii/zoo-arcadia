@@ -72,6 +72,7 @@ class HomeController {
             self::$formData['username'] => throw new Exception('Username is null'),
             self::$formData['content'] => throw new Exception('Content is null'),
             self::$formData['date'] => throw new Exception('Date is null'),
+            default => '',
         };
 
         FeedbacksDB->insert([
