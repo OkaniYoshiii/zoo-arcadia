@@ -40,6 +40,30 @@ class UsersTable
         Database::$statement->execute();
     }
 
+    public static function update(User $user) : void 
+    {
+        self::checkConstantsDeclaration();
+
+        $sql = 'UPDATE users SET username = :username, firstname = :firstname, lastname = :lastname, pwd = :pwd, role_id = :role_id';
+        Database::$statement = Database::$pdo->prepare($sql);
+        
+        $username = $user->getUsername();
+        $firstname = $user->getFirstname();
+        $lastname = $user->getLastname();
+        $pwd = $user->getPassword();
+        $role_id = $user->getRoleId();
+
+        $pwd = password_hash(self::getPepperedPassword($pwd), PASSWORD_DEFAULT);
+
+        Database::$statement->bindValue(':username', $username);
+        Database::$statement->bindValue(':firstname', $firstname);
+        Database::$statement->bindValue(':lastname', $lastname);
+        Database::$statement->bindValue(':pwd', $pwd);
+        Database::$statement->bindValue(':role_id', $role_id);
+        
+        Database::$statement->execute();
+    }
+
     public static function isAlreadyRegistered(User $user) : bool 
     {
         self::checkConstantsDeclaration();
@@ -57,7 +81,7 @@ class UsersTable
         return ($result) ? password_verify(self::getPepperedPassword($pwd), $result['pwd']) : false;
     }
 
-    public static function getPepperedPassword(string $pwd) : string
+    private static function getPepperedPassword(string $pwd) : string
     {
         return hash_hmac("sha256", $pwd, APP_SECRET);
     }
