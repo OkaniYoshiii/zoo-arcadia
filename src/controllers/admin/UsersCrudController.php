@@ -64,12 +64,12 @@ class UsersCrudController
         if(is_null(self::$formData['username'])) throw new Exception('Username need to be specified in the form');
         if(is_null(self::$formData['firstname'])) throw new Exception('Firstname need to be specified in the form');
         if(is_null(self::$formData['lastname'])) throw new Exception('Lastname need to be specified in the form');
-        if(is_null(self::$formData['password'])) throw new Exception('Password need to be specified in the form');
+        if(is_null(self::$formData['pwd'])) throw new Exception('Password need to be specified in the form');
 
         if(empty(self::$formData['username'])) self::$formInputErrors[] = 'Le nom d\'utilisateur renseigné est vide';
         if(empty(self::$formData['firstname'])) self::$formInputErrors[] = 'Le prénom de l\'utilisateur est vide';
         if(empty(self::$formData['lastname'])) self::$formInputErrors[] = 'Le nom de l\'utilisateur est vide';
-        if(empty(self::$formData['password'])) self::$formInputErrors[] = 'Le mot de passe est vide';
+        if(empty(self::$formData['pwd'])) self::$formInputErrors[] = 'Le mot de passe est vide';
 
         if(!empty(self::$formInputErrors)) return;
 

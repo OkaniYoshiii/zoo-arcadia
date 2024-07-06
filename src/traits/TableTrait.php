@@ -46,14 +46,13 @@ trait TableTrait
     {
         self::checkConstantsDeclaration();
 
-        $set = implode(', ',array_map( function($property) { return $property . ' = :' . $property; }, $entity->getObjectVars()));
+        $set = implode(', ',array_map( function($property) { return $property . ' = :' . $property; }, array_keys($entity->getObjectVars())));
         $sql = 'UPDATE ' . self::TABLE_NAME . ' SET ' . $set;
         Database::$statement = Database::$pdo->prepare($sql);
         
-        foreach($entity->getObjectVars() as $property)
+        foreach($entity->getObjectVars() as $name => $value)
         {
-            $entityGetter = 'get' . str_replace('_', '', ucwords($property,'_'));
-            Database::$statement->bindValue(':' . $property, $entity->$entityGetter());
+            Database::$statement->bindValue(':' . $name, $value);
         }
 
         Database::$statement->execute();
