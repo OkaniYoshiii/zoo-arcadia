@@ -9,7 +9,7 @@ CREATE TABLE roles (
 CREATE TABLE users (
     user_id INT(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
-    pwd VARCHAR(50) NOT NULL,
+    pwd VARCHAR(255) NOT NULL,
     firstname VARCHAR(50),
     lastname VARCHAR(50),
     role_id INT(11),
