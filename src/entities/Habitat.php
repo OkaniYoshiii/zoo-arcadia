@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
-class Habitat
+use App\Interface\EntityInterface;
+use App\Trait\EntityTrait;
+
+class Habitat implements EntityInterface
 {
+    use EntityTrait;
+    
     private int $habitat_id;
     private string $name;
     private string $description;

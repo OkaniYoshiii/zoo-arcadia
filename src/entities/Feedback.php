@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
+use App\Interface\EntityInterface;
+use App\Trait\EntityTrait;
 use DateTime;
 
-class Feedback 
+class Feedback implements EntityInterface
 {
+    use EntityTrait;
+    
     private int $feedback_id;
     private string $username;
     private string $content;

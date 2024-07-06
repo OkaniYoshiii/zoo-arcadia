@@ -2,18 +2,29 @@
 
 namespace App\Entity;
 
-class AnimalImage 
+use App\Interface\EntityInterface;
+use App\Trait\EntityTrait;
+
+class AnimalImage implements EntityInterface
 {
+    use EntityTrait;
+    
     private int $animal_image_id;
     private string $name;
     private int $animal_id;
+    private Animal $animal;
 
     public function __construct(array $properties = null)
     {
         if(is_null($properties)) return;
 
+        if(isset($properties['animal_image_id'])) $this->animal_image_id = $properties['animal_image_id'];
         $this->setName($properties['name']);
         $this->setAnimalId($properties['animal_id']);
+
+        if(isset($properties['animals'])) {
+            $this->setAnimal($properties['animals']);
+        }
     }
 
     /**
@@ -60,6 +71,26 @@ class AnimalImage
     public function setAnimalId($animal_id)
     {
         $this->animal_id = $animal_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of animal
+     */ 
+    public function getAnimal()
+    {
+        return $this->animal;
+    }
+
+    /**
+     * Set the value of animal
+     *
+     * @return  self
+     */ 
+    public function setAnimal($animal)
+    {
+        $this->animal = $animal;
 
         return $this;
     }

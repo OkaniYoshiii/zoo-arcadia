@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
-class Breed 
+use App\Interface\EntityInterface;
+use App\Trait\EntityTrait;
+
+class Breed implements EntityInterface
 {
+    use EntityTrait;
+    
     private int $breed_id;
     private string $name;
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Table\AnimalImagesTable;
 use App\Models\Table\AnimalsTable;
 
 class AdminDashboardController 
@@ -20,7 +21,10 @@ class AdminDashboardController
          * "Mettre à jour les données" sur la page afin de 
          * récupérer les dernières données en temps réel.
          */
-        $animals = AnimalsTable::getAll();
+        $animalImages = AnimalsTable::getAll();
+        var_dump($animalImages);
+        die();
+        // $animals = AnimalsTable::getAll();
 
         return ['animals' => $animals];
     }

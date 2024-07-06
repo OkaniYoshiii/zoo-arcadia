@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
-class Role
+use App\Interface\EntityInterface;
+use App\Trait\EntityTrait;
+
+class Role implements EntityInterface
 {
+    use EntityTrait;
+    
     private int $role_id;
     private string $name;
 

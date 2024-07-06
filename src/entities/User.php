@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
-class User 
+use App\Interface\EntityInterface;
+use App\Trait\EntityTrait;
+
+class User implements EntityInterface
 {
+    use EntityTrait;
+    
     private int $user_id;
     private string $username;
     private string $firstname;

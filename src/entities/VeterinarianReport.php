@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
-class VeterinarianReport
+use App\Interface\EntityInterface;
+use App\Trait\EntityTrait;
+
+class VeterinarianReport implements EntityInterface
 {
+    use EntityTrait;
+    
     private int $veterinarian_report_id;
     private string $date;
     private string $detail;

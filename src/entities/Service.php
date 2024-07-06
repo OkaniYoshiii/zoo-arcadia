@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
-class Service 
+use App\Interface\EntityInterface;
+use App\Trait\EntityTrait;
+
+class Service implements EntityInterface
 {
+    use EntityTrait;
+    
     private int $service_id;
     private string $name;
     private string $description;

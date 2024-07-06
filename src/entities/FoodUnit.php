@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
-class FoodUnit
+use App\Interface\EntityInterface;
+use App\Trait\EntityTrait;
+
+class FoodUnit implements EntityInterface
 {
+    use EntityTrait;
+    
     private int $food_unit_id;
     private string $name;
 

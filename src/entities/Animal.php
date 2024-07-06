@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
-class Animal
+use App\Interface\EntityInterface;
+use App\Trait\EntityTrait;
+
+class Animal implements EntityInterface
 {
+    use EntityTrait;
+    
     private int $animal_id;
     private string $firstname;
     private string $state;
@@ -15,6 +20,7 @@ class Animal
     {
         if(is_null($properties)) return;
 
+        if(isset($properties['animal_id'])) $this->animal_id = $properties['animal_id'];
         $this->setFirstname($properties['firstname']);
         $this->setState($properties['state']);
         $this->setBreedId($properties['breed_id']);
