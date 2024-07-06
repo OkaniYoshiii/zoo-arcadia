@@ -26,12 +26,12 @@
                                 <input class="form-input__input" type="text" name="lastname" id="lastname" placeholder="Doe" required>
                             </div>
                             <div class="form-input">
-                                <label class="form-input__label" for="password">Mot de passe</label>
-                                <input class="form-input__input" type="password" name="password" id="password" required>
+                                <label class="form-input__label" for="pwd">Mot de passe</label>
+                                <input class="form-input__input" type="password" name="pwd" id="pwd" required>
                             </div>
                             <div class="form-input">
-                                <label class="form-input__label" for="roleId">Séléctionnez un rôle</label>
-                                <select class="form-input__input" name="roleId" id="roleId" required>
+                                <label class="form-input__label" for="role_id">Séléctionnez un rôle</label>
+                                <select class="form-input__input" name="role_id" id="role_id" required>
                                     {% for role in roles %}
                                         {% if role.name != 'ROLE_ADMIN' %}
                                             <option value="{{ role.roleId }}" {% if role.name == user.roleName %}selected{% endif %}>{{ role.name }}</option>
@@ -78,12 +78,12 @@
                                     <input class="form-input__input" type="text" name="lastname" id="lastname" value="{{ user.lastname }}" required>
                                 </div>
                                 <div class="form-input">
-                                    <label class="form-input__label" for="password">Mot de passe</label>
-                                    <input class="form-input__input" type="password" name="password" id="password" required>
+                                    <label class="form-input__label" for="pwd">Mot de passe</label>
+                                    <input class="form-input__input" type="password" name="pwd" id="pwd" required>
                                 </div>
                                 <div class="form-input">
-                                    <label class="form-input__label" for="roleId">Séléctionnez un rôle</label>
-                                    <select class="form-input__input" name="roleId" id="roleId" required>
+                                    <label class="form-input__label" for="role_id">Séléctionnez un rôle</label>
+                                    <select class="form-input__input" name="role_id" id="role_id" required>
                                         {% for role in roles %}
                                             {% if role.name != 'ROLE_ADMIN' %}
                                                 <option value="{{ role.roleId }}" {% if role.name == user.roleName %}selected{% endif %}>{{ role.name }}</option>

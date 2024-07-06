@@ -4,8 +4,13 @@ namespace App\Trait;
 
 trait EntityTrait
 {
-    public static function getClassProperties() : array
+    public static function getClassVars() : array
     {
-        return array_keys(get_class_vars(self::class));
+        return get_class_vars(self::class);
+    }
+
+    public function getObjectVars() : array
+    {
+        return get_object_vars($this);
     }
 }

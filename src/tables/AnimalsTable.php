@@ -11,6 +11,7 @@ class AnimalsTable
 {
     const TABLE_NAME = 'animals';
     const ENTITY = ['name' => 'Animal', 'class' => Animal::class];
+    const PRIMARY_KEY = 'animal_id';
     
     use TableTrait;
 

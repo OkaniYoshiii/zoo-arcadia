@@ -25,8 +25,8 @@ class UsersCrudController
             'username' => $_POST['username'] ?? null,
             'firstname' => $_POST['firstname'] ?? null,
             'lastname' => $_POST['lastname'] ?? null,
-            'password' => $_POST['password'] ?? null,
-            'roleId' => $_POST['roleId'] ?? null,
+            'pwd' => $_POST['pwd'] ?? null,
+            'role_id' => $_POST['role_id'] ?? null,
         ];
 
         match($_POST['crudAction']) {
@@ -42,12 +42,13 @@ class UsersCrudController
         if(is_null(self::$formData['username'])) throw new Exception('Username need to be specified in the form');
         if(is_null(self::$formData['firstname'])) throw new Exception('Firstname need to be specified in the form');
         if(is_null(self::$formData['lastname'])) throw new Exception('Lastname need to be specified in the form');
-        if(is_null(self::$formData['password'])) throw new Exception('Password need to be specified in the form');
+        if(is_null(self::$formData['pwd'])) throw new Exception('Password need to be specified in the form');
+        if(is_null(self::$formData['role_id'])) throw new Exception('RoleId need to be specified in the form');
 
         if(empty(self::$formData['username'])) self::$formInputErrors[] = 'Le nom d\'utilisateur renseigné est vide';
         if(empty(self::$formData['firstname'])) self::$formInputErrors[] = 'Le prénom de l\'utilisateur est vide';
         if(empty(self::$formData['lastname'])) self::$formInputErrors[] = 'Le nom de l\'utilisateur est vide';
-        if(empty(self::$formData['password'])) self::$formInputErrors[] = 'Le mot de passe renseigné est vide';
+        if(empty(self::$formData['pwd'])) self::$formInputErrors[] = 'Le mot de passe renseigné est vide';
 
         $entity = new User(self::$formData);
         if(UsersTable::isAlreadyRegistered($entity)) self::$formInputErrors[] = 'L\'utilisateur renseigné existe déjà !';

@@ -2,6 +2,7 @@
 
 namespace App\Trait;
 
+use App\Entity\User;
 use App\Interface\EntityInterface;
 use Database;
 use Exception;
@@ -22,16 +23,20 @@ trait TableTrait
     {
         self::checkConstantsDeclaration();
 
-        $fields = implode(', ', array_map(function($property) { return self::TABLE_NAME . $property; }, $entity::getClassProperties()));
-        $parameters = implode(', ', array_map(function($property) { return ':' . $property; }, $entity::getClassProperties()));
+        $fields = implode(', ', array_map(function($property) { return self::TABLE_NAME . '.' . $property; }, array_keys($entity->getObjectVars())));
+        $parameters = implode(', ', array_map(function($property) { return ':' . $property; }, array_keys($entity->getObjectVars())));
 
-        $sql = 'INSERT INTO ' . self::TABLE_NAME . $fields . ' VALUES ' . $parameters;
+        $sql = 'INSERT INTO ' . self::TABLE_NAME . ' (' . $fields . ') VALUES (' . $parameters . ')';
         Database::$statement = Database::$pdo->prepare($sql);
         
-        foreach($entity::getClassProperties() as $property)
+        foreach($entity->getObjectVars() as $name => $value)
         {
-            $entityGetter = 'get' . str_replace('_', '', ucwords($property,'_'));
-            Database::$statement->bindParam(':' . $property, $entity->$entityGetter());
+            if($entity::class === User::class) {
+                if($name === 'pwd' || $name === 'password') {
+                    $value = password_hash(hash_hmac("sha256", $value, APP_SECRET), PASSWORD_DEFAULT);
+                } 
+            }
+            Database::$statement->bindValue($name, $value);
         }
 
         Database::$statement->execute();
@@ -41,14 +46,14 @@ trait TableTrait
     {
         self::checkConstantsDeclaration();
 
-        $set = implode(', ',array_map( function($property) { return $property . ' = :' . $property; }, $entity::getClassProperties()));
+        $set = implode(', ',array_map( function($property) { return $property . ' = :' . $property; }, $entity->getObjectVars()));
         $sql = 'UPDATE ' . self::TABLE_NAME . ' SET ' . $set;
         Database::$statement = Database::$pdo->prepare($sql);
         
-        foreach($entity::getClassProperties() as $property)
+        foreach($entity->getObjectVars() as $property)
         {
             $entityGetter = 'get' . str_replace('_', '', ucwords($property,'_'));
-            Database::$statement->bindParam(':' . $property, $entity->$entityGetter());
+            Database::$statement->bindValue(':' . $property, $entity->$entityGetter());
         }
 
         Database::$statement->execute();
@@ -61,7 +66,7 @@ trait TableTrait
         $sql = 'DELETE FROM ' . self::TABLE_NAME . ' WHERE ' . '.' . $id . ' = :id';
         Database::$statement = Database::$pdo->prepare($sql);
         
-        Database::$statement->bindParam(':id', $id, PDO::PARAM_INT);
+        Database::$statement->bindValue(':id', $id, PDO::PARAM_INT);
 
         Database::$statement->execute();
     }
@@ -70,6 +75,25 @@ trait TableTrait
     {
         self::checkConstantsDeclaration();
 
+        $where = implode(' AND ',array_map( function($property) { return self::TABLE_NAME . '.' . $property . ' = :' . $property; }, array_keys($entity->getObjectVars())));
+        $sql = 'SELECT ' . self::PRIMARY_KEY . ' FROM ' . self::TABLE_NAME . ' WHERE ' . $where;
+        var_dump($sql);
+        Database::$statement = Database::$pdo->prepare($sql);
+
+        foreach($entity->getObjectVars() as $name => $value)
+        {
+            if($entity::class === User::class) {
+                if($name === 'pwd' || $name === 'password') {
+                    $value = password_hash(hash_hmac("sha256", $value, APP_SECRET), PASSWORD_DEFAULT);
+                } 
+            }
+            var_dump($name, $value);
+            Database::$statement->bindValue(':' . $name, $value);
+        }
+
+        Database::$statement->execute();
+        $result = Database::$statement->fetch(PDO::FETCH_ASSOC);
+        var_dump($result);
         return false;
     }
 
@@ -90,6 +114,8 @@ trait TableTrait
         if(!is_array(self::ENTITY)) throw new Exception('ENTITY constant of ' . self::class . ' has to be an array with two keys : \'name\' (name of the entity), \'class\' (classname of the entity obtained with \'nameOfYourClass::class\')');
         if(!in_array('name', array_keys(self::ENTITY))) throw new Exception('ENTITY constant of ' . self::class . ' doesn\'t have a \'name\' key. It\'s value must be the name of the entity related to the table class.');
         if(!in_array('class', array_keys(self::ENTITY))) throw new Exception('ENTITY constant of ' . self::class . ' doesn\'t have a \'class\' key. It\'s value must be the class name of the entity related to the table (obtained with \'nameOfYourClass::class\')');
+        if(!defined(self::class . '::PRIMARY_KEY')) throw new Exception(self::class . ' need to have a PRIMARY_KEY constant defined. This constant has to be a string and must have the name of the related table primary key as value.');
+        if(!is_string(self::PRIMARY_KEY)) throw new Exception('PRIMARY_KEY constant of ' . self::class . ' has to be a string and must have the name of the related table primary key as value.');
         self::$hasConstantsDefined = true;
     }
 }

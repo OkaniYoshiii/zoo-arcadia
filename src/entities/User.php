@@ -13,7 +13,7 @@ class User implements EntityInterface
     private string $username;
     private string $firstname;
     private string $lastname;
-    private string $password;
+    private string $pwd;
     private string $role_id;
 
     public function __construct(array $properties = null)
@@ -21,10 +21,12 @@ class User implements EntityInterface
         if(is_null($properties)) return;
 
         $this->setUsername($properties['username']);
-        $this->setPassword($properties['pwd']);
         $this->setFirstname($properties['firstname']);
         $this->setLastname($properties['lastname']);
-        $this->setRoleId($properties['role_id']);
+        $this->setPassword($properties['pwd']);
+        if(isset($properties['role_id'])) {
+            $this->setRoleId($properties['role_id']);
+        }
     }
 
     /**
@@ -96,21 +98,21 @@ class User implements EntityInterface
     }
 
     /**
-     * Get the value of password
+     * Get the value of pwd
      */ 
     public function getPassword()
     {
-        return $this->password;
+        return $this->pwd;
     }
 
     /**
-     * Set the value of password
+     * Set the value of pwd
      *
      * @return  self
      */ 
-    public function setPassword($password)
+    public function setPassword($pwd)
     {
-        $this->password = $password;
+        $this->pwd = $pwd;
 
         return $this;
     }

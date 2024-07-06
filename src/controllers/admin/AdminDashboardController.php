@@ -1,5 +1,6 @@
 <?php
 
+use App\Entity\AnimalImage;
 use App\Models\Table\AnimalImagesTable;
 use App\Models\Table\AnimalsTable;
 
