@@ -21,10 +21,7 @@ class AdminDashboardController
          * "Mettre à jour les données" sur la page afin de 
          * récupérer les dernières données en temps réel.
          */
-        $animalImages = AnimalsTable::getAll();
-        var_dump($animalImages);
-        die();
-        // $animals = AnimalsTable::getAll();
+        $animals = AnimalsTable::getAll();
 
         return ['animals' => $animals];
     }

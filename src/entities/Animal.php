@@ -14,7 +14,7 @@ class Animal implements EntityInterface
     private string $state;
     private int $breed_id;
     private int $habitat_id;
-    private int|null $views;
+    private int $views = 0;
 
     public function __construct(array $properties = null)
     {
@@ -25,7 +25,9 @@ class Animal implements EntityInterface
         $this->setState($properties['state']);
         $this->setBreedId($properties['breed_id']);
         $this->setHabitatId($properties['habitat_id']);
-        $this->setViews($properties['views'] ?? null);
+        if(isset($properties['views'])) {
+            $this->setViews($properties['views']);
+        }
     }
 
     /**
