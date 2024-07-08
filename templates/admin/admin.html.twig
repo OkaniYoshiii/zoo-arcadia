@@ -76,8 +76,7 @@
                                                 <label class="visually-hidden" for="">Fermé/ouvert ?</label>
                                                 <input type="checkbox" name="schedulesIds[]" id="" value="{{ schedule.scheduleId }}" {% if schedule.isOpen == 'true' %} checked {% endif %}>
                                                 {% set imgSrc = (schedule.isOpen == 'true') ? 'checkmark.svg' : 'cross.svg' %}
-                                                    <img src="{{ IMG_DIR }}/{{ imgSrc}}" width="" height="" alt="">
-                                                {% else %}
+                                                <img src="{{ IMG_DIR }}/{{ imgSrc}}" width="" height="" alt="">
                                             </td>
                                         {% endfor %}
                                     </tr>

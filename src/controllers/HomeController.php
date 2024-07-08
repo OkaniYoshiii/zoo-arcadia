@@ -1,5 +1,6 @@
 <?php
 
+use App\Entity\ScheduleHour;
 use App\Entity\Service;
 
 class HomeController {
@@ -40,13 +41,34 @@ class HomeController {
             "total" => 1
         ];
 
+        $schedulesHours = SchedulesHoursStore
+            ->createQueryBuilder()
+            ->join(function ($hour) {
+                return SchedulesStore
+                    ->createQueryBuilder()
+                    ->where(['schedules_hour_id', '=', $hour['_id']])
+                    ->join(function($schedule) {
+                        return SchedulesDaysStore->findBy(['_id', '=', $schedule['schedules_day_id']])[0];
+                    }, 'schedules_day')
+                    ->getQuery()
+                    ->fetch();
+            }, 'schedules')
+            ->getQuery()
+            ->fetch();
+
+        $schedulesHours = array_map(function($data) {
+            return new ScheduleHour($data);
+        }, $schedulesHours);
+
         $services = array_map(function(array $service) { return new Service($service); }, ServicesDB->findAll(null, 3));
 
         return [
-            "domains" => $domains,
-            "services" => $services,
-            "feedbacks" => self::getAllValidatedFeedbacks(),
-            "pages" => $pages
+            'domains' => $domains,
+            'services' => $services,
+            'feedbacks' => self::getAllValidatedFeedbacks(),
+            'pages' => $pages,
+            'schedulesHours' => $schedulesHours,
+            'weekDays' => SchedulesDaysStore->findAll(),
         ];
     }
 

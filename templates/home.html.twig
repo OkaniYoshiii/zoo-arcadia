@@ -135,108 +135,25 @@
                         <thead>
                             <tr>
                                 <th>Horaires</th>
-                                <th>Lundi</th>
-                                <th>Mardi</th>
-                                <th>Mercredi</th>
-                                <th>Jeudi</th>
-                                <th>Vendredi</th>
-                                <th>Samedi</th>
-                                <th>Dimanche</th>
+                                {% for day in weekDays %}
+                                    <th>{{ day.day }}</th>
+                                {% endfor %}
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">8h-9h</th>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">9h-10h</th>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">10h-11h</th>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">11h-12h</th>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">12h-13h</th>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/cross.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">13h-14h</th>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">14h-15h</th>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">15h-16h</th>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">16h-17h</th>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                                <td><img src="{{ IMG_DIR }}/checkmark.svg" width="" height="" alt=""></td>
-                            </tr>
+                            {% for scheduleHour in schedulesHours %}
+                                <tr>
+                                    <th scope="row">{{ scheduleHour.hour }}</th>
+                                    {% for schedule in scheduleHour.schedules %}
+                                        <td>
+                                            {% set imgSrc = (schedule.isOpen == 'true') ? 'checkmark.svg' : 'cross.svg' %}
+                                            <img src="{{ IMG_DIR }}/{{ imgSrc}}" width="" height="" alt="">
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
                         </tbody>
-                    </table>
+                    </table> 
                 </div>
             </div>
             <div>
