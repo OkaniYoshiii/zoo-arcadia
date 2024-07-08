@@ -1,8 +1,12 @@
 <?php
 
 use App\Entity\AnimalImage;
+use App\Entity\Schedule;
+use App\Entity\ScheduleDay;
+use App\Entity\ScheduleHour;
 use App\Models\Table\AnimalImagesTable;
 use App\Models\Table\AnimalsTable;
+use SleekDB\QueryBuilder;
 
 class AdminDashboardController 
 {
@@ -24,14 +28,39 @@ class AdminDashboardController
          */
         $animals = AnimalsTable::getAll();
 
-        return ['animals' => $animals];
+        $schedulesHours = SchedulesHoursStore
+            ->createQueryBuilder()
+            ->join(function ($hour) {
+                return SchedulesStore
+                    ->createQueryBuilder()
+                    ->where(['schedules_hour_id', '=', $hour['_id']])
+                    ->join(function($schedule) {
+                        return SchedulesDaysStore->findBy(['_id', '=', $schedule['schedules_day_id']])[0];
+                    }, 'schedules_day')
+                    ->getQuery()
+                    ->fetch();
+            }, 'schedules')
+            ->getQuery()
+            ->fetch();
+
+        $schedulesHours = array_map(function($data) {
+            return new ScheduleHour($data);
+        }, $schedulesHours);
+
+
+        return [
+            'schedulesHours' => $schedulesHours,
+            'weekDays' => SchedulesDaysStore->findAll(),
+            'animals' => $animals
+        ];
     }
 
     public function processFormData() : void
     {
         $analytics = file_get_contents("php://input") ?? null;
+        $analytics = json_decode($analytics, true);
 
-        if(!is_null($analytics)) {
+        if($analytics) {
             $analytics = json_decode($analytics, true);
             foreach($analytics['animals'] as $id => $views) {
                 $animal = AnimalsViewsDB->findById($id);
@@ -47,5 +76,11 @@ class AdminDashboardController
             die();
         }
 
+        $schedules = SchedulesStore->findAll();
+        foreach($schedules as $schedule)
+        {
+            $schedule['isOpen'] = (in_array($schedule['_id'], $_POST['schedulesIds']));
+            SchedulesStore->update($schedule);
+        }
     }
 }

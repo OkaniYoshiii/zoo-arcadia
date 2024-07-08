@@ -177,36 +177,6 @@ section:nth-of-type(odd){
     }
 }
 
-.table__wrapper {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-
-    font-size: constrain(0.75rem, 1rem, 600px);
-    text-align: center;
-
-    border-collapse: collapse;
-
-    thead {
-        border-bottom: 1px solid rgb(160 160 160);
-    }
-
-    thead th:first-child,
-    tbody th {
-        border-right: 1px solid rgb(160 160 160);
-    }
-    
-    td, th {
-        padding: constrain(0.4rem, 0.75rem, 320px) 0.75rem;
-    }
-
-    img {
-        display: inline;
-    }
-}
-
 .feedbacks {
     &__section {
         padding-block: 6rem;

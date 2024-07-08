@@ -20,10 +20,14 @@ use App\Models\Table\HabitatsTable;
 use App\Models\Table\RolesTable;
 use App\Models\Table\UsersTable;
 use App\Models\Table\VeterinarianReportsTable;
+use SleekDB\Classes\IoHelper;
+use SleekDB\Store;
 
 $rootDir = './';
 
 require_once './config/config.global.php';
+
+require_once './vendor/autoload.php';
 
 require_once './src/Autoloader.php';
 Autoloader::register();
@@ -31,8 +35,96 @@ Autoloader::register();
 if(!ALLOW_FIXTURES_CREATION) {
     throw new Exception('Fixtures creation is not allowed in this project. If you want to allow this, change ALLOW_FIXTURES_CREATION in config/config.global.php. Be warned : fixtures overwrite data in your database !');
 }
+$dbDirectory = './sleekdb';
+
+$storeName = 'schedules';
+IoHelper::deleteFolder($dbDirectory . '/' . $storeName);
+define('SchedulesStore', new Store($storeName, $dbDirectory, ['timeout' => false]));
+
+$storeName = 'schedules_hours';
+IoHelper::deleteFolder($dbDirectory . '/' . $storeName);
+define('SchedulesHoursStore', new Store($storeName, $dbDirectory, ['timeout' => false]));
+
+$storeName = 'schedules_days';
+IoHelper::deleteFolder($dbDirectory . '/' . $storeName);
+define('SchedulesDaysStore', new Store($storeName, $dbDirectory, ['timeout' => false]));
 
 Database::connect();
+
+$schedulesHours = [
+    [
+        'hour' => '8h-9h'
+    ],
+    [
+        'hour' => '9h-10h'
+    ],
+    [
+        'hour' => '10h-11h'
+    ],
+    [
+        'hour' => '11h-12h'
+    ],
+    [
+        'hour' => '12h-13h'
+    ],
+    [
+        'hour' => '13h-14h'
+    ],
+    [
+        'hour' => '14h-15h'
+    ],
+    [
+        'hour' => '15h-16h'
+    ],
+    [
+        'hour' => '16h-17h'
+    ],
+];
+
+SchedulesHoursStore->insertMany($schedulesHours);
+
+$schedulesDays = [
+    [
+        'day' => 'Lundi'
+    ],
+    [
+        'day' => 'Mardi'
+    ],
+    [
+        'day' => 'Mercredi'
+    ],
+    [
+        'day' => 'Jeudi'
+    ],
+    [
+        'day' => 'Vendredi'
+    ],
+    [
+        'day' => 'Samedi'
+    ],
+    [
+        'day' => 'Dimanche'
+    ],
+];
+
+SchedulesDaysStore->insertMany($schedulesDays);
+
+$schedulesDays = SchedulesDaysStore->findAll();
+$schedulesHours = SchedulesHoursStore->findAll();
+$schedules = [];
+foreach($schedulesDays as $day)
+{
+    foreach($schedulesHours as $hour)
+    {
+        $schedule = [];
+        $schedule['schedules_day_id'] = $day['_id'];
+        $schedule['schedules_hour_id'] = $hour['_id'];
+        $schedule['isOpen'] = (rand(0, 1) > 0.5) ? true : false ; 
+        $schedules[] = $schedule;
+    }
+}
+
+SchedulesStore->insertMany($schedules);
 
 $roles = [
     [
