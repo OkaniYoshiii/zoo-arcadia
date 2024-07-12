@@ -71,7 +71,6 @@ trait TableTrait
 
         $where = implode(' AND ',array_map( function($property) { return self::TABLE_NAME . '.' . $property . ' = :' . $property; }, array_keys($entity->getObjectVars())));
         $sql = 'SELECT ' . self::PRIMARY_KEY . ' FROM ' . self::TABLE_NAME . ' WHERE ' . $where;
-        var_dump($sql);
         Database::$statement = Database::$pdo->prepare($sql);
 
         foreach($entity->getObjectVars() as $name => $value)
@@ -81,14 +80,11 @@ trait TableTrait
                     $value = password_hash(hash_hmac("sha256", $value, APP_SECRET), PASSWORD_DEFAULT);
                 } 
             }
-            var_dump($name, $value);
             Database::$statement->bindValue(':' . $name, $value);
         }
 
         Database::$statement->execute();
-        $result = Database::$statement->fetch(PDO::FETCH_ASSOC);
-        var_dump($result);
-        return false;
+        return boolval(Database::$statement->fetch(PDO::FETCH_ASSOC));
     }
 
     public static function truncate() : void

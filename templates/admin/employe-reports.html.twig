@@ -24,7 +24,7 @@
                             <form class="form" action="" method="POST" autocomplete="off">
                                 <div class="form-input">
                                     <label class="form-input__label" for="animal-select">Animal ciblé</label>
-                                    <select class="form-input__input" name="animalId" id="animal-select">
+                                    <select class="form-input__input" name="animal_id" id="animal-select">
                                         {% for animal in animals %}
                                             <option value="{{ animal.animalId }}" {% if animal.animalId == report.animal.animalId %} selected {% endif %}>{{ animal.firstname }} - {{ animal.breed }} - {{ animal.habitat }}</option>
                                         {% endfor %}
@@ -32,19 +32,19 @@
                                 </div>
                                 <div class="form-input">
                                     <label for="foodQuantity" class="form-input__label">Quantité de nourriture donnée</label>
-                                    <input type="number" name="foodQuantity" id="foodQuantity" class="form-input__input" value="{{ report.foodQuantity }}">
+                                    <input type="number" name="food_quantity" id="foodQuantity" class="form-input__input" value="{{ report.foodQuantity }}">
                                 </div>
                                 <div class="form-input">
-                                    <label for="foodUnit" class="form-input__label">Unité de mesure</label>
-                                    <select class="form-input__input" name="foodUnit" id="food-unit-select">
+                                    <label for="foodUnitId" class="form-input__label">Unité de mesure</label>
+                                    <select class="form-input__input" name="food_unit_id" id="food-unit-select">
                                         {% for foodUnit in foodUnits %}
                                             <option value="{{ foodUnit.foodUnitId }}" {% if foodUnit.foodUnitId == report.foodUnit.foodUnitId %} selected {% endif %}>{{ foodUnit }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                                 <div class="form-input">
-                                    <label for="foodType" class="form-input__label">Nourriture donnée</label>
-                                    <select class="form-input__input" name="foodType" id="food-unit-select">
+                                    <label for="foodTypeId" class="form-input__label">Nourriture donnée</label>
+                                    <select class="form-input__input" name="food_type_id" id="food-unit-select">
                                         {% for foodType in foodTypes %}
                                             <option value="{{ foodType.foodTypeId }}" {% if foodType.foodTypeId == report.foodType.foodTypeId %} selected {% endif %}>{{ foodType }}</option>
                                         {% endfor %}
@@ -54,7 +54,7 @@
                                     <label for="date" class="form-input__label">Date de passage</label>
                                     <input type="date" name="date" id="date" class="form-input__input" value="{{ report.date }}">
                                 </div>
-                                <input type="hidden" name="employeeReportId" value="{{ report.employeeReportId }}">
+                                <input type="hidden" name="employee_report_id" value="{{ report.employeeReportId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
                                 <input type="submit" value="Confirmer" class="button--active">
                             </form>
@@ -72,7 +72,7 @@
                                     <input class="button--active" type="submit" value="Oui">
                                     <input class="button--active" type="submit" value="Non" formmethod="dialog">
                                 </div>
-                                <input type="hidden" name="employeeReportId" value="{{ report.employeeReportId}}">
+                                <input type="hidden" name="employee_report_id" value="{{ report.employeeReportId}}">
                                 <input type="hidden" name="crudAction" value="DELETE">
                             </form>
                         </div>
@@ -90,7 +90,7 @@
             <form class="form" action="" method="POST" autocomplete="off">
                 <div class="form-input">
                     <label class="form-input__label" for="animal-select">Animal ciblé</label>
-                    <select class="form-input__input" name="animalId" id="animal-select">
+                    <select class="form-input__input" name="animal_id" id="animal-select">
                         {% for animal in animals %}
                             <option value="{{ animal.animalId }}">{{ animal.firstname }} - {{ animal.breed }} - {{ animal.habitat }}</option>
                         {% endfor %}
@@ -98,19 +98,19 @@
                 </div>
                 <div class="form-input">
                     <label for="foodQuantity" class="form-input__label">Quantité de nourriture donnée</label>
-                    <input type="number" name="foodQuantity" id="foodQuantity" class="form-input__input">
+                    <input type="number" name="food_quantity" id="foodQuantity" class="form-input__input">
                 </div>
                 <div class="form-input">
-                    <label for="foodUnit" class="form-input__label">Unité de mesure</label>
-                    <select class="form-input__input" name="foodUnit" id="food-unit-select">
+                    <label for="foodUnitId" class="form-input__label">Unité de mesure</label>
+                    <select class="form-input__input" name="food_unit_id" id="food-unit-select">
                         {% for foodUnit in foodUnits %}
                             <option value="{{ foodUnit.foodUnitId }}">{{ foodUnit }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="form-input">
-                    <label for="foodType" class="form-input__label">Nourriture donnée</label>
-                    <select class="form-input__input" name="foodType" id="food-unit-select">
+                    <label for="foodTypeId" class="form-input__label">Nourriture donnée</label>
+                    <select class="form-input__input" name="food_type_id" id="food-unit-select">
                         {% for foodType in foodTypes %}
                             <option value="{{ foodType.foodTypeId }}">{{ foodType }}</option>
                         {% endfor %}
