@@ -41,14 +41,22 @@ trait TableTrait
     {
         self::checkConstantsDeclaration();
 
-        $set = implode(', ',array_map( function($property) { return $property . ' = :' . $property; }, array_keys($entity->getObjectVars())));
-        $sql = 'UPDATE ' . self::TABLE_NAME . ' SET ' . $set;
+        $properties = $entity->getObjectVars();
+        if(in_array(self::PRIMARY_KEY, array_keys($properties))) {
+            $entityId = $properties[self::PRIMARY_KEY];
+            unset($properties[self::PRIMARY_KEY]);
+        }
+        
+        $set = implode(', ',array_map( function($propertyName) { return self::TABLE_NAME . '.' . $propertyName . ' = :' . $propertyName; }, array_keys($properties)));
+        $sql = 'UPDATE ' . self::TABLE_NAME . ' SET ' . $set . ' WHERE ' . self::PRIMARY_KEY . ' = :entity_id';
         Database::$statement = Database::$pdo->prepare($sql);
         
-        foreach($entity->getObjectVars() as $name => $value)
+        foreach($properties as $name => $value)
         {
             Database::$statement->bindValue(':' . $name, $value);
         }
+        Database::$statement->bindValue(':entity_id', $entityId);
+
 
         Database::$statement->execute();
     }
@@ -69,11 +77,16 @@ trait TableTrait
     {
         self::checkConstantsDeclaration();
 
-        $where = implode(' AND ',array_map( function($property) { return self::TABLE_NAME . '.' . $property . ' = :' . $property; }, array_keys($entity->getObjectVars())));
+        $properties = $entity->getObjectVars();
+        if(in_array(self::PRIMARY_KEY, array_keys($properties))) {
+            unset($properties[self::PRIMARY_KEY]);
+        }
+
+        $where = implode(' AND ',array_map( function($property) { return self::TABLE_NAME . '.' . $property . ' = :' . $property; }, array_keys($properties)));
         $sql = 'SELECT ' . self::PRIMARY_KEY . ' FROM ' . self::TABLE_NAME . ' WHERE ' . $where;
         Database::$statement = Database::$pdo->prepare($sql);
 
-        foreach($entity->getObjectVars() as $name => $value)
+        foreach($properties as $name => $value)
         {
             if($entity::class === User::class) {
                 if($name === 'pwd' || $name === 'password') {
