@@ -61,14 +61,14 @@ trait TableTrait
         Database::$statement->execute();
     }
 
-    public static function delete(int $id) : void 
+    public static function delete(int $entity_id) : void 
     {
         self::checkConstantsDeclaration();
 
-        $sql = 'DELETE FROM ' . self::TABLE_NAME . ' WHERE ' . '.' . $id . ' = :id';
+        $sql = 'DELETE FROM ' . self::TABLE_NAME . ' WHERE ' . self::TABLE_NAME . '.' . self::PRIMARY_KEY . ' = :entity_id';
         Database::$statement = Database::$pdo->prepare($sql);
         
-        Database::$statement->bindValue(':id', $id, PDO::PARAM_INT);
+        Database::$statement->bindValue(':entity_id', $entity_id, PDO::PARAM_INT);
 
         Database::$statement->execute();
     }

@@ -108,6 +108,10 @@ class EmployeeReportsCrudController
 
     private function deleteReport() : void
     {
+        if(!isset(self::$formData['employee_report_id'])) throw new Exception('Form need to implements a field with an employee_report_id name.');
+        if(empty(self::$formData['employee_report_id'])) throw new Exception('Form field name \'employee_report_id\' is empty.');
+        if(!is_numeric(self::$formData['employee_report_id'])) throw new Exception('Form field name \'employee_report_id\' is not a numeric string.');
 
+        EmployeeReportsTable::delete(self::$formData['employee_report_id']);
     }
 }
