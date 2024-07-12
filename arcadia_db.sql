@@ -79,7 +79,7 @@ CREATE TABLE food_units (
 
 CREATE TABLE employee_reports (
     employee_report_id INT(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    date DATETIME NOT NULL,
+    date DATE NOT NULL,
     food_quantity DECIMAL(2) NOT NULL,
     food_type_id INT(11) NOT NULL,
     food_unit_id INT(11) NOT NULL,

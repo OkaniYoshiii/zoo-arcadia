@@ -16,6 +16,9 @@ class Animal implements EntityInterface
     private ?int $habitat_id;
     private ?int $views;
 
+    private ?Breed $breed;
+    private ?Habitat $habitat;
+
     public function __construct(array $properties = null)
     {
         if(is_null($properties)) return;
@@ -28,6 +31,9 @@ class Animal implements EntityInterface
         $this->habitat_id = $properties['habitat_id'] ?? null;
        
         if(isset($properties['views'])) $properties['views'];
+
+        $this->breed = $properties['breed'] ?? null;
+        $this->habitat = $properties['habitat'] ?? null;
     }
 
     /**
@@ -134,6 +140,46 @@ class Animal implements EntityInterface
     public function setViews($views)
     {
         $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of breed
+     */ 
+    public function getBreed()
+    {
+        return $this->breed;
+    }
+
+    /**
+     * Set the value of breed
+     *
+     * @return  self
+     */ 
+    public function setBreed($breed)
+    {
+        $this->breed = $breed;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of habitat
+     */ 
+    public function getHabitat()
+    {
+        return $this->habitat;
+    }
+
+    /**
+     * Set the value of habitat
+     *
+     * @return  self
+     */ 
+    public function setHabitat($habitat)
+    {
+        $this->habitat = $habitat;
 
         return $this;
     }
