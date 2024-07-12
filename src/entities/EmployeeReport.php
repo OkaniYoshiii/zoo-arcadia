@@ -11,7 +11,7 @@ class EmployeeReport implements EntityInterface
     use EntityTrait;
     
     private int $employee_report_id;
-    private DateTime $date;
+    private string $date;
     private int $food_quantity;
     private int $food_type_id;
     private int $food_unit_id;
