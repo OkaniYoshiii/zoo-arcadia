@@ -16,8 +16,14 @@ class FoodUnit implements EntityInterface
     {
         if(is_null($properties)) return;
 
-        $this->setName($properties['name']);
+        $this->food_unit_id = $properties['food_unit_id'] ?? null;
+        $this->name = $properties['name'] ?? null;
     } 
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the value of food_unit_id

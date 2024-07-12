@@ -41,26 +41,34 @@ trait TableTrait
     {
         self::checkConstantsDeclaration();
 
-        $set = implode(', ',array_map( function($property) { return $property . ' = :' . $property; }, array_keys($entity->getObjectVars())));
-        $sql = 'UPDATE ' . self::TABLE_NAME . ' SET ' . $set;
+        $properties = $entity->getObjectVars();
+        if(in_array(self::PRIMARY_KEY, array_keys($properties))) {
+            $entityId = $properties[self::PRIMARY_KEY];
+            unset($properties[self::PRIMARY_KEY]);
+        }
+        
+        $set = implode(', ',array_map( function($propertyName) { return self::TABLE_NAME . '.' . $propertyName . ' = :' . $propertyName; }, array_keys($properties)));
+        $sql = 'UPDATE ' . self::TABLE_NAME . ' SET ' . $set . ' WHERE ' . self::PRIMARY_KEY . ' = :entity_id';
         Database::$statement = Database::$pdo->prepare($sql);
         
-        foreach($entity->getObjectVars() as $name => $value)
+        foreach($properties as $name => $value)
         {
             Database::$statement->bindValue(':' . $name, $value);
         }
+        Database::$statement->bindValue(':entity_id', $entityId);
+
 
         Database::$statement->execute();
     }
 
-    public static function delete(int $id) : void 
+    public static function delete(int $entity_id) : void 
     {
         self::checkConstantsDeclaration();
 
-        $sql = 'DELETE FROM ' . self::TABLE_NAME . ' WHERE ' . '.' . $id . ' = :id';
+        $sql = 'DELETE FROM ' . self::TABLE_NAME . ' WHERE ' . self::TABLE_NAME . '.' . self::PRIMARY_KEY . ' = :entity_id';
         Database::$statement = Database::$pdo->prepare($sql);
         
-        Database::$statement->bindValue(':id', $id, PDO::PARAM_INT);
+        Database::$statement->bindValue(':entity_id', $entity_id, PDO::PARAM_INT);
 
         Database::$statement->execute();
     }
@@ -69,26 +77,27 @@ trait TableTrait
     {
         self::checkConstantsDeclaration();
 
-        $where = implode(' AND ',array_map( function($property) { return self::TABLE_NAME . '.' . $property . ' = :' . $property; }, array_keys($entity->getObjectVars())));
+        $properties = $entity->getObjectVars();
+        if(in_array(self::PRIMARY_KEY, array_keys($properties))) {
+            unset($properties[self::PRIMARY_KEY]);
+        }
+
+        $where = implode(' AND ',array_map( function($property) { return self::TABLE_NAME . '.' . $property . ' = :' . $property; }, array_keys($properties)));
         $sql = 'SELECT ' . self::PRIMARY_KEY . ' FROM ' . self::TABLE_NAME . ' WHERE ' . $where;
-        var_dump($sql);
         Database::$statement = Database::$pdo->prepare($sql);
 
-        foreach($entity->getObjectVars() as $name => $value)
+        foreach($properties as $name => $value)
         {
             if($entity::class === User::class) {
                 if($name === 'pwd' || $name === 'password') {
                     $value = password_hash(hash_hmac("sha256", $value, APP_SECRET), PASSWORD_DEFAULT);
                 } 
             }
-            var_dump($name, $value);
             Database::$statement->bindValue(':' . $name, $value);
         }
 
         Database::$statement->execute();
-        $result = Database::$statement->fetch(PDO::FETCH_ASSOC);
-        var_dump($result);
-        return false;
+        return boolval(Database::$statement->fetch(PDO::FETCH_ASSOC));
     }
 
     public static function truncate() : void

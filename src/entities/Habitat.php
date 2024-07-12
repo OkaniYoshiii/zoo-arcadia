@@ -9,19 +9,24 @@ class Habitat implements EntityInterface
 {
     use EntityTrait;
     
-    private int $habitat_id;
-    private string $name;
-    private string $description;
-    private string|null $veterinarian_comments;
+    private ?int $habitat_id;
+    private ?string $name;
+    private ?string $description;
+    private ?string $veterinarian_comments;
 
     public function __construct(array $properties = null)
     {
         if(is_null($properties)) return;
 
-        $this->setName($properties['name']);
-        $this->setDescription($properties['description']);
-        if(!isset($properties['veterinarian_comments'])) $properties['veterinarian_comments'] = null;
-        $this->setVeterinarianComments($properties['veterinarian_comments']);
+        $this->habitat_id = $properties['habitat_id'] ?? null;
+        $this->name = $properties['name'] ?? null;
+        $this->description = $properties['description'] ?? null;
+        $this->veterinarian_comments = $properties['veterinarian_comments'] ?? null;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     /**

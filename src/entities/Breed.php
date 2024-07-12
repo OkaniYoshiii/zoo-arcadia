@@ -9,14 +9,20 @@ class Breed implements EntityInterface
 {
     use EntityTrait;
     
-    private int $breed_id;
-    private string $name;
+    private ?int $breed_id;
+    private ?string $name;
 
     public function __construct(array $properties = null)
     {
         if(is_null($properties)) return;
 
-        $this->setName($properties['name']);
+        $this->breed_id = $properties['breed_id'] ?? null;
+        $this->name = $properties['name'] ?? null;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     /**

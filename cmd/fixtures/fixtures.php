@@ -3,6 +3,7 @@
 use App\Entity\Animal;
 use App\Entity\AnimalImage;
 use App\Entity\Breed;
+use App\Entity\EmployeeReport;
 use App\Entity\FoodType;
 use App\Entity\FoodUnit;
 use App\Entity\Habitat;
@@ -13,6 +14,7 @@ use App\Entity\VeterinarianReport;
 use App\Models\Table\AnimalImagesTable;
 use App\Models\Table\AnimalsTable;
 use App\Models\Table\BreedsTable;
+use App\Models\Table\EmployeeReportsTable;
 use App\Models\Table\FoodTypesTable;
 use App\Models\Table\FoodUnitsTable;
 use App\Models\Table\HabitatImagesTable;
@@ -35,6 +37,7 @@ Autoloader::register();
 if(!ALLOW_FIXTURES_CREATION) {
     throw new Exception('Fixtures creation is not allowed in this project. If you want to allow this, change ALLOW_FIXTURES_CREATION in config/config.global.php. Be warned : fixtures overwrite data in your database !');
 }
+
 $dbDirectory = './sleekdb';
 
 $storeName = 'schedules';
@@ -305,6 +308,16 @@ $animalImages = [
     ],
 ];
 
+$employeeReports = [
+    [
+        'date' => date('Y-m-d', strtotime('2022-05-23')),
+        'food_quantity' => 30,
+        'food_type_id' => 2,
+        'food_unit_id' => 1,
+        'animal_id' => 1,
+    ]
+];
+
 createRoles($roles);
 createUsers($users);
 createFoodTypes($foodTypes);
@@ -315,6 +328,7 @@ createAnimals($animals);
 createFoodUnits($foodUnits);
 createVeterinarianReports($veterinarianReports);
 createAnimalImages($animalImages);
+createEmployeeReports($employeeReports);
 
 function createRoles(array $roles) : void
 {
@@ -423,6 +437,17 @@ function createAnimalImages(array $animalImages) : void
     {
         $entity = new AnimalImage($animalImage);
         AnimalImagesTable::create($entity);
+    }
+}
+
+function createEmployeeReports(array $employeeReports) : void
+{
+    EmployeeReportsTable::truncate();
+
+    foreach($employeeReports as $employeeReport)
+    {
+        $entity = new EmployeeReport($employeeReport);
+        EmployeeReportsTable::create($entity);
     }
 }
 

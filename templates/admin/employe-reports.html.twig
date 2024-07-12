@@ -1,0 +1,128 @@
+{% extends "admin/admin.html.twig" %}
+
+{% block main %}
+    <section>
+        <div class="size-medium">
+            <h1>Rapports employé</h1>
+            <button class="button--active dialog-btn" data-dialog-id="dialog-add-report">Ajouter un rapport</button>
+            <ul>
+                {% for report in employeeReports %}
+                    <li>
+                        <h2>Rapport du {{ report.date }}</h2>
+                        <button class="button--active dialog-btn" data-dialog-id="dialog-modify-report-{{ report.employeeReportId }}">Modifier le rapport</button>
+                        <button class="button--active dialog-btn" data-dialog-id="dialog-delete-report-{{ report.employeeReportId }}">Supprimer le rapport</button>
+                        <p>Animal concerné : {{ report.animal.firstname }} - {{ report.animal.breed }} - {{ report.animal.habitat }}</p>
+                        <p>Nourriture donnée : {{ report.foodType }}</p> 
+                        <p>Quantité de nourriture : {{ report.foodQuantity ~ report.foodUnit }}</p>                      
+                    </li>
+
+                    <dialog class="dialog" id="dialog-modify-report-{{ report.employeeReportId }}">
+                        <div class="dialog__content">
+                            <div class="dialog__header">
+                                <h3 class="dialog__title">Modification du rapport</h3>
+                            </div>
+                            <form class="form" action="" method="POST" autocomplete="off">
+                                <div class="form-input">
+                                    <label class="form-input__label" for="animal-select">Animal ciblé</label>
+                                    <select class="form-input__input" name="animal_id" id="animal-select">
+                                        {% for animal in animals %}
+                                            <option value="{{ animal.animalId }}" {% if animal.animalId == report.animal.animalId %} selected {% endif %}>{{ animal.firstname }} - {{ animal.breed }} - {{ animal.habitat }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-input">
+                                    <label for="foodQuantity" class="form-input__label">Quantité de nourriture donnée</label>
+                                    <input type="number" name="food_quantity" id="foodQuantity" class="form-input__input" value="{{ report.foodQuantity }}">
+                                </div>
+                                <div class="form-input">
+                                    <label for="foodUnitId" class="form-input__label">Unité de mesure</label>
+                                    <select class="form-input__input" name="food_unit_id" id="food-unit-select">
+                                        {% for foodUnit in foodUnits %}
+                                            <option value="{{ foodUnit.foodUnitId }}" {% if foodUnit.foodUnitId == report.foodUnit.foodUnitId %} selected {% endif %}>{{ foodUnit }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-input">
+                                    <label for="foodTypeId" class="form-input__label">Nourriture donnée</label>
+                                    <select class="form-input__input" name="food_type_id" id="food-unit-select">
+                                        {% for foodType in foodTypes %}
+                                            <option value="{{ foodType.foodTypeId }}" {% if foodType.foodTypeId == report.foodType.foodTypeId %} selected {% endif %}>{{ foodType }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-input">
+                                    <label for="date" class="form-input__label">Date de passage</label>
+                                    <input type="date" name="date" id="date" class="form-input__input" value="{{ report.date }}">
+                                </div>
+                                <input type="hidden" name="employee_report_id" value="{{ report.employeeReportId }}">
+                                <input type="hidden" name="crudAction" value="UPDATE">
+                                <input type="submit" value="Confirmer" class="button--active">
+                            </form>
+                        </div>
+                    </dialog>
+
+                    <dialog class="dialog" id="dialog-delete-report-{{ report.employeeReportId }}">
+                        <div class="dialog__content">
+                            <div class="dialog__header">
+                                <h3 class="dialog__title">Suppression du rapport</h3>
+                            </div>
+                            <form class="form" action="" method="POST">
+                                <p>Êtes vous sûr de vouloir supprimer ce rapport ?</p>
+                                <div class="d-flex justify-content-between">
+                                    <input class="button--active" type="submit" value="Oui">
+                                    <input class="button--active" type="submit" value="Non" formmethod="dialog">
+                                </div>
+                                <input type="hidden" name="employee_report_id" value="{{ report.employeeReportId}}">
+                                <input type="hidden" name="crudAction" value="DELETE">
+                            </form>
+                        </div>
+                    </dialog>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    <dialog class="dialog" id="dialog-add-report">
+        <div class="dialog__content">
+            <div class="dialog__header">
+                <h3 class="dialog__title">Ajouter un rapport</h3>
+            </div>
+            <form class="form" action="" method="POST" autocomplete="off">
+                <div class="form-input">
+                    <label class="form-input__label" for="animal-select">Animal ciblé</label>
+                    <select class="form-input__input" name="animal_id" id="animal-select">
+                        {% for animal in animals %}
+                            <option value="{{ animal.animalId }}">{{ animal.firstname }} - {{ animal.breed }} - {{ animal.habitat }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-input">
+                    <label for="foodQuantity" class="form-input__label">Quantité de nourriture donnée</label>
+                    <input type="number" name="food_quantity" id="foodQuantity" class="form-input__input">
+                </div>
+                <div class="form-input">
+                    <label for="foodUnitId" class="form-input__label">Unité de mesure</label>
+                    <select class="form-input__input" name="food_unit_id" id="food-unit-select">
+                        {% for foodUnit in foodUnits %}
+                            <option value="{{ foodUnit.foodUnitId }}">{{ foodUnit }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-input">
+                    <label for="foodTypeId" class="form-input__label">Nourriture donnée</label>
+                    <select class="form-input__input" name="food_type_id" id="food-unit-select">
+                        {% for foodType in foodTypes %}
+                            <option value="{{ foodType.foodTypeId }}">{{ foodType }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-input">
+                    <label for="date" class="form-input__label">Date de passage</label>
+                    <input type="date" name="date" id="date" class="form-input__input" value="{{ "now"|date('Y-m-d') }}">
+                </div>
+                <input type="hidden" name="crudAction" value="CREATE">
+                <input type="submit" value="Confirmer" class="button--active">
+            </form>
+        </div>
+    </dialog>
+{% endblock %}
