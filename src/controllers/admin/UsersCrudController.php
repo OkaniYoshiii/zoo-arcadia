@@ -79,6 +79,9 @@ class UsersCrudController
 
     private static function deleteUser()
     {
+        if(!isset(self::$formData['userId'])) throw new Exception('userId need to be specified in the form');
+        if(!is_numeric(self::$formData['userId'])) throw new Exception('userId need to be a numeric string');
+        
         UsersTable::delete(self::$formData['userId']);
     }
 }
