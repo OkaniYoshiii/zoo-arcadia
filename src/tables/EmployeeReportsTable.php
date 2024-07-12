@@ -109,9 +109,6 @@ class EmployeeReportsTable
             $result[] = $entity;
         }
 
-        var_dump($result);
-
-        // $result = Database::$statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 }
