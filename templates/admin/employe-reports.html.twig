@@ -1,0 +1,19 @@
+{% extends "admin/admin.html.twig" %}
+
+{% block main %}
+    <section>
+        <div class="size-medium">
+            <h1>Rapports employé</h1>
+            <ul>
+                {% for report in employeeReports %}
+                    <li>
+                        <h2>Rapport du {{ report.date }}</h2>
+                        <p>Animal concerné : {{ report.animalId }}</p>
+                        <p>Nourriture donnée : {{ report.foodType }}</p> 
+                        <p>Quantité de nourriture : {{ report.foodQuantity ~ report.foodUnit }}</p>                      
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+{% endblock %}

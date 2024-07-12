@@ -9,22 +9,24 @@ class Animal implements EntityInterface
 {
     use EntityTrait;
     
-    private int $animal_id;
-    private string $firstname;
-    private string $state;
-    private int $breed_id;
-    private int $habitat_id;
-    private int $views;
+    private ?int $animal_id;
+    private ?string $firstname;
+    private ?string $state;
+    private ?int $breed_id;
+    private ?int $habitat_id;
+    private ?int $views;
 
     public function __construct(array $properties = null)
     {
         if(is_null($properties)) return;
 
         if(isset($properties['animal_id'])) $this->animal_id = $properties['animal_id'];
-        $this->setFirstname($properties['firstname']);
-        $this->setState($properties['state']);
-        $this->setBreedId($properties['breed_id']);
-        $this->setHabitatId($properties['habitat_id']);
+
+        $this->firstname = $properties['firstname'] ?? null;
+        $this->state = $properties['state'] ?? null;
+        $this->breed_id = $properties['breed_id'] ?? null;
+        $this->habitat_id = $properties['habitat_id'] ?? null;
+       
         if(isset($properties['views'])) $properties['views'];
     }
 

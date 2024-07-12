@@ -19,6 +19,11 @@ class FoodUnit implements EntityInterface
         $this->setName($properties['name']);
     } 
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * Get the value of food_unit_id
      */ 
