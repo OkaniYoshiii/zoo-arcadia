@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Interface\EntityInterface;
 use App\Trait\EntityTrait;
-use DateTime;
 
 class EmployeeReport implements EntityInterface
 {
@@ -17,21 +16,25 @@ class EmployeeReport implements EntityInterface
     private int $food_unit_id;
     private int $animal_id;
 
-    private ?FoodType $food_type;
-    private ?FoodUnit $food_unit;
-    private ?Animal $animal;
+    private FoodType $food_type;
+    private FoodUnit $food_unit;
+    private Animal $animal;
 
-    public function __construct(array $properties)
+    public function __construct(array $properties = null)
     {
-        $this->employee_report_id = $properties['employee_report_id'];
+        if(!isset($properties)) return;
+
+        if(isset($properties['employee_report_id'])) $this->employee_report_id = $properties['employee_report_id'];
+
         $this->date = $properties['date'];
         $this->food_quantity = $properties['food_quantity'];
         $this->food_type_id = $properties['food_type_id'];
+        $this->food_unit_id = $properties['food_unit_id'];
         $this->animal_id = $properties['animal_id'];
 
-        $this->food_type = $properties['food_type'];
-        $this->food_unit = $properties['food_unit'];
-        $this->animal = $properties['animal'];
+        if(isset($properties['food_type'])) $this->food_type = $properties['food_type'];
+        if(isset($properties['food_unit'])) $this->food_unit = $properties['food_unit'];
+        if(isset($properties['animal'])) $this->animal = $properties['animal'];
     }
 
     /**
