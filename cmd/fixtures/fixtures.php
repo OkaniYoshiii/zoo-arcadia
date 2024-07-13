@@ -287,23 +287,23 @@ $veterinarianReports = [
 
 $animalImages = [
     [
-        'name' => IMG_DIR . '/img-elephant.webp',
+        'name' => 'img-elephant.webp',
         'animal_id' => 1,
     ],
     [
-        'name' => IMG_DIR . '/img-giraffa-1.webp',
+        'name' => 'img-giraffa-1.webp',
         'animal_id' => 2,
     ],
     [
-        'name' => IMG_DIR . '/img-giraffa-2.webp',
+        'name' => 'img-giraffa-2.webp',
         'animal_id' => 3,
     ],
     [
-        'name' => IMG_DIR . '/img-giraffa-3.webp',
+        'name' => 'img-giraffa-3.webp',
         'animal_id' => 2,
     ],
     [
-        'name' => IMG_DIR . '/img-gorilla.webp',
+        'name' => 'img-gorilla.webp',
         'animal_id' => 4,
     ],
 ];
