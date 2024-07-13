@@ -19,7 +19,7 @@ trait TableTrait
         return Database::$statement->fetchAll(PDO::FETCH_CLASS, self::ENTITY['class']);
     }
 
-    public static function create(EntityInterface $entity) : void
+    public static function create(EntityInterface $entity) : int
     {
         self::checkConstantsDeclaration();
 
@@ -35,6 +35,8 @@ trait TableTrait
         }
 
         Database::$statement->execute();
+
+        return Database::$pdo->lastInsertId();
     }
 
     public static function update(EntityInterface $entity) : void 

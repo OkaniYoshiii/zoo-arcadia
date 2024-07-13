@@ -44,8 +44,8 @@
                                     <input type="text" name="" id="" class="form-input__input">
                                 </div>
                                 <div class="form-input">
-                                    <label for="" class="for-input__label">Image</label>
-                                    <input type="file" name="" id="" class="form-input__input" multiple>
+                                    <label for="animal_images" class="for-input__label">Image</label>
+                                    <input type="file" name="animal_images[]" id="animal_images" class="form-input__input" multiple>
                                 </div>
                                 <div class="form-input">
                                     <label for="" class="for-input__label">Espèce</label>
@@ -101,34 +101,34 @@
             <div class="dialog__header">
                 <h2 class="dialog__title">Ajouter un animal</h2>
             </div>
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form class="form" action="" method="POST" enctype="multipart/form-data">
                 <div class="form-input">
-                    <label for="" class="for-input__label">Prénom</label>
-                    <input type="text" name="" id="" class="form-input__input">
+                    <label for="firstname" class="form-input__label">Prénom</label>
+                    <input type="text" name="firstname" id="firstname" class="form-input__input">
                 </div>
                 <div class="form-input">
-                    <label for="" class="for-input__label">Image</label>
-                    <input type="file" name="" id="" class="form-input__input" multiple>
+                    <label for="animal_images" class="form-input__label">Image</label>
+                    <input type="file" name="animal_images[]" id="animal_images" class="form-input__input" multiple>
                 </div>
                 <div class="form-input">
-                    <label for="" class="for-input__label">Espèce</label>
-                    <select name="" id="">
+                    <label for="breed" class="form-input__label">Espèce</label>
+                    <select class="form-input__input" name="breed_id" id="breed">
                         {% for breed in breeds %}
-                            <option value=""></option>
+                            <option value="{{ breed.breedId }}">{{ breed }}</option>
                         {% endfor %}
                     </select>
                     <button class="button--active" type="button" data-action="add-breed">Ajouter une espèce dans la liste</button>
                 </div>
                 <div class="form-input">
-                    <label for="" class="for-input__label">Habitat</label>
-                    <select name="" id="">
+                    <label for="habitat" class="form-input__label">Habitat</label>
+                    <select class="form-input__input" name="habitat_id" id="habitat">
                         {% for habitat in habitats %}
-                            <option value=""></option>
+                            <option value="{{ habitat.habitatId }}">{{ habitat }}</option>
                         {% endfor %}
                     </select>
                     <button class="button--active" type="button" data-action="add-habitat">Ajouter un habitat dans la liste</button>
                 </div>
-                <input type="submit" value="Confirmer">
+                <input class="button--active" type="submit" value="Confirmer">
                 <input type="hidden" name="crudAction" value="CREATE">
             </form>
         </div>

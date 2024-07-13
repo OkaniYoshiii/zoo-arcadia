@@ -26,16 +26,16 @@ class Animal implements EntityInterface
 
         if(isset($properties['animal_id'])) $this->animal_id = $properties['animal_id'];
 
-        $this->firstname = $properties['firstname'] ?? null;
-        $this->state = $properties['state'] ?? null;
-        $this->breed_id = $properties['breed_id'] ?? null;
-        $this->habitat_id = $properties['habitat_id'] ?? null;
+        if(isset($properties['firstname'])) $this->firstname = $properties['firstname'];
+        if(isset($properties['state'])) $this->state = $properties['state'];
+        if(isset($properties['breed_id'])) $this->breed_id = $properties['breed_id'];
+        if(isset($properties['habitat_id'])) $this->habitat_id = $properties['habitat_id'];
        
-        if(isset($properties['views'])) $properties['views'];
+        if(isset($properties['views'])) $this->views = $properties['views'];
 
-        $this->breed = $properties['breed'] ?? null;
-        $this->habitat = $properties['habitat'] ?? null;
-        $this->animal_images = $properties['animal_images'] ?? null;
+        if(isset($properties['breed'])) $this->breed = $properties['breed'];
+        if(isset($properties['habitat'])) $this->habitat = $properties['habitat'];
+        if(isset($properties['animal_images'])) $this->animal_images = $properties['animal_images'];
     }
 
     /**

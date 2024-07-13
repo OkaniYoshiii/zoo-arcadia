@@ -39,7 +39,7 @@ CREATE TABLE food_types (
 CREATE TABLE animals (
     animal_id INT(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     firstname VARCHAR(25) NOT NULL,
-    state VARCHAR(100) NOT NULL,
+    state VARCHAR(100),
     breed_id INT(11),
     habitat_id INT(11),
     FOREIGN KEY (breed_id) REFERENCES breeds(breed_id),
