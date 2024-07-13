@@ -6,13 +6,27 @@
             <h1>Gestion des animaux</h1>
             <button class="dialog-btn button--active" data-dialog-id="dialog-add-animal">Ajouter un animal</button>
             <h2>Liste des animaux</h2>
-            <ul>
+            <ul class="list-unstyled">
                 {% for animal in animals %}
                     <li>
-                        <h3>{{ animal.name }}</h3>
-                        {% for image in animal.images %}
-                            <img src="{{ image.name }}" alt="">
-                        {% endfor %}
+                        <h3>{{ animal.firstname }} - {{ animal.breed }} - {{ animal.habitat }}</h3>
+                        <div class="gallery--slider">
+                            <div class="gallery__content">
+                                {% for animalImage in animal.animalImages %}
+                                    <div class="gallery__slide">
+                                        <img class="gallery__item rounded-img" src="{{ IMG_DIR ~ '/' ~ animalImage.name }}" alt="">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% if animal.animalImages|length > 1 %}
+                                <div class="gallery__controls">
+                                    {% for animalImage in animal.animalImages %}
+                                    {% set firstValue = animal.animalImages|first %}
+                                        <input type="radio" name="animal_image-{{ animal.animalId }}" {% if animalImage == firstValue %} checked {% endif %} autocomplete="off">
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
                         <p>Espèce : {{ animal.breed }}</p>
                         <p>Habitat : {{ animal.habitat }}</p>
                         <button data-dialog-id="dialog-update-animal-{{ animal.animalId }}" class="dialog-btn button--active">Modifier</button>
@@ -58,7 +72,7 @@
                         </div>
                     </dialog>
 
-                    <dialog class="dialog" id="dialog-update-animal-{{ animal.animalId }}">
+                    <dialog class="dialog" id="dialog-delete-animal-{{ animal.animalId }}">
                         <div class="dialog__content">
                             <div class="dialog__header">
                                 <h4>Supprimer l'animal</h4>

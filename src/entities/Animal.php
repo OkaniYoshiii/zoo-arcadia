@@ -18,6 +18,7 @@ class Animal implements EntityInterface
 
     private ?Breed $breed;
     private ?Habitat $habitat;
+    private ?array $animal_images;
 
     public function __construct(array $properties = null)
     {
@@ -34,6 +35,7 @@ class Animal implements EntityInterface
 
         $this->breed = $properties['breed'] ?? null;
         $this->habitat = $properties['habitat'] ?? null;
+        $this->animal_images = $properties['animal_images'] ?? null;
     }
 
     /**
@@ -180,6 +182,26 @@ class Animal implements EntityInterface
     public function setHabitat($habitat)
     {
         $this->habitat = $habitat;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of animal_images
+     */ 
+    public function getAnimalImages()
+    {
+        return $this->animal_images;
+    }
+
+    /**
+     * Set the value of animal_images
+     *
+     * @return  self
+     */ 
+    public function setAnimalImages($animal_images)
+    {
+        $this->animal_images = $animal_images;
 
         return $this;
     }

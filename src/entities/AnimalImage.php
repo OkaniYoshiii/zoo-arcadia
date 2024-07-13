@@ -9,22 +9,20 @@ class AnimalImage implements EntityInterface
 {
     use EntityTrait;
     
-    private int $animal_image_id;
-    private string $name;
-    private int $animal_id;
-    private Animal $animal;
+    private ?int $animal_image_id;
+    private ?string $name;
+    private ?int $animal_id;
+
+    private ?Animal $animal;
 
     public function __construct(array $properties = null)
     {
         if(is_null($properties)) return;
 
-        if(isset($properties['animal_image_id'])) $this->animal_image_id = $properties['animal_image_id'];
-        $this->setName($properties['name']);
-        $this->setAnimalId($properties['animal_id']);
-
-        if(isset($properties['animals'])) {
-            $this->setAnimal($properties['animals']);
-        }
+        $this->animal_image_id = $properties['animal_image_id'] ?? null;
+        $this->name = $properties['name'] ?? null;
+        $this->animal_id = $properties['animal_id'] ?? null;
+        $this->animal = $properties['animal'] ?? null;
     }
 
     /**

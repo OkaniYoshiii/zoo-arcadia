@@ -3,6 +3,7 @@
 namespace App\Models\Table;
 
 use App\Entity\Animal;
+use App\Entity\AnimalImage;
 use App\Entity\Breed;
 use App\Entity\Habitat;
 use App\Trait\TableTrait;
@@ -38,78 +39,102 @@ class AnimalsTable
     {
         $joins = [
             [
-                'table' => BreedsTable::class,
-                'fields' => [
-                    'name',
-                ]
-            ],
-            [
-                'table' => HabitatsTable::class,
-                'fields' => [
-                    'name',
+                'table' => self::class,
+                'fields' => self::FIELDS,
+                'joins' => [
+                    [
+                        'table' => BreedsTable::class,
+                        'fields' => [
+                            'name',
+                        ]
+                    ],
+                    [
+                        'table' => HabitatsTable::class,
+                        'fields' => [
+                            'name',
+                        ]
+                    ],
                 ]
             ],
         ];
 
         $sqlJoins = [];
-        $aliases = [];
 
         $sqlFields = array_map(function($field) {
-            $aliases[self::ENTITY['name']] = self::ENTITY['name'] . '_' . $field;
-            return self::TABLE_NAME . '.' . $field . ' AS ' . self::ENTITY['name'] . '_' . $field;
-        }, self::FIELDS);
+            return AnimalImagesTable::TABLE_NAME . '.' . $field . ' AS ' . AnimalImagesTable::ENTITY['name'] . '_' . $field;
+        }, AnimalImagesTable::FIELDS);
         
         foreach($joins as $join)
         {
             $table = $join['table'];
             $fields = $join['fields'];
+            $chainedJoins = $join['joins'] ?? null;
 
             if(!in_array(TableTrait::class, class_uses($table))) throw new Exception('Argument [0] (array $joinedTablesClasses) contains ' . $table . ' which need to use the trait ' . TableTrait::class . ' to be joined in the query.');
             $sqlJoin = 'JOIN ' . $table::TABLE_NAME;
-            $sqlJoin .= ' ON ' . self::TABLE_NAME . '.' . $table::PRIMARY_KEY;
+            $sqlJoin .= ' ON ' . AnimalImagesTable::TABLE_NAME . '.' . $table::PRIMARY_KEY;
             $sqlJoin .= ' = ' . $table::TABLE_NAME . '.' . $table::PRIMARY_KEY;
+
+            if(!is_null($chainedJoins)) {
+                foreach($chainedJoins as $chainedJoin)
+                {
+                    $sqlJoin .= ' JOIN ' . $chainedJoin['table']::TABLE_NAME;
+                    $sqlJoin .= ' ON ' . $table::TABLE_NAME . '.' . $chainedJoin['table']::PRIMARY_KEY;
+                    $sqlJoin .= ' = ' . $chainedJoin['table']::TABLE_NAME . '.' . $chainedJoin['table']::PRIMARY_KEY;
+
+                    foreach($chainedJoin['fields'] as $chainedField) 
+                    {
+                        $sqlFields[] = $chainedJoin['table']::TABLE_NAME . '.' . $chainedField . ' AS ' . $chainedJoin['table']::ENTITY['name'] . '_' . $chainedField;
+                    }
+                }
+            }
 
             foreach($fields as $field)
             {
                 $sqlFields[] = $table::TABLE_NAME . '.' . $field . ' AS ' . $table::ENTITY['name'] . '_' . $field;
-                $aliases[$table::ENTITY['name']] = $table::ENTITY['name'] . '_' . $field;
             }
 
             $sqlJoins[] = $sqlJoin;
         }
-        $sql = 'SELECT ' . implode(', ', $sqlFields) . ' FROM ' . self::TABLE_NAME . ' ' . implode(' ', $sqlJoins);
-
+        $sql = 'SELECT ' . implode(', ', $sqlFields) . ' FROM ' . AnimalImagesTable::TABLE_NAME . ' ' . implode(' ', $sqlJoins);
         Database::$statement = Database::$pdo->query($sql);
 
-        $result = [];
+        $animals = [];
         while($row = Database::$statement->fetch(PDO::FETCH_ASSOC))
         {
-            $entityData = [];
-            $joinedEntities = [];
+            $animalId = $row[AnimalImagesTable::ENTITY['name'] . '_' . self::PRIMARY_KEY];
+            $animalImageId = $row[AnimalImagesTable::ENTITY['name'] . '_' . AnimalImagesTable::PRIMARY_KEY];
             foreach($row as $field => $value)
             {
-                if(str_contains($field, self::ENTITY['name']) . '_') {
+                if(str_contains($field, AnimalImagesTable::ENTITY['name'] . '_')) {
+                    $field = str_replace(AnimalImagesTable::ENTITY['name'] . '_', '', $field);
+                    $animals[$animalId]['animal_images'][$animalImageId][$field] = $value;
+                }
+
+                if(str_contains($field, self::ENTITY['name'] . '_')) {
                     $field = str_replace(self::ENTITY['name'] . '_', '', $field);
-                    $entityData[$field] = $value;
+                    $animals[$animalId][$field] = $value;
                 }
 
-                if(str_contains($field, BreedsTable::ENTITY['name']) . '_') {
+                if(str_contains($field, BreedsTable::ENTITY['name'] . '_')) {
                     $field = str_replace(BreedsTable::ENTITY['name'] . '_', '', $field);
-                    $joinedEntities['breed'][$field] = $value;
+                    $animals[$animalId]['breed'][$field] = $value;
                 }
 
-                if(str_contains($field, HabitatsTable::ENTITY['name']) . '_') {
+                if(str_contains($field, HabitatsTable::ENTITY['name'] . '_')) {
                     $field = str_replace(HabitatsTable::ENTITY['name'] . '_', '', $field);
-                    $joinedEntities['habitat'][$field] = $value;
+                    $animals[$animalId]['habitat'][$field] = $value;
                 }
             }
-
-            $entity = new Animal($entityData);
-            $entity->setBreed(new Breed($joinedEntities['breed']));
-            $entity->setHabitat(new Habitat($joinedEntities['habitat']));
-            $result[] = $entity;
         }
 
-        return $result;
+        $animals = array_map(function($animal) {
+            $animal['animal_images'] = array_map(function($animalImage) { return new AnimalImage($animalImage); }, $animal['animal_images']);
+            $animal['habitat'] = new Habitat($animal['habitat']);
+            $animal['breed'] = new Breed($animal['breed']);
+            return new Animal($animal);
+        }, $animals);
+
+        return $animals;
     }
 }
