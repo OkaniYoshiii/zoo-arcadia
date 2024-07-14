@@ -36,35 +36,38 @@
                     <dialog class="dialog" id="dialog-update-animal-{{ animal.animalId }}">
                         <div class="dialog__content">
                             <div class="dialog__header">
-                                <h4>Modifier l'animal</h4>
+                                <h4 class="dialog__title">Modifier l'animal</h4>
                             </div>
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form class="form" action="" method="POST" enctype="multipart/form-data">
                                 <div class="form-input">
-                                    <label for="" class="for-input__label">Prénom</label>
-                                    <input type="text" name="" id="" class="form-input__input">
+                                    <label for="firstname" class="for-input__label">Prénom</label>
+                                    <input type="text" name="firstname" id="firstname" class="form-input__input" value="{{ animal.firstname }}">
                                 </div>
                                 <div class="form-input">
                                     <label for="animal_images" class="for-input__label">Image</label>
                                     <input type="file" name="animal_images[]" id="animal_images" class="form-input__input" multiple>
                                 </div>
                                 <div class="form-input">
-                                    <label for="" class="for-input__label">Espèce</label>
-                                    <select name="" id="">
+                                    <label for="breed" class="for-input__label">Espèce</label>
+                                    <select class="form-input__input" name="breed_id" id="breed">
                                         {% for breed in breeds %}
-                                            <option value=""></option>
+                                            <option value="{{ breed.breedId }}" {% if breed.breedId == animal.breed_id %} selected {% endif %}>{{ breed }}</option>
                                         {% endfor %}
                                     </select>
                                     <button class="button--active" type="button" data-action="add-breed">Ajouter une espèce dans la liste</button>
                                 </div>
                                 <div class="form-input">
-                                    <label for="" class="for-input__label">Habitat</label>
-                                    <select name="" id="">
+                                    <label for="habitat" class="for-input__label">Habitat</label>
+                                    <select class="form-input__input" name="habitat_id" id="habitat">
                                         {% for habitat in habitats %}
-                                            <option value=""></option>
+                                            <option value="{{ habitat.habitatId }}" {% if habitat.habitatId == animal.habitat_id %} selected {% endif %}>{{ habitat }}</option>
                                         {% endfor %}
                                     </select>
                                     <button class="button--active" type="button" data-action="add-habitat">Ajouter un habitat dans la liste</button>
                                 </div>
+                                {% for animalImage in animal.animalImages %}
+                                    <input type="hidden" name="animal_images_id[]" value="{{ animalImage.animalImageId}}">
+                                {% endfor %}
                                 <input type="submit" value="Confirmer">
                                 <input type="hidden" name="animal_id" value="{{ animal.animalId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
