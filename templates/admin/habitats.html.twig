@@ -1,0 +1,26 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block main %}
+    <section>
+        <div class="size-medium">
+            <h1>Gestion des habitats</h1>
+            <h2>Liste des habitats</h2>
+            <ul class="list-unstyled">
+                {% for habitat in habitats %}
+                    <li>
+                        <h3>{{ habitat.name }}</h3>
+                        <p><b>Description :</b> {{ habitat.description }}</p>
+                        <p><b>Commentaire vétérinaire :</b> {{ habitat.veterinarianComments }}</p>
+                        <div class="gallery">
+                            {% for habitatImage in habitat.habitatImages%}
+                                <div class="gallery__item">
+                                    <img class="rounded-img" src="{{ IMG_DIR ~ '/' ~ habitatImage.name }}" alt="">
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+{% endblock %}

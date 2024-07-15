@@ -9,19 +9,23 @@ class Habitat implements EntityInterface
 {
     use EntityTrait;
     
-    private ?int $habitat_id;
-    private ?string $name;
-    private ?string $description;
-    private ?string $veterinarian_comments;
+    private int $habitat_id;
+    private string $name;
+    private string $description;
+    private string $veterinarian_comments;
+
+    private array $habitat_images;
 
     public function __construct(array $properties = null)
     {
         if(is_null($properties)) return;
 
-        $this->habitat_id = $properties['habitat_id'] ?? null;
-        $this->name = $properties['name'] ?? null;
-        $this->description = $properties['description'] ?? null;
-        $this->veterinarian_comments = $properties['veterinarian_comments'] ?? null;
+        if(isset($properties['habitat_id'])) $this->habitat_id = $properties['habitat_id'];
+        if(isset($properties['name'])) $this->name = $properties['name'];
+        if(isset($properties['description'])) $this->description = $properties['description'];
+        if(isset($properties['veterinarian_comments'])) $this->veterinarian_comments = $properties['veterinarian_comments'];
+
+        if(isset($properties['habitat_images'])) $this->habitat_images = $properties['habitat_images'];
     }
 
     public function __toString()
@@ -93,6 +97,26 @@ class Habitat implements EntityInterface
     public function setVeterinarianComments($veterinarian_comments)
     {
         $this->veterinarian_comments = $veterinarian_comments;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of habitat_images
+     */ 
+    public function getHabitatImages()
+    {
+        return $this->habitat_images;
+    }
+
+    /**
+     * Set the value of habitat_images
+     *
+     * @return  self
+     */ 
+    public function setHabitatImages($habitat_images)
+    {
+        $this->habitat_images = $habitat_images;
 
         return $this;
     }
