@@ -26,7 +26,7 @@ class HabitatsCrudController
             'name' => $_POST['name'] ?? null,
             'description' => $_POST['description'] ?? null,
             'veterinarian_comments' => $_POST['veterinarian_comments'] ?? null,
-            'habitat_images' => $_FILES['habitat_images'] ?? null,
+            'habitat_image' => $_FILES['habitat_image'] ?? null,
         ];
 
         match($_POST['crudAction']) {
@@ -47,20 +47,11 @@ class HabitatsCrudController
         
         if(!is_string($formData['name'])) throw new Exception('Cannot add entity Habitat to database : field name is not a string.');
         if(!is_string($formData['description'])) throw new Exception('Cannot add entity Habitat to database : field description is not a string.');
-        if(!is_array($formData['habitat_images'])) throw new Exception('Cannot add entity Habitat to database : field habitat_images is not an array.');
         
-        $habitatImagesCount = count($formData['habitat_images']);
-
-        for($i = 0; $i < $habitatImagesCount; $i++)
-        {
-            $data['habitat_image']['tmp_name'] = $formData['habitat_images']['tmp_name'][$i];
-            $data['habitat_image']['name'] = $formData['habitat_images']['name'][$i];
-            
-            $this->habitatImagesCrudController->createHabitatImage($data);
-        }
-
         $habitat = new Habitat($formData);
-        HabitatsTable::create($habitat);
+        $formData['habitat_id'] = HabitatsTable::create($habitat);
+
+        $this->habitatImagesCrudController->createHabitatImage($formData);        
     }
 
     private function updateHabitat(array $formData) : void
