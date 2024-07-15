@@ -11,12 +11,6 @@ actionButtons.forEach((button) => {
                     addInput(button, 'breed_name'); }, 
                 { once : true });
                 break;
-            case 'add-habitat':
-                button.addEventListener('click', () => {
-                    deleteInput(button, 'habitat_id');
-                    addInput(button, 'habitat_name'); },
-                { once : true });
-                break;
         
             default:
                 throw new Error(`data-action attribute on ${button} need to be either \'add-breed\' or \'add-habitat\'`);
@@ -38,6 +32,6 @@ function deleteInput(button : HTMLButtonElement, inputName : string) {
 
     if(parent !== null) {
         const selectInput = parent.querySelector(`select[name=${inputName}`);
-        if(selectInput !== null) selectInput
+        if(selectInput !== null) selectInput.remove();
     }
 }

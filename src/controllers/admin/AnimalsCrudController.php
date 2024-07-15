@@ -12,10 +12,12 @@ class AnimalsCrudController
 {
     private static array $formData;
     private AnimalImagesCrudController $animalImageCrudController;
+    private BreedsCrudController $breedsCrudController;
 
     public function __construct()
     {
         $this->animalImageCrudController = new AnimalImagesCrudController();
+        $this->breedsCrudController = new BreedsCrudController();
     }
 
     public function getVariables(): array
@@ -39,7 +41,15 @@ class AnimalsCrudController
             'animal_images_id' => $_POST['animal_images_id'] ?? null,
             'breed_id' => $_POST['breed_id'] ?? null,
             'habitat_id' => $_POST['habitat_id'] ?? null,
+            
+            'breed_name' => $_POST['breed_name'] ?? null,
         ];
+
+        if(isset($_POST['breed_name'])) {
+            $data['name'] = $_POST['breed_name'];
+            $breedId = $this->breedsCrudController->createBreed($data);
+            self::$formData['breed_id'] = $breedId;
+        }
 
         match($_POST['crudAction']) {
             'CREATE' => $this->createAnimal(),

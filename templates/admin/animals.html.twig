@@ -68,7 +68,6 @@
                                             <option value="{{ habitat.habitatId }}" {% if habitat.habitatId == animal.habitat_id %} selected {% endif %}>{{ habitat }}</option>
                                         {% endfor %}
                                     </select>
-                                    <button class="button--active" type="button" data-action="add-habitat">Ajouter un habitat dans la liste</button>
                                 </div>
                                 {% for animalImage in animal.animalImages %}
                                     <input type="hidden" name="animal_images_id[]" value="{{ animalImage.animalImageId}}">
@@ -138,7 +137,6 @@
                             <option value="{{ habitat.habitatId }}">{{ habitat }}</option>
                         {% endfor %}
                     </select>
-                    <button class="button--active" type="button" data-action="add-habitat">Ajouter un habitat dans la liste</button>
                 </div>
                 <input class="button--active" type="submit" value="Confirmer">
                 <input type="hidden" name="crudAction" value="CREATE">

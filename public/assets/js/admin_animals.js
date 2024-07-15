@@ -36,6 +36,6 @@ function deleteInput(button, inputName) {
     if (parent !== null) {
         const selectInput = parent.querySelector(`select[name=${inputName}`);
         if (selectInput !== null)
-            selectInput;
+            selectInput.remove();
     }
 }
