@@ -1,14 +1,21 @@
 const actionButtons = document.querySelectorAll('button[data-action]');
 
 actionButtons.forEach((button) => {
+    if(!(button instanceof HTMLButtonElement)) return;
     const action = button.getAttribute('data-action');
     if(action !== null) {
         switch (action) {
             case 'add-breed':
-                button.addEventListener('click', (ev) => { addInput(ev, 'breed_name'); }, { once : true });
+                button.addEventListener('click', () => { 
+                    deleteInput(button, 'breed_id');
+                    addInput(button, 'breed_name'); }, 
+                { once : true });
                 break;
             case 'add-habitat':
-                button.addEventListener('click', (ev) => { addInput(ev, 'habitat_name'); }, { once : true });
+                button.addEventListener('click', () => {
+                    deleteInput(button, 'habitat_id');
+                    addInput(button, 'habitat_name'); },
+                { once : true });
                 break;
         
             default:
@@ -18,14 +25,19 @@ actionButtons.forEach((button) => {
     }
 })
 
-function addInput(ev : Event, inputName : string) {
-    const button = ev.target;
+function addInput(button : HTMLButtonElement, inputName : string) {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.classList.add('form-input__input');
+    input.setAttribute('name', inputName);
+    button.insertAdjacentElement('beforebegin', input);
+}
 
-    if(button instanceof HTMLButtonElement) {
-        const input = document.createElement('input');
-        input.setAttribute('type', 'text');
-        input.classList.add('form-input__input');
-        input.setAttribute('name', inputName);
-        button.insertAdjacentElement('beforebegin', input);
+function deleteInput(button : HTMLButtonElement, inputName : string) {
+    const parent = button.parentElement;
+
+    if(parent !== null) {
+        const selectInput = parent.querySelector(`select[name=${inputName}`);
+        if(selectInput !== null) selectInput
     }
 }
