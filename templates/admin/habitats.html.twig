@@ -5,6 +5,7 @@
         <div class="size-medium">
             <h1>Gestion des habitats</h1>
             <h2>Liste des habitats</h2>
+            <button class="dialog-btn button--active" data-dialog-id="dialog-delete-habitat">Ajouter un habitat</button>
             <ul class="list-unstyled">
                 {% for habitat in habitats %}
                     <li>
@@ -18,9 +19,86 @@
                                 </div>
                             {% endfor %}
                         </div>
+                        <button class="dialog-btn button--active" data-dialog-id="dialog-update-habitat">Modifier</button>
+                        <button class="dialog-btn button--active" data-dialog-id="dialog-delete-habitat">Supprimer</button>
                     </li>
+                    <dialog class="dialog" id="dialog-update-habitat">
+                        <div class="dialog__content">
+                            <div class="dialog__header">
+                                <h3 class="dialog__title">Modifier l'habitat</h3>
+                            </div>
+                            <form action="" class="form" method="POST">
+                                <div class="form-input">
+                                    <label for="name" class="form-input__label">Nom</label>
+                                    <input type="text" name="name" id="name" class="form-input__input" value="{{ habitat.name }}">
+                                </div>
+                                <div class="form-input">
+                                    <label for="description" class="form-input__label">Description</label>
+                                    <input type="text" name="description" id="description" class="form-input__input" value="{{ habitat.description }}">
+                                </div>
+                                <div class="form-input">
+                                    <label for="veterinarian_comments" class="form-input__label">Commentaires</label>
+                                    <textarea type="text" name="veterinarian_comments" id="veterinarian_comments" class="form-input__input">{{ habitat.veterinarianComments}}</textarea>
+                                </div>
+                                <div class="form-input">
+                                    <label for="habitat_image" class="form-input__label">Image</label>
+                                    <img class="rounded-img" src="{{ IMG_DIR ~ '/' ~ habitatImage.name }}" alt="">
+                                    <input type="file" name="habitat_image" id="habitat_image" class="form-input__input">
+                                </div>
+                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
+                                <input type="hidden" name="habitat_id" value="{{ habitat.habitatId }}">
+                                <input type="hidden" name="crudAction" value="UPDATE">
+                            </form>
+                        </div>
+                    </dialog>
+                    <dialog class="dialog" id="dialog-delete-habitat">
+                        <div class="dialog__content">
+                            <div class="dialog__header">
+                                <h3 class="dialog__title">Supprimer l'habitat</h3>
+                            </div>
+                            <form action="" class="form" method="POST">
+                                <p>Souhaitez-vous vraiment supprimer cet habitat ?</p>
+                                <div class="form-input">
+                                    <button class="button--active" type="submit" formmethod="dialog">Non</button>
+                                </div>
+                                <div class="form-input">
+                                    <button class="button--active" type="submit">Oui</button>
+                                </div>
+                            </form>
+                            <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
+                            <input type="hidden" name="crudAction" value="DELETE">
+                        </div>
+                    </dialog>
                 {% endfor %}
             </ul>
         </div>
     </section>
+
+    <dialog class="dialog" id="dialog-add-habitat">
+        <div class="dialog__content">
+            <div class="dialog__header">
+                <h3 class="dialog__title">Ajouter un habitat</h3>
+            </div>
+            <form action="" class="form" method="POST">
+                <div class="form-input">
+                    <label for="name" class="form-input__label">Nom</label>
+                    <input type="text" name="name" id="name" class="form-input__input">
+                </div>
+                <div class="form-input">
+                    <label for="description" class="form-input__label">Description</label>
+                    <input type="text" name="description" id="description" class="form-input__input">
+                </div>
+                <div class="form-input">
+                    <label for="veterinarian_comments" class="form-input__label">Commentaires</label>
+                    <textarea type="text" name="veterinarian_comments" id="veterinarian_comments" class="form-input__input"></textarea>
+                </div>
+                <div class="form-input">
+                    <label for="habitat_image" class="form-input__label">Image</label>
+                    <input type="file" name="habitat_image" id="habitat_image" class="form-input__input">
+                </div>
+                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
+                <input type="hidden" name="crudAction" value="CREATE">
+            </form>
+        </div>
+    </dialog>
 {% endblock %}
