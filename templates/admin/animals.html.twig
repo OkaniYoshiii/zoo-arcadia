@@ -14,7 +14,7 @@
                             <div class="gallery__content">
                                 {% for animalImage in animal.animalImages %}
                                     <div class="gallery__slide">
-                                        <img class="gallery__item rounded-img" src="{{ IMG_DIR ~ '/' ~ animalImage.name }}" alt="">
+                                        <img class="gallery__item rounded-img" src="{{ UPLOAD_DIR ~ '/' ~ animalImage.name }}" alt="">
                                     </div>
                                 {% endfor %}
                             </div>
@@ -80,7 +80,7 @@
                             <div class="dialog__header">
                                 <h4>Supprimer l'animal</h4>
                             </div>
-                            <form action="" method="POST">
+                            <form class="form" action="" method="POST">
                                 <p>Souhaitez vous vraiment supprimer cet animal ?</p>
                                 <div class="form-input">
                                     <button class="button--active">Oui</button>
@@ -88,6 +88,9 @@
                                 <div class="form-input">
                                     <button class="button--active" formmethod="dialog">Non</button>
                                 </div>
+                                {% for animalImage in animal.animalImages %}
+                                    <input type="hidden" name="animal_images_id[]" value="{{ animalImage.animalImageId}}">
+                                {% endfor %}
                                 <input type="hidden" name="animal_id" value="{{ animal.animalId }}">
                                 <input type="hidden" name="crudAction" value="DELETE">
                             </form>
