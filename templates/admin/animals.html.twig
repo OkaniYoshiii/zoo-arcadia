@@ -1,5 +1,10 @@
 {% extends "admin/admin.html.twig" %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ JS_DIR ~ '/admin_animals.js' }}" defer></script>
+{% endblock %}
+
 {% block main %}
     <section>
         <div class="size-medium">
