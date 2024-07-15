@@ -17,7 +17,7 @@ class HabitatImage implements EntityInterface
     {
         if($properties === null) return;
  
-        if(isset($properties['habitat_image_id'])) $this->name = $properties['name'];
+        if(isset($properties['habitat_image_id'])) $this->habitat_image_id = $properties['habitat_image_id'];
         if(isset($properties['name'])) $this->name = $properties['name'];
         if(isset($properties['habitat_id'])) $this->habitat_id = $properties['habitat_id'];
     }

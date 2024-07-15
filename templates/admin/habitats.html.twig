@@ -8,16 +8,15 @@
             <button class="dialog-btn button--active" data-dialog-id="dialog-add-habitat">Ajouter un habitat</button>
             <ul class="list-unstyled">
                 {% for habitat in habitats %}
+                    {% set habitatImage = habitat.habitatImage %}
                     <li>
                         <h3>{{ habitat.name }}</h3>
                         <p><b>Description :</b> {{ habitat.description }}</p>
                         <p><b>Commentaire vétérinaire :</b> {{ habitat.veterinarianComments }}</p>
                         <div class="gallery">
-                            {% for habitatImage in habitat.habitatImages%}
-                                <div class="gallery__item">
-                                    <img class="rounded-img" src="{{ IMG_DIR ~ '/' ~ habitatImage.name }}" alt="">
-                                </div>
-                            {% endfor %}
+                        <div class="gallery__item">
+                            <img class="rounded-img" src="{{ IMG_DIR ~ '/' ~ habitatImage.name }}" alt="">
+                        </div>
                         </div>
                         <button class="dialog-btn button--active" data-dialog-id="dialog-update-habitat">Modifier</button>
                         <button class="dialog-btn button--active" data-dialog-id="dialog-delete-habitat">Supprimer</button>
@@ -42,12 +41,13 @@
                                 </div>
                                 <div class="form-input">
                                     <label for="habitat_image" class="form-input__label">Image</label>
-                                    <img class="rounded-img" src="{{ IMG_DIR ~ '/' ~ habitatImage.name }}" alt="">
+                                    <img src="{{ IMG_DIR ~ '/' ~ habitatImage.name }}" alt="" style="max-width: 300px; margin-inline: auto;">
                                     <input type="file" name="habitat_image" id="habitat_image" class="form-input__input">
                                 </div>
                                 <input class="button--active" type="submit" value="Confirmer">
                                 <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
                                 <input type="hidden" name="habitat_id" value="{{ habitat.habitatId }}">
+                                <input type="hidden" name="habitat_image_id" value="{{ habitatImage.habitatImageId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
                             </form>
                         </div>

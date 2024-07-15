@@ -14,7 +14,7 @@ class Habitat implements EntityInterface
     private string $description;
     private string $veterinarian_comments;
 
-    private array $habitat_images;
+    private HabitatImage $habitat_image;
 
     public function __construct(array $properties = null)
     {
@@ -25,7 +25,7 @@ class Habitat implements EntityInterface
         if(isset($properties['description'])) $this->description = $properties['description'];
         if(isset($properties['veterinarian_comments'])) $this->veterinarian_comments = $properties['veterinarian_comments'];
 
-        if(isset($properties['habitat_images'])) $this->habitat_images = $properties['habitat_images'];
+        if(isset($properties['habitat_image'])) $this->habitat_image = $properties['habitat_image'];
     }
 
     public function __toString()
@@ -104,9 +104,9 @@ class Habitat implements EntityInterface
     /**
      * Get the value of habitat_images
      */ 
-    public function getHabitatImages()
+    public function getHabitatImage()
     {
-        return $this->habitat_images;
+        return $this->habitat_image;
     }
 
     /**
@@ -114,9 +114,9 @@ class Habitat implements EntityInterface
      *
      * @return  self
      */ 
-    public function setHabitatImages($habitat_images)
+    public function setHabitatImage($habitat_image)
     {
-        $this->habitat_images = $habitat_images;
+        $this->habitat_image = $habitat_image;
 
         return $this;
     }

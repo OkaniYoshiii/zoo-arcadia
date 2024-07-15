@@ -57,12 +57,11 @@ class HabitatsTable
         while($row = Database::$statement->fetch(PDO::FETCH_ASSOC))
         {
             $habitatId = $row[HabitatImagesTable::ENTITY['name'] . '_' . self::PRIMARY_KEY];
-            $habitatImageId = $row[HabitatImagesTable::ENTITY['name'] . '_' . HabitatImagesTable::PRIMARY_KEY];
             foreach($row as $field => $value)
             {
                 if(str_contains($field, HabitatImagesTable::ENTITY['name'] . '_')) {
                     $field = str_replace(HabitatImagesTable::ENTITY['name'] . '_', '', $field);
-                    $habitats[$habitatId]['habitat_images'][$habitatImageId][$field] = $value;
+                    $habitats[$habitatId]['habitat_image'][$field] = $value;
                 }
 
                 if(str_contains($field, self::ENTITY['name'] . '_')) {
@@ -73,7 +72,7 @@ class HabitatsTable
         }
 
         $habitats = array_map(function($habitat) {
-            $habitat['habitat_images'] = array_map(function($habitatImage) { return new HabitatImage($habitatImage); }, $habitat['habitat_images']);
+            $habitat['habitat_image'] = new HabitatImage($habitat['habitat_image']);
             return new Habitat($habitat);
         }, $habitats);
 
