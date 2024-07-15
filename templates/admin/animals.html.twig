@@ -71,6 +71,7 @@
                                 <input type="submit" value="Confirmer">
                                 <input type="hidden" name="animal_id" value="{{ animal.animalId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
+                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                             </form>
                         </div>
                     </dialog>

@@ -1,5 +1,7 @@
 <?php
 
+use App\Utilities\FormValidator;
+
 class Core {
     public function __construct()
     {
@@ -17,6 +19,9 @@ class Core {
             $controller = new $controllerName();
 
             if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $formValidator = new FormValidator();
+                $formValidator->checkDuplicatedFormSubmission();
+                
                 $controller->processFormData();
             }
 
