@@ -15,13 +15,13 @@
                         <p><b>Commentaire vétérinaire :</b> {{ habitat.veterinarianComments }}</p>
                         <div class="gallery">
                         <div class="gallery__item">
-                            <img class="rounded-img" src="{{ IMG_DIR ~ '/' ~ habitatImage.name }}" alt="">
+                            <img class="rounded-img" src="{{ UPLOAD_DIR ~ '/' ~ habitatImage.name }}" alt="">
                         </div>
                         </div>
-                        <button class="dialog-btn button--active" data-dialog-id="dialog-update-habitat">Modifier</button>
-                        <button class="dialog-btn button--active" data-dialog-id="dialog-delete-habitat">Supprimer</button>
+                        <button class="dialog-btn button--active" data-dialog-id="dialog-update-habitat-{{ habitat.habitatId }}">Modifier</button>
+                        <button class="dialog-btn button--active" data-dialog-id="dialog-delete-habitat-{{ habitat.habitatId }}">Supprimer</button>
                     </li>
-                    <dialog class="dialog" id="dialog-update-habitat">
+                    <dialog class="dialog" id="dialog-update-habitat-{{ habitat.habitatId }}">
                         <div class="dialog__content">
                             <div class="dialog__header">
                                 <h3 class="dialog__title">Modifier l'habitat</h3>
@@ -52,7 +52,7 @@
                             </form>
                         </div>
                     </dialog>
-                    <dialog class="dialog" id="dialog-delete-habitat">
+                    <dialog class="dialog" id="dialog-delete-habitat-{{ habitat.habitatId }}">
                         <div class="dialog__content">
                             <div class="dialog__header">
                                 <h3 class="dialog__title">Supprimer l'habitat</h3>
@@ -66,7 +66,6 @@
                                     <button class="button--active" type="submit">Oui</button>
                                 </div>
                             </form>
-                            <input class="button--active" type="submit" value="Confirmer">
                             <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
                             <input type="hidden" name="crudAction" value="DELETE">
                         </div>

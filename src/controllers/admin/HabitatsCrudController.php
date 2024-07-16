@@ -59,7 +59,9 @@ class HabitatsCrudController
         if(HabitatsTable::isAlreadyRegistered($habitat) && $formData['habitat_image']['error'] === 4) throw new Exception('Habitat has already been registered.');
 
         $formData['habitat_id'] = HabitatsTable::create($habitat);
-        $this->habitatImagesCrudController->createHabitatImage($formData);        
+        if($formData['habitat_image']['error'] === 0) {
+            $this->habitatImagesCrudController->createHabitatImage($formData);        
+        }
     }
 
     private function updateHabitat(array $formData) : void
@@ -85,7 +87,9 @@ class HabitatsCrudController
         if(HabitatsTable::isAlreadyRegistered($habitat) && $formData['habitat_image']['error'] === 4) throw new Exception('Habitat has already been registered.');
         
         HabitatsTable::update($habitat);
-        $this->habitatImagesCrudController->updateHabitatImage($formData);
+        if($formData['habitat_image']['error'] === 0) {
+            $this->habitatImagesCrudController->updateHabitatImage($formData);
+        }
     }
 
     private function deleteHabitat($formData) : void
