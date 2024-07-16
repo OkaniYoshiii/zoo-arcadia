@@ -34,7 +34,7 @@ class HabitatsCrudController
         match($_POST['crudAction']) {
             'CREATE' => $this->createHabitat($formData),
             'UPDATE' => $this->updateHabitat($formData),
-            'DELETE' => $this->deleteHabitat($formData['habitat_id']),
+            'DELETE' => $this->deleteHabitat($formData),
             default => throw new Exception('Form need to implement an hidden field named crudAction. Possible values are : CREATE, UPDATE, DELETE.')
         };
     }
@@ -92,7 +92,7 @@ class HabitatsCrudController
         }
     }
 
-    private function deleteHabitat($formData) : void
+    private function deleteHabitat(array $formData) : void
     {
         if(!isset($formData['habitat_id'])) throw new Exception('form need to have an input sending data about Habitat habitat_id');
         if(empty($formData['habitat_id'])) throw new Exception('Cannot add entity Habitat to database : field habitat_id is empty.');

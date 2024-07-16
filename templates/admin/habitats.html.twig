@@ -65,9 +65,10 @@
                                 <div class="form-input">
                                     <button class="button--active" type="submit">Oui</button>
                                 </div>
+                                <input type="hidden" name="habitat_id" value="{{ habitat.habitatId }}">
+                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
+                                <input type="hidden" name="crudAction" value="DELETE">
                             </form>
-                            <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
-                            <input type="hidden" name="crudAction" value="DELETE">
                         </div>
                     </dialog>
                 {% endfor %}
