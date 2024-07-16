@@ -45,12 +45,14 @@ class AnimalsTable
                     [
                         'table' => BreedsTable::class,
                         'fields' => [
+                            'breed_id',
                             'name',
                         ]
                     ],
                     [
                         'table' => HabitatsTable::class,
                         'fields' => [
+                            'habitat_id',
                             'name',
                         ]
                     ],

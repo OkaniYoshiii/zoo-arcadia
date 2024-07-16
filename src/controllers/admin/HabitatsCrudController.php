@@ -1,6 +1,7 @@
 <?php
 
 use App\Entity\Habitat;
+use App\Models\Table\HabitatImagesTable;
 use App\Models\Table\HabitatsTable;
 
 class HabitatsCrudController 
@@ -87,10 +88,13 @@ class HabitatsCrudController
         $this->habitatImagesCrudController->updateHabitatImage($formData);
     }
 
-    private function deleteHabitat(int $id) : void
+    private function deleteHabitat($formData) : void
     {
         if(!isset($formData['habitat_id'])) throw new Exception('form need to have an input sending data about Habitat habitat_id');
+        if(empty($formData['habitat_id'])) throw new Exception('Cannot add entity Habitat to database : field habitat_id is empty.');
+        if(!is_numeric($formData['habitat_id'])) throw new Exception('Cannot add entity Habitat to database : field name is not numeric.');
 
-        HabitatsTable::delete($id);
+        HabitatsTable::delete($formData['habitat_id']);
+        HabitatImagesTable::delete($formData['habitat_id']);
     }
 }

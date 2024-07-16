@@ -56,7 +56,7 @@
                                     <label for="breed" class="for-input__label">Espèce</label>
                                     <select class="form-input__input" name="breed_id" id="breed">
                                         {% for breed in breeds %}
-                                            <option value="{{ breed.breedId }}" {% if breed.breedId == animal.breed_id %} selected {% endif %}>{{ breed }}</option>
+                                            <option value="{{ breed.breedId }}" {% if (breed.breedId == animal.breed.breedId) %} selected {% endif %}>{{ breed }}</option>
                                         {% endfor %}
                                     </select>
                                     <button class="button--active" type="button" data-action="add-breed">Ajouter une espèce dans la liste</button>
@@ -65,14 +65,14 @@
                                     <label for="habitat" class="for-input__label">Habitat</label>
                                     <select class="form-input__input" name="habitat_id" id="habitat">
                                         {% for habitat in habitats %}
-                                            <option value="{{ habitat.habitatId }}" {% if habitat.habitatId == animal.habitat_id %} selected {% endif %}>{{ habitat }}</option>
+                                            <option value="{{ habitat.habitatId }}" {% if (habitat.habitatId == animal.habitat.habitatId) %} selected {% endif %}>{{ habitat }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                                 {% for animalImage in animal.animalImages %}
                                     <input type="hidden" name="animal_images_id[]" value="{{ animalImage.animalImageId}}">
                                 {% endfor %}
-                                <input type="submit" value="Confirmer">
+                                <input type="submit" class="button--active" value="Confirmer">
                                 <input type="hidden" name="animal_id" value="{{ animal.animalId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
                                 <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
@@ -96,6 +96,7 @@
                                 {% for animalImage in animal.animalImages %}
                                     <input type="hidden" name="animal_images_id[]" value="{{ animalImage.animalImageId}}">
                                 {% endfor %}
+                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                                 <input type="hidden" name="animal_id" value="{{ animal.animalId }}">
                                 <input type="hidden" name="crudAction" value="DELETE">
                             </form>
@@ -139,6 +140,7 @@
                     </select>
                 </div>
                 <input class="button--active" type="submit" value="Confirmer">
+                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                 <input type="hidden" name="crudAction" value="CREATE">
             </form>
         </div>
