@@ -8,100 +8,82 @@
                 <p class="error">{{ error }}</p>
             {% endfor %}
             <button class="dialog-btn button--active" data-dialog-id="dialog-add-veterinarian-report">Ajouter un rapport vétérinaire</button>
-            <dialog id="dialog-add-veterinarian-report" class="dialog">
-                <div class="dialog__content">
-                    <div class="dialog__header">
-                        <h2>Ajout d'un rapport vétérinaire</h2>
-                        <form class="form" action="" method="POST" autocomplete="off">
-                            <div class="form-input">
-                                <label class="form-input__label" for="firstname">Prénom</label>
-                                <input class="form-input__input" type="text" name="firstname" id="firstname" placeholder="John" required>
-                            </div>
-                            <div class="form-input">
-                                <label class="form-input__label" for="detail">Détail</label>
-                                <input class="form-input__input" type="text" name="detail" id="detail" placeholder="Doe" required>
-                            </div>
-                            <div class="form-input">
-                                <label class="form-input__label" for="animalId">Animal concerné</label>
-                                <select name="animalId" id="animalId">
-                                    {% for animal in animals %}
-                                        <option value="{{ animal.animalId }}">{{ animal.firstname }}</option>
-                                    {% endfor %}
-                                </select>
-                                <input class="form-input__input" type="number" name="animalId" id="animalId" required>
-                            </div>
-                            <div class="form-input">
-                                <label class="form-input__label" for="foodTypeId">Type de nourriture</label>
-                                <select name="foodTypeId" id="foodTypeId">
-                                    {% for foodType in foodTypes %}
-                                        <option value="{{ foodType.foodTypeId }}">{{ foodType.name }}</option>
-                                    {% endfor %}
-                                </select>
-                                <input class="form-input__input" type="number" name="animalId" id="animalId" required>
-                            </div>
-                            <div class="form-input">
-                                <label class="form-input__label" for="foodQuantity">Quantité de nourriture reçue</label>
-                                <input class="form-input__input" type="number" name="foodQuantity" id="foodQuantity" required>
-                            </div>
-                            <input type="hidden" name="date" value="{{ "now"|date('m-d-Y') }}">
-                            <input type="hidden" name="crudAction" value="CREATE">
-                            <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
-                            <button class="form__submit-btn" type="submit">Confirmer</button>
-                        </form>
-                    </div>
-                </div>
-            </dialog>
             <ul>
-                {% for user in users %}
+                {% for report in veterinarianReports %}
                     <li>
-                        {{ user.username }}
-                        {{ user.firstname }}
-                        {{ user.lastname }}
-                        {{ user.roleName }}
-                        <button class="dialog-btn button--active" data-dialog-id="dialog-modify-veterinarian-report">Modifier</button>
-                        <form action="" method="POST">
-                            <input type="hidden" name="userId" value="{{ user.userId }}">
-                            <input type="hidden" name="crudAction" value="DELETE">
-                            <input type="submit" class="button--active" value="Supprimer">
-                            <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
-                        </form>
+                        {{ report.date }}
+                        {{ report.detail }}
+                        {{ report.foodQuantity }}
+                        {{ report.user.firstname }}
+                        {{ report.foodType }}
+                        {{ report.foodUnit }}
+                        {{ report.animal.name }}
+                        <button class="dialog-btn button--active" data-dialog-id="dialog-modify-veterinarian-report-{{ report.veterinarianReportId }}">Modifier</button>
+                        <button class="dialog-btn button--active" data-dialog-id="dialog-delete-veterinarian-report-{{ report.veterinarianReportId }}">Supprimer</button>
                     </li>
-                    <dialog id="dialog-modify-veterinarian-report" class="dialog">
+                    <dialog class="dialog" id="dialog-modify-veterinarian-report-{{ report.veterinarianReportId }}" >
                         <div class="dialog__content">
                             <div class="dialog__header">
                                 <h2 class="dialog__title">Modification utilisateur :</h2>
                             </div>
                             <form class="form" action="" method="POST" autocomplete="off">
                                 <div class="form-input">
-                                    <label class="form-input__label" for="username">Email</label>
-                                    <input class="form-input__input" type="email" name="username" id="username" value="{{ user.username }}" required>
+                                    <label class="form-input__label" for="date">Date</label>
+                                    <input class="form-input__input" type="date" name="date" id="date" value="{{ report.date }}" required>
                                 </div>
                                 <div class="form-input">
-                                    <label class="form-input__label" for="firstname">Prénom</label>
-                                    <input class="form-input__input" type="text" name="firstname" id="firstname" value="{{ user.firstname }}" required>
+                                    <label class="form-input__label" for="detail">Contenu du rapport</label>
+                                    <textarea class="form-input__input" name="detail" id="detail">{{ report.detail }}</textarea>
                                 </div>
                                 <div class="form-input">
-                                    <label class="form-input__label" for="lastname">Nom</label>
-                                    <input class="form-input__input" type="text" name="lastname" id="lastname" value="{{ user.lastname }}" required>
+                                    <label for="foodQuantity" class="form-input__label">Quantité de nourriture donnée</label>
+                                    <input type="number" name="food_quantity" id="foodQuantity" class="form-input__input" value="{{ report.foodQuantity }}">
                                 </div>
                                 <div class="form-input">
-                                    <label class="form-input__label" for="password">Mot de passe</label>
-                                    <input class="form-input__input" type="password" name="password" id="password" required>
-                                </div>
-                                <div class="form-input">
-                                    <label class="form-input__label" for="roleId">Séléctionnez un rôle</label>
-                                    <select class="form-input__input" name="roleId" id="roleId" required>
-                                        {% for role in roles %}
-                                            {% if role.name != 'ROLE_ADMIN' %}
-                                                <option value="{{ role.roleId }}" {% if role.name == user.roleName %}selected{% endif %}>{{ role.name }}</option>
-                                            {% endif %}
+                                    <label for="foodUnitId" class="form-input__label">Unité de mesure</label>
+                                    <select class="form-input__input" name="food_unit_id" id="food-unit-select">
+                                        {% for foodUnit in foodUnits %}
+                                            <option value="{{ foodUnit.foodUnitId }}" {% if foodUnit.foodUnitId == report.foodUnit.foodUnitId %} selected {% endif %}>{{ foodUnit }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
-                                <input type="hidden" name="userId" value="{{ user.userId }}">
+                                <div class="form-input">
+                                    <label for="foodTypeId" class="form-input__label">Nourriture donnée</label>
+                                    <select class="form-input__input" name="food_type_id" id="food-unit-select">
+                                        {% for foodType in foodTypes %}
+                                            <option value="{{ foodType.foodTypeId }}" {% if foodType.foodTypeId == report.foodType.foodTypeId %} selected {% endif %}>{{ foodType }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-input">
+                                    <label for="animal" class="form-input__label">Nourriture donnée</label>
+                                    <select class="form-input__input" name="animal_id" id="animal">
+                                        {% for animal in animals %}
+                                            <option value="{{ animal.animalId }}" {% if animal.animalId == report.animal.animalId %} selected {% endif %}>{{ animal.firstname }} - {{ animal.habitat }} - {{ animal.breed }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <input type="hidden" name="user_id" value="{{ user.userId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
                                 <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                                 <button class="form__submit-btn" type="submit">Confirmer</button>
+                            </form>
+                        </div>
+                    </dialog>
+                    <dialog class="dialog" id="dialog-delete-veterinarian-report-{{ report.veterinarianReportId }}">
+                        <div class="dialog__content">
+                            <div class="dialog__header">
+                                <h3 class="dialog__title">Supprimer un rapport</h3>
+                            </div>
+                            <form action="" method="POST">
+                                <p>Êtes vous sûr de vouloir supprimer ce rapport ?</p>
+                                <div class="form-input">
+                                    <button class="button--active" type="submit" formmethod="dialog">Non</button>
+                                    <button class="button--active" type="submit">Oui</button>
+                                </div>
+                                <input type="hidden" name="userId" value="{{ user.userId }}">
+                                <input type="hidden" name="crudAction" value="DELETE">
+                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                             </form>
                         </div>
                     </dialog>
@@ -109,5 +91,55 @@
             </ul>
         </div>
     </section>
+
+    <dialog class="dialog" id="dialog-add-veterinarian-report" >
+        <div class="dialog__content">
+            <div class="dialog__header">
+                <h2 class="dialog__title">Modification utilisateur :</h2>
+            </div>
+            <form class="form" action="" method="POST" autocomplete="off">
+                <div class="form-input">
+                    <label class="form-input__label" for="date">Date</label>
+                    <input class="form-input__input" type="date" name="date" id="date" required>
+                </div>
+                <div class="form-input">
+                    <label class="form-input__label" for="detail">Contenu du rapport</label>
+                    <textarea class="form-input__input" name="detail" id="detail"></textarea>
+                </div>
+                <div class="form-input">
+                    <label for="foodQuantity" class="form-input__label">Quantité de nourriture donnée</label>
+                    <input type="number" name="food_quantity" id="foodQuantity" class="form-input__input">
+                </div>
+                <div class="form-input">
+                    <label for="foodUnitId" class="form-input__label">Unité de mesure</label>
+                    <select class="form-input__input" name="food_unit_id" id="food-unit-select">
+                        {% for foodUnit in foodUnits %}
+                            <option value="{{ foodUnit.foodUnitId }}">{{ foodUnit }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-input">
+                    <label for="foodTypeId" class="form-input__label">Nourriture donnée</label>
+                    <select class="form-input__input" name="food_type_id" id="food-unit-select">
+                        {% for foodType in foodTypes %}
+                            <option value="{{ foodType.foodTypeId }}">{{ foodType }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-input">
+                    <label for="animal" class="form-input__label">Nourriture donnée</label>
+                    <select class="form-input__input" name="animal_id" id="animal">
+                        {% for animal in animals %}
+                            <option value="{{ animal.animalId }}">{{ animal.firstname }} - {{ animal.habitat }} - {{ animal.breed }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <input type="hidden" name="user_id" value="{{ user.userId }}">
+                <input type="hidden" name="crudAction" value="CREATE">
+                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
+                <button class="form__submit-btn" type="submit">Confirmer</button>
+            </form>
+        </div>
+    </dialog>
 
 {% endblock %}

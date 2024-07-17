@@ -4,6 +4,7 @@ use App\Entity\VeterinarianReport;
 use App\Interface\CrudControllerInterface;
 use App\Models\Table\AnimalsTable;
 use App\Models\Table\FoodTypesTable;
+use App\Models\Table\FoodUnitsTable;
 use App\Models\Table\VeterinarianReportsTable;
 
 class VeterinarianReportsCrudController implements CrudControllerInterface
@@ -13,11 +14,16 @@ class VeterinarianReportsCrudController implements CrudControllerInterface
 
     public function getVariables()
     {
+        $animals = AnimalsTable::getAllWithJoins();
+        $foodTypes = FoodTypesTable::getAll();
+        $foodUnits = FoodUnitsTable::getAll();
+        $veterinarianReports = VeterinarianReportsTable::getAllWithJoins();
         return [
             'formErrors' => self::$formInputErrors,
-            'foodTypes' => FoodTypesTable::getAll(),
-            'animals' => AnimalsTable::getAll(),
-            'veterinarianReports' => VeterinarianReportsTable::getAll()
+            'animals' => $animals,
+            'foodTypes' => $foodTypes,
+            'foodUnits' => $foodUnits,
+            'veterinarianReports' => $veterinarianReports,
         ];
     }
 
