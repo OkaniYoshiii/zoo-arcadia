@@ -18,7 +18,7 @@ CREATE TABLE users (
 
 CREATE TABLE veterinarian_reports (
     veterinarian_report_id INT(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    date DATETIME NOT NULL,
+    date DATE NOT NULL,
     detail TEXT(1000) NOT NULL,
     food_quantity DECIMAL(2) NOT NULL,
     user_id INT(11) NOT NULL,
