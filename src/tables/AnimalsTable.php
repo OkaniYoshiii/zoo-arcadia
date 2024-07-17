@@ -134,6 +134,7 @@ class AnimalsTable
             $animal['animal_images'] = array_map(function($animalImage) { return new AnimalImage($animalImage); }, $animal['animal_images']);
             $animal['habitat'] = new Habitat($animal['habitat']);
             $animal['breed'] = new Breed($animal['breed']);
+            $animal['views'] = AnimalsViewsDB->findById($animal['animal_id']) ?? 0;
             return new Animal($animal);
         }, $animals);
 

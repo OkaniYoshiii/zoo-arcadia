@@ -45,6 +45,7 @@
                             </div>
                             <input type="hidden" name="date" value="{{ "now"|date('m-d-Y') }}">
                             <input type="hidden" name="crudAction" value="CREATE">
+                            <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                             <button class="form__submit-btn" type="submit">Confirmer</button>
                         </form>
                     </div>
@@ -62,6 +63,7 @@
                             <input type="hidden" name="userId" value="{{ user.userId }}">
                             <input type="hidden" name="crudAction" value="DELETE">
                             <input type="submit" class="button--active" value="Supprimer">
+                            <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                         </form>
                     </li>
                     <dialog id="dialog-modify-veterinarian-report" class="dialog">
@@ -98,6 +100,7 @@
                                 </div>
                                 <input type="hidden" name="userId" value="{{ user.userId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
+                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                                 <button class="form__submit-btn" type="submit">Confirmer</button>
                             </form>
                         </div>

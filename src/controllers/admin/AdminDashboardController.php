@@ -26,7 +26,7 @@ class AdminDashboardController
          * "Mettre à jour les données" sur la page afin de 
          * récupérer les dernières données en temps réel.
          */
-        $animals = AnimalsTable::getAll();
+        $animals = AnimalsTable::getAllWithJoins();
 
         $schedulesHours = SchedulesHoursStore
             ->createQueryBuilder()

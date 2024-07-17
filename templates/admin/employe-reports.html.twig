@@ -57,6 +57,7 @@
                                 <input type="hidden" name="employee_report_id" value="{{ report.employeeReportId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
                                 <input type="submit" value="Confirmer" class="button--active">
+                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                             </form>
                         </div>
                     </dialog>
@@ -74,6 +75,7 @@
                                 </div>
                                 <input type="hidden" name="employee_report_id" value="{{ report.employeeReportId}}">
                                 <input type="hidden" name="crudAction" value="DELETE">
+                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                             </form>
                         </div>
                     </dialog>
@@ -122,6 +124,7 @@
                 </div>
                 <input type="hidden" name="crudAction" value="CREATE">
                 <input type="submit" value="Confirmer" class="button--active">
+                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
             </form>
         </div>
     </dialog>

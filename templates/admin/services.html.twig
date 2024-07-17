@@ -51,6 +51,7 @@
                                 </div>
                                 <input type="hidden" name="serviceId" value="{{ service.serviceId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
+                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                                 <button class="form__submit-btn" type="submit">Confirmer</button>
                             </form>
                         </div>
@@ -68,6 +69,7 @@
                                 </div>
                                 <input type="hidden" name="serviceId" value="{{ service.serviceId }}">
                                 <input type="hidden" name="crudAction" value="DELETE">
+                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                             </form>
                         </div>
                     </dialog>
@@ -92,6 +94,7 @@
                             <input type="file" name="serviceImg" id="serviceImg" class="form-input__input">
                         </div>
                         <input type="hidden" name="crudAction" value="CREATE">
+                        <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                         <button class="form__submit-btn" type="submit">Confirmer</button>
                     </form>
                 </div>
