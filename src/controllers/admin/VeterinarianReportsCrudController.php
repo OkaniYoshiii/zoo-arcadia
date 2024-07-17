@@ -114,10 +114,10 @@ class VeterinarianReportsCrudController implements CrudControllerInterface
 
     private function deleteEntity(array $formData)
     {
-        if(!isset($formData['veterinarianReportId'])) throw new Exception('Veterinarian report ID need to be specified in the form');
+        if(!isset($formData['veterinarian_report_id'])) throw new Exception('veterinarian_report_id need to be specified in the form');
         if(empty($formData['veterinarian_report_id'])) throw new Exception('veterinarian_report_id is empty.');
         if(!is_numeric($formData['veterinarian_report_id'])) throw new Exception('veterinarian_report_id is not numeric.');
 
-        VeterinarianReportsTable::delete($formData['veterinarianReportId']);
+        VeterinarianReportsTable::delete($formData['veterinarian_report_id']);
     }
 }
