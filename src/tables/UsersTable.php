@@ -44,9 +44,10 @@ class UsersTable
     {
         self::checkConstantsDeclaration();
 
-        $sql = 'UPDATE users SET username = :username, firstname = :firstname, lastname = :lastname, pwd = :pwd, role_id = :role_id';
+        $sql = 'UPDATE users SET username = :username, firstname = :firstname, lastname = :lastname, pwd = :pwd, role_id = :role_id WHERE users.user_id = :user_id';
         Database::$statement = Database::$pdo->prepare($sql);
         
+        $user_id = $user->getUserId();
         $username = $user->getUsername();
         $firstname = $user->getFirstname();
         $lastname = $user->getLastname();
@@ -60,6 +61,7 @@ class UsersTable
         Database::$statement->bindValue(':lastname', $lastname);
         Database::$statement->bindValue(':pwd', $pwd);
         Database::$statement->bindValue(':role_id', $role_id);
+        Database::$statement->bindValue(':user_id', $user_id);
         
         Database::$statement->execute();
     }

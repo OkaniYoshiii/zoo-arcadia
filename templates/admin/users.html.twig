@@ -17,7 +17,7 @@
                         {{ user.roleName }}
                         <button class="dialog-btn button--active" data-dialog-id="dialog-modify-user-{{ user.userId }}">Modifier</button>
                         <form action="" method="POST">
-                            <input type="hidden" name="userId" value="{{ user.userId }}">
+                            <input type="hidden" name="user_id" value="{{ user.userId }}">
                             <input type="hidden" name="crudAction" value="DELETE">
                             <input type="submit" class="button--active" value="Supprimer">
                             <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
@@ -55,7 +55,7 @@
                                         {% endfor %}
                                     </select>
                                 </div>
-                                <input type="hidden" name="userId" value="{{ user.userId }}">
+                                <input type="hidden" name="user_id" value="{{ user.userId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
                                 <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                                 <button class="form__submit-btn" type="submit">Confirmer</button>

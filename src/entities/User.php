@@ -20,13 +20,12 @@ class User implements EntityInterface
     {
         if(is_null($properties)) return;
 
-        $this->setUsername($properties['username']);
-        $this->setFirstname($properties['firstname']);
-        $this->setLastname($properties['lastname']);
-        $this->setPassword($properties['pwd']);
-        if(isset($properties['role_id'])) {
-            $this->setRoleId($properties['role_id']);
-        }
+        if(isset($properties['user_id'])) $this->user_id = $properties['user_id'];
+        if(isset($properties['username'])) $this->username = $properties['username'];
+        if(isset($properties['firstname'])) $this->firstname = $properties['firstname'];
+        if(isset($properties['lastname'])) $this->lastname = $properties['lastname'];
+        if(isset($properties['pwd'])) $this->pwd = $properties['pwd'];
+        if(isset($properties['role_id'])) $this->role_id = $properties['role_id'];
     }
 
     /**

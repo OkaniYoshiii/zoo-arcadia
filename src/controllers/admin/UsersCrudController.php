@@ -21,7 +21,7 @@ class UsersCrudController
     public function processFormData()
     {
         self::$formData = [
-            'userId' => $_POST['userId'] ?? null,
+            'user_id' => $_POST['user_id'] ?? null,
             'username' => $_POST['username'] ?? null,
             'firstname' => $_POST['firstname'] ?? null,
             'lastname' => $_POST['lastname'] ?? null,
@@ -60,7 +60,7 @@ class UsersCrudController
 
     private static function updateUser()
     {
-        if(empty(self::$formData['userId']) || is_null(self::$formData['userId'])) throw new Exception('UserId need to be specified in the form');
+        if(empty(self::$formData['user_id']) || is_null(self::$formData['user_id'])) throw new Exception('user_id need to be specified in the form');
         if(is_null(self::$formData['username'])) throw new Exception('Username need to be specified in the form');
         if(is_null(self::$formData['firstname'])) throw new Exception('Firstname need to be specified in the form');
         if(is_null(self::$formData['lastname'])) throw new Exception('Lastname need to be specified in the form');
@@ -79,9 +79,9 @@ class UsersCrudController
 
     private static function deleteUser()
     {
-        if(!isset(self::$formData['userId'])) throw new Exception('userId need to be specified in the form');
-        if(!is_numeric(self::$formData['userId'])) throw new Exception('userId need to be a numeric string');
+        if(!isset(self::$formData['user_id'])) throw new Exception('user_id need to be specified in the form');
+        if(!is_numeric(self::$formData['user_id'])) throw new Exception('user_id need to be a numeric string');
         
-        UsersTable::delete(self::$formData['userId']);
+        UsersTable::delete(self::$formData['user_id']);
     }
 }
