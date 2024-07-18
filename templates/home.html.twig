@@ -45,30 +45,34 @@
         <div>
             <h2 class="domains__title | size-medium"><button>&lt;</button>Nos domaines : <button>&gt;</button></h2>
             <ul class="domains">
-                {% for domainName, domain in domains %}
+                {% for habitat in habitats %}
                     <li class="domain">
-                        <h3 class="domain__name | size-medium">{{ domainName }}</h3>
+                        <h3 class="domain__name | size-medium">{{ habitat.name }}</h3>
                         <div class="domain__animals gallery gallery--slider">
                             <div class="gallery__content">
-                                {% for name, img_src in domain.animals %}
-                                    <a class="gallery__slide rounded-img--with-caption" href="/animaux/animal?id=x">
-                                        <img class="rounded-img" src="{{ img_src }}" width="" height="" alt="">
-                                        <p class="caption">{{ name }}</p>
-                                    </a>
+                                {% for breed in habitat.breeds %}
+                                    {% for animal in breed.animals %}
+                                        {% set firstAnimalImage = animal.animalImages|first %}
+                                        <a class="gallery__slide rounded-img--with-caption" href="/habitats">
+                                            <img class="gallery__item rounded-img" src="{{ UPLOAD_DIR ~ '/' ~ firstAnimalImage.name }}" width="" height="" alt="">
+                                            <p class="caption">{{ animal.firstname }}</p>
+                                        </a>
+                                    {% endfor %}
                                 {% endfor %}
                             </div>
                             <fieldset class="gallery__controls">
                                 <legend class="visually-hidden">Séléctionnez un animal :</legend>
-                                {% set firstValue = domain.animals|first %}
-                                {% for name, img_src in domain.animals %}
-                                    <label class="visually-hidden"for="animal-control-{{ name|lower }}">{{ name }}</label>
-                                    <input type="radio" name="{{ domainName|lower }}-animal-control" id="animal-control-{{ name|lower }}" {% if img_src == firstValue %} checked {% endif %}>
+                                {% for breed in habitat.breeds %}
+                                    {% set breedLoopIndex = loop.index0 %}
+                                    {% for animal in breed.animals %}
+                                        <label class="visually-hidden" for="animal-control-{{ animal.firstname|lower }}">{{ animal.firstname }}</label>
+                                        <input type="radio" name="{{ habitat.name|lower }}-animal-control" id="animal-control-{{ animal.firstname|lower }}" {% if breedLoopIndex == 0 %} checked {% endif %} autocomplete="off">
+                                    {% endfor %}
                                 {% endfor %}
                             </fieldset>
                         </div>
                         <div class="domain__description | size-medium">
-                            <p>Environement propre aux régions chaudes, la savane regroupe de nombreux animaux comme  zèbres, les gnous, les éléphants, les girafes, les autruches, les gazelles et les buffles.</p>
-                            <p>A Arcadia, nous avons fait notre maximum afin de recréer un environnement réprésentant le plus fidèlement possible l'état naturel de la savane. </p>
+                            {{ habitat.description }}
                         </div>
                     </li>
                 {% endfor %}

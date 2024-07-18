@@ -2,6 +2,7 @@
 
 use App\Entity\ScheduleHour;
 use App\Entity\Service;
+use App\Models\Table\HabitatsTable;
 
 class HomeController {
     private static array $formData;
@@ -41,6 +42,8 @@ class HomeController {
             "total" => 1
         ];
 
+        $habitats = HabitatsTable::getFrontendHabitats();
+
         $schedulesHours = SchedulesHoursStore
             ->createQueryBuilder()
             ->join(function ($hour) {
@@ -63,10 +66,9 @@ class HomeController {
         $services = array_map(function(array $service) { return new Service($service); }, ServicesDB->findAll(null, 3));
 
         return [
-            'domains' => $domains,
+            'habitats' => $habitats,
             'services' => $services,
             'feedbacks' => self::getAllValidatedFeedbacks(),
-            'pages' => $pages,
             'schedulesHours' => $schedulesHours,
             'weekDays' => SchedulesDaysStore->findAll(),
         ];
