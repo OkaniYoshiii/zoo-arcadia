@@ -19,6 +19,7 @@ class Animal implements EntityInterface
     private ?Breed $breed;
     private ?Habitat $habitat;
     private ?array $animal_images;
+    private ?array $veterinarian_reports = null;
 
     public function __construct(array $properties = null)
     {
@@ -36,6 +37,8 @@ class Animal implements EntityInterface
         if(isset($properties['breed'])) $this->breed = $properties['breed'];
         if(isset($properties['habitat'])) $this->habitat = $properties['habitat'];
         if(isset($properties['animal_images'])) $this->animal_images = $properties['animal_images'];
+
+        if(isset($properties['veterinarian_reports'])) $this->veterinarian_reports = $properties['veterinarian_reports'];
     }
 
     /**
@@ -202,6 +205,26 @@ class Animal implements EntityInterface
     public function setAnimalImages($animal_images)
     {
         $this->animal_images = $animal_images;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of veterinarian_reports
+     */ 
+    public function getVeterinarianReports()
+    {
+        return $this->veterinarian_reports;
+    }
+
+    /**
+     * Set the value of veterinarian_reports
+     *
+     * @return  self
+     */ 
+    public function setVeterinarianReports($veterinarian_reports)
+    {
+        $this->veterinarian_reports = $veterinarian_reports;
 
         return $this;
     }

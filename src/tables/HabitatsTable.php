@@ -2,8 +2,12 @@
 
 namespace App\Models\Table;
 
+use App\Entity\Animal;
+use App\Entity\AnimalImage;
+use App\Entity\Breed;
 use App\Entity\Habitat;
 use App\Entity\HabitatImage;
+use App\Entity\VeterinarianReport;
 use App\Trait\TableTrait;
 use Database;
 use Exception;
@@ -73,6 +77,129 @@ class HabitatsTable
 
         $habitats = array_map(function($habitat) {
             $habitat['habitat_image'] = new HabitatImage($habitat['habitat_image']);
+            return new Habitat($habitat);
+        }, $habitats);
+
+        return $habitats;
+    }
+
+    public static function getFrontendHabitats() : array
+    {
+        $tables = [
+            [
+                'name' => self::TABLE_NAME,
+                'fields' => [
+                    self::PRIMARY_KEY,
+                    'name',
+                    'description',
+                ]
+            ],
+            [
+                'name' => HabitatImagesTable::TABLE_NAME,
+                'fields' => [
+                    HabitatImagesTable::PRIMARY_KEY,
+                    'name',
+                ]
+            ],
+            [
+                'name' => AnimalsTable::TABLE_NAME,
+                'fields' => [
+                    AnimalsTable::PRIMARY_KEY,
+                    'firstname',
+                    'state'
+                ]
+            ],
+            [
+                'name' => BreedsTable::TABLE_NAME,
+                'fields' => [
+                    BreedsTable::PRIMARY_KEY,
+                    'name',
+                ]
+            ],
+            [
+                'name' => VeterinarianReportsTable::TABLE_NAME,
+                'fields' => [
+                    VeterinarianReportsTable::PRIMARY_KEY,
+                    'date',
+                    'detail',
+                    'food_quantity',
+                ]
+            ],
+            [
+                'name' => AnimalImagesTable::TABLE_NAME,
+                'fields' => [
+                    AnimalImagesTable::PRIMARY_KEY,
+                    'name',
+                ]
+            ],
+        ];
+
+        $sqlFields = array_map(function($table) {
+            $fields = array_map(function($field) use ($table) {
+                return $table['name'] . '.' . $field . ' AS ' . $table['name'] . '_' . $field;
+            }, $table['fields']);
+            return implode(', ', $fields);
+        }, $tables);
+        $select = 'SELECT ' . implode(', ', $sqlFields) . '';
+        $from =' FROM habitats ';
+        $joins = 'JOIN habitat_images ON habitat_images.habitat_id = habitats.habitat_id
+        JOIN animals ON animals.habitat_id = habitats.habitat_id
+        JOIN breeds ON breeds.breed_id = animals.breed_id
+        JOIN animal_images ON animals.animal_id = animal_images.animal_id
+        LEFT JOIN veterinarian_reports ON animals.animal_id = veterinarian_reports.animal_id';
+        $sql = $select . $from . $joins;
+
+        Database::$statement = Database::$pdo->query($sql);
+
+        $habitats = [];
+        while($row = Database::$statement->fetch(PDO::FETCH_ASSOC))
+        {
+            $habitatId = $row['habitats_habitat_id'];
+            $animalId = $row['animals_animal_id'];
+            $breedId = $row['breeds_breed_id'];
+            $veterinarian_report_id = $row['veterinarian_reports_veterinarian_report_id'];
+            $animal_image_id = $row['animal_images_animal_image_id'];
+
+            $habitats[$habitatId]['name'] = $row['habitats_name'];
+            $habitats[$habitatId]['description'] = $row['habitats_description'];
+
+            $habitats[$habitatId]['habitat_image']['name'] = $row['habitat_images_name'];
+
+            $habitats[$habitatId]['breeds'][$breedId]['name'] = $row['breeds_name'];
+
+            $habitats[$habitatId]['breeds'][$breedId]['animals'][$animalId]['animal_id'] = $row['animals_animal_id'];
+            $habitats[$habitatId]['breeds'][$breedId]['animals'][$animalId]['firstname'] = $row['animals_firstname'];
+            $habitats[$habitatId]['breeds'][$breedId]['animals'][$animalId]['state'] = $row['animals_state'];
+
+            $habitats[$habitatId]['breeds'][$breedId]['animals'][$animalId]['state'] = $row['animals_state'];
+
+            $habitats[$habitatId]['breeds'][$breedId]['animals'][$animalId]['animal_images'][$animal_image_id]['name'] = $row['animal_images_name'];
+
+            if(!is_null($veterinarian_report_id)) {
+                $habitats[$habitatId]['breeds'][$breedId]['animals'][$animalId]['veterinarian_reports'][$veterinarian_report_id]['date'] = $row['veterinarian_reports_date'];
+                $habitats[$habitatId]['breeds'][$breedId]['animals'][$animalId]['veterinarian_reports'][$veterinarian_report_id]['detail'] = $row['veterinarian_reports_detail'];
+                $habitats[$habitatId]['breeds'][$breedId]['animals'][$animalId]['veterinarian_reports'][$veterinarian_report_id]['food_quantity'] = $row['veterinarian_reports_food_quantity'];
+            }
+        }
+
+
+        $habitats = array_map(function($habitat) {
+            $habitat['habitat_image'] = new HabitatImage($habitat['habitat_image']);
+                $habitat['breeds'] = array_map(function($breed) {
+                        $breed['animals'] = array_map(function($animal) {
+                            $animal['animal_images'] = array_map(function($animal_image) {
+                                return new AnimalImage($animal_image);
+                            }, $animal['animal_images']);
+                            if(isset($animal['veterinarian_reports'])) {
+                                $animal['veterinarian_reports'] = [array_reduce($animal['veterinarian_reports'], function($carry, $item) {
+                                    if(is_null($carry)) return new VeterinarianReport($item);
+                                    return (strtotime($carry->getDate()) > strtotime($item['date'])) ? $carry : new VeterinarianReport($item);
+                                }, )];
+                            }
+                            return new Animal($animal);
+                        }, $breed['animals']);
+                    return new Breed($breed);
+                }, $habitat['breeds']);
             return new Habitat($habitat);
         }, $habitats);
 

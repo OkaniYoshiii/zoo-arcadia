@@ -13,59 +13,66 @@
     <section>
         <div class="panels__controls | size-large">
             {% for habitat in habitats %}
-                <button class="panels__control" aria-controls="panel-{{ habitat['name']|replace({' ':'-'})|lower }}" style="--background: url({{ IMG_DIR }}/original-images/{{ habitat['img'] }})">
-                    <h2>{{ habitat['name'] }}</h2>
+                <button class="panels__control" aria-controls="panel-{{ habitat.name|replace({' ':'-'})|lower }}" style="--background: url({{ UPLOAD_DIR ~ '/' ~ habitat.habitatImage.name }})">
+                    <h2>{{ habitat.name }}</h2>
                 </button>
             {% endfor %}
         </div>
-        <div class="panels" style="--background: url({{ IMG_DIR }}/original-images/{{ habitats[0]['img'] }})"> 
+        {% set firstHabitat = habitats|first %}
+        <div class="panels" style="--background: url({{ UPLOAD_DIR ~ '/' ~ firstHabitat.habitatImage.name }})"> 
         {% for habitat in habitats %}
-            <div class="panel | size-medium {% if loop.index0 != 0 %}d-none{% endif %}" id="panel-{{ habitat['name']|replace({' ':'-'})|lower }}">
-                <h2 class="panel__title | color-secondary">{{ habitat['name'] }}</h2>
+            <div class="panel | size-medium {% if loop.index0 != 0 %}d-none{% endif %}" id="panel-{{ habitat.name|replace({' ':'-'})|lower }}">
+                <h2 class="panel__title | color-secondary">{{ habitat.name }}</h2>
                 <div class="panel__content">
-                    <p>{{ habitat['description']|raw }}</p>
+                    <p>{{ habitat.description|raw }}</p>
                     <h3 class="species__title">Espèces dans l'habitat :</h3>
                     <div class="species">
                         <ul class="species__controls | list-unstyled">
-                            {% for specie in habitat['species'] %}
-                                <button class="button" aria-controls="{{ specie['name']|lower|replace({' ':'-'}) }}" aria-expanded="{{ loop.index0 == 0 ? 'true' : 'false' }}">{{ specie['name'] }}</button>
+                            {% for breed in habitat.breeds %}
+                                <button class="button" aria-controls="{{ breed.name|lower|replace({' ':'-'}) }}" aria-expanded="{{ loop.index0 == 0 ? 'true' : 'false' }}">{{ breed.name }}</button>
                             {% endfor %}
                         </ul>
                         <ul class="species__list | list-unstyled">
-                            {% for specie in habitat['species'] %}
-                                <li class="specie {% if not loop.index0 == 0 %} d-none {% endif %}" id="{{ specie['name']|lower|replace({' ':'-'}) }}">
-                                    <h4 class="visually-hidden">{{ specie['name'] }}</h4>
+                            {% for breed in habitat.breeds %}
+                                <li class="specie {% if not loop.index0 == 0 %} d-none {% endif %}" id="{{ breed.name|lower|replace({' ':'-'}) }}">
+                                    <h4 class="visually-hidden">{{ breed.name }}</h4>
                                     <ul class="gallery gallery--fluid animals-list | list-unstyled">
                                         <div class="gallery__content">
-                                            {% for animal in specie['animals'] %}
-                                                {% set dialogId = 'animal-dialog-' ~ specie['name'] ~ animal['id'] %}
+                                            {% for animal in breed.animals %}
+                                                {% set dialogId = 'animal-dialog-' ~ breed.name ~ animal.animalId %}
                                                 <li class="gallery__item animal">
                                                     <button class="rounded-img--with-caption" aria-controls="{{ dialogId }}" data-dialog-id="{{ dialogId }}">
-                                                        <img class="rounded-img" src="{{ IMG_DIR }}/original-images/{{ animal['imgs'][0] }}" alt="">
-                                                        <h5 class="caption">{{ animal['name'] }}</h5>
+                                                        {% set firstAnimalImage = animal.animalImages|first %}
+                                                        <img class="rounded-img" src="{{ UPLOAD_DIR ~ '/' ~ firstAnimalImage.name }}" alt="">
+                                                        <h5 class="caption">{{ animal.firstname }}</h5>
                                                     </button>
                                                 </li>
                                                 <dialog class="dialog animal__dialog" id="{{ dialogId }}" data-animal-id="{{ animal['id'] }}">
                                                     <div class="dialog__content">
                                                         <div class="dialog__header">
-                                                            <h5 class="dialog__title">{{ animal['name'] }}</h5>
+                                                            <h5 class="dialog__title">{{ animal.firstname }}</h5>
                                                         </div>
                                                         <div class="dialog__body media-and-text">
                                                             <div class="media-and-text__media gallery gallery--slider">
-                                                                {% for img in animal['imgs'] %}
-                                                                    <img src="{{ IMG_DIR }}/original-images/{{ img }}" alt="">
+                                                                {% for animalImage in animal.animalImages %}
+                                                                    <img src="{{ UPLOAD_DIR ~ '/' ~ animalImage.name }}" alt="">
                                                                 {% endfor %}
                                                             </div>
                                                             <div class="media-and-text__content">
-                                                                <p><span class="fw-bold">Etat de l'animal : </span>{{ animal['state'] }}</p>
-                                                                <p><span class="fw-bold">Nourriture proposée :</span></p>
-                                                                <ul>
-                                                                    {% for foodName, foodQuantity in animal['foods'] %}
-                                                                        <li>{{ foodName }} - {{ foodQuantity }} par jour</li>
-                                                                    {% endfor %}
-                                                                </ul>
-                                                                <p><span class="fw-bold">Dernière visite du vétérinaire :</span> {{ animal['last_visit_date'] }}</p>
-                                                                <p><span class="fw-bold">Avis du vétérinaire :</span> {{ animal['veterynary_review'] }}</p>
+                                                                {% if not animal.veterinarianReports is null %}
+                                                                    {% set firstReport = animal.veterinarianReports|first %}
+                                                                    <p><span class="fw-bold">Etat de l'animal : </span>{{ animal.state }}</p>
+                                                                    <p><span class="fw-bold">Nourriture proposée :</span>{{ firstReport.foodQuantity }}</p>
+                                                                     {# <ul>
+                                                                        {% for veterinarianReport in animal.veterinarianReports %}
+                                                                            <li>{{ veterinarianReport.foodType.name }} - {{ veterinarianReport.foodQuantity ~ veterinarianReport.foodUnit.name }} par jour</li>
+                                                                        {% endfor %}
+                                                                    </ul> #}
+                                                                    <p><span class="fw-bold">Dernière visite du vétérinaire :</span> {{ firstReport.date }}</p>
+                                                                    <p><span class="fw-bold">Avis du vétérinaire :</span> {{ firstReport.detail }}</p>
+                                                                {% else %}
+                                                                    <p>Pas de données provenant du vétérinaire</p>
+                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
