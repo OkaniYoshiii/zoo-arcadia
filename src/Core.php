@@ -18,6 +18,12 @@ class Core {
             $controllerName = ROUTE['controller'];
             $controller = new $controllerName();
 
+            $analytics = file_get_contents("php://input") ?? null;
+            $analytics = json_decode($analytics, true);
+            if(!is_null($analytics)) {
+                $controller->processFormData();
+            }
+
             if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $formValidator = new FormValidator();
                 $formValidator->checkDuplicatedFormSubmission();

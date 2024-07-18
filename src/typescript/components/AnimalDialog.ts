@@ -22,6 +22,7 @@ class AnimalDialog extends Dialog {
 
     #registerViews() {
         AnimalDialog.#animalsData.animals[this.#animalId]++;
+        console.log(JSON.stringify(AnimalDialog.animalData));
     }
 
     static get animalData() {

@@ -12,12 +12,6 @@ actionButtons.forEach((button) => {
                     addInput(button, 'breed_name');
                 }, { once: true });
                 break;
-            case 'add-habitat':
-                button.addEventListener('click', () => {
-                    deleteInput(button, 'habitat_id');
-                    addInput(button, 'habitat_name');
-                }, { once: true });
-                break;
             default:
                 throw new Error(`data-action attribute on ${button} need to be either \'add-breed\' or \'add-habitat\'`);
                 break;
