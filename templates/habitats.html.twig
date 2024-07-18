@@ -63,11 +63,6 @@
                                                                     {% set firstReport = animal.veterinarianReports|first %}
                                                                     <p><span class="fw-bold">Etat de l'animal : </span>{{ animal.state }}</p>
                                                                     <p><span class="fw-bold">Nourriture proposée :</span>{{ firstReport.foodQuantity }}</p>
-                                                                     {# <ul>
-                                                                        {% for veterinarianReport in animal.veterinarianReports %}
-                                                                            <li>{{ veterinarianReport.foodType.name }} - {{ veterinarianReport.foodQuantity ~ veterinarianReport.foodUnit.name }} par jour</li>
-                                                                        {% endfor %}
-                                                                    </ul> #}
                                                                     <p><span class="fw-bold">Dernière visite du vétérinaire :</span> {{ firstReport.date }}</p>
                                                                     <p><span class="fw-bold">Avis du vétérinaire :</span> {{ firstReport.detail }}</p>
                                                                 {% else %}
