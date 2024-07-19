@@ -2,9 +2,6 @@
 
 // APP CONFIG
 
-use App\Entity\AnimalImage;
-use App\Models\Table\AnimalImagesTable;
-
 require_once '../config/config.global.php';
 
 // TWIG CONFIG

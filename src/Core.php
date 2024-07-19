@@ -11,6 +11,7 @@ class Core {
 
     private function render() {
         Database::connect();
+        Session::start();
 
         $variables = null;
         
@@ -25,8 +26,6 @@ class Core {
                 $controller->processFormData();
             }
 
-            Session::start();
-
             if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $formValidator = new FormValidator();
                 $formValidator->checkDuplicatedFormSubmission();
@@ -40,7 +39,7 @@ class Core {
 
             if(!is_null(ROUTE['template'])) {
                 $variables = $controller->getVariables();
-                if(str_contains(ROUTE['uri'], '/admin') && (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] === false)) {
+                if(str_contains(ROUTE['uri'], '/admin') && !$_SESSION['isLoggedIn']) {
                     header('Location: /');
                     die();
                 }

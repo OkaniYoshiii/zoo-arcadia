@@ -6,7 +6,7 @@ class Session
 {
     private static bool $isStarted = false;
     private static bool $isExpired = false;
-    private static ?int $expirationDelay = 60;
+    private static ?int $expirationDelay = 10;
     
     private static function configureSession() : void
     {
@@ -38,6 +38,8 @@ class Session
             session_unset();
             self::regenerateId();
         }
+
+        self::setDefaultData();
     }
 
     public static function unset() : void
@@ -64,6 +66,11 @@ class Session
     public static function resetExpirationDelay() : void
     {
         $_SESSION['expiration'] = self::$expirationDelay;
+    }
 
+    private static function setDefaultData() : void
+    {
+        if(!isset($_SESSION['isLoggedIn'])) $_SESSION['isLoggedIn'] = false;
+        if(!isset($_SESSION['role'])) $_SESSION['role'] = null;
     }
 }
