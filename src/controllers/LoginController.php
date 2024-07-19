@@ -1,6 +1,7 @@
 <?php
 
 use App\Entity\User;
+use App\Models\Table\RolesTable;
 use App\Models\Table\UsersTable;
 use App\Utilities\Session;
 
@@ -33,9 +34,15 @@ class LoginController
         if(!filter_var($formData['username'], FILTER_VALIDATE_EMAIL)) throw new Exception('username is not an email.');
 
         $user = new User($formData);
-        if(!UsersTable::isAlreadyRegistered($user)) throw new Exception('User has not been registered before trying to log-in.');
+        $user = UsersTable::isAlreadyRegistered($user);
+        if(!($user instanceof User)) throw new Exception('User has not been registered before trying to log-in.');
 
         Session::regenerateId();
+
+        $roleId = $user->getRoleId();
+        $role = RolesTable::findById($roleId);
+
+        $_SESSION['role'] = $role;
         $_SESSION['isLoggedIn'] = true;
     }
 }

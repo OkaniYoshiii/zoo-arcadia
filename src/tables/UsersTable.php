@@ -66,11 +66,11 @@ class UsersTable
         Database::$statement->execute();
     }
 
-    public static function isAlreadyRegistered(User $user) : bool 
+    public static function isAlreadyRegistered(User $user) : EntityInterface|bool 
     {
         self::checkConstantsDeclaration();
 
-        $sql = 'SELECT users.username, users.pwd FROM users WHERE users.username = :username';
+        $sql = 'SELECT users.role_id, users.username, users.pwd FROM users WHERE users.username = :username';
         Database::$statement = Database::$pdo->prepare($sql);
 
         $username = $user->getUsername();
@@ -79,8 +79,10 @@ class UsersTable
 
         Database::$statement->execute();
         $result = Database::$statement->fetch(PDO::FETCH_ASSOC);
-
-        return ($result) ? password_verify(self::getPepperedPassword($pwd), $result['pwd']) : false;
+        
+        if(!boolval($result)) return false;
+        if(!password_verify(self::getPepperedPassword($pwd), $result['pwd'])) return false;
+        return new User($result);
     }
 
     private static function getPepperedPassword(string $pwd) : string
