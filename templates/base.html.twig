@@ -28,7 +28,11 @@
                     <li class="nav-link"><a href="/">Accueil</a></li>
                     <li class="nav-link"><a href="/services">Nos services</a></li>
                     <li class="nav-link"><a href="/habitats">Nos habitats</a></li>
-                    <li class="nav-link"><a href="/connexion">Connexion</a></li>
+                    {% if session.isLoggedIn is defined and session.isLoggedIn == true %}
+                        <li class="nav-link"><a href="/deconnexion">Deconnexion</a></li>
+                    {% else %}
+                        <li class="nav-link"><a href="/connexion">Connexion</a></li>
+                    {% endif %}
                     <li class="nav-link"><a href="/contact">Contact</a></li>
                 </ul>
             </nav>

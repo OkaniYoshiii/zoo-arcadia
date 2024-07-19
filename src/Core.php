@@ -41,6 +41,8 @@ class Core {
             if(!is_null(ROUTE['template'])) {
                 $variables = $controller->getVariables();
             }
+
+            $variables['session'] = $_SESSION;
         }
         if(!is_null(ROUTE['template'])) {
             echo TWIG->render(ROUTE['template'], $variables);
