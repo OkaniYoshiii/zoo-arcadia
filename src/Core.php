@@ -42,6 +42,10 @@ class Core {
                 $variables = $controller->getVariables();
             }
 
+            if(!str_contains(ROUTE['uri'], '/api') && is_null(ROUTE['template'])) {
+                $controller->processAndRedirect();
+            }
+
             $variables['session'] = $_SESSION;
         }
         if(!is_null(ROUTE['template'])) {

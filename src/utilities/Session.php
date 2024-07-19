@@ -40,10 +40,9 @@ class Session
         }
     }
 
-    public static function destroy() : void
+    public static function unset() : void
     {
         session_unset();
-        session_destroy();
     }
 
     // https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#renew-the-session-id-after-any-privilege-level-change

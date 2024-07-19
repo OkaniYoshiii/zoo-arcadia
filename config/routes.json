@@ -4,6 +4,7 @@
         "/services" : ["services.html.twig", "ServicesController"],
         "/habitats" : ["habitats.html.twig", "HabitatsController"],
         "/connexion" : ["login.html.twig", "LoginController"],
+        "/deconnexion" : [null, "LogoutController"],
         "/contact" : ["contact.html.twig", "ContactController"],
 
         "/admin" : ["admin/admin.html.twig", "AdminDashboardController"],
