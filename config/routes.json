@@ -20,6 +20,7 @@
 
     "POST" : {
         "/" : ["home.html.twig", "HomeController"],
+        "/connexion" : ["login.html.twig", "LoginController"],
         
         "/admin" : ["admin/admin.html.twig", "AdminDashboardController"],
         "/admin/utilisateurs" : ["admin/users.html.twig", "UsersCrudController"],

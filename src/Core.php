@@ -1,6 +1,7 @@
 <?php
 
 use App\Utilities\FormValidator;
+use App\Utilities\Session;
 
 class Core {
     public function __construct()
@@ -23,6 +24,8 @@ class Core {
             if(!is_null($analytics)) {
                 $controller->processFormData();
             }
+
+            Session::start();
 
             if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $formValidator = new FormValidator();
