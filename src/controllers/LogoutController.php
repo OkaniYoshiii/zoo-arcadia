@@ -9,5 +9,6 @@ class LogoutController
         Session::unset();
         Session::regenerateId();
         header('Location: /');
+        die();
     }
 }

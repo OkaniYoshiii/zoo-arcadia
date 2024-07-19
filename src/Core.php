@@ -40,6 +40,10 @@ class Core {
 
             if(!is_null(ROUTE['template'])) {
                 $variables = $controller->getVariables();
+                if(str_contains(ROUTE['uri'], '/admin') && (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] === false)) {
+                    header('Location: /');
+                    die();
+                }
             }
 
             if(!str_contains(ROUTE['uri'], '/api') && is_null(ROUTE['template'])) {
