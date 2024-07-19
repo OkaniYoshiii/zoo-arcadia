@@ -8,6 +8,7 @@ class LoginController
 {
     public function getVariables(): array
     {
+        if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] === true) header('Location: /');
         return [];
     }
 

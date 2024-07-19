@@ -6,7 +6,7 @@ class Session
 {
     private static bool $isStarted = false;
     private static bool $isExpired = false;
-    private static ?int $expirationDelay = 5;
+    private static ?int $expirationDelay = 60;
     
     private static function configureSession() : void
     {
