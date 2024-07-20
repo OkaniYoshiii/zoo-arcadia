@@ -11,7 +11,6 @@ class Core {
 
     private function render() {
         Database::connect();
-        Session::start();
 
         $variables = null;
         

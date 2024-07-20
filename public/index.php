@@ -2,6 +2,8 @@
 
 // APP CONFIG
 
+use App\Utilities\Session;
+
 require_once '../config/config.global.php';
 
 // TWIG CONFIG
@@ -15,6 +17,8 @@ require_once CONFIG_DIR . '/config.twig.php';
 // AUTOLOADER
 require_once APP_DIR . '/Autoloader.php';
 Autoloader::register();
+
+Session::start();
 
 // REQUEST CONSTANT
 use App\Objects\Request;
@@ -31,6 +35,8 @@ try {
     echo TWIG->render('404.html.twig',[]);
     die();
 }
+
+var_dump($_SESSION['role'], ROUTE['roles']);
 
 use SleekDB\Store;
 define('FeedbacksDB', new Store('feedbacks', '../sleekdb', ['timeout' => false]));

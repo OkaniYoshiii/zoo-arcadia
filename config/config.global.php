@@ -31,6 +31,9 @@ define('UPLOAD_DIR', 'uploads');
 define('TEMPLATE_DIR', $rootDir . 'templates');
 define('TEMPLATE_PARTS_DIR', $rootDir . 'templates/template-parts');
 
+// ROLES
+define('ROLES', ['NONE', 'ROLE_ADMIN', 'ROLE_EMPLOYEE', 'ROLE_VETERINARIAN']);
+
 // REQUIRED FOR AUTOLOADER
 define('SRC_FOLDERS', [
     APP_DIR,

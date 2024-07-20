@@ -1,35 +1,35 @@
 {
     "GET" : {
-        "/" : ["home.html.twig", "HomeController"],
-        "/services" : ["services.html.twig", "ServicesController"],
-        "/habitats" : ["habitats.html.twig", "HabitatsController"],
-        "/connexion" : ["login.html.twig", "LoginController"],
-        "/deconnexion" : [null, "LogoutController"],
-        "/contact" : ["contact.html.twig", "ContactController"],
+        "/" : ["home.html.twig", "HomeController", ["NONE"]],
+        "/services" : ["services.html.twig", "ServicesController", ["NONE"]],
+        "/habitats" : ["habitats.html.twig", "HabitatsController", ["NONE"]],
+        "/connexion" : ["login.html.twig", "LoginController", ["NONE"]],
+        "/deconnexion" : [null, "LogoutController", ["NONE"]],
+        "/contact" : ["contact.html.twig", "ContactController", ["NONE"]],
 
-        "/admin" : ["admin/admin.html.twig", "AdminDashboardController"],
-        "/admin/utilisateurs" : ["admin/users.html.twig", "UsersCrudController"],
-        "/admin/rapports-employe" : ["admin/employe-reports.html.twig", "EmployeeReportsCrudController"],
-        "/admin/animaux" : ["admin/animals.html.twig", "AnimalsCrudController"],
-        "/admin/habitats" : ["admin/habitats.html.twig", "HabitatsCrudController"],
-        "/admin/services" : ["admin/services.html.twig", "ServicesCrudController"],
-        "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController"],
-        "/admin/validation-avis" : ["admin/feedback-validation.html.twig", "FeedbackValidationController"],
+        "/admin" : ["admin/admin.html.twig", "AdminDashboardController", ["ROLE_ADMIN"]],
+        "/admin/utilisateurs" : ["admin/users.html.twig", "UsersCrudController", ["ROLE_ADMIN"]],
+        "/admin/rapports-employe" : ["admin/employe-reports.html.twig", "EmployeeReportsCrudController", ["ROLE_EMPLOYEE"]],
+        "/admin/animaux" : ["admin/animals.html.twig", "AnimalsCrudController", ["ROLE_ADMIN"]],
+        "/admin/habitats" : ["admin/habitats.html.twig", "HabitatsCrudController", ["ROLE_ADMIN", "ROLE_VETERINARIAN"]],
+        "/admin/services" : ["admin/services.html.twig", "ServicesCrudController", ["ROLE_ADMIN", "ROLE_EMPLOYEE"]],
+        "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController", ["ROLE_ADMIN", "ROLE_VETERINARIAN"]],
+        "/admin/validation-avis" : ["admin/feedback-validation.html.twig", "FeedbackValidationController", ["ROLE_EMPLOYEE"]],
 
-        "/api/feedbacks" : [null, "FeedbackApiController"]
+        "/api/feedbacks" : [null, "FeedbackApiController", ["NONE"]]
     },
 
     "POST" : {
-        "/" : ["home.html.twig", "HomeController"],
-        "/connexion" : ["login.html.twig", "LoginController"],
+        "/" : ["home.html.twig", "HomeController", ["NONE"]],
+        "/connexion" : ["login.html.twig", "LoginController", ["NONE"]],
         
-        "/admin" : ["admin/admin.html.twig", "AdminDashboardController"],
-        "/admin/utilisateurs" : ["admin/users.html.twig", "UsersCrudController"],
-        "/admin/rapports-employe" : ["admin/employe-reports.html.twig", "EmployeeReportsCrudController"],
-        "/admin/animaux" : ["admin/animals.html.twig", "AnimalsCrudController"],
-        "/admin/habitats" : ["admin/habitats.html.twig", "HabitatsCrudController"],
-        "/admin/services" : ["admin/services.html.twig", "ServicesCrudController"],
-        "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController"],
-        "/admin/validation-avis" : ["admin/feedback-validation.html.twig", "FeedbackValidationController"]
+        "/admin" : ["admin/admin.html.twig", "AdminDashboardController", ["ROLE_ADMIN"]],
+        "/admin/utilisateurs" : ["admin/users.html.twig", "UsersCrudController", ["ROLE_ADMIN"]],
+        "/admin/rapports-employe" : ["admin/employe-reports.html.twig", "EmployeeReportsCrudController", ["ROLE_EMPLOYEE"]],
+        "/admin/animaux" : ["admin/animals.html.twig", "AnimalsCrudController", ["ROLE_ADMIN"]],
+        "/admin/habitats" : ["admin/habitats.html.twig", "HabitatsCrudController", ["ROLE_ADMIN", "ROLE_VETERINARIAN"]],
+        "/admin/services" : ["admin/services.html.twig", "ServicesCrudController", ["ROLE_ADMIN", "ROLE_EMPLOYEE"]],
+        "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController", ["ROLE_ADMIN", "ROLE_VETERINARIAN"]],
+        "/admin/validation-avis" : ["admin/feedback-validation.html.twig", "FeedbackValidationController", ["ROLE_EMPLOYEE"]]
     }
 }
