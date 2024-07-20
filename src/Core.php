@@ -13,6 +13,12 @@ class Core {
         Database::connect();
 
         $variables = null;
+
+        if(!ROUTE['hasAccess']) {
+            $redirectTo = ($_SESSION['isLoggedIn']) ? '/admin' : '/';
+            header('Location: ' . $redirectTo);
+            die();
+        }
         
         if(!is_null(ROUTE['controller']) && ROUTE['controller'] !== 'default') {
 
@@ -38,10 +44,6 @@ class Core {
 
             if(!is_null(ROUTE['template'])) {
                 $variables = $controller->getVariables();
-                if(str_contains(ROUTE['uri'], '/admin') && !$_SESSION['isLoggedIn']) {
-                    header('Location: /');
-                    die();
-                }
             }
 
             if(!str_contains(ROUTE['uri'], '/api') && is_null(ROUTE['template'])) {
