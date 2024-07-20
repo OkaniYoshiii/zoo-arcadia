@@ -44,6 +44,7 @@
                 </fieldset>
                 <button class="button--active">Confirmer</button>
                 <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
         </li>
     </template>

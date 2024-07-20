@@ -72,5 +72,6 @@ class Session
     {
         if(!isset($_SESSION['isLoggedIn'])) $_SESSION['isLoggedIn'] = false;
         if(!isset($_SESSION['role'])) $_SESSION['role'] = null;
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(20));
     }
 }

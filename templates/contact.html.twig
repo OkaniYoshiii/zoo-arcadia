@@ -25,5 +25,7 @@
                 <p id="output"></p>
             </div>
         </form>
+        <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </section>
 {% endblock %}

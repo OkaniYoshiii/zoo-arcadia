@@ -76,6 +76,7 @@
                                 <input type="hidden" name="animal_id" value="{{ animal.animalId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
                                 <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                             </form>
                         </div>
                     </dialog>
@@ -99,6 +100,7 @@
                                 <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                                 <input type="hidden" name="animal_id" value="{{ animal.animalId }}">
                                 <input type="hidden" name="crudAction" value="DELETE">
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"> 
                             </form>
                         </div>
                     </dialog>
@@ -142,6 +144,7 @@
                 <input class="button--active" type="submit" value="Confirmer">
                 <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                 <input type="hidden" name="crudAction" value="CREATE">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
         </div>
     </dialog>

@@ -34,6 +34,8 @@ class Core {
             if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $formValidator = new FormValidator();
                 $formValidator->checkDuplicatedFormSubmission();
+                $formValidator->checkRequestOrigin();
+                $formValidator->checkCsrfToken();
                 
                 $controller->processFormData();
             }
@@ -51,6 +53,7 @@ class Core {
             }
 
             $variables['session'] = $_SESSION;
+            var_dump($_SESSION['csrf_token']);
         }
         if(!is_null(ROUTE['template'])) {
             echo TWIG->render(ROUTE['template'], $variables);

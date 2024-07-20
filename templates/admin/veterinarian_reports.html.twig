@@ -63,11 +63,13 @@
                                         {% endfor %}
                                     </select>
                                 </div>
+                                <button class="form__submit-btn" type="submit">Confirmer</button>
+
                                 <input type="hidden" name="veterinarian_report_id" value="{{ report.veterinarianReportId }}">
                                 <input type="hidden" name="user_id" value="{{ user.userId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
                                 <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
-                                <button class="form__submit-btn" type="submit">Confirmer</button>
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                             </form>
                         </div>
                     </dialog>
@@ -86,6 +88,7 @@
                                 <input type="hidden" name="user_id" value="{{ user.userId }}">
                                 <input type="hidden" name="crudAction" value="DELETE">
                                 <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                             </form>
                         </div>
                     </dialog>
@@ -136,10 +139,12 @@
                         {% endfor %}
                     </select>
                 </div>
+                <button class="form__submit-btn" type="submit">Confirmer</button>
+                
                 <input type="hidden" name="user_id" value="{{ user.userId }}">
                 <input type="hidden" name="crudAction" value="CREATE">
                 <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
-                <button class="form__submit-btn" type="submit">Confirmer</button>
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
         </div>
     </dialog>

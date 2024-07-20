@@ -18,6 +18,7 @@
             </div>
             <input class="form__submit-btn" type="submit" value="Se connecter">
             <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             <div class="form-output">
                 <p id="output"></p>
             </div>

@@ -53,10 +53,12 @@
                                     <img width="400" src="{{ UPLOAD_DIR ~ '/' ~ service.img }}" alt="">
                                     <input class="form-input__input" type="file" name="serviceImg" id="serviceImg">
                                 </div>
+                                <button class="form__submit-btn" type="submit">Confirmer</button>
+
                                 <input type="hidden" name="serviceId" value="{{ service.serviceId }}">
                                 <input type="hidden" name="crudAction" value="UPDATE">
                                 <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
-                                <button class="form__submit-btn" type="submit">Confirmer</button>
+                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                             </form>
                         </div>
                     </dialog>
@@ -75,6 +77,7 @@
                                     <input type="hidden" name="serviceId" value="{{ service.serviceId }}">
                                     <input type="hidden" name="crudAction" value="DELETE">
                                     <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
+                                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                                 </form>
                             </div>
                         </dialog>
@@ -100,9 +103,11 @@
                                 <label for="serviceImg" class="form-input__label">Image du service</label>
                                 <input type="file" name="serviceImg" id="serviceImg" class="form-input__input">
                             </div>
+                            <button class="form__submit-btn" type="submit">Confirmer</button>
+
                             <input type="hidden" name="crudAction" value="CREATE">
                             <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
-                            <button class="form__submit-btn" type="submit">Confirmer</button>
+                            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                         </form>
                     </div>
                 </dialog>
