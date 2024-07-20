@@ -36,7 +36,7 @@ try {
     die();
 }
 
-var_dump($_SESSION['role'], ROUTE['roles'], ROUTE['hasAccess']);
+// var_dump($_SESSION['role'], ROUTE['roles'], ROUTE['hasAccess']);
 
 use SleekDB\Store;
 define('FeedbacksDB', new Store('feedbacks', '../sleekdb', ['timeout' => false]));

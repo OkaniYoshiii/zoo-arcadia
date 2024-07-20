@@ -10,25 +10,8 @@ class Request
 
     public function __construct()
     {
-        $this->uri = explode('?',$_SERVER['REQUEST_URI'])[0];
+        $this->uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->setParameters();
-    }
-
-    private function setParameters() {
-        $parameters = explode('?',$_SERVER['REQUEST_URI'])[1] ?? null;
-        
-        if(is_null($parameters)) return;
-
-        $parameters = explode('&', $parameters);
-        
-        foreach($parameters as $index => $parameter) 
-        {
-            $name = explode('=',$parameter)[0];
-            $value = explode('=',$parameter)[1];
-            unset($parameters[$index]);
-            $parameters[$name] = $value;
-        }
-        $this->parameters = $parameters;
+        $this->parameters = (isset($_GET)) ? $_GET : null;
     }
 }

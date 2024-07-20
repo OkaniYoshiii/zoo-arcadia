@@ -21,7 +21,7 @@ class Router
         $routes = json_decode(file_get_contents($routes_config_path), true);
 
         if(!isset($routes[REQUEST['method']])) throw new Exception('No routes found with request method : ' . REQUEST['method']);
-        if(!isset($routes[REQUEST['method']][REQUEST['uri']])) throw new Exception('No routes found with request method : ' . REQUEST['method'] . ' and request uri : ' . REQUEST['uri']);
+        if(!isset($routes[REQUEST['method']][REQUEST['uri']]) && !is_null($routes[REQUEST['method']][REQUEST['uri']])) throw new Exception('No routes found with request method : ' . REQUEST['method'] . ' and request uri : ' . REQUEST['uri']);
         
         if(!isset($routes[REQUEST['method']][REQUEST['uri']][0]) && !is_null($routes[REQUEST['method']][REQUEST['uri']][0])) throw new Exception('Route has no template defined');
         if(!isset($routes[REQUEST['method']][REQUEST['uri']][1])) throw new Exception('Route has no controller defined');
