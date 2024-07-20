@@ -5,7 +5,9 @@
         <div class="size-medium">
             <h1>Gestion des habitats</h1>
             <h2>Liste des habitats</h2>
-            <button class="dialog-btn button--active" data-dialog-id="dialog-add-habitat">Ajouter un habitat</button>
+            {% if session.role.name == 'ROLE_ADMIN' %}
+                <button class="dialog-btn button--active" data-dialog-id="dialog-add-habitat">Ajouter un habitat</button>
+            {% endif %}
             <ul class="list-unstyled">
                 {% for habitat in habitats %}
                     {% set habitatImage = habitat.habitatImage %}
@@ -19,89 +21,121 @@
                         </div>
                         </div>
                         <button class="dialog-btn button--active" data-dialog-id="dialog-update-habitat-{{ habitat.habitatId }}">Modifier</button>
-                        <button class="dialog-btn button--active" data-dialog-id="dialog-delete-habitat-{{ habitat.habitatId }}">Supprimer</button>
+                        {% if session.role.name == 'ROLE_ADMIN' %}
+                            <button class="dialog-btn button--active" data-dialog-id="dialog-delete-habitat-{{ habitat.habitatId }}">Supprimer</button>
+                        {% endif %}
                     </li>
                     <dialog class="dialog" id="dialog-update-habitat-{{ habitat.habitatId }}">
                         <div class="dialog__content">
                             <div class="dialog__header">
                                 <h3 class="dialog__title">Modifier l'habitat</h3>
                             </div>
-                            <form action="" class="form" method="POST" enctype="multipart/form-data">
-                                <div class="form-input">
-                                    <label for="name" class="form-input__label">Nom</label>
-                                    <input type="text" name="name" id="name" class="form-input__input" value="{{ habitat.name }}">
-                                </div>
-                                <div class="form-input">
-                                    <label for="description" class="form-input__label">Description</label>
-                                    <textarea type="text" name="description" id="description" class="form-input__input">{{ habitat.description }}</textarea>
-                                </div>
-                                <div class="form-input">
-                                    <label for="veterinarian_comments" class="form-input__label">Commentaires</label>
-                                    <textarea type="text" name="veterinarian_comments" id="veterinarian_comments" class="form-input__input">{{ habitat.veterinarianComments}}</textarea>
-                                </div>
-                                <div class="form-input">
-                                    <label for="habitat_image" class="form-input__label">Image</label>
-                                    <img src="{{ UPLOAD_DIR ~ '/' ~ habitatImage.name }}" alt="" style="max-width: 300px; margin-inline: auto;">
-                                    <input type="file" name="habitat_image" id="habitat_image" class="form-input__input">
-                                </div>
-                                <input class="button--active" type="submit" value="Confirmer">
-                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
-                                <input type="hidden" name="habitat_id" value="{{ habitat.habitatId }}">
-                                <input type="hidden" name="habitat_image_id" value="{{ habitatImage.habitatImageId }}">
-                                <input type="hidden" name="crudAction" value="UPDATE">
-                            </form>
+                            {% if session.role.name == 'ROLE_ADMIN' %}
+                                <form action="" class="form" method="POST" enctype="multipart/form-data">
+                                    <div class="form-input">
+                                        <label for="name" class="form-input__label">Nom</label>
+                                        <input type="text" name="name" id="name" class="form-input__input" value="{{ habitat.name }}">
+                                    </div>
+                                    <div class="form-input">
+                                        <label for="description" class="form-input__label">Description</label>
+                                        <textarea type="text" name="description" id="description" class="form-input__input">{{ habitat.description }}</textarea>
+                                    </div>
+                                    <div class="form-input">
+                                        <label for="habitat_image" class="form-input__label">Image</label>
+                                        <img src="{{ UPLOAD_DIR ~ '/' ~ habitatImage.name }}" alt="" style="max-width: 300px; margin-inline: auto;">
+                                        <input type="file" name="habitat_image" id="habitat_image" class="form-input__input">
+                                    </div>
+                                    <input class="button--active" type="submit" value="Confirmer">
+                                    <input type="hidden" name="veterinarian_comments" value="{{ habitat.veterinarianComments}}">
+                                    <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
+                                    <input type="hidden" name="habitat_id" value="{{ habitat.habitatId }}">
+                                    <input type="hidden" name="habitat_image_id" value="{{ habitatImage.habitatImageId }}">
+                                    <input type="hidden" name="crudAction" value="UPDATE">
+                                </form>
+                            {% elseif session.role.name == 'ROLE_VETERINARIAN' %}
+                                <form action="" class="form" method="POST" enctype="multipart/form-data">
+                                    <div class="form-input">
+                                        <span class="form-input__label">Nom :</span>
+                                        <span>{{ habitat.name }}</span>
+                                    </div>
+                                    <div class="form-input">
+                                        <span class="form-input__label">Description :</span>
+                                        <span>{{ habitat.description }}</span>
+                                    </div>
+                                    <div class="form-input">
+                                        <span class="form-input__label">Image :</span>
+                                        <img src="{{ UPLOAD_DIR ~ '/' ~ habitatImage.name }}" alt="" style="max-width: 300px; margin-inline: auto;">
+                                    </div>
+                                    <div class="form-input">
+                                        <label for="veterinarian_comments" class="form-input__label">Commentaires</label>
+                                        <textarea name="veterinarian_comments" id="veterinarian_comments" class="form-input__input">{{ habitat.veterinarianComments}}</textarea>
+                                    </div>
+                                    <input type="file" name="habitat_image" class="d-none">
+                                    <input class="button--active" type="submit" value="Confirmer">
+                                    <input type="hidden" name="name" id="name" class="form-input__input" value="{{ habitat.name }}">
+                                    <input type="hidden" name="description" id="description" class="form-input__input" value="{{ habitat.description }}">
+                                    <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
+                                    <input type="hidden" name="habitat_id" value="{{ habitat.habitatId }}">
+                                    <input type="hidden" name="habitat_image_id" value="{{ habitatImage.habitatImageId }}">
+                                    <input type="hidden" name="crudAction" value="UPDATE">
+                                </form>
+                            {% endif %}
                         </div>
                     </dialog>
-                    <dialog class="dialog" id="dialog-delete-habitat-{{ habitat.habitatId }}">
-                        <div class="dialog__content">
-                            <div class="dialog__header">
-                                <h3 class="dialog__title">Supprimer l'habitat</h3>
+                    {% if session.role.name == 'ROLE_ADMIN' %}
+                        <dialog class="dialog" id="dialog-delete-habitat-{{ habitat.habitatId }}">
+                            <div class="dialog__content">
+                                <div class="dialog__header">
+                                    <h3 class="dialog__title">Supprimer l'habitat</h3>
+                                </div>
+                                <form action="" class="form" method="POST">
+                                    <p>Souhaitez-vous vraiment supprimer cet habitat ?</p>
+                                    <div class="form-input">
+                                        <button class="button--active" type="submit" formmethod="dialog">Non</button>
+                                    </div>
+                                    <div class="form-input">
+                                        <button class="button--active" type="submit">Oui</button>
+                                    </div>
+                                    <input type="hidden" name="habitat_id" value="{{ habitat.habitatId }}">
+                                    <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
+                                    <input type="hidden" name="crudAction" value="DELETE">
+                                </form>
                             </div>
-                            <form action="" class="form" method="POST">
-                                <p>Souhaitez-vous vraiment supprimer cet habitat ?</p>
-                                <div class="form-input">
-                                    <button class="button--active" type="submit" formmethod="dialog">Non</button>
-                                </div>
-                                <div class="form-input">
-                                    <button class="button--active" type="submit">Oui</button>
-                                </div>
-                                <input type="hidden" name="habitat_id" value="{{ habitat.habitatId }}">
-                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
-                                <input type="hidden" name="crudAction" value="DELETE">
-                            </form>
-                        </div>
-                    </dialog>
+                        </dialog>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>
     </section>
 
-    <dialog class="dialog" id="dialog-add-habitat">
-        <div class="dialog__content">
-            <div class="dialog__header">
-                <h3 class="dialog__title">Ajouter un habitat</h3>
+    {% if session.role.name == 'ROLE_ADMIN' %}
+        <dialog class="dialog" id="dialog-add-habitat">
+            <div class="dialog__content">
+                <div class="dialog__header">
+                    <h3 class="dialog__title">Ajouter un habitat</h3>
+                </div>
+                <form action="" class="form" method="POST" enctype="multipart/form-data">
+                    <div class="form-input">
+                        <label for="name" class="form-input__label">Nom</label>
+                        <input type="text" name="name" id="name" class="form-input__input">
+                    </div>
+                    <div class="form-input">
+                        <label for="description" class="form-input__label">Description</label>
+                        <textarea type="text" name="description" id="description" class="form-input__input"></textarea>
+                    </div>
+                    <div class="form-input">
+                        <label for="veterinarian_comments" class="form-input__label">Commentaires</label>
+                        <textarea type="text" name="veterinarian_comments" id="veterinarian_comments" class="form-input__input"></textarea>
+                    </div>
+                    <div class="form-input">
+                        <label for="habitat_image" class="form-input__label">Image</label>
+                        <input type="file" name="habitat_image" id="habitat_image" class="form-input__input">
+                    </div>
+                    <input class="button--active" type="submit" value="Confirmer">
+                    <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
+                    <input type="hidden" name="crudAction" value="CREATE">
+                </form>
             </div>
-            <form action="" class="form" method="POST" enctype="multipart/form-data">
-                <div class="form-input">
-                    <label for="name" class="form-input__label">Nom</label>
-                    <input type="text" name="name" id="name" class="form-input__input">
-                </div>
-                <div class="form-input">
-                    <label for="description" class="form-input__label">Description</label>
-                    <textarea type="text" name="description" id="description" class="form-input__input"></textarea>
-                </div>
-                <div class="form-input">
-                    <label for="veterinarian_comments" class="form-input__label">Commentaires</label>
-                    <textarea type="text" name="veterinarian_comments" id="veterinarian_comments" class="form-input__input"></textarea>
-                </div>
-                <div class="form-input">
-                    <label for="habitat_image" class="form-input__label">Image</label>
-                    <input type="file" name="habitat_image" id="habitat_image" class="form-input__input">
-                </div>
-                <input class="button--active" type="submit" value="Confirmer">
-                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s')}}">
-                <input type="hidden" name="crudAction" value="CREATE">
-            </form>
-        </div>
-    </dialog>
+        </dialog>
+    {% endif %}
 {% endblock %}
