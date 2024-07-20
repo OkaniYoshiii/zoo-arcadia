@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Entity\Role;
 use Exception;
 
 class Router
@@ -46,11 +47,17 @@ class Router
         } elseif(count($roles) !== 1) {
             throw new Exception('If route roles contains NONE, then you cannot have multiples roles for that route');
         }
+
+        $hasAccess = (in_array('NONE', $roles));
+        if(!in_array('NONE', $roles)) {
+            $hasAccess = ($_SESSION['role'] instanceof Role && in_array($_SESSION['role']->getName(), $roles));
+        }
         
         $this->currentRoute['template'] = $templateName;
         $this->currentRoute['controller'] = $controllerName;
         $this->currentRoute['method'] = $this->currentRoute['method'];
         $this->currentRoute['roles'] = $roles;
+        $this->currentRoute['hasAccess'] = $hasAccess;
     }
 
     public function getCurrentRoute() : array|null {
