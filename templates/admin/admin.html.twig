@@ -55,49 +55,51 @@
             <div class="size-medium">
                 <h1>Espace administration</h1>
                 <p>Bienvenue dans votre espace d'administration.</p>
-                <h2>Horaires du zoo :</h2>
-                <form action="" method="POST" autocomplete="off">
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Horaires</th>
-                                    {% for day in weekDays %}
-                                        <th>{{ day.day }}</th>
-                                    {% endfor %}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for scheduleHour in schedulesHours %}
+                {% if session.role.name == 'ROLE_ADMIN' %}
+                    <h2>Horaires du zoo :</h2>
+                    <form action="" method="POST" autocomplete="off">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
                                     <tr>
-                                        <th scope="row">{{ scheduleHour.hour }}</th>
-                                        {% for schedule in scheduleHour.schedules %}
-                                            <td>
-                                                <label class="visually-hidden" for="">Fermé/ouvert ?</label>
-                                                <input type="checkbox" name="schedulesIds[]" id="" value="{{ schedule.scheduleId }}" {% if schedule.isOpen == 'true' %} checked {% endif %}>
-                                                {% set imgSrc = (schedule.isOpen == 'true') ? 'checkmark.svg' : 'cross.svg' %}
-                                                <img src="{{ IMG_DIR }}/{{ imgSrc}}" width="" height="" alt="">
-                                            </td>
+                                        <th>Horaires</th>
+                                        {% for day in weekDays %}
+                                            <th>{{ day.day }}</th>
                                         {% endfor %}
                                     </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table> 
-                    </div>
-                    <input type="submit" class="button--active" value="Confirmer">
-                    <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
-                </form>
-                <h2>Nombre de vues par animal :</h2>
-                <ul>
-                    {% for animal in animals %}
-                        <li>
-                            <h3>{{ animal.firstname }}</h3>
-                            <p>Habitat : {{ animal.habitat.name }}</p>
-                            <p>Espèce : {{ animal.breed.name }}</p>
-                            <p>Nombre de vues : {{ animal.views }}</p>
-                        </li>
-                    {% endfor %}
-                </ul>
+                                </thead>
+                                <tbody>
+                                    {% for scheduleHour in schedulesHours %}
+                                        <tr>
+                                            <th scope="row">{{ scheduleHour.hour }}</th>
+                                            {% for schedule in scheduleHour.schedules %}
+                                                <td>
+                                                    <label class="visually-hidden" for="">Fermé/ouvert ?</label>
+                                                    <input type="checkbox" name="schedulesIds[]" id="" value="{{ schedule.scheduleId }}" {% if schedule.isOpen == 'true' %} checked {% endif %}>
+                                                    {% set imgSrc = (schedule.isOpen == 'true') ? 'checkmark.svg' : 'cross.svg' %}
+                                                    <img src="{{ IMG_DIR }}/{{ imgSrc}}" width="" height="" alt="">
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table> 
+                        </div>
+                        <input type="submit" class="button--active" value="Confirmer">
+                        <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
+                    </form>
+                    <h2>Nombre de vues par animal :</h2>
+                    <ul>
+                        {% for animal in animals %}
+                            <li>
+                                <h3>{{ animal.firstname }}</h3>
+                                <p>Habitat : {{ animal.habitat.name }}</p>
+                                <p>Espèce : {{ animal.breed.name }}</p>
+                                <p>Nombre de vues : {{ animal.views }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         </section> 
         {% endblock %}

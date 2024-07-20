@@ -7,7 +7,7 @@
         "/deconnexion" : [null, "LogoutController", ["NONE"]],
         "/contact" : ["contact.html.twig", "ContactController", ["NONE"]],
 
-        "/admin" : ["admin/admin.html.twig", "AdminDashboardController", ["ROLE_ADMIN"]],
+        "/admin" : ["admin/admin.html.twig", "AdminDashboardController", ["ROLE_ADMIN", "ROLE_EMPLOYEE", "ROLE_VETERINARIAN"]],
         "/admin/utilisateurs" : ["admin/users.html.twig", "UsersCrudController", ["ROLE_ADMIN"]],
         "/admin/rapports-employe" : ["admin/employe-reports.html.twig", "EmployeeReportsCrudController", ["ROLE_EMPLOYEE"]],
         "/admin/animaux" : ["admin/animals.html.twig", "AnimalsCrudController", ["ROLE_ADMIN"]],
