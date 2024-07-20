@@ -9,7 +9,7 @@
 
         "/admin" : ["admin/admin.html.twig", "AdminDashboardController", ["ROLE_ADMIN", "ROLE_EMPLOYEE", "ROLE_VETERINARIAN"]],
         "/admin/utilisateurs" : ["admin/users.html.twig", "UsersCrudController", ["ROLE_ADMIN"]],
-        "/admin/rapports-employe" : ["admin/employe-reports.html.twig", "EmployeeReportsCrudController", ["ROLE_EMPLOYEE"]],
+        "/admin/rapports-employe" : ["admin/employe-reports.html.twig", "EmployeeReportsCrudController", ["ROLE_EMPLOYEE", "ROLE_VETERINARIAN"]],
         "/admin/animaux" : ["admin/animals.html.twig", "AnimalsCrudController", ["ROLE_ADMIN"]],
         "/admin/habitats" : ["admin/habitats.html.twig", "HabitatsCrudController", ["ROLE_ADMIN", "ROLE_VETERINARIAN"]],
         "/admin/services" : ["admin/services.html.twig", "ServicesCrudController", ["ROLE_ADMIN", "ROLE_EMPLOYEE"]],
