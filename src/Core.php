@@ -52,8 +52,9 @@ class Core {
                 $controller->processAndRedirect();
             }
 
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(20));
+
             $variables['session'] = $_SESSION;
-            var_dump($_SESSION['csrf_token']);
         }
         if(!is_null(ROUTE['template'])) {
             echo TWIG->render(ROUTE['template'], $variables);
