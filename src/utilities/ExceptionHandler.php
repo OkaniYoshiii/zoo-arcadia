@@ -1,7 +1,5 @@
 <?php
 
-use App\Exception\UserInputException;
-
 class ExceptionHandler
 {
     private static $handlers = [];

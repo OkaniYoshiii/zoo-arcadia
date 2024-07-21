@@ -1,7 +1,7 @@
 <?php
 
 use App\Entity\Habitat;
-use App\Exception\UserInputException;
+use App\Exception\FormInputException;
 use App\Models\Table\HabitatImagesTable;
 use App\Models\Table\HabitatsTable;
 
@@ -57,7 +57,9 @@ class HabitatsCrudController
         $habitat = new Habitat($formData);
 
         $formData['habitat_image'] = $habitatImage;
-        if(HabitatsTable::isAlreadyRegistered($habitat) && $formData['habitat_image']['error'] === 4) throw new UserInputException(null, 'Habitat has already been resgitered');
+        if(HabitatsTable::isAlreadyRegistered($habitat) && $formData['habitat_image']['error'] === 4) UserAlertsContainer::add('L\'habitat que vous essayez de créer existe déjà.');
+
+        if(UserAlertsContainer::hasAlerts()) return;
 
         $formData['habitat_id'] = HabitatsTable::create($habitat);
         if($formData['habitat_image']['error'] === 0) {
@@ -85,7 +87,9 @@ class HabitatsCrudController
         $habitat = new Habitat($formData);
 
         $formData['habitat_image'] = $habitatImage;
-        if(HabitatsTable::isAlreadyRegistered($habitat) && $formData['habitat_image']['error'] === 4) throw new UserInputException(null, 'Habitat has already been registered');
+        if(HabitatsTable::isAlreadyRegistered($habitat) && $formData['habitat_image']['error'] === 4) UserAlertsContainer::add('L\'habitat que vous essayez de créer existe déjà.');
+        
+        if(UserAlertsContainer::hasAlerts()) return;
         
         HabitatsTable::update($habitat);
         if($formData['habitat_image']['error'] === 0) {

@@ -1,13 +1,12 @@
 <?php
 
 use App\Entity\User;
-use App\Exception\UserInputException;
+use App\Exception\FormInputException;
 use App\Models\Table\RolesTable;
 use App\Models\Table\UsersTable;
 
 class UsersCrudController
 {
-    private static array $formInputErrors = [];
     private static array $formData;
 
     public function getVariables() : array
@@ -15,7 +14,6 @@ class UsersCrudController
         return [
             'users' => UsersTable::getAll(),
             'roles' => RolesTable::getAll(),
-            'formErrors' => self::$formInputErrors,
         ];
     }
 
@@ -46,15 +44,15 @@ class UsersCrudController
         if(is_null(self::$formData['pwd'])) throw new FormInputException('pwd', FormInputException::UNDEFINED_VALUE);
         if(is_null(self::$formData['role_id'])) throw new FormInputException('role_id', FormInputException::UNDEFINED_VALUE);
 
-        if(empty(self::$formData['username']))  throw new UserInputException('username', UserInputException::EMPTY_VALUE);
-        if(empty(self::$formData['firstname']))  throw new UserInputException('username', UserInputException::EMPTY_VALUE);
-        if(empty(self::$formData['lastname']))  throw new UserInputException('username', UserInputException::EMPTY_VALUE);
-        if(empty(self::$formData['pwd'])) throw new UserInputException('username', UserInputException::EMPTY_VALUE);
+        if(empty(self::$formData['username'])) UserAlertsContainer::add('L\'email de l\'utilisateur est vide.');
+        if(empty(self::$formData['firstname']))UserAlertsContainer::add('Le nom d\'utilisateur est vide.');
+        if(empty(self::$formData['lastname'])) UserAlertsContainer::add('Le nom de famille de l\'utilisateur est vide.');
+        if(empty(self::$formData['pwd'])) UserAlertsContainer::add('Le mot de passe de l\'utilisateur est vide.');
 
         $entity = new User(self::$formData);
-        if(UsersTable::isAlreadyRegistered($entity)) throw new UserInputException(null, 'User has already been registered');
+        if(UsersTable::isAlreadyRegistered($entity)) UserAlertsContainer::add('L\'utilisateur que vous essayez de créer existe déjà.');
 
-        if(!empty(self::$formInputErrors)) return;
+        if(UserAlertsContainer::hasAlerts()) return;
 
         UsersTable::create($entity);
     }
@@ -67,12 +65,10 @@ class UsersCrudController
         if(is_null(self::$formData['lastname'])) throw new FormInputException('lastname', FormInputException::UNDEFINED_VALUE);
         if(is_null(self::$formData['pwd'])) throw new FormInputException('pwd', FormInputException::UNDEFINED_VALUE);
 
-        if(empty(self::$formData['username'])) throw new UserInputException('pwd', UserInputException::EMPTY_VALUE);
-        if(empty(self::$formData['firstname'])) throw new UserInputException('pwd', UserInputException::EMPTY_VALUE);
-        if(empty(self::$formData['lastname'])) throw new UserInputException('pwd', UserInputException::EMPTY_VALUE);
-        if(empty(self::$formData['pwd'])) throw new UserInputException('pwd', UserInputException::EMPTY_VALUE);
-
-        if(!empty(self::$formInputErrors)) return;
+        if(empty(self::$formData['username'])) UserAlertsContainer::add('L\'email de l\'utilisateur est vide.');
+        if(empty(self::$formData['firstname']))UserAlertsContainer::add('Le nom d\'utilisateur est vide.');
+        if(empty(self::$formData['lastname'])) UserAlertsContainer::add('Le nom de famille de l\'utilisateur est vide.');
+        if(empty(self::$formData['pwd'])) UserAlertsContainer::add('Le mot de passe de l\'utilisateur est vide.');
 
         $entity = new User(self::$formData);
         UsersTable::update($entity);

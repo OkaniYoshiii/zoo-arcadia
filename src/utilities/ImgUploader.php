@@ -2,9 +2,8 @@
 
 namespace App\Utilities;
 
-use App\Exception\UserInputException;
-use Exception;
 use finfo;
+use UserAlertsContainer;
 
 class ImgUploader 
 {
@@ -22,11 +21,13 @@ class ImgUploader
         $this->file['mime_type'] = finfo_file(new finfo(FILEINFO_MIME_TYPE), $file['tmp_name']);
         $this->file['extension'] = pathinfo($file['name'], PATHINFO_EXTENSION);
 
-        if(!in_array($this->file['extension'], $this->allowedExtensions)) throw new UserInputException(null, 'Invalid file extension. Allowed values are : ' . implode(', ',$this->allowedExtensions) . '. Received : ' . $this->file['extension']);
-        if(!in_array($this->file['mime_type'], $this->allowedMimeTypes)) throw new UserInputException(null, 'Invalid MIME type. Allowed values are : ' . implode(', ',$this->allowedMimeTypes) . '. Received : ' . $this->file['mime_type']);
-        if($this->file['size'] <= 0) throw new UserInputException(null, 'Filesize must be greater than 0.');
-        if(strlen($file['tmp_name']) > 35) throw new UserInputException(null, 'Filename must not exceed 35 characters. Received : ' . strlen($file['tmp_name']));
-        if($this->file['size'] > $this->maxFilesizeInMo * 1048576) throw new UserInputException(null, 'Filesize exceeds maximum value of ' . $this->maxFilesizeInMo . 'Mo (' . $this->maxFilesizeInMo * 1048576 . 'octets). Received : ' . $this->file['size'] . 'octets');
+        if(!in_array($this->file['extension'], $this->allowedExtensions)) UserAlertsContainer::add('Extension de fichier invalide. Les valeurs autorisées sont : ' . implode(', ',$this->allowedExtensions));
+        if(!in_array($this->file['mime_type'], $this->allowedMimeTypes)) UserAlertsContainer::add('MIME type invalide. Les valeurs autorisées sont : ' . implode(', ',$this->allowedMimeTypes));
+        if($this->file['size'] <= 0) UserAlertsContainer::add('La taille du fichier doit être supérieure à 0.');
+        if(strlen($file['tmp_name']) > 35) UserAlertsContainer::add('Le nom du fichier ne doit pas dépasser les 35 caractères');
+        if($this->file['size'] > $this->maxFilesizeInMo * 1048576) UserAlertsContainer::add('La taille du fichier dépasse les 5Mo.');
+        
+        if(UserAlertsContainer::hasAlerts()) return;
         
         $this->file['name'] = uniqid() . '.' . $this->file['extension'];
         $this->file['path'] = UPLOAD_DIR . '/' . $this->file['name'];

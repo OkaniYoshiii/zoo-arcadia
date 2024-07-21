@@ -2,7 +2,7 @@
 
 use App\Entity\Animal;
 use App\Entity\AnimalImage;
-use App\Exception\UserInputException;
+use App\Exception\FormInputException;
 use App\Models\Table\AnimalImagesTable;
 use App\Models\Table\AnimalsTable;
 use App\Models\Table\BreedsTable;
@@ -70,8 +70,9 @@ class AnimalsCrudController
         if(empty(self::$formData['breed_id'])) throw new FormInputException('breed_id', 'value is empty');
         if(empty(self::$formData['habitat_id'])) throw new FormInputException('habitat_id', 'value is empty');
 
-        if(empty(self::$formData['firstname'])) throw new UserInputException('firstname', 'value is empty');
-        if(!is_string(self::$formData['firstname'])) throw new UserInputException('firstname', 'value is not a string');
+        if(empty(self::$formData['firstname'])) UserAlertsContainer::add('Le nom de l\'animal est vide');
+
+        if(UserAlertsContainer::hasAlerts()) return;
 
         $formData = self::$formData;
         $animalsImages = $formData['animal_images'];
@@ -108,9 +109,8 @@ class AnimalsCrudController
         if(empty(self::$formData['habitat_id'])) throw new FormInputException('habitat_id', 'value is empty');
         if(!is_numeric(self::$formData['habitat_id'])) throw new FormInputException('habitat_id', 'value is not numeric');
         
-        if(empty(self::$formData['firstname'])) throw new UserInputException('firstname', 'value is empty');
-        if(!is_string(self::$formData['firstname'])) throw new UserInputException('firstname', 'value is not a string');
-
+        if(empty(self::$formData['firstname'])) UserAlertsContainer::add('Le nom de l\'animal est vide');
+        
         $formData = self::$formData;
         unset($formData['animal_images']);
 
@@ -118,7 +118,9 @@ class AnimalsCrudController
 
         $hasUpdatedFiles = !(in_array(4, self::$formData['animal_images']['error']));
 
-        if(AnimalsTable::isAlreadyRegistered($animal) && !$hasUpdatedFiles) throw new UserInputException(null, 'animal has already been registered');
+        if(AnimalsTable::isAlreadyRegistered($animal) && !$hasUpdatedFiles) UserAlertsContainer::add('L\'animal existe déjà');
+        if(UserAlertsContainer::hasAlerts()) return;
+
         AnimalsTable::update($animal);
 
         if($hasUpdatedFiles) $this->updateAnimalImages(self::$formData);

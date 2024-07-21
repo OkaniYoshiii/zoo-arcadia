@@ -36,7 +36,7 @@ class Core {
                 $formValidator->checkDuplicatedFormSubmission();
                 $formValidator->checkRequestOrigin();
                 $formValidator->checkCsrfToken();
-                
+  
                 $controller->processFormData();
             }
 
@@ -53,6 +53,10 @@ class Core {
             }
 
             $_SESSION['csrf_token'] = bin2hex(random_bytes(20));
+
+            if(UserAlertsContainer::hasAlerts()) {
+                $variables['alerts'] = UserAlertsContainer::getAlerts();
+            }
 
             $variables['session'] = $_SESSION;
         }

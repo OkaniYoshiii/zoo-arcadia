@@ -1,7 +1,7 @@
 <?php
 
 use App\Entity\Service;
-use App\Exception\UserInputException;
+use App\Exception\FormInputException;
 use App\Utilities\ImgUploader;
 
 class ServicesCrudController 
@@ -36,8 +36,10 @@ class ServicesCrudController
         if(!is_string($_POST['serviceDescription'])) throw new FormInputException('service_description', FormInputException::NOT_STRING);
         if(!isset($_FILES['serviceImg'])) throw new FormInputException('serviceImg', FormInputException::UNDEFINED_VALUE);
 
-        if($this->isServiceAlreadyRegistered()) throw new UserInputException(null, 'Service is already registered');
+        if($this->isServiceAlreadyRegistered()) UserAlertsContainer::add('Le service que vous venez de renseigner existe déjà.');
 
+        if(UserAlertsContainer::hasAlerts()) return;
+        
         $this->imgUploader->upload($_FILES['serviceImg']);
         $filename = $this->imgUploader->getUploadedFileName();
 

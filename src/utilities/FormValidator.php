@@ -2,9 +2,8 @@
 
 namespace App\Utilities;
 
-use App\Exception\UserInputException;
-use Exception;
-use FormInputException;
+use App\Exception\FormInputException;
+use UserAlertsContainer;
 
 class FormValidator 
 {
@@ -15,7 +14,9 @@ class FormValidator
 
         $hasFormAlreadyBeenSubmited = (!empty(FormSubmissionsStore->findBy(['timestamp', '=' , $timestamp])));
         
-        if($hasFormAlreadyBeenSubmited) throw new UserInputException(null, UserInputException::FORM_ALREADY_SENT);
+        if($hasFormAlreadyBeenSubmited) UserAlertsContainer::add('Le formulaire a déjà été envoyé avec les même données auparvant.');
+        
+        if(UserAlertsContainer::hasAlerts()) return;
         
         FormSubmissionsStore->insert(['timestamp' => $timestamp]);
 

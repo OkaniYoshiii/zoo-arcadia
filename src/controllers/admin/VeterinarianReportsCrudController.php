@@ -1,7 +1,7 @@
 <?php
 
 use App\Entity\VeterinarianReport;
-use App\Exception\UserInputException;
+use App\Exception\FormInputException;
 use App\Interface\CrudControllerInterface;
 use App\Models\Table\AnimalsTable;
 use App\Models\Table\FoodTypesTable;
@@ -68,13 +68,15 @@ class VeterinarianReportsCrudController implements CrudControllerInterface
         if(!is_numeric($formData['food_unit_id'])) throw new FormInputException('food_unit_id', FormInputException::NOT_NUMERIC);
         if(!is_numeric($formData['animal_id'])) throw new FormInputException('animal_id', FormInputException::NOT_NUMERIC);
         if(!is_numeric($formData['user_id'])) throw new FormInputException('user_id', FormInputException::NOT_NUMERIC);
+        if(empty($formData['date'])) throw new FormInputException('date', FormInputException::EMPTY_VALUE);
 
-        if(empty($formData['date'])) throw new UserInputException('date', UserInputException::EMPTY_VALUE);
-        if(empty($formData['detail'])) throw new UserInputException('detail', UserInputException::EMPTY_VALUE);
-        if(empty($formData['food_quantity'])) throw new UserInputException('food_quantity', UserInputException::EMPTY_VALUE);
+        if(empty($formData['detail'])) UserAlertsContainer::add('Le contenu du rapport est vide.');
+        if(empty($formData['food_quantity'])) UserAlertsContainer::add('La quantité de nourriture spécifiée est vide.');
 
         $veterinarianReport = new VeterinarianReport($formData);
-        if(VeterinarianReportsTable::isAlreadyRegistered($veterinarianReport)) throw new UserInputException(null, 'VeterinarianReport has already been registered');
+        if(VeterinarianReportsTable::isAlreadyRegistered($veterinarianReport)) UserAlertsContainer::add('Le rapport vétérinaire que vous venez de créer existe déjà.');
+
+        if(UserAlertsContainer::hasAlerts()) return;
 
         VeterinarianReportsTable::create($veterinarianReport);
     }
@@ -104,13 +106,15 @@ class VeterinarianReportsCrudController implements CrudControllerInterface
         if(!is_numeric($formData['food_unit_id'])) throw new FormInputException('food_unit_id', FormInputException::NOT_NUMERIC);
         if(!is_numeric($formData['animal_id'])) throw new FormInputException('animal_id', FormInputException::NOT_NUMERIC);
         if(!is_numeric($formData['user_id'])) throw new FormInputException('user_id', FormInputException::NOT_NUMERIC);
+        if(empty($formData['date'])) throw new FormInputException('date', FormInputException::EMPTY_VALUE);
 
-        if(empty($formData['date'])) throw new UserInputException('date', UserInputException::EMPTY_VALUE);
-        if(empty($formData['detail'])) throw new UserInputException('detail', UserInputException::EMPTY_VALUE);
-        if(empty($formData['food_quantity'])) throw new UserInputException('food_quantity', UserInputException::EMPTY_VALUE);
+        if(empty($formData['detail'])) UserAlertsContainer::add('Le contenu du rapport est vide.');
+        if(empty($formData['food_quantity'])) UserAlertsContainer::add('La quantité de nourriture spécifiée est vide.');
+
+        if(UserAlertsContainer::hasAlerts()) return;
         
         $entity = new VeterinarianReport($formData);
-        if(VeterinarianReportsTable::isAlreadyRegistered($entity)) throw new UserInputException(null, 'VeterinarianReport has already been registered');
+        if(VeterinarianReportsTable::isAlreadyRegistered($entity)) UserAlertsContainer::add('Le rapport vétérinaire que vous venez de créer existe déjà.');
     
         VeterinarianReportsTable::update($entity);
     }

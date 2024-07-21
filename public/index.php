@@ -3,7 +3,6 @@
 // APP CONFIG
 
 use App\Exception\RouterException;
-use App\Exception\UserInputException;
 use App\Utilities\Session;
 
 require_once '../config/config.global.php';
@@ -23,9 +22,6 @@ Autoloader::register();
 ExceptionHandler::addHandler(RouterException::class, function() {
     http_response_code(404);
     echo TWIG->render('404.html.twig',[]);
-});
-ExceptionHandler::addHandler(UserInputException::class, function(UserInputException $exception) {
-    echo $exception->getInput();
 });
 ExceptionHandler::start();
 

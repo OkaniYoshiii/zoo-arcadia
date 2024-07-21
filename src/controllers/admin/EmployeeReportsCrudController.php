@@ -1,7 +1,7 @@
 <?php
 
 use App\Entity\EmployeeReport;
-use App\Exception\UserInputException;
+use App\Exception\FormInputException;
 use App\Models\Table\AnimalsTable;
 use App\Models\Table\EmployeeReportsTable;
 use App\Models\Table\FoodTypesTable;
@@ -10,7 +10,7 @@ use App\Models\Table\FoodUnitsTable;
 class EmployeeReportsCrudController
 {
     private static array $formData;
-
+    
     public function getVariables() : array
     {
         $foodTypes = FoodTypesTable::getAll();
@@ -55,20 +55,22 @@ class EmployeeReportsCrudController
         if(!is_numeric(self::$formData['animal_id'])) throw new FormInputException('name', 'integer');
         if(!is_numeric(self::$formData['food_unit_id'])) throw new FormInputException('food_quantity', 'integer');
         if(!is_numeric(self::$formData['food_type_id'])) throw new FormInputException('food_unit_id', 'integer');
+        if(empty(self::$formData['date'])) throw new FormInputException('date', 'value is empty');
+        if(!is_numeric(self::$formData['food_quantity'])) throw new FormInputException('food_type_id', 'value is not an integer');
+        if(!strtotime(self::$formData['date'])) throw new FormInputException('date', 'value is not a date');
 
-        if(empty(self::$formData['food_quantity'])) throw new UserInputException('food_quantity', 'value is empty');
-        if(empty(self::$formData['date'])) throw new UserInputException('date', 'value is empty');
-        if(!is_numeric(self::$formData['food_quantity'])) throw new UserInputException('food_type_id', 'value is not an integer');
-        if(!strtotime(self::$formData['date'])) throw new UserInputException('date', 'value is not a date');
+        if(empty(self::$formData['food_quantity'])) UserAlertsContainer::add('La quantité de nourriture ne doit pas être vide.');
 
-        if(strtotime(self::$formData['date']) > strtotime('now')) throw new UserInputException('date', 'value is greater than actual date');
+        if(strtotime(self::$formData['date']) > strtotime('now')) UserAlertsContainer::add('La date spécifiée ne peut pas être supérieure à la date actuelle.');
 
         self::$formData['date'] = date('Y-m-d', strtotime(self::$formData['date']));
 
         $employeeReport = new EmployeeReport(self::$formData);
 
-        if(EmployeeReportsTable::isAlreadyRegistered($employeeReport)) throw new UserInputException(null, 'EmployeeReport has already been registered');
+        if(EmployeeReportsTable::isAlreadyRegistered($employeeReport)) UserAlertsContainer::add('Le rapport que vous essayez de créer existe déjà.');
         
+        if(UserAlertsContainer::hasAlerts()) return;
+
         EmployeeReportsTable::create($employeeReport);
     }
 
@@ -80,29 +82,31 @@ class EmployeeReportsCrudController
         if(!isset(self::$formData['food_unit_id'])) throw new FormInputException('food_unit_id', 'value is undefined');
         if(!isset(self::$formData['food_type_id'])) throw new FormInputException('food_type_id', 'value is undefined');
         if(!isset(self::$formData['date'])) throw new FormInputException('date', 'value is undefined');
+
         if(empty(self::$formData['employee_report_id'])) throw new FormInputException('employee_report_id', 'value is empty');
         if(empty(self::$formData['animal_id'])) throw new FormInputException('animal_id', 'value is empty');
         if(empty(self::$formData['food_unit_id'])) throw new FormInputException('food_unit_id', 'value is empty');
         if(empty(self::$formData['food_type_id'])) throw new FormInputException('food_type_id', 'value is empty');
-
-        if(empty(self::$formData['food_quantity'])) throw new UserInputException('food_quantity', 'value is empty');
-        if(empty(self::$formData['date'])) throw new UserInputException('date', 'value is empty');
+        if(empty(self::$formData['date'])) throw new FormInputException('date', 'value is empty');
 
         if(!is_numeric(self::$formData['employee_report_id'])) throw new FormInputException('employee_report_id', 'value is not numeric');
         if(!is_numeric(self::$formData['animal_id'])) throw new FormInputException('animal_id', 'value is not numeric');
         if(!is_numeric(self::$formData['food_unit_id'])) throw new FormInputException('food_unit_id', 'value is not numeric');
         if(!is_numeric(self::$formData['food_type_id'])) throw new FormInputException('food_type_id', 'value is not numeric');
+        if(!is_numeric(self::$formData['food_quantity'])) throw new FormInputException('food_quantity', 'value is not a numeric stirng');
+        if(!strtotime(self::$formData['date'])) throw new FormInputException('date', 'value is not a date');
 
-        if(!is_numeric(self::$formData['food_quantity'])) throw new UserInputException('food_quantity', 'value is not a numeric stirng');
-        if(!strtotime(self::$formData['date'])) throw new UserInputException('date', 'value is not a date');
-
-        if(strtotime(self::$formData['date']) > strtotime('now')) throw new UserInputException('date', 'value cannot be greater than actual date');
+        if(empty(self::$formData['food_quantity'])) UserAlertsContainer::add('La quantité de nourriture ne doit pas être vide.');
+        if(strtotime(self::$formData['date']) > strtotime('now')) UserAlertsContainer::add('La date spécifiée ne peut pas être supérieure à la date actuelle.');
 
         self::$formData['date'] = date('Y-m-d', strtotime(self::$formData['date']));
 
+        
         $employeeReport = new EmployeeReport(self::$formData);
 
-        if(EmployeeReportsTable::isAlreadyRegistered($employeeReport)) throw new UserInputException(null, 'User is aleady registered');
+        if(EmployeeReportsTable::isAlreadyRegistered($employeeReport)) UserAlertsContainer::add('Le rapport que vous essayez de créer existe déjà.');
+        
+        if(UserAlertsContainer::hasAlerts()) return;
         
         EmployeeReportsTable::update($employeeReport);
     }

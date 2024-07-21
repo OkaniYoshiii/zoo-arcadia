@@ -2,7 +2,7 @@
 
 use App\Entity\ScheduleHour;
 use App\Entity\Service;
-use App\Exception\UserInputException;
+use App\Exception\FormInputException;
 use App\Models\Table\HabitatsTable;
 
 class HomeController {
@@ -60,12 +60,14 @@ class HomeController {
     public static function createFeedback() : void
     {
         match(null) {
-            self::$formData['username'] => throw new UserInputException('username', self::$formData['username'], 'string'),
-            self::$formData['content'] => throw new UserInputException('content', self::$formData['username'], 'string'),
-            self::$formData['date'] => throw new UserInputException('date', self::$formData['date'], 'date'),
+            self::$formData['username'] => UserAlertsContainer::add('Veuillez spécifier un nom d\'utilisateur.'),
+            self::$formData['content'] => UserAlertsContainer::add('Veuillez spécifier la description de votre avis.'),
+            self::$formData['date'] => throw new FormInputException('date', FormInputException::UNDEFINED_VALUE),
             default => '',
         };
 
+        if(UserAlertsContainer::hasAlerts()) return;
+        
         FeedbacksDB->insert([
             'username' => self::$formData['username'],
             'content' => self::$formData['content'],

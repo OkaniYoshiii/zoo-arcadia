@@ -1,7 +1,7 @@
 <?php
 
 use App\Entity\AnimalImage;
-use App\Exception\UserInputException;
+use App\Exception\FormInputException;
 use App\Models\Table\AnimalImagesTable;
 use App\Utilities\ImgUploader;
 
@@ -23,8 +23,8 @@ class AnimalImagesCrudController
         if(!is_numeric($formData['animal_id'])) throw new FormInputException('animal_id', 'value is not numeric');
         if(empty($formData['animal_id'])) throw new FormInputException('animal_id', 'value is empty');
 
-        if($formData['animal_image']['error'] === 4) throw new UserInputException('animal_image', 'no image has been sent');
-        if($formData['animal_image']['error'] !== 0) throw new UserInputException('animal_image', 'error while sending the image');
+        if($formData['animal_image']['error'] === 4) throw new Exception('No image has been uploaded');
+        if($formData['animal_image']['error'] !== 0) throw new Exception('File has an error');
 
         $this->imgUploader->upload($formData['animal_image']);
 
@@ -46,8 +46,8 @@ class AnimalImagesCrudController
         if(!is_numeric($formData['animal_id'])) throw new FormInputException('animal_id', 'value is not numeric');
         if(empty($formData['animal_image'])) throw new FormInputException('animal_image', 'value is empty');
 
-        if($formData['animal_image']['error'] === 4) throw new UserInputException('animal_image', 'no image has been sent');
-        if($formData['animal_image']['error'] !== 0) throw new UserInputException('animal_image', 'error while sending the image');
+        if($formData['animal_image']['error'] === 4) throw new Exception('No image has been uploaded');
+        if($formData['animal_image']['error'] !== 0) throw new Exception('File has an error');
 
         $imgTmpName = $formData['animal_image']['tmp_name'];
         $imgName = $formData['animal_image']['name'];
