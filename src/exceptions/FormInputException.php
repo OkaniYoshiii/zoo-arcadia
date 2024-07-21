@@ -1,8 +1,8 @@
 <?php
 
-use App\Exception\InputException;
+use App\Exception\AbtractInputException;
 
-class FormInputException extends InputException
+class FormInputException extends AbtractInputException
 {
     const UNDEFINED_VALUE = 'value is undefined';
     const INVALID_CRUD_ACTION = 'value must be either CREATE, UPDATE or DELETE';
@@ -15,6 +15,7 @@ class FormInputException extends InputException
 
     public function __construct(string $input, string $problem)
     {
+        $this->input = $input;
         $message = 'Invalid form input (' . $input . '). Problem : ' .  $problem . '. Check if your form have all the inputs needed to process it correclty.';
 
         parent::__construct($message);

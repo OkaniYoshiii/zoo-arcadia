@@ -20,6 +20,26 @@ require_once CONFIG_DIR . '/config.twig.php';
 require_once APP_DIR . '/Autoloader.php';
 Autoloader::register();
 
+function exception_handler(Throwable $exception)
+{
+    if($exception instanceof RouterException) {
+        http_response_code(404);
+        echo TWIG->render('404.html.twig',[]);
+        die();
+    }
+
+    if($exception instanceof UserInputException) {
+        echo $exception->getInput();
+        return;
+    }
+
+    http_response_code(500);
+    echo 'Erreur 500, impossible d\'afficher le contenu de la page.';
+    die();
+}
+
+set_exception_handler('exception_handler');
+
 Session::start();
 
 // REQUEST CONSTANT
@@ -29,14 +49,8 @@ define('REQUEST', (array) new Request());
 // CURRENT ROUTE CONSTANT
 use App\Router;
 
-// try {
-    $router = new Router(CONFIG_DIR . '/routes.json');
-    define('ROUTE', $router->getCurrentRoute());
-// } catch(Exception $e) {
-//     http_response_code(404);
-//     echo TWIG->render('404.html.twig',[]);
-//     die();
-// }
+$router = new Router(CONFIG_DIR . '/routes.json');
+define('ROUTE', $router->getCurrentRoute());
 
 // var_dump($_SESSION['role'], ROUTE['roles'], ROUTE['hasAccess']);
 
