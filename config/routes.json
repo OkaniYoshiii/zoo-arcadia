@@ -4,7 +4,7 @@
         "/services" : ["services.html.twig", "ServicesController", ["NONE"]],
         "/habitats" : ["habitats.html.twig", "HabitatsController", ["NONE"]],
         "/connexion" : ["login.html.twig", "LoginController", ["NONE"]],
-        "/deconnexion" : [null, "LogoutController", ["NONE"]],
+        "/deconnexion" : ["NONE", "LogoutController", ["NONE"]],
         "/contact" : ["contact.html.twig", "ContactController", ["NONE"]],
 
         "/admin" : ["admin/admin.html.twig", "AdminDashboardController", ["ROLE_ADMIN", "ROLE_EMPLOYEE", "ROLE_VETERINARIAN"]],
@@ -16,7 +16,7 @@
         "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController", ["ROLE_ADMIN", "ROLE_VETERINARIAN"]],
         "/admin/validation-avis" : ["admin/feedback-validation.html.twig", "FeedbackValidationController", ["ROLE_EMPLOYEE"]],
 
-        "/api/feedbacks" : [null, "FeedbackApiController", ["NONE"]]
+        "/api/feedbacks" : ["NONE", "FeedbackApiController", ["NONE"]]
     },
 
     "POST" : {

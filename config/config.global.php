@@ -22,6 +22,8 @@ define('OBJECTS_DIR', APP_DIR . '/objects');
 
 define('INTERFACES_DIR', APP_DIR . '/interfaces');
 
+define('EXCEPTIONS_DIR', APP_DIR . '/exceptions');
+
 // PUBLIC DIRECTORY
 define('ASSETS_DIR', 'assets');
 define('CSS_DIR', ASSETS_DIR . '/css');
@@ -45,7 +47,8 @@ define('SRC_FOLDERS', [
     ADMIN_CONTROLLER_DIR,
     API_CONTROLLER_DIR,
     TABLES_DIR,
-    TRAITS_DIR
+    TRAITS_DIR,
+    EXCEPTIONS_DIR
 ]);
 
 require_once 'config.local.php';

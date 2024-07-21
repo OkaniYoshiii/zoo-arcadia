@@ -66,7 +66,7 @@ class UsersTable
         Database::$statement->execute();
     }
 
-    public static function isAlreadyRegistered(User $user) : EntityInterface|bool 
+    public static function isAlreadyRegistered(User $user) : EntityInterface|false 
     {
         self::checkConstantsDeclaration();
 

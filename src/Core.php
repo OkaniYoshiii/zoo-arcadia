@@ -40,15 +40,15 @@ class Core {
                 $controller->processFormData();
             }
 
-            if(str_contains(ROUTE['uri'], '/api') && is_null(ROUTE['template'])) {
+            if(str_contains(ROUTE['uri'], '/api') && ROUTE['template'] === 'NONE') {
                 $controller->getJsonData();
             }
 
-            if(!is_null(ROUTE['template'])) {
+            if(!is_null(ROUTE['template']) && ROUTE['template'] !== 'NONE') {
                 $variables = $controller->getVariables();
             }
 
-            if(!str_contains(ROUTE['uri'], '/api') && is_null(ROUTE['template'])) {
+            if(!str_contains(ROUTE['uri'], '/api') && ROUTE['template'] === 'NONE') {
                 $controller->processAndRedirect();
             }
 
@@ -56,7 +56,8 @@ class Core {
 
             $variables['session'] = $_SESSION;
         }
-        if(!is_null(ROUTE['template'])) {
+
+        if(!is_null(ROUTE['template']) && ROUTE['template'] !== 'NONE') {
             echo TWIG->render(ROUTE['template'], $variables);
         }
 

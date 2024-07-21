@@ -1,6 +1,7 @@
 <?php
 
 use App\Entity\Service;
+use App\Exception\UserInputException;
 use App\Utilities\ImgUploader;
 
 class ServicesCrudController 
@@ -21,7 +22,7 @@ class ServicesCrudController
     {
         $this->imgUploader = new ImgUploader();
 
-        if(!isset($_POST['crudAction'])) throw new Exception('CrudAction need to be defined in the form. Possible values are : CREATE, UPDATE, DELETE');
+        if(!isset($_POST['crudAction'])) throw new FormInputException('crudAction', FormInputException::INVALID_CRUD_ACTION);
         match($_POST['crudAction']) {
             'CREATE' => $this->createService(),
             'UPDATE' => $this->updateService(),
@@ -31,10 +32,12 @@ class ServicesCrudController
     
     private function createService() : void
     {
-        if(is_numeric($_POST['serviceName'])) throw new Exception('Service name must not be an integer or a numeric string. Received : ' . $_POST['service_name']);
-        if(is_numeric($_POST['serviceDescription'])) throw new Exception('Service description must not be an integer or a numeric string. Received : ' .  $_POST['service_description']);
-        if(!isset($_FILES['serviceImg'])) throw new Exception('serviceImg must be sent by the form to process it correctly');
-        if($this->isServiceAlreadyRegistered()) throw new Exception('Service is already registered.');
+        if(!is_string($_POST['serviceName'])) throw new FormInputException('serviceName', FormInputException::NOT_STRING);
+        if(!is_string($_POST['serviceDescription'])) throw new FormInputException('service_description', FormInputException::NOT_STRING);
+        if(!isset($_FILES['serviceImg'])) throw new FormInputException('serviceImg', FormInputException::UNDEFINED_VALUE);
+
+        if($this->isServiceAlreadyRegistered()) throw new UserInputException(null, 'Service is already registered');
+
         $this->imgUploader->upload($_FILES['serviceImg']);
         $filename = $this->imgUploader->getUploadedFileName();
 
@@ -48,10 +51,11 @@ class ServicesCrudController
 
     private function updateService() : void
     {
-        if(is_numeric($_POST['serviceName'])) throw new Exception('Service name must not be an integer or a numeric string. Received : ' . $_POST['service_name']);
-        if(is_numeric($_POST['serviceDescription'])) throw new Exception('Service description must not be an integer or a numeric string. Received : ' .  $_POST['service_description']);
-        if(!isset($_POST['serviceId'])) throw new Exception('serviceId must be send by the form to process it correctly.');
-        if(intval($_POST['serviceId']) === 0) throw new Exception('Service ID must be an integer or a numeric string. Received : ' . $_POST['service_id']);
+        if(!isset($_POST['serviceId'])) throw new FormInputException('serviceId', FormInputException::UNDEFINED_VALUE);
+
+        if(!is_string($_POST['serviceName'])) throw new FormInputException('service_name', FormInputException::NOT_STRING);
+        if(!is_string($_POST['serviceDescription'])) throw new FormInputException('service_description', FormInputException::NOT_STRING);
+        if(is_numeric($_POST['serviceId']) === 0) throw new FormInputException('service_id', FormInputException::NOT_NUMERIC);
         
         $updateValues = ['name' =>  $_POST['serviceName'], 'description' => $_POST['serviceDescription']];
         
@@ -65,8 +69,9 @@ class ServicesCrudController
 
     private function deleteService() : void
     {
-        if(!isset($_POST['serviceId'])) throw new Exception('serviceId must be send by the form to process it correctly.');
-        if(intval($_POST['serviceId']) === 0) throw new Exception('Service ID must be an integer or a numeric string. Received : ' . $_POST['service_id']);
+        if(!isset($_POST['serviceId'])) throw new FormInputException('serviceId', FormInputException::UNDEFINED_VALUE);
+        
+        if(intval($_POST['serviceId']) === 0) throw new FormInputException('serviceId', FormInputException::NOT_NUMERIC);
 
         ServicesDB->deleteById((int) $_POST['serviceId']);        
     }

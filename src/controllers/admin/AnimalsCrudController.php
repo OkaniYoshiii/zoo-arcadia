@@ -2,6 +2,7 @@
 
 use App\Entity\Animal;
 use App\Entity\AnimalImage;
+use App\Exception\UserInputException;
 use App\Models\Table\AnimalImagesTable;
 use App\Models\Table\AnimalsTable;
 use App\Models\Table\BreedsTable;
@@ -55,23 +56,22 @@ class AnimalsCrudController
             'CREATE' => $this->createAnimal(),
             'UPDATE' => $this->updateAnimal(),
             'DELETE' => $this->deleteAnimal(),
-            default => throw new Exception('A crudAction need to be defined in the form to process it correctly')
+            default => throw new FormInputException('crudAction', 'value must be either CREATE, UPDATE or DELETE')
         };
     }
 
     private function createAnimal() : void
     {
-        if(is_null(self::$formData['firstname'])) throw new Exception('form need to have an input sending data about firstname');
-        if(is_null(self::$formData['breed_id'])) throw new Exception('form need to have an input sending data about breed_id');
-        if(is_null(self::$formData['habitat_id'])) throw new Exception('form need to have an input sending data about habitat_id');
+        if(is_null(self::$formData['firstname'])) throw new FormInputException('firstname', 'value is undefined');
+        if(is_null(self::$formData['breed_id'])) throw new FormInputException('breed_id', 'value is undefined');
+        if(is_null(self::$formData['habitat_id'])) throw new FormInputException('habitat_id', 'value is undefined');
+        if(!is_numeric(self::$formData['breed_id'])) throw new FormInputException('breed_id', 'value is not numeric');
+        if(!is_numeric(self::$formData['habitat_id'])) throw new FormInputException('habitat_id', 'value is not numeric');
+        if(empty(self::$formData['breed_id'])) throw new FormInputException('breed_id', 'value is empty');
+        if(empty(self::$formData['habitat_id'])) throw new FormInputException('habitat_id', 'value is empty');
 
-        if(empty(self::$formData['firstname'])) throw new Exception('Cannot add entity Animal to database : field firstname is empty.');
-        if(empty(self::$formData['breed_id'])) throw new Exception('Cannot add entity Animal to database : field breed_id is empty.');
-        if(empty(self::$formData['habitat_id'])) throw new Exception('Cannot add entity Animal to database : field habitat_id is empty.');
-
-        if(!is_string(self::$formData['firstname'])) throw new Exception('Cannot add entity Animal to database : field firstname is not a string.');
-        if(!is_numeric(self::$formData['breed_id'])) throw new Exception('Cannot add entity Animal to database : field breed_id is not numeric.');
-        if(!is_numeric(self::$formData['habitat_id'])) throw new Exception('Cannot add entity Animal to database : field habitat_id is not numeric.');
+        if(empty(self::$formData['firstname'])) throw new UserInputException('firstname', 'value is empty');
+        if(!is_string(self::$formData['firstname'])) throw new UserInputException('firstname', 'value is not a string');
 
         $formData = self::$formData;
         $animalsImages = $formData['animal_images'];
@@ -97,20 +97,19 @@ class AnimalsCrudController
 
     private function updateAnimal() : void
     {
-        if(is_null(self::$formData['animal_id'])) throw new Exception('form need to have an input sending data about animal_id');
-        if(is_null(self::$formData['firstname'])) throw new Exception('form need to have an input sending data about firstname');
-        if(is_null(self::$formData['breed_id'])) throw new Exception('form need to have an input sending data about breed_id');
-        if(is_null(self::$formData['habitat_id'])) throw new Exception('form need to have an input sending data about habitat_id');
-
-        if(empty(self::$formData['animal_id'])) throw new Exception('Cannot add entity Animal to database : field animal_id is empty.');
-        if(empty(self::$formData['firstname'])) throw new Exception('Cannot add entity Animal to database : field firstname is empty.');
-        if(empty(self::$formData['breed_id'])) throw new Exception('Cannot add entity Animal to database : field breed_id is empty.');
-        if(empty(self::$formData['habitat_id'])) throw new Exception('Cannot add entity Animal to database : field habitat_id is empty.');
-
-        if(!is_numeric(self::$formData['animal_id'])) throw new Exception('Cannot add entity Animal to database : field animal_id is not numeric.');
-        if(!is_string(self::$formData['firstname'])) throw new Exception('Cannot add entity Animal to database : field firstname is not a string.');
-        if(!is_numeric(self::$formData['breed_id'])) throw new Exception('Cannot add entity Animal to database : field breed_id is not numeric.');
-        if(!is_numeric(self::$formData['habitat_id'])) throw new Exception('Cannot add entity Animal to database : field habitat_id is not numeric.');
+        if(is_null(self::$formData['animal_id'])) throw new FormInputException('animal_id', 'value is undefined');
+        if(is_null(self::$formData['firstname'])) throw new FormInputException('firstname', 'value is undefined');
+        if(is_null(self::$formData['breed_id'])) throw new FormInputException('breed_id', 'value is undefined');
+        if(is_null(self::$formData['habitat_id'])) throw new FormInputException('habitat_id', 'value is undefined');
+        if(empty(self::$formData['animal_id'])) throw new FormInputException('animal_id', 'value is empty');
+        if(!is_numeric(self::$formData['animal_id'])) throw new FormInputException('animal_id', 'value is not numeric');
+        if(empty(self::$formData['breed_id'])) throw new FormInputException('breed_id', 'value is empty');
+        if(!is_numeric(self::$formData['breed_id'])) throw new FormInputException('breed_id', 'value is not numeric');
+        if(empty(self::$formData['habitat_id'])) throw new FormInputException('habitat_id', 'value is empty');
+        if(!is_numeric(self::$formData['habitat_id'])) throw new FormInputException('habitat_id', 'value is not numeric');
+        
+        if(empty(self::$formData['firstname'])) throw new UserInputException('firstname', 'value is empty');
+        if(!is_string(self::$formData['firstname'])) throw new UserInputException('firstname', 'value is not a string');
 
         $formData = self::$formData;
         unset($formData['animal_images']);
@@ -119,7 +118,7 @@ class AnimalsCrudController
 
         $hasUpdatedFiles = !(in_array(4, self::$formData['animal_images']['error']));
 
-        if(AnimalsTable::isAlreadyRegistered($animal) && !$hasUpdatedFiles) throw new Exception('L\'animal existe déjà dans la base de données');
+        if(AnimalsTable::isAlreadyRegistered($animal) && !$hasUpdatedFiles) throw new UserInputException(null, 'animal has already been registered');
         AnimalsTable::update($animal);
 
         if($hasUpdatedFiles) $this->updateAnimalImages(self::$formData);
@@ -127,14 +126,12 @@ class AnimalsCrudController
 
     private function deleteAnimal() : void
     {
-        if(!isset(self::$formData['animal_id'])) throw new Exception('form need to have an input sending data about animal_id');
-        if(!isset(self::$formData['animal_images_id'])) throw new Exception('form need to have an input sending data about animal_images_id');
-
-        if(empty(self::$formData['animal_id'])) throw new Exception('Cannot add entity Animal to database : field animal_id is empty.');
-        if(empty(self::$formData['animal_images_id'])) throw new Exception('Cannot add entity Animal to database : field animal_images_id is empty.');
-
-        if(!is_numeric(self::$formData['animal_id'])) throw new Exception('Cannot add entity Animal to database : field animal_id is not numeric.');
-        if(!is_array(self::$formData['animal_images_id'])) throw new Exception('Cannot add entity Animal to database : field animal_images_id is not anarray.');
+        if(!isset(self::$formData['animal_id'])) throw new FormInputException('animal_id', 'value is undefined');
+        if(!isset(self::$formData['animal_images_id'])) throw new FormInputException('animal_images_id', 'value is undefined');
+        if(empty(self::$formData['animal_id'])) throw new FormInputException('animal_id', 'value is empty');
+        if(empty(self::$formData['animal_images_id'])) throw new FormInputException('animal_images_id', 'value is empty');
+        if(!is_numeric(self::$formData['animal_id'])) throw new FormInputException('animal_id', 'value is not numeric');
+        if(!is_array(self::$formData['animal_images_id'])) throw new FormInputException('animal_images_id', 'value is not an array');
 
         AnimalsTable::delete(self::$formData['animal_id']);
         foreach(self::$formData['animal_images_id'] as $id)

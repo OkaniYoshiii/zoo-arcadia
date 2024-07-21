@@ -2,6 +2,8 @@
 
 // APP CONFIG
 
+use App\Exception\RouterException;
+use App\Exception\UserInputException;
 use App\Utilities\Session;
 
 require_once '../config/config.global.php';
@@ -27,14 +29,14 @@ define('REQUEST', (array) new Request());
 // CURRENT ROUTE CONSTANT
 use App\Router;
 
-try {
+// try {
     $router = new Router(CONFIG_DIR . '/routes.json');
     define('ROUTE', $router->getCurrentRoute());
-} catch(Exception $e) {
-    http_response_code(404);
-    echo TWIG->render('404.html.twig',[]);
-    die();
-}
+// } catch(Exception $e) {
+//     http_response_code(404);
+//     echo TWIG->render('404.html.twig',[]);
+//     die();
+// }
 
 // var_dump($_SESSION['role'], ROUTE['roles'], ROUTE['hasAccess']);
 

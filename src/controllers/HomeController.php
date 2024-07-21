@@ -2,46 +2,13 @@
 
 use App\Entity\ScheduleHour;
 use App\Entity\Service;
+use App\Exception\UserInputException;
 use App\Models\Table\HabitatsTable;
 
 class HomeController {
     private static array $formData;
 
     public function getVariables() : array  {
-        $domains = [
-            "Savane" => [
-                "animals" => [
-                    "Goerge" => "https://picsum.photos/500",
-                    "Julie" => "https://picsum.photos/500",
-                    "Timothée" => "https://picsum.photos/500",
-                    "Nounours" => "https://picsum.photos/500",
-                ],
-                "description" => "<p>Environement propre aux régions chaudes, la savane regroupe de nombreux animaux comme  zèbres, les gnous, les éléphants, les girafes, les autruches, les gazelles et les buffles.</p><p>A Arcadia, nous avons fait notre maximum afin de recréer un environnement réprésentant le plus fidèlement possible l'état naturel de la savane. </p>"
-            ],
-            "Jungle" => [
-                "animals" => [
-                    "Patate" => "https://picsum.photos/500",
-                    "Abeille" => "https://picsum.photos/500",
-                    "Pingouin" => "https://picsum.photos/500",
-                ],
-                "description" => "<p>Environement propre aux régions chaudes, la savane regroupe de nombreux animaux comme  zèbres, les gnous, les éléphants, les girafes, les autruches, les gazelles et les buffles.</p><p>A Arcadia, nous avons fait notre maximum afin de recréer un environnement réprésentant le plus fidèlement possible l'état naturel de la savane. </p>"
-            ],
-            "Toundra" => [
-                "animals" => [
-                    "Patate" => "https://picsum.photos/500",
-                    "Abeille" => "https://picsum.photos/500",
-                    "Pingouin" => "https://picsum.photos/500",
-                    "Mante" => "https://picsum.photos/500",
-                ],
-                "description" => "<p>Environement propre aux régions chaudes, la savane regroupe de nombreux animaux comme  zèbres, les gnous, les éléphants, les girafes, les autruches, les gazelles et les buffles.</p><p>A Arcadia, nous avons fait notre maximum afin de recréer un environnement réprésentant le plus fidèlement possible l'état naturel de la savane. </p>"
-            ]
-        ];
-        
-        $pages = [
-            "current" => 1,
-            "total" => 1
-        ];
-
         $habitats = HabitatsTable::getFrontendHabitats();
 
         $schedulesHours = SchedulesHoursStore
@@ -93,9 +60,9 @@ class HomeController {
     public static function createFeedback() : void
     {
         match(null) {
-            self::$formData['username'] => throw new Exception('Username is null'),
-            self::$formData['content'] => throw new Exception('Content is null'),
-            self::$formData['date'] => throw new Exception('Date is null'),
+            self::$formData['username'] => throw new UserInputException('username', self::$formData['username'], 'string'),
+            self::$formData['content'] => throw new UserInputException('content', self::$formData['username'], 'string'),
+            self::$formData['date'] => throw new UserInputException('date', self::$formData['date'], 'date'),
             default => '',
         };
 

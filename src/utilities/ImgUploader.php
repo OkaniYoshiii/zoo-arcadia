@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use App\Exception\UserInputException;
 use Exception;
 use finfo;
 
@@ -21,11 +22,11 @@ class ImgUploader
         $this->file['mime_type'] = finfo_file(new finfo(FILEINFO_MIME_TYPE), $file['tmp_name']);
         $this->file['extension'] = pathinfo($file['name'], PATHINFO_EXTENSION);
 
-        if(!in_array($this->file['extension'], $this->allowedExtensions)) throw new Exception('Invalid file extension. Allowed values are : ' . implode(', ',$this->allowedExtensions) . '. Received : ' . $this->file['extension']);
-        if(!in_array($this->file['mime_type'], $this->allowedMimeTypes)) throw new Exception('Invalid MIME type. Allowed values are : ' . implode(', ',$this->allowedMimeTypes) . '. Received : ' . $this->file['mime_type']);
-        if($this->file['size'] <= 0) throw new Exception('Filesize must be greater than 0.');
-        if(strlen($file['tmp_name']) > 35) throw new Exception('Filename must not exceed 35 characters. Received : ' . strlen($file['tmp_name']));
-        if($this->file['size'] > $this->maxFilesizeInMo * 1048576) throw new Exception('Filesize exceeds maximum value of ' . $this->maxFilesizeInMo . 'Mo (' . $this->maxFilesizeInMo * 1048576 . 'octets). Received : ' . $this->file['size'] . 'octets');
+        if(!in_array($this->file['extension'], $this->allowedExtensions)) throw new UserInputException(null, 'Invalid file extension. Allowed values are : ' . implode(', ',$this->allowedExtensions) . '. Received : ' . $this->file['extension']);
+        if(!in_array($this->file['mime_type'], $this->allowedMimeTypes)) throw new UserInputException(null, 'Invalid MIME type. Allowed values are : ' . implode(', ',$this->allowedMimeTypes) . '. Received : ' . $this->file['mime_type']);
+        if($this->file['size'] <= 0) throw new UserInputException(null, 'Filesize must be greater than 0.');
+        if(strlen($file['tmp_name']) > 35) throw new UserInputException(null, 'Filename must not exceed 35 characters. Received : ' . strlen($file['tmp_name']));
+        if($this->file['size'] > $this->maxFilesizeInMo * 1048576) throw new UserInputException(null, 'Filesize exceeds maximum value of ' . $this->maxFilesizeInMo . 'Mo (' . $this->maxFilesizeInMo * 1048576 . 'octets). Received : ' . $this->file['size'] . 'octets');
         
         $this->file['name'] = uniqid() . '.' . $this->file['extension'];
         $this->file['path'] = UPLOAD_DIR . '/' . $this->file['name'];

@@ -1,6 +1,7 @@
 <?php
 
 use App\Entity\VeterinarianReport;
+use App\Exception\UserInputException;
 use App\Interface\CrudControllerInterface;
 use App\Models\Table\AnimalsTable;
 use App\Models\Table\FoodTypesTable;
@@ -41,82 +42,84 @@ class VeterinarianReportsCrudController implements CrudControllerInterface
             'CREATE' => $this->createEntity($formData),
             'UPDATE' => $this->updateEntity($formData),
             'DELETE' => $this->deleteEntity($formData),
-            default => throw new Exception('A Crud Action need to be defined in the form to determine what this action is on the Entity. Possible values are : CREATE, UPDATE, DELETE.'),
+            default => throw new FormInputException('crudAction', FormInputException::INVALID_CRUD_ACTION),
         };
     }
 
     private function createEntity(array $formData)
     {
-        if(!isset($formData['date'])) throw new Exception('date need to be specified in the form');
-        if(!isset($formData['detail'])) throw new Exception('detail need to be specified in the form');
-        if(!isset($formData['food_quantity'])) throw new Exception('food_quantity need to be specified in the form');
-        if(!isset($formData['food_type_id'])) throw new Exception('food_type_id need to be specified in the form');
-        if(!isset($formData['food_unit_id'])) throw new Exception('food_unit_id need to be specified in the form');
-        if(!isset($formData['animal_id'])) throw new Exception('animal_id need to be specified in the form');
-        if(!isset($formData['user_id'])) throw new Exception('user_id need to be specified in the form');
+        if(!isset($formData['date'])) throw new FormInputException('date', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['detail'])) throw new FormInputException('detail', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['food_quantity'])) throw new FormInputException('food_quantity', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['food_type_id'])) throw new FormInputException('food_type_id', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['food_unit_id'])) throw new FormInputException('food_unit_id', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['animal_id'])) throw new FormInputException('animal_id', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['user_id'])) throw new FormInputException('user_id', FormInputException::UNDEFINED_VALUE);
 
-        if(empty($formData['date'])) throw new Exception('date is empty.');
-        if(empty($formData['detail'])) throw new Exception('detail is empty.');
-        if(empty($formData['food_quantity'])) throw new Exception('food_quantity is empty.');
-        if(empty($formData['food_type_id'])) throw new Exception('food_type_id is empty.');
-        if(empty($formData['food_unit_id'])) throw new Exception('food_unit_id is empty.');
-        if(empty($formData['animal_id'])) throw new Exception('animal_id is empty.');
-        if(empty($formData['user_id'])) throw new Exception('user_id is empty.');
+        if(empty($formData['food_type_id'])) throw new FormInputException('food_type_id', FormInputException::EMPTY_VALUE);
+        if(empty($formData['food_unit_id'])) throw new FormInputException('food_unit_id', FormInputException::EMPTY_VALUE);
+        if(empty($formData['animal_id'])) throw new FormInputException('animal_id', FormInputException::EMPTY_VALUE);
+        if(empty($formData['user_id'])) throw new FormInputException('user_id', FormInputException::EMPTY_VALUE);
 
-        if(!strtotime($formData['date'])) throw new Exception('date is not a date.');
-        if(!is_string($formData['detail'])) throw new Exception('detail is not a string.');
-        if(!is_numeric($formData['food_quantity'])) throw new Exception('food_quantity is not numeric.');
-        if(!is_numeric($formData['food_type_id'])) throw new Exception('food_type_id is not numeric.');
-        if(!is_numeric($formData['food_unit_id'])) throw new Exception('food_unit_id is not numeric.');
-        if(!is_numeric($formData['animal_id'])) throw new Exception('animal_id is not numeric.');
-        if(!is_numeric($formData['user_id'])) throw new Exception('user_id is not numeric.');
+        if(!strtotime($formData['date'])) throw new FormInputException('date', FormInputException::NOT_DATE);
+        if(!is_string($formData['detail'])) throw new FormInputException('detail', FormInputException::NOT_STRING);
+        if(!is_numeric($formData['food_quantity'])) throw new FormInputException('food_quantity', FormInputException::NOT_NUMERIC);
+        if(!is_numeric($formData['food_type_id'])) throw new FormInputException('food_type_id', FormInputException::NOT_NUMERIC);
+        if(!is_numeric($formData['food_unit_id'])) throw new FormInputException('food_unit_id', FormInputException::NOT_NUMERIC);
+        if(!is_numeric($formData['animal_id'])) throw new FormInputException('animal_id', FormInputException::NOT_NUMERIC);
+        if(!is_numeric($formData['user_id'])) throw new FormInputException('user_id', FormInputException::NOT_NUMERIC);
+
+        if(empty($formData['date'])) throw new UserInputException('date', UserInputException::EMPTY_VALUE);
+        if(empty($formData['detail'])) throw new UserInputException('detail', UserInputException::EMPTY_VALUE);
+        if(empty($formData['food_quantity'])) throw new UserInputException('food_quantity', UserInputException::EMPTY_VALUE);
 
         $veterinarianReport = new VeterinarianReport($formData);
-        if(VeterinarianReportsTable::isAlreadyRegistered($veterinarianReport)) throw new Exception('VeterinarianReport is already registered.');
+        if(VeterinarianReportsTable::isAlreadyRegistered($veterinarianReport)) throw new UserInputException(null, 'VeterinarianReport has already been registered');
 
         VeterinarianReportsTable::create($veterinarianReport);
     }
 
     private function updateEntity(array $formData)
     {
-        if(!isset($formData['veterinarian_report_id'])) throw new Exception('veterinarian_report_id need to be specified in the form');
-        if(!isset($formData['date'])) throw new Exception('date need to be specified in the form');
-        if(!isset($formData['detail'])) throw new Exception('detail need to be specified in the form');
-        if(!isset($formData['food_quantity'])) throw new Exception('food_quantity need to be specified in the form');
-        if(!isset($formData['food_type_id'])) throw new Exception('food_type_id need to be specified in the form');
-        if(!isset($formData['food_unit_id'])) throw new Exception('food_unit_id need to be specified in the form');
-        if(!isset($formData['animal_id'])) throw new Exception('animal_id need to be specified in the form');
-        if(!isset($formData['user_id'])) throw new Exception('user_id need to be specified in the form');
+        if(!isset($formData['veterinarian_report_id'])) throw new FormInputException('veterinarian_report_id', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['date'])) throw new FormInputException('date', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['detail'])) throw new FormInputException('detail', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['food_quantity'])) throw new FormInputException('food_quantity', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['food_type_id'])) throw new FormInputException('food_type_id', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['food_unit_id'])) throw new FormInputException('food_unit_id', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['animal_id'])) throw new FormInputException('animal_id', FormInputException::UNDEFINED_VALUE);
+        if(!isset($formData['user_id'])) throw new FormInputException('user_id', FormInputException::UNDEFINED_VALUE);
 
-        if(empty($formData['veterinarian_report_id'])) throw new Exception('veterinarian_report_id is empty.');
-        if(empty($formData['date'])) throw new Exception('date is empty.');
-        if(empty($formData['detail'])) throw new Exception('detail is empty.');
-        if(empty($formData['food_quantity'])) throw new Exception('food_quantity is empty.');
-        if(empty($formData['food_type_id'])) throw new Exception('food_type_id is empty.');
-        if(empty($formData['food_unit_id'])) throw new Exception('food_unit_id is empty.');
-        if(empty($formData['animal_id'])) throw new Exception('animal_id is empty.');
-        if(empty($formData['user_id'])) throw new Exception('user_id is empty.');
+        if(empty($formData['veterinarian_report_id'])) throw new FormInputException('veterinarian_report_id', FormInputException::EMPTY_VALUE);
+        if(empty($formData['food_type_id'])) throw new FormInputException('food_type_id', FormInputException::EMPTY_VALUE);
+        if(empty($formData['food_unit_id'])) throw new FormInputException('food_unit_id', FormInputException::EMPTY_VALUE);
+        if(empty($formData['animal_id'])) throw new FormInputException('animal_id', FormInputException::EMPTY_VALUE);
+        if(empty($formData['user_id'])) throw new FormInputException('user_id', FormInputException::EMPTY_VALUE);
 
-        if(!is_numeric($formData['veterinarian_report_id'])) throw new Exception('veterinarian_report_id is not numeric.');
-        if(!strtotime($formData['date'])) throw new Exception('date is not a date.');
-        if(!is_string($formData['detail'])) throw new Exception('detail is not a string.');
-        if(!is_numeric($formData['food_quantity'])) throw new Exception('food_quantity is not numeric.');
-        if(!is_numeric($formData['food_type_id'])) throw new Exception('food_type_id is not numeric.');
-        if(!is_numeric($formData['food_unit_id'])) throw new Exception('food_unit_id is not numeric.');
-        if(!is_numeric($formData['animal_id'])) throw new Exception('animal_id is not numeric.');
-        if(!is_numeric($formData['user_id'])) throw new Exception('user_id is not numeric.');
+        if(!is_numeric($formData['veterinarian_report_id'])) throw new FormInputException('veterinarian_report_id', FormInputException::NOT_NUMERIC);
+        if(!strtotime($formData['date'])) throw new FormInputException('date', FormInputException::NOT_DATE);
+        if(!is_string($formData['detail'])) throw new FormInputException('detail', FormInputException::NOT_STRING);
+        if(!is_numeric($formData['food_quantity'])) throw new FormInputException('food_quantity', FormInputException::NOT_NUMERIC);
+        if(!is_numeric($formData['food_type_id'])) throw new FormInputException('food_type_id', FormInputException::NOT_NUMERIC);
+        if(!is_numeric($formData['food_unit_id'])) throw new FormInputException('food_unit_id', FormInputException::NOT_NUMERIC);
+        if(!is_numeric($formData['animal_id'])) throw new FormInputException('animal_id', FormInputException::NOT_NUMERIC);
+        if(!is_numeric($formData['user_id'])) throw new FormInputException('user_id', FormInputException::NOT_NUMERIC);
+
+        if(empty($formData['date'])) throw new UserInputException('date', UserInputException::EMPTY_VALUE);
+        if(empty($formData['detail'])) throw new UserInputException('detail', UserInputException::EMPTY_VALUE);
+        if(empty($formData['food_quantity'])) throw new UserInputException('food_quantity', UserInputException::EMPTY_VALUE);
         
         $entity = new VeterinarianReport($formData);
-        if(VeterinarianReportsTable::isAlreadyRegistered($entity)) throw new Exception('VeterinarianReport is already registered.');
+        if(VeterinarianReportsTable::isAlreadyRegistered($entity)) throw new UserInputException(null, 'VeterinarianReport has already been registered');
     
         VeterinarianReportsTable::update($entity);
     }
 
     private function deleteEntity(array $formData)
     {
-        if(!isset($formData['veterinarian_report_id'])) throw new Exception('veterinarian_report_id need to be specified in the form');
-        if(empty($formData['veterinarian_report_id'])) throw new Exception('veterinarian_report_id is empty.');
-        if(!is_numeric($formData['veterinarian_report_id'])) throw new Exception('veterinarian_report_id is not numeric.');
+        if(!isset($formData['veterinarian_report_id'])) throw new FormInputException('veterinarian_report_id', FormInputException::UNDEFINED_VALUE);
+        if(empty($formData['veterinarian_report_id'])) throw new FormInputException('veterinarian_report_id', FormInputException::EMPTY_VALUE);
+        if(!is_numeric($formData['veterinarian_report_id'])) throw new FormInputException('veterinarian_report_id', FormInputException::NOT_NUMERIC);
 
         VeterinarianReportsTable::delete($formData['veterinarian_report_id']);
     }

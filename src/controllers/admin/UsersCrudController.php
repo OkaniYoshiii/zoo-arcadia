@@ -1,6 +1,7 @@
 <?php
 
 use App\Entity\User;
+use App\Exception\UserInputException;
 use App\Models\Table\RolesTable;
 use App\Models\Table\UsersTable;
 
@@ -33,25 +34,25 @@ class UsersCrudController
             'CREATE' => self::createUser(),
             'UPDATE' => self::updateUser(),
             'DELETE' => self::deleteUser(),
-            default => throw new Exception('A Crud Action need to be defined in the form to determine what this action is on the Entity. Possible values are : CREATE, UPDATE, DELETE.'),
+            default => throw new FormInputException('crudAction', FormInputException::INVALID_CRUD_ACTION),
         };
     }
 
     private static function createUser()
     {
-        if(is_null(self::$formData['username'])) throw new Exception('Username need to be specified in the form');
-        if(is_null(self::$formData['firstname'])) throw new Exception('Firstname need to be specified in the form');
-        if(is_null(self::$formData['lastname'])) throw new Exception('Lastname need to be specified in the form');
-        if(is_null(self::$formData['pwd'])) throw new Exception('Password need to be specified in the form');
-        if(is_null(self::$formData['role_id'])) throw new Exception('RoleId need to be specified in the form');
+        if(is_null(self::$formData['username'])) throw new FormInputException('username', FormInputException::UNDEFINED_VALUE);
+        if(is_null(self::$formData['firstname'])) throw new FormInputException('firstname', FormInputException::UNDEFINED_VALUE);
+        if(is_null(self::$formData['lastname'])) throw new FormInputException('lastname', FormInputException::UNDEFINED_VALUE);
+        if(is_null(self::$formData['pwd'])) throw new FormInputException('pwd', FormInputException::UNDEFINED_VALUE);
+        if(is_null(self::$formData['role_id'])) throw new FormInputException('role_id', FormInputException::UNDEFINED_VALUE);
 
-        if(empty(self::$formData['username'])) self::$formInputErrors[] = 'Le nom d\'utilisateur renseigné est vide';
-        if(empty(self::$formData['firstname'])) self::$formInputErrors[] = 'Le prénom de l\'utilisateur est vide';
-        if(empty(self::$formData['lastname'])) self::$formInputErrors[] = 'Le nom de l\'utilisateur est vide';
-        if(empty(self::$formData['pwd'])) self::$formInputErrors[] = 'Le mot de passe renseigné est vide';
+        if(empty(self::$formData['username']))  throw new UserInputException('username', UserInputException::EMPTY_VALUE);
+        if(empty(self::$formData['firstname']))  throw new UserInputException('username', UserInputException::EMPTY_VALUE);
+        if(empty(self::$formData['lastname']))  throw new UserInputException('username', UserInputException::EMPTY_VALUE);
+        if(empty(self::$formData['pwd'])) throw new UserInputException('username', UserInputException::EMPTY_VALUE);
 
         $entity = new User(self::$formData);
-        if(UsersTable::isAlreadyRegistered($entity)) self::$formInputErrors[] = 'L\'utilisateur renseigné existe déjà !';
+        if(UsersTable::isAlreadyRegistered($entity)) throw new UserInputException(null, 'User has already been registered');
 
         if(!empty(self::$formInputErrors)) return;
 
@@ -60,16 +61,16 @@ class UsersCrudController
 
     private static function updateUser()
     {
-        if(empty(self::$formData['user_id']) || is_null(self::$formData['user_id'])) throw new Exception('user_id need to be specified in the form');
-        if(is_null(self::$formData['username'])) throw new Exception('Username need to be specified in the form');
-        if(is_null(self::$formData['firstname'])) throw new Exception('Firstname need to be specified in the form');
-        if(is_null(self::$formData['lastname'])) throw new Exception('Lastname need to be specified in the form');
-        if(is_null(self::$formData['pwd'])) throw new Exception('Password need to be specified in the form');
+        if(empty(self::$formData['user_id']) || is_null(self::$formData['user_id'])) throw new FormInputException('user_id', FormInputException::UNDEFINED_VALUE);
+        if(is_null(self::$formData['username'])) throw new FormInputException('username', FormInputException::UNDEFINED_VALUE);
+        if(is_null(self::$formData['firstname'])) throw new FormInputException('firstname', FormInputException::UNDEFINED_VALUE);
+        if(is_null(self::$formData['lastname'])) throw new FormInputException('lastname', FormInputException::UNDEFINED_VALUE);
+        if(is_null(self::$formData['pwd'])) throw new FormInputException('pwd', FormInputException::UNDEFINED_VALUE);
 
-        if(empty(self::$formData['username'])) self::$formInputErrors[] = 'Le nom d\'utilisateur renseigné est vide';
-        if(empty(self::$formData['firstname'])) self::$formInputErrors[] = 'Le prénom de l\'utilisateur est vide';
-        if(empty(self::$formData['lastname'])) self::$formInputErrors[] = 'Le nom de l\'utilisateur est vide';
-        if(empty(self::$formData['pwd'])) self::$formInputErrors[] = 'Le mot de passe est vide';
+        if(empty(self::$formData['username'])) throw new UserInputException('pwd', UserInputException::EMPTY_VALUE);
+        if(empty(self::$formData['firstname'])) throw new UserInputException('pwd', UserInputException::EMPTY_VALUE);
+        if(empty(self::$formData['lastname'])) throw new UserInputException('pwd', UserInputException::EMPTY_VALUE);
+        if(empty(self::$formData['pwd'])) throw new UserInputException('pwd', UserInputException::EMPTY_VALUE);
 
         if(!empty(self::$formInputErrors)) return;
 
@@ -79,8 +80,8 @@ class UsersCrudController
 
     private static function deleteUser()
     {
-        if(!isset(self::$formData['user_id'])) throw new Exception('user_id need to be specified in the form');
-        if(!is_numeric(self::$formData['user_id'])) throw new Exception('user_id need to be a numeric string');
+        if(!isset(self::$formData['user_id'])) throw new FormInputException('user_id', FormInputException::UNDEFINED_VALUE);
+        if(!is_numeric(self::$formData['user_id'])) throw new FormInputException('user_id', FormInputException::NOT_NUMERIC);
         
         UsersTable::delete(self::$formData['user_id']);
     }

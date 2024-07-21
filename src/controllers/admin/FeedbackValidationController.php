@@ -24,11 +24,11 @@ class FeedBackValidationController
             'isValidated' => $_POST['isValidated'] ?? null,
         ];
 
-        if(empty(self::$formData['feedbackId'])) throw new Exception('Submitted value feedbackId is empty. Expected integer.');
-        if(!is_numeric(self::$formData['feedbackId'])) throw new Exception('Submitted value feedbackId is not an integer.');
+        if(empty(self::$formData['feedbackId'])) throw new FormInputException('feedbackId', 'value is undefined');
+        if(!is_numeric(self::$formData['feedbackId'])) throw new FormInputException('feedbackId', 'value is not numeric');
 
-        if(empty(self::$formData['isValidated'])) throw new Exception('Submitted value isValidated is empty. Expected boolean.');
-        if(self::$formData['isValidated'] !== 'true' && self::$formData['isValidated'] !== 'false') throw new Exception('Submitted value isValidated is not a boolean.');
+        if(empty(self::$formData['isValidated'])) throw new FormInputException('isValidated', 'value is empty');
+        if(self::$formData['isValidated'] !== 'true' && self::$formData['isValidated'] !== 'false') throw new FormInputException('isValidated', 'value is not a boolean');
 
         FeedbacksDB->updateById(self::$formData['feedbackId'], ['is_validated' => self::$formData['isValidated']]);
     }

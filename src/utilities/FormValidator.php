@@ -2,18 +2,20 @@
 
 namespace App\Utilities;
 
+use App\Exception\UserInputException;
 use Exception;
+use FormInputException;
 
 class FormValidator 
 {
     public function checkDuplicatedFormSubmission()
     {
         $timestamp = strtotime($_POST['sent_at']);
-        if($timestamp === false) throw new Exception('sent_at field is not a date.');
+        if($timestamp === false) throw new FormInputException('sent_at', FormInputException::NOT_DATE);
 
         $hasFormAlreadyBeenSubmited = (!empty(FormSubmissionsStore->findBy(['timestamp', '=' , $timestamp])));
         
-        if($hasFormAlreadyBeenSubmited) throw new Exception('Form has already been submitted with the same data');
+        if($hasFormAlreadyBeenSubmited) throw new UserInputException(null, UserInputException::FORM_ALREADY_SENT);
         
         FormSubmissionsStore->insert(['timestamp' => $timestamp]);
 
@@ -24,9 +26,9 @@ class FormValidator
 
     public function checkCsrfToken() 
     {
-        if(!isset($_POST['csrf_token'])) throw new Exception('Form is missing a CSRF token.');
+        if(!isset($_POST['csrf_token'])) throw new FormInputException('csrf_token', FormInputException::UNDEFINED_VALUE);
 
-        if($_SESSION['csrf_token'] !== $_POST['csrf_token']) throw new Exception('CRSF token doesn\'t match the one in Session');
+        if($_SESSION['csrf_token'] !== $_POST['csrf_token']) throw new FormInputException('csrf_token', FormInputException::WRONG_CSRF_TOKEN);
     }
 
     public function checkRequestOrigin()

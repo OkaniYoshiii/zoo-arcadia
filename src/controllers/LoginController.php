@@ -1,6 +1,7 @@
 <?php
 
 use App\Entity\User;
+use App\Exception\UserInputException;
 use App\Models\Table\RolesTable;
 use App\Models\Table\UsersTable;
 use App\Utilities\Session;
@@ -23,20 +24,19 @@ class LoginController
             'pwd' => $_POST['pwd'] ?? null,
         ];
 
-        if(!isset($formData['username'])) throw new Exception('No username sent in the form.');
-        if(!isset($formData['pwd'])) throw new Exception('No pwd sent in the form.');
+        if(!isset($formData['username'])) throw new FormInputException('username', 'value is undefined');
+        if(!isset($formData['pwd'])) throw new FormInputException('pwd', 'value is undefined');
 
-        if(empty($formData['username'])) throw new Exception('Empty username sent in the form');
-        if(empty($formData['pwd'])) throw new Exception('Empty pwd sent in the form');
-
-        if(!is_string($formData['username'])) throw new Exception('username is not a string');
-        if(!is_string($formData['pwd'])) throw new Exception('pwd is not a string');
-        if(!filter_var($formData['username'], FILTER_VALIDATE_EMAIL)) throw new Exception('username is not an email.');
+        if(empty($formData['username'])) throw new UserInputException('username', $formData['username'], 'value is empty');
+        if(empty($formData['pwd'])) throw new UserInputException('pwd', $formData['pwd'], 'value is empty');
+        if(!is_string($formData['username'])) throw new UserInputException('username', $formData['username'], 'value must be of type string');
+        if(!is_string($formData['pwd'])) throw new UserInputException('pwd', $formData['pwd'], 'value must be of type string');
+        if(!filter_var($formData['username'], FILTER_VALIDATE_EMAIL)) throw new UserInputException('username', 'value must be formatted as an email');
 
         $user = new User($formData);
         $user = UsersTable::isAlreadyRegistered($user);
-        if(!($user instanceof User)) throw new Exception('User has not been registered before trying to log-in.');
-
+        if(!$user) throw new AlreadyRegisteredEntityException(User::class);
+        
         Session::regenerateId();
 
         $roleId = $user->getRoleId();
