@@ -1,8 +1,8 @@
 <?php
 
-use App\Exception\AbtractInputException;
+namespace App\Exception;
 
-class FormInputException extends AbtractInputException
+class FormInputException extends AbstractInputException
 {
     const UNDEFINED_VALUE = 'value is undefined';
     const INVALID_CRUD_ACTION = 'value must be either CREATE, UPDATE or DELETE';

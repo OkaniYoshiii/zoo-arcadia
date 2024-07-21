@@ -2,7 +2,7 @@
 
 namespace App\Exception;
 
-class UserInputException extends AbtractInputException
+class UserInputException extends AbstractInputException
 {
     const FORM_ALREADY_SENT = 'form has already been sent with the same data';
     public function __construct(?string $input, string $problem)

@@ -20,25 +20,14 @@ require_once CONFIG_DIR . '/config.twig.php';
 require_once APP_DIR . '/Autoloader.php';
 Autoloader::register();
 
-function exception_handler(Throwable $exception)
-{
-    if($exception instanceof RouterException) {
-        http_response_code(404);
-        echo TWIG->render('404.html.twig',[]);
-        die();
-    }
-
-    if($exception instanceof UserInputException) {
-        echo $exception->getInput();
-        return;
-    }
-
-    http_response_code(500);
-    echo 'Erreur 500, impossible d\'afficher le contenu de la page.';
-    die();
-}
-
-set_exception_handler('exception_handler');
+ExceptionHandler::addHandler(RouterException::class, function() {
+    http_response_code(404);
+    echo TWIG->render('404.html.twig',[]);
+});
+ExceptionHandler::addHandler(UserInputException::class, function(UserInputException $exception) {
+    echo $exception->getInput();
+});
+ExceptionHandler::start();
 
 Session::start();
 
