@@ -6,16 +6,16 @@ h2 {
   text-align: center;
   padding-block: clamp(9rem, 45vw, 14rem);
   line-height: 1;
-  background: url("../../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
+  background: url("../../img/bg-savannah-bridge.webp") center/cover no-repeat;
 }
 @media screen and (max-width: 960px) {
   .hero-banner {
-    background: url("../../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
+    background: url("../../img/bg-savannah-bridge.webp") center/cover no-repeat;
   }
 }
 @media screen and (max-width: 640px) {
   .hero-banner {
-    background: url("../../img/original-images/bg-africa.jpg") center/cover no-repeat;
+    background: url("../../img/bg-savannah-bridge-med.webp") center/cover no-repeat;
   }
 }
 .hero-banner {
@@ -76,17 +76,17 @@ section:nth-of-type(odd) h2, section:nth-of-type(odd) h3 {
 .domains__section {
   position: relative;
   overflow-x: hidden;
-  background: url("../../img/original-images/bg-africa.jpg") center/cover no-repeat;
+  background: url("../../img/bg-africa.webp") center/cover no-repeat;
   padding-block: 6rem;
 }
 @media screen and (max-width: 960px) {
   .domains__section {
-    background: url("../../img/original-images/bg-africa.jpg") center/cover no-repeat;
+    background: url("../../img/bg-africa.webp") center/cover no-repeat;
   }
 }
 @media screen and (max-width: 640px) {
   .domains__section {
-    background: url("../../img/original-images/bg-savannah-bridge.jpg") center/cover no-repeat;
+    background: url("../../img/bg-africa-med.webp") center/cover no-repeat;
   }
 }
 .domains__section {
@@ -154,17 +154,17 @@ section:nth-of-type(odd) h2, section:nth-of-type(odd) h3 {
 }
 .services__section {
   position: relative;
-  background: url("../../img/original-images/bg-steam-train") center/cover no-repeat;
+  background: url("../../img/bg-steam-train.webp") center/cover no-repeat;
   padding-block: 6rem;
 }
 @media screen and (max-width: 960px) {
   .services__section {
-    background: url("../../img/original-images/bg-steam-train") center/cover no-repeat;
+    background: url("../../img/bg-steam-train.webp") center/cover no-repeat;
   }
 }
 @media screen and (max-width: 640px) {
   .services__section {
-    background: url("../../img/original-images/bg-africa") center/cover no-repeat;
+    background: url("../../img/bg-steam-train-med.webp") center/cover no-repeat;
   }
 }
 .services__section {

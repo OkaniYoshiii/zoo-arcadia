@@ -4,7 +4,7 @@
 @use "sass:math";
 @use "sass:list";
 
-$imgPath: '../../img/original-images';
+$imgPath: '../../img';
 
 h2 { text-align: center; }
 
@@ -14,7 +14,7 @@ h2 { text-align: center; }
 
     line-height: 1;
 
-    $backgrounds: ('#{$imgPath}/bg-savannah-bridge.jpg', '#{$imgPath}/bg-africa.jpg');
+    $backgrounds: ('#{$imgPath}/bg-savannah-bridge.webp', '#{$imgPath}/bg-savannah-bridge-med.webp');
     @include srcset($backgrounds);
     
     @include bg-darken(0.5);
@@ -88,7 +88,7 @@ section:nth-of-type(odd){
 
         overflow-x: hidden;
 
-        $backgrounds: ('#{$imgPath}/bg-africa.jpg', '#{$imgPath}/bg-savannah-bridge.jpg');
+        $backgrounds: ('#{$imgPath}/bg-africa.webp', '#{$imgPath}/bg-africa-med.webp');
         @include srcset($backgrounds);
         @include bg-darken(0.35);
     
@@ -158,7 +158,7 @@ section:nth-of-type(odd){
     &__section {
         position: relative;
 
-        $backgrounds: ('#{$imgPath}/bg-steam-train','#{$imgPath}/bg-africa');
+        $backgrounds: ('#{$imgPath}/bg-steam-train.webp','#{$imgPath}/bg-steam-train-med.webp');
         @include srcset($backgrounds);
 
         padding-block: 6rem;
