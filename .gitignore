@@ -3,4 +3,4 @@ vendor
 config/config.local.php
 sleekdb/
 logs.txt
-public/assets/uploads
+public/uploads
