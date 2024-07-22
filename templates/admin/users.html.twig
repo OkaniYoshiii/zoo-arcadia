@@ -10,61 +10,66 @@
             <button class="dialog-btn button--active" data-dialog-id="dialog-add-user">Ajouter un utilisateur</button>
             <ul>
                 {% for user in users %}
-                    <li>
-                        {{ user.username }}
-                        {{ user.firstname }}
-                        {{ user.lastname }}
-                        {{ user.roleName }}
-                        <button class="dialog-btn button--active" data-dialog-id="dialog-modify-user-{{ user.userId }}">Modifier</button>
-                        <form action="" method="POST">
-                            <input type="hidden" name="user_id" value="{{ user.userId }}">
-                            <input type="hidden" name="crudAction" value="DELETE">
-                            <input type="submit" class="button--active" value="Supprimer">
-                            <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
-                            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                        </form>
-                    </li>
-                    <dialog id="dialog-modify-user-{{ user.userId }}" class="dialog">
-                        <div class="dialog__content">
-                            <div class="dialog__header">
-                                <h2 class="dialog__title">Modification utilisateur :</h2>
+                    {% if user.role.name != 'ROLE_ADMIN' %}
+                        <li>
+                            <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+                            <p><b>Email : </b>{{ user.username }}</p>
+                            <p><b>Prénom : </b>{{ user.firstname }}</p>
+                            <p><b>Nom de famille : </b>{{ user.lastname }}</p>
+                            <p><b>Role : </b>{{ user.role.name }}</p>
+                            <div class="d-flex">
+                                <button class="dialog-btn button--active" data-dialog-id="dialog-modify-user-{{ user.userId }}">Modifier</button>
+                                <form action="" method="POST">
+                                    <input type="hidden" name="user_id" value="{{ user.userId }}">
+                                    <input type="hidden" name="crudAction" value="DELETE">
+                                    <input type="submit" class="button--active" value="Supprimer">
+                                    <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
+                                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                                </form>
                             </div>
-                            <form class="form" action="" method="POST" autocomplete="off">
-                                <div class="form-input">
-                                    <label class="form-input__label" for="username">Email</label>
-                                    <input class="form-input__input" type="email" name="username" id="username" value="{{ user.username }}" required>
+                        </li>
+                        <dialog id="dialog-modify-user-{{ user.userId }}" class="dialog">
+                            <div class="dialog__content">
+                                <div class="dialog__header">
+                                    <h2 class="dialog__title">Modification utilisateur :</h2>
                                 </div>
-                                <div class="form-input">
-                                    <label class="form-input__label" for="firstname">Prénom</label>
-                                    <input class="form-input__input" type="text" name="firstname" id="firstname" value="{{ user.firstname }}" required>
-                                </div>
-                                <div class="form-input">
-                                    <label class="form-input__label" for="lastname">Nom</label>
-                                    <input class="form-input__input" type="text" name="lastname" id="lastname" value="{{ user.lastname }}" required>
-                                </div>
-                                <div class="form-input">
-                                    <label class="form-input__label" for="pwd">Mot de passe</label>
-                                    <input class="form-input__input" type="password" name="pwd" id="pwd" required>
-                                </div>
-                                <div class="form-input">
-                                    <label class="form-input__label" for="role_id">Séléctionnez un rôle</label>
-                                    <select class="form-input__input" name="role_id" id="role_id" required>
-                                        {% for role in roles %}
-                                            {% if role.name != 'ROLE_ADMIN' %}
-                                                <option value="{{ role.roleId }}" {% if role.name == user.roleName %}selected{% endif %}>{{ role.name }}</option>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <button class="form__submit-btn" type="submit">Confirmer</button>
+                                <form class="form" action="" method="POST" autocomplete="off">
+                                    <div class="form-input">
+                                        <label class="form-input__label" for="username">Email</label>
+                                        <input class="form-input__input" type="email" name="username" id="username" value="{{ user.username }}" required>
+                                    </div>
+                                    <div class="form-input">
+                                        <label class="form-input__label" for="firstname">Prénom</label>
+                                        <input class="form-input__input" type="text" name="firstname" id="firstname" value="{{ user.firstname }}" required>
+                                    </div>
+                                    <div class="form-input">
+                                        <label class="form-input__label" for="lastname">Nom</label>
+                                        <input class="form-input__input" type="text" name="lastname" id="lastname" value="{{ user.lastname }}" required>
+                                    </div>
+                                    <div class="form-input">
+                                        <label class="form-input__label" for="pwd">Mot de passe</label>
+                                        <input class="form-input__input" type="password" name="pwd" id="pwd" required>
+                                    </div>
+                                    <div class="form-input">
+                                        <label class="form-input__label" for="role_id">Séléctionnez un rôle</label>
+                                        <select class="form-input__input" name="role_id" id="role_id" required>
+                                            {% for role in roles %}
+                                                {% if role.name != 'ROLE_ADMIN' %}
+                                                    <option value="{{ role.roleId }}" {% if role.name == user.roleName %}selected{% endif %}>{{ role.name }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <button class="form__submit-btn" type="submit">Confirmer</button>
 
-                                <input type="hidden" name="user_id" value="{{ user.userId }}">
-                                <input type="hidden" name="crudAction" value="UPDATE">
-                                <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
-                                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                            </form>
-                        </div>
-                    </dialog>
+                                    <input type="hidden" name="user_id" value="{{ user.userId }}">
+                                    <input type="hidden" name="crudAction" value="UPDATE">
+                                    <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
+                                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                                </form>
+                            </div>
+                        </dialog>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>
@@ -109,5 +114,5 @@
                 </form>
             </div>
         </div>
-            </dialog>
+    </dialog>
 {% endblock %}

@@ -16,7 +16,8 @@ class Role implements EntityInterface
     {
         if(is_null($properties)) return;
         
-        $this->setName($properties['name']);
+        if(isset($properties['role_id'])) $this->role_id = $properties['role_id'];
+        if(isset($properties['name'])) $this->name = $properties['name'];
     }
 
     /**

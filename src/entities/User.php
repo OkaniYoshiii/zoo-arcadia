@@ -16,6 +16,8 @@ class User implements EntityInterface
     private string $pwd;
     private string $role_id;
 
+    private Role $role;
+
     public function __construct(array $properties = null)
     {
         if(is_null($properties)) return;
@@ -26,6 +28,8 @@ class User implements EntityInterface
         if(isset($properties['lastname'])) $this->lastname = $properties['lastname'];
         if(isset($properties['pwd'])) $this->pwd = $properties['pwd'];
         if(isset($properties['role_id'])) $this->role_id = $properties['role_id'];
+
+        if(isset($properties['role'])) $this->role = $properties['role'];
     }
 
     /**
@@ -132,6 +136,26 @@ class User implements EntityInterface
     public function setRoleId($role_id)
     {
         $this->role_id = $role_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of role
+     */ 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Set the value of role
+     *
+     * @return  self
+     */ 
+    public function setRole($role)
+    {
+        $this->role = $role;
 
         return $this;
     }

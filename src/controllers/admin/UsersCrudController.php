@@ -12,7 +12,7 @@ class UsersCrudController
     public function getVariables() : array
     {
         return [
-            'users' => UsersTable::getAll(),
+            'users' => UsersTable::getAllWithJoins(),
             'roles' => RolesTable::getAll(),
         ];
     }
