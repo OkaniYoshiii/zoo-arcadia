@@ -40,6 +40,13 @@
         </div>
     </header>
     <main>
+        {% if alerts is defined %}
+            <div class="alerts | size-medium">
+                {% for alert in alerts %}
+                    <p>{{ alert }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
         {% block main %}{% endblock %}
     </main>
     <footer>

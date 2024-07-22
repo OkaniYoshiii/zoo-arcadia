@@ -70,6 +70,8 @@ class UsersCrudController
         if(empty(self::$formData['lastname'])) UserAlertsContainer::add('Le nom de famille de l\'utilisateur est vide.');
         if(empty(self::$formData['pwd'])) UserAlertsContainer::add('Le mot de passe de l\'utilisateur est vide.');
 
+        if(UserAlertsContainer::hasAlerts()) return;
+
         $entity = new User(self::$formData);
         UsersTable::update($entity);
     }

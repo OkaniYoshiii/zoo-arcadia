@@ -15,9 +15,10 @@ class ExceptionHandler
                 }
             }
 
-            http_response_code(500);
-            echo 'Erreur 500, impossible d\'afficher le contenu de la page.';
-            die();
+            echo $exception->getMessage();
+            // http_response_code(500);
+            // echo 'Erreur 500, impossible d\'afficher le contenu de la page.';
+            // die();
         });
     }
 
