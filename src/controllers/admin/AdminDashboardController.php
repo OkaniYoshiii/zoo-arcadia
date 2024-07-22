@@ -59,15 +59,9 @@ class AdminDashboardController
     {
         $analytics = file_get_contents("php://input") ?? null;
         $analytics = json_decode($analytics, true);
-        if($analytics) {
-            file_put_contents('test.txt', 'Bonjour');
-        }
 
         $analytics = file_get_contents("php://input") ?? null;
         $analytics = json_decode($analytics, true);
-        if(!is_null($analytics)) {
-            file_put_contents('test.txt', $_SERVER['REQUEST_METHOD'] );
-        }
 
         if(!is_null($analytics)) {
             foreach($analytics['animals'] as $id => $views) {
