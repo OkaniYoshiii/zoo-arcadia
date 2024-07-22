@@ -1,4 +1,4 @@
-import { Slider } from "./Slider";
+import { Slider } from "./Slider.js";
 export { DomainsSlider };
 class DomainsSlider extends Slider {
     translate(ev) {

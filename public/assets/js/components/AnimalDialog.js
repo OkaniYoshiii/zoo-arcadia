@@ -1,5 +1,5 @@
 var _a;
-import { Dialog } from "./Dialog";
+import { Dialog } from "./Dialog.js";
 export { AnimalDialog };
 class AnimalDialog extends Dialog {
     static #animalsData = { animals: {} };
