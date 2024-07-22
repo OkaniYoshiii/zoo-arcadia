@@ -13,18 +13,18 @@
             <ul>
                 {% for report in veterinarianReports %}
                     <li>
-                        {{ report.date }}
-                        {{ report.detail }}
-                        {{ report.foodQuantity }}
-                        {{ report.user.firstname }}
-                        {{ report.foodType }}
-                        {{ report.foodUnit }}
-                        {{ report.animal.name }}
+                        <h2>Rapport du {{ report.date|date('d/m/Y') }}</h2>
+                        <p><b>Contenu :</b> {{ report.detail }}</p>
+                        <p><b>Animal :</b> {{ report.animal.firstname }}</p>
+                        <p><b>Nourriture consommée :</b> {{ report.foodType }} ({{ report.foodQuantity ~ report.foodUnit }})</p>
+                        <p><b>Créé par :</b> {{ report.user.firstname }}</p>
+                        
                         {% if session.role.name == 'ROLE_VETERINARIAN' %}
                             <button class="dialog-btn button--active" data-dialog-id="dialog-modify-veterinarian-report-{{ report.veterinarianReportId }}">Modifier</button>
                             <button class="dialog-btn button--active" data-dialog-id="dialog-delete-veterinarian-report-{{ report.veterinarianReportId }}">Supprimer</button>
                         {% endif %}
                     </li>
+                    <hr>
                     {% if session.role.name == 'ROLE_VETERINARIAN' %}
                         <dialog class="dialog" id="dialog-modify-veterinarian-report-{{ report.veterinarianReportId }}" >
                             <div class="dialog__content">

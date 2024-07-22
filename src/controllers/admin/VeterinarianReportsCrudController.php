@@ -16,6 +16,7 @@ class VeterinarianReportsCrudController implements CrudControllerInterface
         $foodTypes = FoodTypesTable::getAll();
         $foodUnits = FoodUnitsTable::getAll();
         $veterinarianReports = VeterinarianReportsTable::getAllWithJoins();
+
         return [
             'animals' => $animals,
             'foodTypes' => $foodTypes,

@@ -3,8 +3,11 @@
 namespace App\Models\Table;
 
 use App\Entity\Animal;
+use App\Entity\AnimalImage;
+use App\Entity\Breed;
 use App\Entity\FoodType;
 use App\Entity\FoodUnit;
+use App\Entity\Habitat;
 use App\Entity\User;
 use App\Entity\VeterinarianReport;
 use App\Trait\TableTrait;
@@ -64,6 +67,14 @@ class VeterinarianReportsTable
                             'fields' => [
                                 'name',
                             ]
+                        ],
+                        [
+                            'table' => AnimalImagesTable::class,
+                            'fields' => [
+                                AnimalImagesTable::PRIMARY_KEY,
+                                'name',
+                            ],
+                            'reversed' => true,
                         ]
                     ]
             ],
@@ -95,12 +106,23 @@ class VeterinarianReportsTable
                 foreach($chainedJoins as $chainedJoin)
                 {
                     $sqlJoin .= ' JOIN ' . $chainedJoin['table']::TABLE_NAME;
-                    $sqlJoin .= ' ON ' . $table::TABLE_NAME . '.' . $chainedJoin['table']::PRIMARY_KEY;
-                    $sqlJoin .= ' = ' . $chainedJoin['table']::TABLE_NAME . '.' . $chainedJoin['table']::PRIMARY_KEY;
-
-                    foreach($chainedJoin['fields'] as $chainedField) 
-                    {
-                        $sqlFields[] = $chainedJoin['table']::TABLE_NAME . '.' . $chainedField . ' AS ' . $chainedJoin['table']::ENTITY['name'] . '_' . $chainedField;
+                   
+                    if(isset($chainedJoin['reversed']) && $chainedJoin['reversed'] === true) {
+                        $sqlJoin .= ' ON ' . $table::TABLE_NAME . '.' . $table::PRIMARY_KEY;
+                        $sqlJoin .= ' = ' . $chainedJoin['table']::TABLE_NAME . '.' . $table::PRIMARY_KEY;
+    
+                        foreach($chainedJoin['fields'] as $chainedField) 
+                        {
+                            $sqlFields[] = $chainedJoin['table']::TABLE_NAME . '.' . $chainedField . ' AS ' . $chainedJoin['table']::ENTITY['name'] . '_' . $chainedField;
+                        }
+                    } else {
+                        $sqlJoin .= ' ON ' . $table::TABLE_NAME . '.' . $chainedJoin['table']::PRIMARY_KEY;
+                        $sqlJoin .= ' = ' . $chainedJoin['table']::TABLE_NAME . '.' . $chainedJoin['table']::PRIMARY_KEY;
+    
+                        foreach($chainedJoin['fields'] as $chainedField) 
+                        {
+                            $sqlFields[] = $chainedJoin['table']::TABLE_NAME . '.' . $chainedField . ' AS ' . $chainedJoin['table']::ENTITY['name'] . '_' . $chainedField;
+                        }
                     }
                 }
             }
@@ -108,12 +130,14 @@ class VeterinarianReportsTable
             $sqlJoins[] = $sqlJoin;
         }
         $sql = 'SELECT ' . implode(', ', $sqlFields) . ' FROM ' . self::TABLE_NAME . ' ' . implode(' ', $sqlJoins);
+        echo $sql;
         Database::$statement = Database::$pdo->query($sql);
 
         $veterinarianReports = [];
         while($row = Database::$statement->fetch(PDO::FETCH_ASSOC))
         {
             $veterinarianReportId = $row[self::ENTITY['name'] . '_' . self::PRIMARY_KEY];
+            $animalImageId = $row[AnimalImagesTable::ENTITY['name'] . '_' . AnimalImagesTable::PRIMARY_KEY];
             foreach($row as $field => $value)
             {
                 if(str_contains($field, self::ENTITY['name'] . '_')) {
@@ -140,6 +164,21 @@ class VeterinarianReportsTable
                     $field = str_replace(AnimalsTable::ENTITY['name'] . '_', '', $field);
                     $veterinarianReports[$veterinarianReportId]['animal'][$field] = $value;
                 }
+
+                if(str_contains($field, BreedsTable::ENTITY['name'] . '_')) {
+                    $field = str_replace(BreedsTable::ENTITY['name'] . '_', '', $field);
+                    $veterinarianReports[$veterinarianReportId]['animal']['breed'][$field] = $value;
+                }
+
+                if(str_contains($field, HabitatsTable::ENTITY['name'] . '_')) {
+                    $field = str_replace(HabitatsTable::ENTITY['name'] . '_', '', $field);
+                    $veterinarianReports[$veterinarianReportId]['animal']['habitat'][$field] = $value;
+                }
+
+                if(str_contains($field, AnimalImagesTable::ENTITY['name'] . '_')) {
+                    $field = str_replace(AnimalImagesTable::ENTITY['name'] . '_', '', $field);
+                    $veterinarianReports[$veterinarianReportId]['animal']['animal_images'][$animalImageId][$field] = $value;
+                }
             }
         }
 
@@ -147,6 +186,9 @@ class VeterinarianReportsTable
             $report['food_type'] = new FoodType($report['food_type']);
             $report['food_unit'] = new FoodUnit($report['food_unit']);
             $report['user'] = new User($report['user']);
+            $report['animal']['breed'] = new Breed($report['animal']['breed']);
+            $report['animal']['habitat'] = new Habitat($report['animal']['habitat']);
+            $report['animal']['animal_images'] = array_map(function($animalImage) { return new AnimalImage($animalImage); }, $report['animal']['animal_images']);
             $report['animal'] = new Animal($report['animal']);
             return new VeterinarianReport($report);
         }, $veterinarianReports);
