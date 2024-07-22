@@ -1,4 +1,3 @@
-.htaccess
 node_modules
 vendor
 config/config.local.php
