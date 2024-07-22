@@ -14,7 +14,9 @@ class FeedbackForm {
     }
     async #handleFormSubmission(ev) {
         ev.preventDefault();
-        await this.#sendFormData(new FormData(this.#element));
+        const formData = new FormData(this.#element);
+        formData.append('csrf_token', );
+        await this.#sendFormData(formData);
     }
     async #sendFormData(formData) {
         const response = await fetch(this.#element.action, { 'method': 'POST', 'body': formData });

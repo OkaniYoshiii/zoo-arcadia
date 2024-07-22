@@ -18,8 +18,12 @@ class FeedbackForm {
 
     async #handleFormSubmission(ev : SubmitEvent) {
         ev.preventDefault();
-
-        await this.#sendFormData(new FormData(this.#element));
+        const formData = new FormData(this.#element);
+        const csrfInput = document.querySelector('[name="csrf_token"]');
+        if(csrfInput === null || !(csrfInput instanceof HTMLInputElement)) return;
+        const csrfToken = csrfInput.value;
+        formData.append('csrf_token', csrfToken);
+        await this.#sendFormData(formData);
     }
 
     async #sendFormData(formData : FormData) {

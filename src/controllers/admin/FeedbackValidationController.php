@@ -1,6 +1,7 @@
 <?php
 
 use App\Entity\Feedback;
+use App\Exception\FormInputException;
 use App\Objects\Request;
 
 class FeedBackValidationController

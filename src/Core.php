@@ -42,6 +42,7 @@ class Core {
 
             if(str_contains(ROUTE['uri'], '/api') && ROUTE['template'] === 'NONE') {
                 $controller->getJsonData();
+                die();
             }
 
             if(!is_null(ROUTE['template']) && ROUTE['template'] !== 'NONE') {
@@ -52,11 +53,11 @@ class Core {
                 $controller->processAndRedirect();
             }
 
-            $_SESSION['csrf_token'] = bin2hex(random_bytes(20));
-
             if(UserAlertsContainer::hasAlerts()) {
                 $variables['alerts'] = UserAlertsContainer::getAlerts();
             }
+
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(20));
 
             $variables['session'] = $_SESSION;
         }
