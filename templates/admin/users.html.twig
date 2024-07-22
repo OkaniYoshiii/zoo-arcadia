@@ -17,16 +17,8 @@
                             <p><b>Prénom : </b>{{ user.firstname }}</p>
                             <p><b>Nom de famille : </b>{{ user.lastname }}</p>
                             <p><b>Role : </b>{{ user.role.name }}</p>
-                            <div class="d-flex">
-                                <button class="dialog-btn button--active" data-dialog-id="dialog-modify-user-{{ user.userId }}">Modifier</button>
-                                <form action="" method="POST">
-                                    <input type="hidden" name="user_id" value="{{ user.userId }}">
-                                    <input type="hidden" name="crudAction" value="DELETE">
-                                    <input type="submit" class="button--active" value="Supprimer">
-                                    <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
-                                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-                                </form>
-                            </div>
+                            <button class="dialog-btn button--active" data-dialog-id="dialog-modify-user-{{ user.userId }}">Modifier</button>
+                            <button class="dialog-btn button--active" data-dialog-id="dialog-delete-user-{{ user.userId }}">Supprimer</button>
                         </li>
                         <dialog id="dialog-modify-user-{{ user.userId }}" class="dialog">
                             <div class="dialog__content">
@@ -64,6 +56,24 @@
 
                                     <input type="hidden" name="user_id" value="{{ user.userId }}">
                                     <input type="hidden" name="crudAction" value="UPDATE">
+                                    <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
+                                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                                </form>
+                            </div>
+                        </dialog>
+                        <dialog id="dialog-delete-user-{{ user.userId }}" class="dialog">
+                            <div class="dialog__content">
+                                <div class="dialog__header">
+                                    <h2 class="dialog__title">Suppression utilisateur :</h2>
+                                </div>
+                                 <form action="" method="POST">
+                                    <p>Êtes vous sur de vouloir supprimer cet utilisateur ?</p>
+                                    <div class="form-input">
+                                        <button class="button--active" type="submit">Oui</button>
+                                        <button class="button--active" type="submit" formmethod="dialog">Non</button>
+                                    </div>
+                                    <input type="hidden" name="user_id" value="{{ user.userId }}">
+                                    <input type="hidden" name="crudAction" value="DELETE">
                                     <input type="hidden" name="sent_at" value="{{ "now"|date('Y-m-d H:i:s') }}">
                                     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                                 </form>
