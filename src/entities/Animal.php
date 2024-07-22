@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Interface\EntityInterface;
 use App\Trait\EntityTrait;
+use Throwable;
 
 class Animal implements EntityInterface
 {
@@ -214,7 +215,11 @@ class Animal implements EntityInterface
      */ 
     public function getVeterinarianReports()
     {
-        return ($this->veterinarian_reports) ? $this->veterinarian_reports : null;
+        try {
+            return $this->veterinarian_reports;
+        } catch(Throwable $e) {
+            return null;
+        }
     }
 
     /**
