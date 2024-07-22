@@ -18,8 +18,7 @@ class ExceptionHandler
             self::logError($exception);
 
             http_response_code(500);
-            echo 'Erreur 500, impossible d\'afficher le contenu de la page.';
-            die();
+            echo TWIG->render('500.html.twig', []);
         });
     }
 
