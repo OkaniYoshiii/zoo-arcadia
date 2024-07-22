@@ -34,10 +34,10 @@ class Core {
             if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $formValidator = new FormValidator();
                 $formValidator->checkDuplicatedFormSubmission();
-                $formValidator->checkRequestOrigin();
-                $formValidator->checkCsrfToken();
-  
-                $controller->processFormData();
+                if(!UserAlertsContainer::hasAlerts()) $formValidator->checkRequestOrigin();
+                if(!UserAlertsContainer::hasAlerts()) $formValidator->checkCsrfToken();
+                
+                if(!UserAlertsContainer::hasAlerts()) $controller->processFormData();
             }
 
             if(str_contains(ROUTE['uri'], '/api') && ROUTE['template'] === 'NONE') {
