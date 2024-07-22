@@ -106,7 +106,7 @@ trait TableTrait
     {
         self::checkConstantsDeclaration();
 
-        Database::$pdo->query('TRUNCATE TABLE ' . self::TABLE_NAME);
+        Database::$pdo->query('FOREIGN_KEY_CHECKS = 0; TRUNCATE TABLE ' . self::TABLE_NAME . '; SET FOREIGN_KEY_CHECKS = 1;');
     }
 
     private static function checkConstantsDeclaration() : void
