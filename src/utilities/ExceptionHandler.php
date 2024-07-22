@@ -15,15 +15,28 @@ class ExceptionHandler
                 }
             }
 
-            echo $exception->getMessage();
-            // http_response_code(500);
-            // echo 'Erreur 500, impossible d\'afficher le contenu de la page.';
-            // die();
+            self::logError($exception);
+
+            http_response_code(500);
+            echo 'Erreur 500, impossible d\'afficher le contenu de la page.';
+            die();
         });
     }
 
     public static function addHandler(string $exception, callable $callback)
     {
         self::$handlers[] = ['exception' => $exception, 'callback' => $callback];
+    }
+
+    private static function logError(Throwable $exception) : void
+    {
+        $logMessage = date('Y-m-d H:s', strtotime('now')) . ' : ';
+        $logMessage .= 'Uncaught Exception in ' . $exception->getFile() . ', line ' . $exception->getLine() . ' : ' . $exception->getMessage();
+        $logMessage .= PHP_EOL;
+        $logMessage .= $exception->getTraceAsString();
+        $logMessage .= PHP_EOL;
+        $logMessage .= PHP_EOL;
+
+        error_log($logMessage, 3, '../logs.txt');
     }
 }
