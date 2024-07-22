@@ -130,7 +130,6 @@ class VeterinarianReportsTable
             $sqlJoins[] = $sqlJoin;
         }
         $sql = 'SELECT ' . implode(', ', $sqlFields) . ' FROM ' . self::TABLE_NAME . ' ' . implode(' ', $sqlJoins);
-        echo $sql;
         Database::$statement = Database::$pdo->query($sql);
 
         $veterinarianReports = [];

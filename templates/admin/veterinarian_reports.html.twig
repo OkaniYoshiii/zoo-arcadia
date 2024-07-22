@@ -15,7 +15,29 @@
                     <li>
                         <h2>Rapport du {{ report.date|date('d/m/Y') }}</h2>
                         <p><b>Contenu :</b> {{ report.detail }}</p>
-                        <p><b>Animal :</b> {{ report.animal.firstname }}</p>
+                        <p><b>Animal :</b></p>
+                        <ul>
+                            <li><b>Nom :</b> {{ report.animal.firstname }}</li>
+                            <li><b>Habitat :</b> {{ report.animal.habitat.name }}</li>
+                            <li><b>Race :</b> {{ report.animal.breed.name }}</li>
+                        </ul>
+                        <div class="gallery--slider">
+                            <div class="gallery__content">
+                                {% for animalImage in report.animal.animalImages %}
+                                    <div class="gallery__slide">
+                                        <img class="gallery__item rounded-img" src="{{ UPLOAD_DIR ~ '/' ~ animalImage.name }}" alt="">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% if animal.animalImages|length > 1 %}
+                                <div class="gallery__controls">
+                                    {% for animalImage in animal.animalImages %}
+                                    {% set firstValue = animal.animalImages|first %}
+                                        <input type="radio" name="animal_image-{{ animal.animalId }}" {% if animalImage == firstValue %} checked {% endif %} autocomplete="off">
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
                         <p><b>Nourriture consommée :</b> {{ report.foodType }} ({{ report.foodQuantity ~ report.foodUnit }})</p>
                         <p><b>Créé par :</b> {{ report.user.firstname }}</p>
                         
