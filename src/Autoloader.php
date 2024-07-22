@@ -15,6 +15,8 @@ class Autoloader
             $className = substr($className, $last_backslash_pos);
         }; 
 
+        $className = str_replace('\\','', $className);
+
         foreach(SRC_FOLDERS as $folder)
         {
             $filepath = $folder .  '/' . $className . '.php';
