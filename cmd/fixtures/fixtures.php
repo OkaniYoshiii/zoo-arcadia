@@ -34,7 +34,12 @@ require_once './vendor/autoload.php';
 require_once './src/Autoloader.php';
 Autoloader::register();
 
-if(!ALLOW_FIXTURES_CREATION) return;
+if(!ALLOW_FIXTURES_CREATION) {
+    throw new Exception('Fixtures creation is not allowed in this project. If you want to allow this, change ALLOW_FIXTURES_CREATION in config/config.global.php. Be warned : fixtures overwrite data in your database !');
+}
+
+echo 'Démarrage de la création des fixtures :';
+echo PHP_EOL;
 
 $dbDirectory = './sleekdb';
 
@@ -50,7 +55,17 @@ $storeName = 'schedules_days';
 IoHelper::deleteFolder($dbDirectory . '/' . $storeName);
 define('SchedulesDaysStore', new Store($storeName, $dbDirectory, ['timeout' => false]));
 
+
+echo 'Connexion à la base de données ...';
+echo PHP_EOL;
+
 Database::connect();
+
+echo 'Connexion réussie !';
+echo PHP_EOL;
+
+echo 'Insertion des horaires ...';
+echo PHP_EOL;
 
 $schedulesHours = [
     [
@@ -126,6 +141,9 @@ foreach($schedulesDays as $day)
 }
 
 SchedulesStore->insertMany($schedules);
+
+echo 'Insertion des horaires réussie !';
+echo PHP_EOL;
 
 $roles = [
     [
@@ -316,17 +334,104 @@ $employeeReports = [
     ]
 ];
 
+echo 'Insertion des roles ...';
+echo PHP_EOL;
+
+try {
 createRoles($roles);
+    
+} catch(Throwable $e) {
+    echo $e->getMessage();
+}
+
+echo 'Insertion des roles réussie !';
+echo PHP_EOL;
+
+echo 'Insertion des utilisateurs ...';
+echo PHP_EOL;
+
 createUsers($users);
+
+echo 'Insertion des utilisateurs réussie !';
+echo PHP_EOL;
+
+echo 'Insertion des types de nourriture ...';
+echo PHP_EOL;
+
 createFoodTypes($foodTypes);
+
+echo 'Insertion des types de nourriture réussie !';
+echo PHP_EOL;
+
+echo 'Insertion des espèces ...';
+echo PHP_EOL;
+
 createBreeds($breeds);
+
+echo 'Insertion des espèces réussie !';
+echo PHP_EOL;
+
+echo 'Insertion des habitats ...';
+echo PHP_EOL;
+
 createHabitats($habitats);
+
+echo 'Insertion des habitats réussie !';
+echo PHP_EOL;
+
+echo 'Insertion des images d\'habitats ...';
+echo PHP_EOL;
+
 createHabitatImages($habitatImages);
-createAnimals($animals);
+
+echo 'Insertion des images d\'habitats réussie !';
+echo PHP_EOL;
+
+echo 'Insertion d\'animaux ...';
+echo PHP_EOL;
+
+try {
+    createAnimals($animals);
+} catch(Throwable $e) {
+    echo $e->getMessage();
+    die();
+}
+
+
+echo 'Insertion d\'animaux réussie !';
+echo PHP_EOL;
+
+echo 'Insertion des unités de mesure de la nourriture ...';
+echo PHP_EOL;
+
 createFoodUnits($foodUnits);
+
+echo 'Insertion des unités de mesure de la nourriture réussie !';
+echo PHP_EOL;
+
+echo 'Insertion des raports vétérinaires ...';
+echo PHP_EOL;
+
 createVeterinarianReports($veterinarianReports);
+
+echo 'Insertion des raports vétérinaires réussie !';
+echo PHP_EOL;
+
+echo 'Insertion des images d\'animaux ...';
+echo PHP_EOL;
+
 createAnimalImages($animalImages);
+
+echo 'Insertion des images d\'animaux réussie !';
+echo PHP_EOL;
+
+echo 'Insertion des rapports d\'employés ...';
+echo PHP_EOL;
+
 createEmployeeReports($employeeReports);
+
+echo 'Insertion des rapports d\'employés réussie !';
+echo PHP_EOL;
 
 function createRoles(array $roles) : void
 {

@@ -19,7 +19,7 @@ class Animal implements EntityInterface
     private ?Breed $breed;
     private ?Habitat $habitat;
     private ?array $animal_images;
-    private ?array $veterinarian_reports = null;
+    private ?array $veterinarian_reports;
 
     public function __construct(array $properties = null)
     {
@@ -214,7 +214,7 @@ class Animal implements EntityInterface
      */ 
     public function getVeterinarianReports()
     {
-        return $this->veterinarian_reports;
+        return ($this->veterinarian_reports) ? $this->veterinarian_reports : null;
     }
 
     /**
