@@ -44,7 +44,6 @@ define('ROUTE', $router->getCurrentRoute());
 
 use SleekDB\Store;
 define('FeedbacksDB', new Store('feedbacks', '../sleekdb', ['timeout' => false]));
-define('AnimalsViewsDB', new Store('animalViews', '../sleekdb', ['timeout' => false]));
 define('ServicesDB', new Store('services', '../sleekdb', ['timeout' => false]));
 define('SchedulesDaysStore', new Store('schedules_days', '../sleekdb', ['timeout' => false, 'auto_cache' => false]));
 define('SchedulesHoursStore', new Store('schedules_hours', '../sleekdb', ['timeout' => false, 'auto_cache' => false]));
