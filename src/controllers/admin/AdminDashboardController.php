@@ -57,27 +57,6 @@ class AdminDashboardController
 
     public function processFormData() : void
     {
-        $analytics = file_get_contents("php://input") ?? null;
-        $analytics = json_decode($analytics, true);
-
-        $analytics = file_get_contents("php://input") ?? null;
-        $analytics = json_decode($analytics, true);
-
-        if(!is_null($analytics)) {
-            foreach($analytics['animals'] as $id => $views) {
-                $animal = AnimalsViewsDB->findById($id);
-                if(is_null($animal)) {
-                    $animalViews = ['_id' => $id, 'views' => $views];
-                    AnimalsViewsDB->updateOrInsert($animalViews, false);
-                } else {
-                    $animal['views'] += $views;
-                    AnimalsViewsDB->update($animal);
-                    $animal = AnimalsViewsDB->findById($id);
-                }
-            }
-            die();
-        }
-
         $schedules = SchedulesStore->findAll();
         foreach($schedules as $schedule)
         {

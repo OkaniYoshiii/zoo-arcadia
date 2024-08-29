@@ -12,6 +12,6 @@ new Filter(document.querySelectorAll('#panel-marais .species__controls > .button
 
 document.addEventListener("visibilitychange", function logData() {
     if (document.visibilityState === "hidden") {
-      navigator.sendBeacon(`${window.location.origin}/admin`, JSON.stringify(AnimalDialog.animalData));
+      navigator.sendBeacon(`${window.location.origin}/register-views`, JSON.stringify(AnimalDialog.animalData));
     }
 });

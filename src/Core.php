@@ -11,7 +11,6 @@ class Core {
 
     private function render() {
         Database::connect();
-
         $variables = null;
 
         if(!ROUTE['hasAccess']) {
@@ -19,14 +18,14 @@ class Core {
             header('Location: ' . $redirectTo);
             die();
         }
-        
-        if(!is_null(ROUTE['controller']) && ROUTE['controller'] !== 'default') {
 
+        if(!is_null(ROUTE['controller']) && ROUTE['controller'] !== 'default') {
             $controllerName = ROUTE['controller'];
             $controller = new $controllerName();
 
             $analytics = file_get_contents("php://input") ?? null;
             $analytics = json_decode($analytics, true);
+
             if(!is_null($analytics)) {
                 $controller->processFormData();
             }

@@ -52,23 +52,8 @@ define('SchedulesStore', new Store('schedules', '../sleekdb', ['timeout' => fals
 define('FormSubmissionsStore', new Store('form_submissions', '../sleekdb', ['timeout' => false]));
 
 use MongoDB\Driver\ServerApi;
-// Set the version of the Stable API on the client
-$apiVersion = new ServerApi(ServerApi::V1);
-// Create a new client and connect to the server
-$client = new MongoDB\Client(MONGODB_URI, [], ['serverApi' => $apiVersion]);
-try {
-    // Send a ping to confirm a successful connection
-    // $client->selectDatabase('patate')->command(['ping' => 1]);
-    // echo "Pinged your deployment. You successfully connected to MongoDB!\n";
-
-    $collection = $client->arcadiaDb->animalViews;
-
-    // $collection->insertOne([
-    //     'views' => 4,
-    // ]);
-} catch (Exception $e) {
-    printf($e->getMessage());
-}
+$client = new MongoDB\Client(MONGODB_URI, [], ['serverApi' => new ServerApi(ServerApi::V1)]);
+define('AnimalViewsCollection', $client->arcadiaDb->animalViews);
 
 // CONTROLLERS AUTOINSTANCIATION
 $core = new Core();

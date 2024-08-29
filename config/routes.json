@@ -30,6 +30,8 @@
         "/admin/habitats" : ["admin/habitats.html.twig", "HabitatsCrudController", ["ROLE_ADMIN", "ROLE_VETERINARIAN"]],
         "/admin/services" : ["admin/services.html.twig", "ServicesCrudController", ["ROLE_ADMIN", "ROLE_EMPLOYEE"]],
         "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "VeterinarianReportsCrudController", ["ROLE_ADMIN", "ROLE_VETERINARIAN"]],
-        "/admin/validation-avis" : ["admin/feedback-validation.html.twig", "FeedbackValidationController", ["ROLE_EMPLOYEE"]]
+        "/admin/validation-avis" : ["admin/feedback-validation.html.twig", "FeedbackValidationController", ["ROLE_EMPLOYEE"]],
+
+        "/register-views" : ["NONE", "RegisterViewsController", ["NONE"]]
     }
 }
