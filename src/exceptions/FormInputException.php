@@ -15,7 +15,6 @@ class FormInputException extends AbstractInputException
 
     public function __construct(string $input, string $problem)
     {
-        $this->input = $input;
         $message = 'Invalid form input (' . $input . '). Problem : ' .  $problem . '. Check if your form have all the inputs needed to process it correclty.';
 
         parent::__construct($message);

@@ -5,7 +5,9 @@ type FeedbackDataType = {
     'maxPerPage' : number,
     'isLastPage' : boolean,
     'content' : {
-        '_id' : number,
+        '_id' : {
+            '$oid' : number,
+        },
         'username' : string,
         'content' : string,
         'date' : string,
@@ -79,7 +81,7 @@ function updateFeedbacks(data : PageDataType) {
 
         const feedbackIdInput = clone.querySelector('input[type="hidden"][name="feedbackId"]');
         if(feedbackIdInput instanceof HTMLInputElement) {
-            feedbackIdInput.value = String(feedback._id);
+            feedbackIdInput.value = String(feedback._id.$oid);
         }
     
         feedbacksWrapper.appendChild(clone);

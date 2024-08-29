@@ -54,7 +54,9 @@ class Paginator {
 
     async #fetchPageData() {
         const response = await fetch(`${this.#url}?page=${this.#pageNum}`, {'method' : 'GET'});
-        return await response.json();
+        const json = await response.json();
+        console.log(json);
+        return json;
     }
 
     getPageData() : Promise<PageDataType>|PageDataType {

@@ -32,6 +32,8 @@ class HomeController {
 
         $services = array_map(function(array $service) { return new Service($service); }, ServicesDB->findAll(null, 3));
 
+        $feedbacks = self::getAllValidatedFeedbacks();
+
         return [
             'habitats' => $habitats,
             'services' => $services,
@@ -50,6 +52,8 @@ class HomeController {
         ];
 
         $feedbacks = self::getAllValidatedFeedbacks();
+
+        file_put_contents('../test.txt', $feedbacks);
         
         self::createFeedback();
 
@@ -67,17 +71,22 @@ class HomeController {
         };
 
         if(UserAlertsContainer::hasAlerts()) return;
-        
-        FeedbacksDB->insert([
+
+        file_put_contents('../test.txt', self::$formData['date']);
+
+        self::$formData['date'] = DateTime::createFromFormat('d/m/Y', self::$formData['date']);
+
+
+        FeedbacksCollection->insertOne([
             'username' => self::$formData['username'],
             'content' => self::$formData['content'],
-            'date' => self::$formData['date'],
+            'date' => self::$formData['date']->getTimestamp(),
             'is_validated' => false
         ]);
     }
 
     public static function getAllValidatedFeedbacks() : array
     {
-        return FeedbacksDB->findBy(['is_validated', '===', 'true'],['date' => 'desc']);
+        return FeedbacksCollection->find(['is_validated' => true], ['sort' => ['date' => -1]])->toArray();
     }
 }

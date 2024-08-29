@@ -87,11 +87,13 @@ class Feedback implements EntityInterface
      *
      * @return  self
      */ 
-    public function setDate(string|DateTime $date)
+    public function setDate(int|string|DateTime $date)
     {
+        $format = 'd/m/Y';
         match(gettype($date)) 
         {
-            'string' => $this->date = DateTime::createFromFormat('d/m/Y', $date),
+            'string' => $this->date = DateTime::createFromFormat($format, $date),
+            'integer' => $this->date = (new DateTime())->setTimestamp($date),
             'object' => $this->date = $date,
         };
 

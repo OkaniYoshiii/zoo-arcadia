@@ -52,7 +52,8 @@ define('FormSubmissionsStore', new Store('form_submissions', '../sleekdb', ['tim
 
 use MongoDB\Driver\ServerApi;
 $client = new MongoDB\Client(MONGODB_URI, [], ['serverApi' => new ServerApi(ServerApi::V1)]);
-define('AnimalViewsCollection', $client->arcadiaDb->animalViews);
+define('AnimalViewsCollection', $client->selectDatabase('arcadiaDb')->selectCollection('animalViews'));
+define('FeedbacksCollection', $client->selectDatabase('arcadiaDb')->selectCollection('feedbacks'));
 
 // CONTROLLERS AUTOINSTANCIATION
 $core = new Core();
