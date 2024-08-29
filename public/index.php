@@ -13,20 +13,6 @@ require_once '../config/config.global.php';
 // TWIG CONFIG
 require_once '../vendor/autoload.php';
 
-use MongoDB\Driver\ServerApi;
-$uri = 'mongodb+srv://dev:szCFC75YSL5wEjpe@arcdia-cluster.h7ubp.mongodb.net/?retryWrites=true&w=majority&appName=arcdia-cluster';
-// Set the version of the Stable API on the client
-$apiVersion = new ServerApi(ServerApi::V1);
-// Create a new client and connect to the server
-$client = new MongoDB\Client($uri, [], ['serverApi' => $apiVersion]);
-try {
-    // Send a ping to confirm a successful connection
-    $client->selectDatabase('admin')->command(['ping' => 1]);
-    echo "Pinged your deployment. You successfully connected to MongoDB!\n";
-} catch (Exception $e) {
-    printf($e->getMessage());
-}
-
 $loader = new \Twig\Loader\FilesystemLoader(TEMPLATE_DIR);
 define('TWIG', new \Twig\Environment($loader));
 
@@ -64,6 +50,25 @@ define('SchedulesDaysStore', new Store('schedules_days', '../sleekdb', ['timeout
 define('SchedulesHoursStore', new Store('schedules_hours', '../sleekdb', ['timeout' => false, 'auto_cache' => false]));
 define('SchedulesStore', new Store('schedules', '../sleekdb', ['timeout' => false]));
 define('FormSubmissionsStore', new Store('form_submissions', '../sleekdb', ['timeout' => false]));
+
+use MongoDB\Driver\ServerApi;
+// Set the version of the Stable API on the client
+$apiVersion = new ServerApi(ServerApi::V1);
+// Create a new client and connect to the server
+$client = new MongoDB\Client(MONGODB_URI, [], ['serverApi' => $apiVersion]);
+try {
+    // Send a ping to confirm a successful connection
+    // $client->selectDatabase('patate')->command(['ping' => 1]);
+    // echo "Pinged your deployment. You successfully connected to MongoDB!\n";
+
+    $collection = $client->arcadiaDb->animalViews;
+
+    // $collection->insertOne([
+    //     'views' => 4,
+    // ]);
+} catch (Exception $e) {
+    printf($e->getMessage());
+}
 
 // CONTROLLERS AUTOINSTANCIATION
 $core = new Core();
