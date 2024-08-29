@@ -27,7 +27,7 @@ class AnimalsTable
 
         foreach($animals as $animal)
         {
-            $animalViews = AnimalsViewsDB->findById($animal->getAnimalId());
+            $animalViews = AnimalViewsCollection->findOne(['animal_id' => $animal->getAnimalId()]);
             $views = ($animalViews) ? $animalViews['views'] : 0;
             $animal->setViews($views); 
         }
@@ -134,7 +134,7 @@ class AnimalsTable
             $animal['animal_images'] = array_map(function($animalImage) { return new AnimalImage($animalImage); }, $animal['animal_images']);
             $animal['habitat'] = new Habitat($animal['habitat']);
             $animal['breed'] = new Breed($animal['breed']);
-            $animal['views'] = AnimalsViewsDB->findById($animal['animal_id'])['views'] ?? 0;
+            $animal['views'] = AnimalViewsCollection->findOne(['animal_id' => $animal['animal_id']])['views'] ?? 0;
             return new Animal($animal);
         }, $animals);
 
