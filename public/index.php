@@ -43,7 +43,6 @@ define('ROUTE', $router->getCurrentRoute());
 // var_dump($_SESSION['role'], ROUTE['roles'], ROUTE['hasAccess']);
 
 use SleekDB\Store;
-define('ServicesDB', new Store('services', '../sleekdb', ['timeout' => false]));
 define('SchedulesDaysStore', new Store('schedules_days', '../sleekdb', ['timeout' => false, 'auto_cache' => false]));
 define('SchedulesHoursStore', new Store('schedules_hours', '../sleekdb', ['timeout' => false, 'auto_cache' => false]));
 define('SchedulesStore', new Store('schedules', '../sleekdb', ['timeout' => false]));
