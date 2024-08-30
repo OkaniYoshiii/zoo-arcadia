@@ -46,7 +46,6 @@ use SleekDB\Store;
 define('SchedulesDaysStore', new Store('schedules_days', '../sleekdb', ['timeout' => false, 'auto_cache' => false]));
 define('SchedulesHoursStore', new Store('schedules_hours', '../sleekdb', ['timeout' => false, 'auto_cache' => false]));
 define('SchedulesStore', new Store('schedules', '../sleekdb', ['timeout' => false]));
-define('FormSubmissionsStore', new Store('form_submissions', '../sleekdb', ['timeout' => false]));
 
 use MongoDB\Driver\ServerApi;
 $client = new MongoDB\Client(MONGODB_URI, [], ['serverApi' => new ServerApi(ServerApi::V1)]);
