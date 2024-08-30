@@ -9,7 +9,7 @@ class Service implements EntityInterface
 {
     use EntityTrait;
     
-    private int $service_id;
+    private string $service_id;
     private string $name;
     private string $description;
     private string $img;
@@ -18,7 +18,7 @@ class Service implements EntityInterface
     {
         if(is_null($properties)) return;
 
-        if(isset($properties['_id'])) $this->service_id = $properties['_id'];
+        if(isset($properties['_id'])) $this->service_id = (string) $properties['_id'];
 
         $this->setName($properties['name']);
         $this->setDescription($properties['description']);

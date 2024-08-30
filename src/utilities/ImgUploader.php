@@ -8,7 +8,7 @@ use UserAlertsContainer;
 class ImgUploader 
 {
     private array $file;
-    private array $allowedExtensions = ['jpg', 'webp', 'png'];
+    private array $allowedExtensions = ['jpg', 'webp', 'png', 'jpeg'];
     private array $allowedMimeTypes = ['image/jpeg', 'image/webp', 'image/png'];
     private int $maxFilesizeInMo = 5;
 
@@ -26,9 +26,9 @@ class ImgUploader
         if($this->file['size'] <= 0) UserAlertsContainer::add('La taille du fichier doit être supérieure à 0.');
         if(strlen($file['tmp_name']) > 35) UserAlertsContainer::add('Le nom du fichier ne doit pas dépasser les 35 caractères');
         if($this->file['size'] > $this->maxFilesizeInMo * 1048576) UserAlertsContainer::add('La taille du fichier dépasse les 5Mo.');
-        
+
         if(UserAlertsContainer::hasAlerts()) return;
-        
+
         $this->file['name'] = uniqid() . '.' . $this->file['extension'];
         $this->file['path'] = UPLOAD_DIR . '/' . $this->file['name'];
         if(file_exists($this->file['path'])) UPLOAD_DIR . '/' . $this->file['name'];

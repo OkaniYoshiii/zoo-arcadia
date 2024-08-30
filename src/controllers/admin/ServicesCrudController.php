@@ -3,6 +3,7 @@
 use App\Entity\Service;
 use App\Exception\FormInputException;
 use App\Utilities\ImgUploader;
+use MongoDB\Model\BSONDocument;
 
 class ServicesCrudController 
 {
@@ -10,9 +11,9 @@ class ServicesCrudController
 
     public function getVariables() : array
     {
-        $services = ServicesDB->findAll();
+        $services = ServicesCollection->find();
 
-        $services = array_map(function($service) {return new Service($service); }, $services);
+        $services = array_map(fn(BSONDocument $service) => new Service($service->getArrayCopy()), $services->toArray());
         return [
             'services' => $services,
         ];
@@ -43,12 +44,12 @@ class ServicesCrudController
         $this->imgUploader->upload($_FILES['serviceImg']);
         $filename = $this->imgUploader->getUploadedFileName();
 
-        ServicesDB->insert(['name' => $_POST['serviceName'], 'description' => $_POST['serviceDescription'], 'img' => $filename]);        
+        ServicesCollection->insertOne(['name' => $_POST['serviceName'], 'description' => $_POST['serviceDescription'], 'img' => $filename]);        
     }
 
     private function isServiceAlreadyRegistered() : bool 
     {
-        return !empty(ServicesDB->findBy(['name', '=', $_POST['serviceName']]));
+        return !empty(ServicesCollection->findOne(['name' => $_POST['serviceName']]));
     }
 
     private function updateService() : void
@@ -66,7 +67,7 @@ class ServicesCrudController
             $updateValues['img'] = $this->imgUploader->getUploadedFileName();
         }
 
-        ServicesDB->updateById($_POST['serviceId'], $updateValues);        
+        ServicesCollection->updateOne(['_id' => new MongoDb\BSON\ObjectID($_POST['serviceId'])], ['$set' => $updateValues]);        
     }
 
     private function deleteService() : void
@@ -75,6 +76,6 @@ class ServicesCrudController
         
         if(intval($_POST['serviceId']) === 0) throw new FormInputException('serviceId', FormInputException::NOT_NUMERIC);
 
-        ServicesDB->deleteById((int) $_POST['serviceId']);        
+        ServicesCollection->deleteOne(['_id' => new MongoDb\BSON\ObjectID($_POST['serviceId'])]);
     }
 }

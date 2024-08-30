@@ -4,6 +4,7 @@ use App\Entity\ScheduleHour;
 use App\Entity\Service;
 use App\Exception\FormInputException;
 use App\Models\Table\HabitatsTable;
+use MongoDB\Model\BSONDocument;
 
 class HomeController {
     private static array $formData;
@@ -30,14 +31,14 @@ class HomeController {
             return new ScheduleHour($data);
         }, $schedulesHours);
 
-        $services = array_map(function(array $service) { return new Service($service); }, ServicesDB->findAll(null, 3));
+        $services = array_map(function(BSONDocument $service) { return new Service($service->getArrayCopy()); }, ServicesCollection->find([], ['limit' => 3])->toArray());
 
         $feedbacks = self::getAllValidatedFeedbacks();
 
         return [
             'habitats' => $habitats,
             'services' => $services,
-            'feedbacks' => self::getAllValidatedFeedbacks(),
+            'feedbacks' => $feedbacks,
             'schedulesHours' => $schedulesHours,
             'weekDays' => SchedulesDaysStore->findAll(),
         ];

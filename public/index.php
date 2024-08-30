@@ -53,6 +53,7 @@ use MongoDB\Driver\ServerApi;
 $client = new MongoDB\Client(MONGODB_URI, [], ['serverApi' => new ServerApi(ServerApi::V1)]);
 define('AnimalViewsCollection', $client->selectDatabase('arcadiaDb')->selectCollection('animalViews'));
 define('FeedbacksCollection', $client->selectDatabase('arcadiaDb')->selectCollection('feedbacks'));
+define('ServicesCollection', $client->selectDatabase('arcadiaDb')->selectCollection('services'));
 
 // CONTROLLERS AUTOINSTANCIATION
 $core = new Core();

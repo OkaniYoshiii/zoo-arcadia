@@ -2,7 +2,7 @@
 
 class UserAlertsContainer
 {
-    private static array $alerts;
+    private static array $alerts = [];
 
     public static function add(string $alert)
     {
