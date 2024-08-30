@@ -53,6 +53,7 @@ $client = new MongoDB\Client(MONGODB_URI, [], ['serverApi' => new ServerApi(Serv
 define('AnimalViewsCollection', $client->selectDatabase('arcadiaDb')->selectCollection('animalViews'));
 define('FeedbacksCollection', $client->selectDatabase('arcadiaDb')->selectCollection('feedbacks'));
 define('ServicesCollection', $client->selectDatabase('arcadiaDb')->selectCollection('services'));
+define('FormSubmissionCollection', $client->selectDatabase('arcadiaDb')->selectCollection('formSubmissions'));
 
 // CONTROLLERS AUTOINSTANCIATION
 $core = new Core();

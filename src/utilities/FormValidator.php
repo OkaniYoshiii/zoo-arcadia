@@ -12,17 +12,17 @@ class FormValidator
         $timestamp = strtotime($_POST['sent_at']);
         if($timestamp === false) throw new FormInputException('sent_at', FormInputException::NOT_DATE);
 
-        $hasFormAlreadyBeenSubmited = (!empty(FormSubmissionsStore->findBy(['timestamp', '=' , $timestamp])));
-        
+        $hasFormAlreadyBeenSubmited = (!empty(FormSubmissionCollection->findOne(['timestamp' => $timestamp])));
+
         if($hasFormAlreadyBeenSubmited) UserAlertsContainer::add('Le formulaire a déjà été envoyé avec les même données auparvant.');
         
         if(UserAlertsContainer::hasAlerts()) return;
         
-        FormSubmissionsStore->insert(['timestamp' => $timestamp]);
+        FormSubmissionCollection->insertOne(['timestamp' => $timestamp]);
 
         /* Supprime les timestamps si ils datent de plus de X minutes */
         $deleteTimestampThreshold = $timestamp - 60 * 30;
-        FormSubmissionsStore->deleteBy(['timestamp', '<', $deleteTimestampThreshold]);
+        FormSubmissionCollection->deleteMany(['timestamp' => ['$lt' => $deleteTimestampThreshold]]);
     }
 
     public function checkCsrfToken() 
