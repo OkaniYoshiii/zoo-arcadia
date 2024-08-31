@@ -41,20 +41,19 @@ if(!ALLOW_FIXTURES_CREATION) {
 echo 'Démarrage de la création des fixtures :';
 echo PHP_EOL;
 
-$dbDirectory = './sleekdb';
+// $dbDirectory = './sleekdb';
 
-$storeName = 'schedules';
-IoHelper::deleteFolder($dbDirectory . '/' . $storeName);
-define('SchedulesStore', new Store($storeName, $dbDirectory, ['timeout' => false]));
+// $storeName = 'schedules';
+// IoHelper::deleteFolder($dbDirectory . '/' . $storeName);
+// define('SchedulesStore', new Store($storeName, $dbDirectory, ['timeout' => false]));
 
-$storeName = 'schedules_hours';
-IoHelper::deleteFolder($dbDirectory . '/' . $storeName);
-define('SchedulesHoursStore', new Store($storeName, $dbDirectory, ['timeout' => false]));
+// $storeName = 'schedules_hours';
+// IoHelper::deleteFolder($dbDirectory . '/' . $storeName);
+// define('SchedulesHoursStore', new Store($storeName, $dbDirectory, ['timeout' => false]));
 
-$storeName = 'schedules_days';
-IoHelper::deleteFolder($dbDirectory . '/' . $storeName);
-define('SchedulesDaysStore', new Store($storeName, $dbDirectory, ['timeout' => false]));
-
+// $storeName = 'schedules_days';
+// IoHelper::deleteFolder($dbDirectory . '/' . $storeName);
+// define('SchedulesDaysStore', new Store($storeName, $dbDirectory, ['timeout' => false]));
 
 echo 'Connexion à la base de données ...';
 echo PHP_EOL;
@@ -64,85 +63,58 @@ Database::connect();
 echo 'Connexion réussie !';
 echo PHP_EOL;
 
+echo 'Connexion à Mongodb Atlas ...';
+echo PHP_EOL;
+
+use MongoDB\Driver\ServerApi;
+$client = new MongoDB\Client(MONGODB_URI, [], ['serverApi' => new ServerApi(ServerApi::V1)]);
+define('SchedulesCollection', $client->selectDatabase('arcadiaDb')->selectCollection('schedules'));
+
+echo 'Connexion réussie !';
+echo PHP_EOL;
+
+echo 'Suppression des horaires ...';
+echo PHP_EOL;
+
+SchedulesCollection->deleteMany([]);
+
+echo 'Suppression réussie';
+echo PHP_EOL;
+
 echo 'Insertion des horaires ...';
 echo PHP_EOL;
 
-$schedulesHours = [
-    [
-        'hour' => '8h-9h'
-    ],
-    [
-        'hour' => '9h-10h'
-    ],
-    [
-        'hour' => '10h-11h'
-    ],
-    [
-        'hour' => '11h-12h'
-    ],
-    [
-        'hour' => '12h-13h'
-    ],
-    [
-        'hour' => '13h-14h'
-    ],
-    [
-        'hour' => '14h-15h'
-    ],
-    [
-        'hour' => '15h-16h'
-    ],
-    [
-        'hour' => '16h-17h'
-    ],
+$hours = [
+    '8h-9h' => ['isOpen' => false],
+    '9h-10h' => ['isOpen' => false],
+    '10h-11h' => ['isOpen' => false],
+    '11h-12h' => ['isOpen' => false],
+    '12h-13h' => ['isOpen' => false],
+    '13h-14h' => ['isOpen' => false],
+    '14h-15h' => ['isOpen' => false],
+    '15h-16h' => ['isOpen' => false],
+    '16h-17h' => ['isOpen' => false],
 ];
 
-SchedulesHoursStore->insertMany($schedulesHours);
-
-$schedulesDays = [
-    [
-        'day' => 'Lundi'
-    ],
-    [
-        'day' => 'Mardi'
-    ],
-    [
-        'day' => 'Mercredi'
-    ],
-    [
-        'day' => 'Jeudi'
-    ],
-    [
-        'day' => 'Vendredi'
-    ],
-    [
-        'day' => 'Samedi'
-    ],
-    [
-        'day' => 'Dimanche'
-    ],
+$days = [
+   'Lundi',
+   'Mardi',
+   'Mercredi',
+   'Jeudi',
+   'Vendredi',
+   'Samedi',
+   'Dimanche', 
 ];
 
-SchedulesDaysStore->insertMany($schedulesDays);
-
-$schedulesDays = SchedulesDaysStore->findAll();
-$schedulesHours = SchedulesHoursStore->findAll();
 $schedules = [];
-foreach($schedulesDays as $day)
+foreach($days as $day)
 {
-    foreach($schedulesHours as $hour)
-    {
-        $schedule = [];
-        $schedule['schedules_day_id'] = $day['_id'];
-        $schedule['schedules_hour_id'] = $hour['_id'];
-        $schedule['isOpen'] = (rand(0, 1) > 0.5) ? true : false ; 
-        $schedules[] = $schedule;
-    }
+    $schedules[] = ['day' => $day, 'hours' => $hours];
 }
 
-SchedulesStore->insertMany($schedules);
+SchedulesCollection->insertMany($schedules);
 
-echo 'Insertion des horaires réussie !';
+echo 'Insertion réussie !';
 echo PHP_EOL;
 
 $roles = [
