@@ -64,6 +64,10 @@ Dans ce fichier, rentrez le code suivant :
 	define('DB_USER', 'user');
 	define('DB_PWD', 'pwd');
 
+	// Uri pour se connecter à votre base de données MongoDb
+	// Si vous utilisez MongoDbAtlas, cela devrait ressembler à :
+	define('MONGODB_URI', 'mongodb+srv://<db_user>:<db_password>@<cluster_name>.h7ubp.mongodb.net/?retryWrites=true&w=majority&appName=<cluster_name>');
+
 	// Chaine de caractères aléatoire unique à votre projet utilisée pour sécuriser les 	mots de passe
 	// Le secret doit être de longueur 14 (112 bits) : Recommandation du NIST 	(National Institute of Standards and Technology)
 	// Voir : https://en.wikipedia.org/wiki/Pepper_(cryptography)
