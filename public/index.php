@@ -53,7 +53,6 @@ define('AnimalViewsCollection', $client->selectDatabase('arcadiaDb')->selectColl
 define('FeedbacksCollection', $client->selectDatabase('arcadiaDb')->selectCollection('feedbacks'));
 define('ServicesCollection', $client->selectDatabase('arcadiaDb')->selectCollection('services'));
 define('FormSubmissionCollection', $client->selectDatabase('arcadiaDb')->selectCollection('formSubmissions'));
-define('SchedulesCollection', $client->selectDatabase('arcadiaDb')->selectCollection('schedules'));
 
 // CONTROLLERS AUTOINSTANCIATION
 $core = new Core();
