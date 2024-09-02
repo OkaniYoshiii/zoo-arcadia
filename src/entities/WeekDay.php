@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
+use App\Interface\EntityInterface;
 use App\Trait\EntityTrait;
 
-class ScheduleDay
+class WeekDay implements EntityInterface
 {
     use EntityTrait;
 

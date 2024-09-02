@@ -5,7 +5,9 @@
 
 // APP CONFIG
 
+use App\Entity\Schedule;
 use App\Exception\RouterException;
+use App\Models\Table\SchedulesTable;
 use App\Utilities\Session;
 
 require_once '../config/config.global.php';

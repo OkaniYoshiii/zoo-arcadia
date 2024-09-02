@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
+use App\Interface\EntityInterface;
 use App\Trait\EntityTrait;
 
-class ScheduleHour
+class ScheduleHour implements EntityInterface
 {
     use EntityTrait;
 
@@ -21,7 +22,7 @@ class ScheduleHour
         if(isset($properties['schedules'])) {
             $this->schedules = array_map(function($schedule) { 
                 $schedule['schedules_hour'] = $this;
-                $schedule['schedules_day'] = new ScheduleDay($schedule['schedules_day']);
+                $schedule['schedules_day'] = new WeekDay($schedule['schedules_day']);
                 return new Schedule($schedule);
             }, $properties['schedules']);
         }

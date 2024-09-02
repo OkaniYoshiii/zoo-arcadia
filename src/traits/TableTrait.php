@@ -2,6 +2,7 @@
 
 namespace App\Trait;
 
+use App\Entity\Schedule;
 use App\Entity\User;
 use App\Interface\EntityInterface;
 use Database;

@@ -2,25 +2,30 @@
 
 namespace App\Entity;
 
+use App\Interface\EntityInterface;
 use App\Trait\EntityTrait;
 
-class Schedule 
+class Schedule implements EntityInterface
 {
     use EntityTrait;
 
     private int $schedule_id;
+    private int $schedule_hour_id;
+    private int $week_day_id;
     private ScheduleHour $hour;
-    private ScheduleDay $day;
-    private bool $is_open;
+    private WeekDay $day;
+    private bool $is_opened;
 
     public function __construct(array $properties = null)
     {
         if(!isset($properties)) return;
 
-        if(isset($properties['_id'])) $this->schedule_id = $properties['_id'];
-        $this->hour = $properties['schedules_hour'];
-        $this->day = $properties['schedules_day'];
-        $this->is_open = $properties['isOpen'];
+        if(isset($properties['schedule_id'])) $this->schedule_id = $properties['schedule_id'];
+        if(isset($properties['schedule_hour_id'])) $this->schedule_hour_id = $properties['schedule_hour_id'];
+        if(isset($properties['week_day_id'])) $this->week_day_id = $properties['week_day_id'];
+        if(isset($properties['hour'])) $this->hour = $properties['hour'];
+        if(isset($properties['day'])) $this->day = $properties['day'];
+        if(isset($properties['is_opened'])) $this->is_opened = $properties['is_opened'];
     }
 
      /**
@@ -88,7 +93,7 @@ class Schedule
      */ 
     public function getIsOpen()
     {
-        return $this->is_open;
+        return $this->is_opened;
     }
 
     /**
@@ -96,9 +101,9 @@ class Schedule
      *
      * @return  self
      */ 
-    public function setIsOpen($is_open)
+    public function setIsOpened($is_opened)
     {
-        $this->is_open = $is_open;
+        $this->is_opened = $is_opened;
 
         return $this;
     }
