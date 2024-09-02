@@ -9,7 +9,7 @@ class WeekDay implements EntityInterface
 {
     use EntityTrait;
 
-    private int $schedule_day_id;
+    private int $week_day_id;
     private string $day;
     private array $schedules;
 
@@ -17,7 +17,7 @@ class WeekDay implements EntityInterface
     {
         if(!isset($properties)) return;
 
-        if(isset($properties['_id'])) $this->schedule_day_id = $properties['_id'];
+        if(isset($properties['week_day_id'])) $this->week_day_id = $properties['week_day_id'];
         $this->day = $properties['day'];
         if(isset($properties['schedules'])) {
             $this->schedules = array_map(function($schedule) { 
@@ -34,11 +34,11 @@ class WeekDay implements EntityInterface
     }
 
     /**
-     * Get the value of schedule_day_id
+     * Get the value of week_day_id
      */ 
-    public function getScheduleDayId()
+    public function getWeek_day_id()
     {
-        return $this->schedule_day_id;
+        return $this->week_day_id;
     }
 
     /**

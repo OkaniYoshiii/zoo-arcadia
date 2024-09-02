@@ -139,22 +139,20 @@
                         <thead>
                             <tr>
                                 <th>Horaires</th>
-                                {% for day in weekDays %}
-                                    <th>{{ day.day }}</th>
+                                {% for weekDay in weekDays %}
+                                    <th>{{ weekDay }}</th>
                                 {% endfor %}
                             </tr>
                         </thead>
                         <tbody>
-                            {% for scheduleHour in schedulesHours %}
-                                <tr>
-                                    <th scope="row">{{ scheduleHour.hour }}</th>
-                                    {% for schedule in scheduleHour.schedules %}
-                                        <td>
-                                            {% set imgSrc = (schedule.isOpen == 'true') ? 'checkmark.svg' : 'cross.svg' %}
-                                            <img src="{{ IMG_DIR }}/{{ imgSrc}}" width="" height="" alt="">
-                                        </td>
-                                    {% endfor %}
-                                </tr>
+                            {% for schedule in schedulesOrderedByHours %}
+                                {% set imgSrc = (schedule.isOpened) ? 'checkmark.svg' : 'cross.svg' %}
+                                {% if loop.index == 1 or loop.index0 % weekDays|length == 0 %}
+                                    <tr>
+                                    <th scope="row">{{ schedule.scheduleHour }}</th>
+                                {% endif %}
+                                    <td><img src="{{ IMG_DIR }}/{{ imgSrc }}" width="" height="" alt=""></td>
+                                {% if loop.index % weekDays|length == 0 %} </tr> {% endif %}
                             {% endfor %}
                         </tbody>
                     </table> 

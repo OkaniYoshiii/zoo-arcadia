@@ -20,6 +20,17 @@ trait TableTrait
         return Database::$statement->fetchAll(PDO::FETCH_CLASS, self::ENTITY['class']);
     }
 
+    public static function findById(int $id) : EntityInterface
+    {
+        self::checkConstantsDeclaration();
+
+        Database::$statement = Database::$pdo->prepare('SELECT * FROM ' . self::TABLE_NAME . ' WHERE ' . self::PRIMARY_KEY . '=:id');
+        Database::$statement->bindValue(':id', $id);
+        Database::$statement->setFetchMode(PDO::FETCH_CLASS, self::ENTITY['class']);
+        Database::$statement->execute();
+        return Database::$statement->fetch();
+    }
+
     public static function create(EntityInterface $entity) : int
     {
         self::checkConstantsDeclaration();
@@ -108,6 +119,14 @@ trait TableTrait
         self::checkConstantsDeclaration();
 
         Database::$pdo->query('SET FOREIGN_KEY_CHECKS = 0; TRUNCATE TABLE ' . self::TABLE_NAME . '; SET FOREIGN_KEY_CHECKS = 1;');
+    }
+
+    public static function getOrderedBy(array $fields) 
+    {
+        self::checkConstantsDeclaration();
+
+        Database::$statement = Database::$pdo->query('SELECT * FROM ' . self::TABLE_NAME . ' ORDER BY ' . implode(', ', $fields));
+        return Database::$statement->fetchAll(PDO::FETCH_CLASS, self::ENTITY['class']);
     }
 
     private static function checkConstantsDeclaration() : void

@@ -6,6 +6,7 @@ use App\Entity\ScheduleDay;
 use App\Entity\ScheduleHour;
 use App\Models\Table\AnimalImagesTable;
 use App\Models\Table\AnimalsTable;
+use App\Models\Table\SchedulesTable;
 use SleekDB\QueryBuilder;
 
 class AdminDashboardController 
@@ -28,28 +29,18 @@ class AdminDashboardController
          */
         $animals = AnimalsTable::getAllWithJoins();
 
-        $schedulesHours = SchedulesHoursStore
-            ->createQueryBuilder()
-            ->join(function ($hour) {
-                return SchedulesStore
-                    ->createQueryBuilder()
-                    ->where(['schedules_hour_id', '=', $hour['_id']])
-                    ->join(function($schedule) {
-                        return SchedulesDaysStore->findBy(['_id', '=', $schedule['schedules_day_id']])[0];
-                    }, 'schedules_day')
-                    ->getQuery()
-                    ->fetch();
-            }, 'schedules')
-            ->getQuery()
-            ->fetch();
+        // SchedulesStore;
 
-        $schedulesHours = array_map(function($data) {
-            return new ScheduleHour($data);
-        }, $schedulesHours);
+        $schedules = SchedulesTable::getAll();
+
+        // $schedulesHours = array_map(function($data) {
+        //     return new ScheduleHour($data);
+        // }, $schedulesHours);
 
 
         return [
-            'schedulesHours' => $schedulesHours,
+            'schedules' => $schedules,
+            // 'schedulesHours' => $schedulesHours,
             'weekDays' => SchedulesDaysStore->findAll(),
             'animals' => $animals
         ];
@@ -57,11 +48,11 @@ class AdminDashboardController
 
     public function processFormData() : void
     {
-        $schedules = SchedulesStore->findAll();
+        $schedules = SchedulesTable::getAll();
         foreach($schedules as $schedule)
         {
             $schedule['isOpen'] = (in_array($schedule['_id'], $_POST['schedulesIds']));
-            SchedulesStore->update($schedule);
+            SchedulesTable::update($schedule);
         }
     }
 }

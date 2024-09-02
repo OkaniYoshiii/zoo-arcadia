@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Interface\EntityInterface;
+use App\Models\Table\ScheduleHoursTable;
+use App\Models\Table\WeekDaysTable;
 use App\Trait\EntityTrait;
 
 class Schedule implements EntityInterface
@@ -12,8 +14,8 @@ class Schedule implements EntityInterface
     private int $schedule_id;
     private int $schedule_hour_id;
     private int $week_day_id;
-    private ScheduleHour $hour;
-    private WeekDay $day;
+    private ScheduleHour $scheduleHour;
+    private WeekDay $weekDay;
     private bool $is_opened;
 
     public function __construct(array $properties = null)
@@ -25,7 +27,7 @@ class Schedule implements EntityInterface
         if(isset($properties['week_day_id'])) $this->week_day_id = $properties['week_day_id'];
         if(isset($properties['hour'])) $this->hour = $properties['hour'];
         if(isset($properties['day'])) $this->day = $properties['day'];
-        if(isset($properties['is_opened'])) $this->is_opened = $properties['is_opened'];
+        if(isset($properties['is_opened'])) $this->is_opened = (bool) $properties['is_opened'];
     }
 
      /**
@@ -49,49 +51,9 @@ class Schedule implements EntityInterface
     }
 
     /**
-     * Get the value of hour
-     */ 
-    public function getHours()
-    {
-        return $this->hour;
-    }
-
-    /**
-     * Set the value of hour
-     *
-     * @return  self
-     */ 
-    public function setHour($hour)
-    {
-        $this->hour = $hour;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of day
-     */ 
-    public function getDay()
-    {
-        return $this->day;
-    }
-
-    /**
-     * Set the value of day
-     *
-     * @return  self
-     */ 
-    public function setDay($day)
-    {
-        $this->day = $day;
-
-        return $this;
-    }
-
-    /**
      * Get the value of is_open
      */ 
-    public function getIsOpen()
+    public function getIsOpened()
     {
         return $this->is_opened;
     }
@@ -104,6 +66,91 @@ class Schedule implements EntityInterface
     public function setIsOpened($is_opened)
     {
         $this->is_opened = $is_opened;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of schedule_hour_id
+     */ 
+    public function getScheduleHourId()
+    {
+
+        return $this->schedule_hour_id;
+    }
+
+    /**
+     * Set the value of schedule_hour_id
+     *
+     * @return  self
+     */ 
+    public function setScheduleHourId($schedule_hour_id)
+    {
+        $this->schedule_hour_id = $schedule_hour_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of week_day_id
+     */ 
+    public function getWeekDayId()
+    {
+        return $this->week_day_id;
+    }
+
+    /**
+     * Set the value of week_day_id
+     *
+     * @return  self
+     */ 
+    public function setWeekDayId($week_day_id)
+    {
+        $this->week_day_id = $week_day_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of scheduleHour
+     */ 
+    public function getScheduleHour()
+    {
+        if(!isset($this->scheduleHour)) $this->setScheduleHour(ScheduleHoursTable::findById($this->schedule_hour_id));
+
+        return $this->scheduleHour;
+    }
+
+    /**
+     * Set the value of scheduleHour
+     *
+     * @return  self
+     */ 
+    public function setScheduleHour($scheduleHour)
+    {
+        $this->scheduleHour = $scheduleHour;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of weekDay
+     */ 
+    public function getWeekDay()
+    {
+        if(!isset($this->weekDay)) $this->setWeekDay(WeekDaysTable::findById($this->week_day_id));
+
+        return $this->weekDay;
+    }
+
+    /**
+     * Set the value of weekDay
+     *
+     * @return  self
+     */ 
+    public function setWeekDay($weekDay)
+    {
+        $this->weekDay = $weekDay;
 
         return $this;
     }
