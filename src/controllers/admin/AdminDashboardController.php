@@ -7,6 +7,7 @@ use App\Entity\ScheduleHour;
 use App\Models\Table\AnimalImagesTable;
 use App\Models\Table\AnimalsTable;
 use App\Models\Table\SchedulesTable;
+use App\Models\Table\WeekDaysTable;
 use SleekDB\QueryBuilder;
 
 class AdminDashboardController 
@@ -29,20 +30,14 @@ class AdminDashboardController
          */
         $animals = AnimalsTable::getAllWithJoins();
 
-        // SchedulesStore;
-
-        $schedules = SchedulesTable::getAll();
-
-        // $schedulesHours = array_map(function($data) {
-        //     return new ScheduleHour($data);
-        // }, $schedulesHours);
+        $schedulesOrderedByHours = SchedulesTable::getOrderedBy(['schedule_hour_id', 'week_day_id']);
+        $weekDays = WeekDaysTable::getAll();
 
 
         return [
-            'schedules' => $schedules,
-            // 'schedulesHours' => $schedulesHours,
-            'weekDays' => SchedulesDaysStore->findAll(),
-            'animals' => $animals
+            'animals' => $animals,
+            'schedulesOrderedByHours' => $schedulesOrderedByHours,
+            'weekDays' => $weekDays,
         ];
     }
 
@@ -51,7 +46,8 @@ class AdminDashboardController
         $schedules = SchedulesTable::getAll();
         foreach($schedules as $schedule)
         {
-            $schedule['isOpen'] = (in_array($schedule['_id'], $_POST['schedulesIds']));
+            $isOpened = (in_array($schedule->getScheduleId(), $_POST['schedulesIds']));
+            $schedule->setIsOpened($isOpened);
             SchedulesTable::update($schedule);
         }
     }
