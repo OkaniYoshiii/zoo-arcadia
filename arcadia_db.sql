@@ -88,3 +88,22 @@ CREATE TABLE employee_reports (
     FOREIGN KEY (animal_id) REFERENCES animals(animal_id),
     FOREIGN KEY (food_unit_id) REFERENCES food_units(food_unit_id)
 );
+
+CREATE TABLE schedule_hours (
+    schedule_hour_id INT(11) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    hour VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE week_days (
+    week_day_id INT(11) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    day VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE schedules (
+    schedule_id INT(11) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    schedule_hour_id INT(11) UNSIGNED NOT NULL,
+    week_day_id INT(11) UNSIGNED NOT NULL,
+    is_opened TINYINT(1) UNSIGNED NOT NULL,
+    FOREIGN KEY (schedule_hour_id) REFERENCES schedule_hours(schedule_hour_id),
+    FOREIGN KEY (week_day_id) REFERENCES week_days(week_day_id)
+);
