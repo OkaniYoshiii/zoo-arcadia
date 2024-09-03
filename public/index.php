@@ -50,10 +50,10 @@ define('SchedulesHoursStore', new Store('schedules_hours', '../sleekdb', ['timeo
 
 use MongoDB\Driver\ServerApi;
 $client = new MongoDB\Client(MONGODB_URI, [], ['serverApi' => new ServerApi(ServerApi::V1)]);
-define('AnimalViewsCollection', $client->selectDatabase('arcadiaDb')->selectCollection('animalViews'));
-define('FeedbacksCollection', $client->selectDatabase('arcadiaDb')->selectCollection('feedbacks'));
-define('ServicesCollection', $client->selectDatabase('arcadiaDb')->selectCollection('services'));
-define('FormSubmissionCollection', $client->selectDatabase('arcadiaDb')->selectCollection('formSubmissions'));
+define('AnimalViewsCollection', $client->selectDatabase(MONGODB_DATABASE)->selectCollection('animalViews'));
+define('FeedbacksCollection', $client->selectDatabase(MONGODB_DATABASE)->selectCollection('feedbacks'));
+define('ServicesCollection', $client->selectDatabase(MONGODB_DATABASE)->selectCollection('services'));
+define('FormSubmissionCollection', $client->selectDatabase(MONGODB_DATABASE)->selectCollection('formSubmissions'));
 
 // CONTROLLERS AUTOINSTANCIATION
 $core = new Core();
