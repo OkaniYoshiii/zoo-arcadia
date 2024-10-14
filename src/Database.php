@@ -6,12 +6,9 @@ class Database {
 
     public static function connect()
     {
-        try {
-            self::$pdo = new PDO(DB_DSN, DB_USER, DB_PWD);
-        } catch(PDOException $error) {
-            // logger l'erreur sur un fichier par exemple
-        }
-    }
+        self::$pdo = new PDO(DB_DSN, DB_USER, DB_PWD);
+        // self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
 
     public static function disconnect()
     {

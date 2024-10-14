@@ -43,7 +43,13 @@ trait TableTrait
         
         foreach($entity->getObjectVars() as $name => $value)
         {
-            Database::$statement->bindValue($name, $value);
+            $type = match(gettype($value)) {
+                'boolean' => PDO::PARAM_INT,
+                'string' => PDO::PARAM_STR,
+                default => PDO::PARAM_STR
+            };
+
+            Database::$statement->bindValue($name, $value, $type);
         }
 
         Database::$statement->execute();
@@ -67,7 +73,13 @@ trait TableTrait
         
         foreach($properties as $name => $value)
         {
-            Database::$statement->bindValue(':' . $name, $value);
+            $type = match(gettype($value)) {
+                'boolean' => PDO::PARAM_INT,
+                'string' => PDO::PARAM_STR,
+                default => PDO::PARAM_STR
+            };
+
+            Database::$statement->bindValue(':' . $name, $value, $type);
         }
         Database::$statement->bindValue(':entity_id', $entityId);
 
@@ -107,7 +119,14 @@ trait TableTrait
                     $value = password_hash(hash_hmac("sha256", $value, APP_SECRET), PASSWORD_DEFAULT);
                 } 
             }
-            Database::$statement->bindValue(':' . $name, $value);
+
+            $type = match(gettype($value)) {
+                'boolean' => PDO::PARAM_INT,
+                'string' => PDO::PARAM_STR,
+                default => PDO::PARAM_STR
+            };
+            
+            Database::$statement->bindValue(':' . $name, $value, $type);
         }
 
         Database::$statement->execute();
