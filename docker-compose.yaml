@@ -1,18 +1,26 @@
 version: "3.7"
 services:
   web:
-    build: .
+    image: okaniyoshiii/zoo-arcadia:latest
     volumes:
       - ./:/var/www/html
     ports:
       - 80:80
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
   db:
     image: mysql
     volumes:
       - myapp:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: db_pwd
+      # MYSQL_ROOT_PASSWORD: db_pwd
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/my_secret
       MYSQL_DATABASE: arcadia_db
+    secrets: 
+      - my_secret
+    
     ports:
       - 3306:3306
   phpmyadmin:
@@ -20,9 +28,12 @@ services:
     restart: always
     ports:
       - 8080:80
-    environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=192.168.1.21
-      - PMA_PORT=3306
+    depends_on:
+      - db
+    secrets: 
+      - my_secret
 volumes:
   myapp:
+secrets:
+  my_secret:
+    file: ./my_secret.txt
