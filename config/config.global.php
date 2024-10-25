@@ -50,5 +50,3 @@ define('SRC_FOLDERS', [
     TRAITS_DIR,
     EXCEPTIONS_DIR
 ]);
-
-require_once 'config.local.php';

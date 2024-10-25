@@ -34,6 +34,6 @@ class FormValidator
 
     public function checkRequestOrigin()
     {
-        header("Access-Control-Allow-Origin: " . SITE_URL);
+        header("Access-Control-Allow-Origin: " . $_ENV['SITE_URL']);
     }
 }

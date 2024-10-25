@@ -46,45 +46,11 @@ composer install
 
 ### Configuration BDD
 
-Créez un fichier nommé **config.local.php** dans le dossier **config**. 
+Copiez le fichier `.env.local.example` et renommez le en `.env.local`.
 
-Dans ce fichier, rentrez le code suivant :
+Changer les différentes variables d'environnements en fonction de vos besoins. Chaque variable est décrite en commentaire dans le fichier.
 
-```php
-<?php
-	// Variables et constantes spécifiques à un environnement particulier
-	// Exemple : l'URL du site, les identifiants de la BDD ...
-
-	// Nom de domaine de votre site
-    // http://localhost en local
-	define('SITE_URL', 'https://monsite.com');
-
-	// Informations de connexion à votre base de données
-	define('DB_DSN', 'mysql:host=localhost;dbname=myDb');
-	define('DB_USER', 'user');
-	define('DB_PWD', 'pwd');
-
-	// Uri pour se connecter à votre base de données MongoDb
-	// Si vous utilisez MongoDbAtlas, cela devrait ressembler à :
-	define('MONGODB_URI', 'mongodb+srv://<db_user>:<db_password>@<cluster_name>.h7ubp.mongodb.net/?retryWrites=true&w=majority&appName=<cluster_name>');
-
-	// Nom de la base de données MongoDb sur laquelle vous souhaitez utiliser
-	define('MONGODB_DATABASE', 'mongodb_db_name');
-
-
-	// Chaine de caractères aléatoire unique à votre projet utilisée pour sécuriser les 	mots de passe
-	// Le secret doit être de longueur 14 (112 bits) : Recommandation du NIST 	(National Institute of Standards and Technology)
-	// Voir : https://en.wikipedia.org/wiki/Pepper_(cryptography)
-    define('APP_SECRET', 'HXTAeiDQWLADBm');
-```
-
-[...] et modifiez :
-
-- *SITE_URL :* le nom de domaine de votre site
-- *DB_DSN :* les informations liées à votre base de données
-- *DB_USER :* le nom d'utilisateur de votre base de données
-- *DB_PWD :* le mot de passe de votre base de données
-- *APP_SECRET :* un chaine de caractères aléatoires d'une longueur de 14 caratères minimum
+NB : certaines variables sont liées au conteneur Docker et sont donc optionnelles. Si vous n'utilisez pas Docker, vous pouvez donc les supprimer.
 
 Une fois cela fait, importez le fichier *arcadia_db* présent à la racine du projet dans votre SGBDR.
 

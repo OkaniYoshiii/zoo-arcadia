@@ -6,7 +6,7 @@ class Database {
 
     public static function connect()
     {
-        self::$pdo = new PDO(DB_DSN, DB_USER, DB_PWD);
+        self::$pdo = new PDO($_ENV['DB_DSN'], $_ENV['DB_USER'], $_ENV['DB_PWD']);
         // self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 

@@ -2,6 +2,7 @@
     "require": {
         "twig/twig": "^3.10",
         "rakibtg/sleekdb": "^2.15",
-        "mongodb/mongodb": "^1.19"
+        "mongodb/mongodb": "^1.19",
+        "vlucas/phpdotenv": "^5.6"
     }
 }
