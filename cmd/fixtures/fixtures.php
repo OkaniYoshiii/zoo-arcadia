@@ -6,6 +6,10 @@ require_once './config/config.global.php';
 
 require_once './vendor/autoload.php';
 
+// ENV VARIABLES
+$dotenv = Dotenv\Dotenv::createImmutable('./', '.env.local');
+$dotenv->load();
+
 require_once './src/Autoloader.php';
 Autoloader::register();
 

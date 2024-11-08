@@ -153,6 +153,6 @@ class UsersTable
 
     private static function getPepperedPassword(string $pwd) : string
     {
-        return hash_hmac("sha256", $pwd, APP_SECRET);
+        return hash_hmac("sha256", $pwd, $_ENV['APP_SECRET']);
     }
 }

@@ -1,7 +1,5 @@
 node_modules
 vendor
-config/config.local.php
-sleekdb
 logs.txt
 public/uploads
 .env.local

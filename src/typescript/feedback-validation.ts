@@ -42,16 +42,17 @@ if(nextPageBtn !== null) {
     }, false,);
 }
 
-const feedbackTemplate = document.getElementById('feedback-template');
-const feedbacksWrapper = document.querySelector('.feedbacks');
+
 
 function updateFeedbacks(data : PageDataType) {
+    const feedbackTemplate = document.getElementById('feedback-template');
+    const feedbacksWrapper = document.querySelector('.feedbacks');
+
     if(feedbackTemplate === null) return;
     if(!(feedbackTemplate instanceof HTMLTemplateElement)) return;
     if(feedbacksWrapper === null) return;
 
     feedbacksWrapper.innerHTML = '';
-    
     if(!isFeedback(data)) return;
     data.content.forEach((feedback) => {
         const clone = feedbackTemplate.content.cloneNode(true);

@@ -14,6 +14,8 @@ services:
     image: mysql
     volumes:
       - myapp:/var/lib/mysql
+    # Charge les variables d'environement depuis un fichier ".env.local"
+    # Ce fichier n'est pas envoyé sur Github permettant de protéger les informations dedans
     env_file:
       - .env.local
     ports:
