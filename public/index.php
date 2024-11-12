@@ -43,12 +43,6 @@ use App\Router;
 $router = new Router(CONFIG_DIR . '/routes.json');
 define('ROUTE', $router->getCurrentRoute());
 
-// var_dump($_SESSION['role'], ROUTE['roles'], ROUTE['hasAccess']);
-
-use SleekDB\Store;
-define('SchedulesDaysStore', new Store('schedules_days', '../sleekdb', ['timeout' => false, 'auto_cache' => false]));
-define('SchedulesHoursStore', new Store('schedules_hours', '../sleekdb', ['timeout' => false, 'auto_cache' => false]));
-
 use MongoDB\Driver\ServerApi;
 $client = new MongoDB\Client($_ENV['MONGODB_URI'], [], ['serverApi' => new ServerApi(ServerApi::V1)]);
 define('AnimalViewsCollection', $client->selectDatabase($_ENV['MONGODB_NAME'])->selectCollection('animalViews'));
