@@ -1,33 +1,33 @@
 <?php
 
-use App\Entity\Animal;
-use App\Entity\AnimalImage;
-use App\Entity\Breed;
-use App\Entity\EmployeeReport;
-use App\Entity\FoodType;
-use App\Entity\FoodUnit;
-use App\Entity\Habitat;
-use App\Entity\HabitatImage;
-use App\Entity\Role;
-use App\Entity\Schedule;
-use App\Entity\ScheduleHour;
-use App\Entity\User;
-use App\Entity\VeterinarianReport;
-use App\Entity\WeekDay;
-use App\Models\Table\AnimalImagesTable;
-use App\Models\Table\AnimalsTable;
-use App\Models\Table\BreedsTable;
-use App\Models\Table\EmployeeReportsTable;
-use App\Models\Table\FoodTypesTable;
-use App\Models\Table\FoodUnitsTable;
-use App\Models\Table\HabitatImagesTable;
-use App\Models\Table\HabitatsTable;
-use App\Models\Table\RolesTable;
-use App\Models\Table\ScheduleHoursTable;
-use App\Models\Table\SchedulesTable;
-use App\Models\Table\UsersTable;
-use App\Models\Table\VeterinarianReportsTable;
-use App\Models\Table\WeekDaysTable;
+use App\Entities\Animal;
+use App\Entities\AnimalImage;
+use App\Entities\Breed;
+use App\Entities\EmployeeReport;
+use App\Entities\FoodType;
+use App\Entities\FoodUnit;
+use App\Entities\Habitat;
+use App\Entities\HabitatImage;
+use App\Entities\Role;
+use App\Entities\Schedule;
+use App\Entities\ScheduleHour;
+use App\Entities\User;
+use App\Entities\VeterinarianReport;
+use App\Entities\WeekDay;
+use App\Tables\AnimalImagesTable;
+use App\Tables\AnimalsTable;
+use App\Tables\BreedsTable;
+use App\Tables\EmployeeReportsTable;
+use App\Tables\FoodTypesTable;
+use App\Tables\FoodUnitsTable;
+use App\Tables\HabitatImagesTable;
+use App\Tables\HabitatsTable;
+use App\Tables\RolesTable;
+use App\Tables\ScheduleHoursTable;
+use App\Tables\SchedulesTable;
+use App\Tables\UsersTable;
+use App\Tables\VeterinarianReportsTable;
+use App\Tables\WeekDaysTable;
 
 function createWeekDays(array $weekDays) : void
 {

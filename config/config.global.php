@@ -1,6 +1,6 @@
 <?php
 
-if(!isset($rootDir)) $rootDir = '../';
+if(!isset($rootDir)) $rootDir = __DIR__ . '/../';
 
 // Autorise la création de fixtures sur l'application via la CLI
 // ATTENTION : ceci écrase toutes les données de votre base de données !

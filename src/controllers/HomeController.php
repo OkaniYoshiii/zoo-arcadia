@@ -1,12 +1,14 @@
 <?php
 
-use App\Entity\ScheduleHour;
-use App\Entity\Service;
-use App\Exception\FormInputException;
-use App\Models\Table\HabitatsTable;
-use App\Models\Table\ScheduleHoursTable;
-use App\Models\Table\SchedulesTable;
-use App\Models\Table\WeekDaysTable;
+namespace App\Controllers;
+
+use App\Entities\Service;
+use App\Exceptions\FormInputException;
+use App\Tables\HabitatsTable;
+use App\Tables\SchedulesTable;
+use App\Tables\WeekDaysTable;
+use App\Utilities\UserAlertsContainer;
+use DateTime;
 use MongoDB\Model\BSONDocument;
 
 class HomeController {

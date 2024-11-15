@@ -1,8 +1,11 @@
 <?php
 
-use App\Entity\Breed;
-use App\Exception\FormInputException;
-use App\Models\Table\BreedsTable;
+namespace App\Controllers\Admin;
+
+use App\Entities\Breed;
+use App\Exceptions\FormInputException;
+use App\Tables\BreedsTable;
+use Exception;
 
 class BreedsCrudController 
 {

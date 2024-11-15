@@ -2,15 +2,17 @@
 
 namespace App;
 
-use App\Entity\Role;
-use App\Exception\RouterException;
+use App\Entities\Role;
+use App\Exceptions\RouterException;
 
 class Router
 {
     private array $currentRoute;
+    private array $request;
 
-    public function __construct(string $routes_config_path)
+    public function __construct(string $routes_config_path, array $request)
     {
+        $this->request = $request;
         $this->setCurrentRoute($routes_config_path);
     }
 
@@ -20,27 +22,26 @@ class Router
     
         $routes = json_decode(file_get_contents($routes_config_path), true);
 
-        if(!isset($routes[REQUEST['method']])) throw new RouterException('No routes found with request method : ' . REQUEST['method']);
-        if(!isset($routes[REQUEST['method']][REQUEST['uri']])) throw new RouterException('No routes found with request method : ' . REQUEST['method'] . ' and request uri : ' . REQUEST['uri']);
+        if(!isset($routes[$this->request['method']])) throw new RouterException('No routes found with request method : ' . $this->request['method']);
+        if(!isset($routes[$this->request['method']][$this->request['uri']])) throw new RouterException('No routes found with request method : ' . $this->request['method'] . ' and request uri : ' . $this->request['uri']);
         
-        if(!isset($routes[REQUEST['method']][REQUEST['uri']][0])) throw new RouterException('Route has no template defined');
-        if(!isset($routes[REQUEST['method']][REQUEST['uri']][1])) throw new RouterException('Route has no controller defined');
-        if(!isset($routes[REQUEST['method']][REQUEST['uri']][2])) throw new RouterException('Route has no roles defined');
+        if(!isset($routes[$this->request['method']][$this->request['uri']][0])) throw new RouterException('Route has no template defined');
+        if(!isset($routes[$this->request['method']][$this->request['uri']][1])) throw new RouterException('Route has no controller defined');
+        if(!isset($routes[$this->request['method']][$this->request['uri']][2])) throw new RouterException('Route has no roles defined');
 
-        $this->currentRoute['method'] = REQUEST['method'];
-        $this->currentRoute['uri'] = REQUEST['uri'];
+        $this->currentRoute['method'] = $this->request['method'];
+        $this->currentRoute['uri'] = $this->request['uri'];
 
-        $templateName = $routes[REQUEST['method']][REQUEST['uri']][0];
+        $templateName = $routes[$this->request['method']][$this->request['uri']][0];
 
         if($templateName !== 'NONE') {
-            if(empty($templateName) && !is_null($templateName)) throw new RouterException('No route found for uri : ' . REQUEST['uri']);
+            if(empty($templateName) && !is_null($templateName)) throw new RouterException('No route found for uri : ' . $this->request['uri']);
             if(!file_exists(TEMPLATE_DIR . '/' . $templateName)) throw new RouterException('Template \'' . TEMPLATE_DIR . '/' . $templateName . '\' does not exists !');
         }
 
-        $controllerName = $routes[REQUEST['method']][REQUEST['uri']][1] ?? null;
-        if(!file_exists(CONTROLLER_DIR . '/' . $controllerName . '.php') && !file_exists(CONTROLLER_DIR . '/admin/' . $controllerName . '.php' ) && !file_exists(CONTROLLER_DIR . '/api/' . $controllerName . '.php' )) throw new RouterException('Controller \'' . CONTROLLER_DIR . '/' . $controllerName . '.php' . ' does not exists !');
+        $controllerName = $routes[$this->request['method']][$this->request['uri']][1] ?? null;
 
-        $roles = $routes[REQUEST['method']][REQUEST['uri']][2];
+        $roles = $routes[$this->request['method']][$this->request['uri']][2];
         if(!is_array($roles)) throw new RouterException('Route roles must be an array. Possible values are : ' .  implode(', ', ROLES));
         if(empty($roles)) throw new RouterException('Route roles is empty. Possible values are : ' .  implode(', ', ROLES));
         if(!in_array('NONE', $roles)) {

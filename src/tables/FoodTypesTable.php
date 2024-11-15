@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Table;
+namespace App\Tables;
 
-use App\Entity\FoodType;
-use App\Trait\TableTrait;
+use App\Entities\FoodType;
+use App\Traits\TableTrait;
 
 class FoodTypesTable
 {

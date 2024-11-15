@@ -1,6 +1,8 @@
 <?php
 
-use App\Models\Table\HabitatsTable;
+namespace App\Controllers;
+
+use App\Tables\HabitatsTable;
 
 class HabitatsController 
 {

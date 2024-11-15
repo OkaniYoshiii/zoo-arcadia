@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Table;
+namespace App\Tables;
 
-use App\Entity\Role;
-use App\Trait\TableTrait;
-use Database;
+use App\Database;
+use App\Entities\Role;
+use App\Traits\TableTrait;
 use PDO;
 
 class RolesTable

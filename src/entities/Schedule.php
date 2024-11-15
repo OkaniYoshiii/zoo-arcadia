@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entities;
 
-use App\Interface\EntityInterface;
-use App\Models\Table\ScheduleHoursTable;
-use App\Models\Table\WeekDaysTable;
-use App\Trait\EntityTrait;
+use App\Interfaces\EntityInterface;
+use App\Tables\ScheduleHoursTable;
+use App\Tables\WeekDaysTable;
+use App\Traits\EntityTrait;
 
 class Schedule implements EntityInterface
 {

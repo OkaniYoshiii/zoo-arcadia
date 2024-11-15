@@ -1,9 +1,12 @@
 <?php
 
-use App\Entity\Habitat;
-use App\Exception\FormInputException;
-use App\Models\Table\HabitatImagesTable;
-use App\Models\Table\HabitatsTable;
+namespace App\Controllers\Admin;
+
+use App\Entities\Habitat;
+use App\Exceptions\FormInputException;
+use App\Tables\HabitatImagesTable;
+use App\Tables\HabitatsTable;
+use App\Utilities\UserAlertsContainer;
 
 class HabitatsCrudController 
 {

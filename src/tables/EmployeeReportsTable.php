@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Models\Table;
+namespace App\Tables;
 
-use App\Entity\Animal;
-use App\Entity\Breed;
-use App\Entity\EmployeeReport;
-use App\Entity\FoodType;
-use App\Entity\FoodUnit;
-use App\Entity\Habitat;
-use App\Trait\TableTrait;
-use Database;
+use App\Database;
+use App\Entities\Animal;
+use App\Entities\Breed;
+use App\Entities\EmployeeReport;
+use App\Entities\FoodType;
+use App\Entities\FoodUnit;
+use App\Entities\Habitat;
+use App\Traits\TableTrait;
 use Exception;
 use PDO;
 

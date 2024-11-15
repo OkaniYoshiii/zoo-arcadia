@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Controllers;
+
 class RegisterViewsController
 {
     public function processFormData() 

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Table;
+namespace App\Tables;
 
-use App\Entity\HabitatImage;
-use App\Trait\TableTrait;
+use App\Entities\HabitatImage;
+use App\Traits\TableTrait;
 
 class HabitatImagesTable
 {

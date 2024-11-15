@@ -1,9 +1,12 @@
 <?php
 
-use App\Entity\User;
-use App\Exception\FormInputException;
-use App\Models\Table\RolesTable;
-use App\Models\Table\UsersTable;
+namespace App\Controllers\Admin;
+
+use App\Entities\User;
+use App\Exceptions\FormInputException;
+use App\Tables\RolesTable;
+use App\Tables\UsersTable;
+use App\Utilities\UserAlertsContainer;
 
 class UsersCrudController
 {

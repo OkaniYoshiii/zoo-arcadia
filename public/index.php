@@ -2,10 +2,11 @@
 
 // APP CONFIG
 
-use App\Entity\Schedule;
-use App\Exception\RouterException;
-use App\Models\Table\SchedulesTable;
+use App\Core;
+use App\Exceptions\RouterException;
+use App\Utilities\ExceptionHandler;
 use App\Utilities\Session;
+use App\Objects\Request;
 
 require_once '../config/config.global.php';
 
@@ -22,10 +23,11 @@ $dotenv->load();
 require_once CONFIG_DIR . '/config.twig.php';
 
 // AUTOLOADER
-require_once APP_DIR . '/Autoloader.php';
-Autoloader::register();
+// require_once APP_DIR . '/Autoloader.php';
+// Autoloader::register();
 
-ExceptionHandler::addHandler(RouterException::class, function() {
+ExceptionHandler::addHandler(RouterException::class, function(RouterException $routerException) {
+    echo $routerException->getMessage();
     http_response_code(404);
     echo TWIG->render('404.html.twig',[]);
 });
@@ -33,14 +35,12 @@ ExceptionHandler::start();
 
 Session::start();
 
-// REQUEST CONSTANT
-use App\Objects\Request;
-define('REQUEST', (array) new Request());
+$request = (array) new Request();
 
 // CURRENT ROUTE CONSTANT
 use App\Router;
 
-$router = new Router(CONFIG_DIR . '/routes.json');
+$router = new Router(CONFIG_DIR . '/routes.json', $request);
 define('ROUTE', $router->getCurrentRoute());
 
 use MongoDB\Driver\ServerApi;

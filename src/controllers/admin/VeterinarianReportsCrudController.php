@@ -1,12 +1,15 @@
 <?php
 
-use App\Entity\VeterinarianReport;
-use App\Exception\FormInputException;
-use App\Interface\CrudControllerInterface;
-use App\Models\Table\AnimalsTable;
-use App\Models\Table\FoodTypesTable;
-use App\Models\Table\FoodUnitsTable;
-use App\Models\Table\VeterinarianReportsTable;
+namespace App\Controllers\Admin;
+
+use App\Entities\VeterinarianReport;
+use App\Exceptions\FormInputException;
+use App\Interfaces\CrudControllerInterface;
+use App\Tables\AnimalsTable;
+use App\Tables\FoodTypesTable;
+use App\Tables\FoodUnitsTable;
+use App\Tables\VeterinarianReportsTable;
+use App\Utilities\UserAlertsContainer;
 
 class VeterinarianReportsCrudController implements CrudControllerInterface
 {

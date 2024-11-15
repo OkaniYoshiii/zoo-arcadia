@@ -1,13 +1,15 @@
 <?php
 
-use App\Entity\Animal;
-use App\Entity\AnimalImage;
-use App\Exception\FormInputException;
-use App\Models\Table\AnimalImagesTable;
-use App\Models\Table\AnimalsTable;
-use App\Models\Table\BreedsTable;
-use App\Models\Table\HabitatsTable;
+namespace App\Controllers\Admin;
+
+use App\Entities\Animal;
+use App\Exceptions\FormInputException;
+use App\Tables\AnimalImagesTable;
+use App\Tables\AnimalsTable;
+use App\Tables\BreedsTable;
+use App\Tables\HabitatsTable;
 use App\Utilities\ImgUploader;
+use App\Utilities\UserAlertsContainer;
 
 class AnimalsCrudController 
 {

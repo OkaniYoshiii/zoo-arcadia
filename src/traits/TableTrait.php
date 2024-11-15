@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Trait;
+namespace App\Traits;
 
-use App\Entity\Schedule;
-use App\Entity\User;
-use App\Interface\EntityInterface;
-use Database;
+use App\Database;
+use App\Entities\Schedule;
+use App\Entities\User;
+use App\Interfaces\EntityInterface;
 use Exception;
 use PDO;
 

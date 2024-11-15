@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Table;
+namespace App\Tables;
 
-use App\Entity\Breed;
-use App\Trait\TableTrait;
+use App\Entities\Breed;
+use App\Traits\TableTrait;
 
 class BreedsTable
 {

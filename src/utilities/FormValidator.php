@@ -2,7 +2,7 @@
 
 namespace App\Utilities;
 
-use App\Exception\FormInputException;
+use App\Exceptions\FormInputException;
 use UserAlertsContainer;
 
 class FormValidator 

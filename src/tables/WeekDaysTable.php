@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Table;
+namespace App\Tables;
 
-use App\Entity\WeekDay;
-use App\Trait\TableTrait;
+use App\Entities\WeekDay;
+use App\Traits\TableTrait;
 
 class WeekDaysTable
 {

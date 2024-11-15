@@ -1,7 +1,9 @@
 <?php
 
-use App\Entity\Feedback;
-use App\Exception\FormInputException;
+namespace App\Controllers\Admin;
+
+use App\Entities\Feedback;
+use App\Exceptions\FormInputException;
 use App\Objects\Request;
 use MongoDB\Model\BSONDocument;
 

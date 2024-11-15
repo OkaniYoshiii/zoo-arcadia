@@ -3,7 +3,6 @@
 namespace App\Utilities;
 
 use finfo;
-use UserAlertsContainer;
 
 class ImgUploader 
 {

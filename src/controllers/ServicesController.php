@@ -1,6 +1,8 @@
 <?php
 
-use App\Entity\Service;
+namespace App\Controllers;
+
+use App\Entities\Service;
 use MongoDB\Model\BSONDocument;
 
 class ServicesController 

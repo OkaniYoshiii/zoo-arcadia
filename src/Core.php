@@ -1,7 +1,9 @@
 <?php
 
+namespace App;
+
 use App\Utilities\FormValidator;
-use App\Utilities\Session;
+use App\Utilities\UserAlertsContainer;
 
 class Core {
     public function __construct()

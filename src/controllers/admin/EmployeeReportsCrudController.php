@@ -1,11 +1,14 @@
 <?php
 
-use App\Entity\EmployeeReport;
-use App\Exception\FormInputException;
-use App\Models\Table\AnimalsTable;
-use App\Models\Table\EmployeeReportsTable;
-use App\Models\Table\FoodTypesTable;
-use App\Models\Table\FoodUnitsTable;
+namespace App\Controllers\Admin;
+
+use App\Entities\EmployeeReport;
+use App\Exceptions\FormInputException;
+use App\Tables\AnimalsTable;
+use App\Tables\EmployeeReportsTable;
+use App\Tables\FoodTypesTable;
+use App\Tables\FoodUnitsTable;
+use App\Utilities\UserAlertsContainer;
 
 class EmployeeReportsCrudController
 {

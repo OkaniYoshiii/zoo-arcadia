@@ -1,8 +1,11 @@
 <?php
 
-use App\Entity\Service;
-use App\Exception\FormInputException;
+namespace App\Controllers\Admin;
+
+use App\Entities\Service;
+use App\Exceptions\FormInputException;
 use App\Utilities\ImgUploader;
+use App\Utilities\UserAlertsContainer;
 use MongoDB\Model\BSONDocument;
 
 class ServicesCrudController 

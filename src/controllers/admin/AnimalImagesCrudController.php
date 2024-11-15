@@ -1,9 +1,12 @@
 <?php
 
-use App\Entity\AnimalImage;
-use App\Exception\FormInputException;
-use App\Models\Table\AnimalImagesTable;
+namespace App\Controllers\Admin;
+
+use App\Entities\AnimalImage;
+use App\Exceptions\FormInputException;
+use App\Tables\AnimalImagesTable;
 use App\Utilities\ImgUploader;
+use Exception;
 
 class AnimalImagesCrudController 
 {

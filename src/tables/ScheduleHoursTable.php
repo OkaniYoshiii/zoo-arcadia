@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Table;
+namespace App\Tables;
 
-use App\Entity\ScheduleHour;
-use App\Trait\TableTrait;
+use App\Entities\ScheduleHour;
+use App\Traits\TableTrait;
 
 class ScheduleHoursTable
 {

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Utilities;
+
 class UserAlertsContainer
 {
     private static array $alerts = [];

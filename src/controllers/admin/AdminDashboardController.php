@@ -1,14 +1,10 @@
 <?php
 
-use App\Entity\AnimalImage;
-use App\Entity\Schedule;
-use App\Entity\ScheduleDay;
-use App\Entity\ScheduleHour;
-use App\Models\Table\AnimalImagesTable;
-use App\Models\Table\AnimalsTable;
-use App\Models\Table\SchedulesTable;
-use App\Models\Table\WeekDaysTable;
-use SleekDB\QueryBuilder;
+namespace App\Controllers\Admin;
+
+use App\Tables\AnimalsTable;
+use App\Tables\SchedulesTable;
+use App\Tables\WeekDaysTable;
 
 class AdminDashboardController 
 {

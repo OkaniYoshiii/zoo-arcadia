@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Table;
+namespace App\Tables;
 
-use App\Entity\Role;
-use App\Entity\User;
-use App\Interface\EntityInterface;
-use App\Trait\TableTrait;
-use Database;
+use App\Database;
+use App\Entities\Role;
+use App\Entities\User;
+use App\Interfaces\EntityInterface;
+use App\Traits\TableTrait;
 use Exception;
 use PDO;
 

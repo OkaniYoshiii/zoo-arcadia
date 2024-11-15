@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models\Table;
+namespace App\Tables;
 
-use App\Entity\Animal;
-use App\Entity\AnimalImage;
-use App\Entity\Breed;
-use App\Entity\FoodType;
-use App\Entity\FoodUnit;
-use App\Entity\Habitat;
-use App\Entity\User;
-use App\Entity\VeterinarianReport;
-use App\Trait\TableTrait;
-use Database;
+use App\Database;
+use App\Entities\Animal;
+use App\Entities\AnimalImage;
+use App\Entities\Breed;
+use App\Entities\FoodType;
+use App\Entities\FoodUnit;
+use App\Entities\Habitat;
+use App\Entities\User;
+use App\Entities\VeterinarianReport;
+use App\Traits\TableTrait;
 use Exception;
 use PDO;
 

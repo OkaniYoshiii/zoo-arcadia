@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Table;
+namespace App\Tables;
 
-use App\Entity\AnimalImage;
-use App\Trait\TableTrait;
+use App\Entities\AnimalImage;
+use App\Traits\TableTrait;
 
 class AnimalImagesTable
 {

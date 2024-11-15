@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exception;
+namespace App\Exceptions;
 
 class FormInputException extends AbstractInputException
 {

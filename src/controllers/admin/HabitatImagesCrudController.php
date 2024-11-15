@@ -1,9 +1,13 @@
 <?php
 
-use App\Entity\HabitatImage;
-use App\Models\Table\HabitatImagesTable;
-use App\Models\Table\HabitatsTable;
+namespace App\Controllers\Admin;
+
+use App\Entities\HabitatImage;
+use App\Exceptions\FormInputException;
+use App\Tables\HabitatImagesTable;
+use App\Tables\HabitatsTable;
 use App\Utilities\ImgUploader;
+use Exception;
 
 class HabitatImagesCrudController 
 {

@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Utilities;
+
+use Throwable;
+
 class ExceptionHandler
 {
     private static $handlers = [];

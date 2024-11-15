@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entities;
 
-use App\Interface\EntityInterface;
-use App\Trait\EntityTrait;
+use App\Interfaces\EntityInterface;
+use App\Traits\EntityTrait;
 
 class VeterinarianReport implements EntityInterface
 {
