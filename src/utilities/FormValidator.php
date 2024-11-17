@@ -3,12 +3,13 @@
 namespace App\Utilities;
 
 use App\Exceptions\FormInputException;
-use UserAlertsContainer;
 
 class FormValidator 
 {
     public function checkDuplicatedFormSubmission()
     {
+        if(!MONGODB_FLAG_ENABLED) return;
+
         $timestamp = strtotime($_POST['sent_at']);
         if($timestamp === false) throw new FormInputException('sent_at', FormInputException::NOT_DATE);
 

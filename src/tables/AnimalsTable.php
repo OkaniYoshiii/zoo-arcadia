@@ -25,11 +25,18 @@ class AnimalsTable
         Database::$statement = Database::$pdo->query('SELECT * FROM ' . self::TABLE_NAME);
         $animals = Database::$statement->fetchAll(PDO::FETCH_CLASS, self::ENTITY['class']);
 
-        foreach($animals as $animal)
-        {
-            $animalViews = AnimalViewsCollection->findOne(['animal_id' => $animal->getAnimalId()]);
-            $views = ($animalViews) ? $animalViews['views'] : 0;
-            $animal->setViews($views); 
+        if(MONGODB_FLAG_ENABLED) {
+            foreach($animals as $animal)
+            {
+                $animalViews = AnimalViewsCollection->findOne(['animal_id' => $animal->getAnimalId()]);
+                $views = ($animalViews) ? $animalViews['views'] : 0;
+                $animal->setViews($views); 
+            }
+        } else {
+            foreach($animals as $animal)
+            {
+                $animal->setViews(0); 
+            }
         }
         
         return $animals;
@@ -134,7 +141,7 @@ class AnimalsTable
             $animal['animal_images'] = array_map(function($animalImage) { return new AnimalImage($animalImage); }, $animal['animal_images']);
             $animal['habitat'] = new Habitat($animal['habitat']);
             $animal['breed'] = new Breed($animal['breed']);
-            $animal['views'] = AnimalViewsCollection->findOne(['animal_id' => $animal['animal_id']])['views'] ?? 0;
+            $animal['views'] = (MONGODB_FLAG_ENABLED) ? AnimalViewsCollection->findOne(['animal_id' => $animal['animal_id']])['views'] ?? 0 : 0;
             return new Animal($animal);
         }, $animals);
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Controllers\Api;
+
 class FeedbackApiController
 {
     private static int $maxPerPage = 3;
@@ -8,8 +10,6 @@ class FeedbackApiController
     {
         if(!isset($_GET['page'])) return;
 
-        $feedbacksCount = FeedbacksCollection->countDocuments();
-
         $offset = ($_GET['page'] - 1) *  self::$maxPerPage;
 
         $options = [
@@ -17,7 +17,14 @@ class FeedbackApiController
             'skip' => $offset,
             'limit' => self::$maxPerPage,
         ];
-        $feedbacks['content'] = FeedbacksCollection->find([], $options)->toArray();
+
+        $feedbacksCount = 0;
+        $feedbacks['content'] = [];
+        if(MONGODB_FLAG_ENABLED) {
+            $feedbacksCount = FeedbacksCollection->countDocuments();
+            $feedbacks['content'] = FeedbacksCollection->find([], $options)->toArray();
+        }
+
         $feedbacks['maxPerPage'] = self::$maxPerPage;
         $feedbacks['isLastPage'] = ($feedbacksCount > $offset + count($feedbacks['content'])) ? false : true;
 

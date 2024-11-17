@@ -20,7 +20,10 @@ class HomeController {
         $schedulesOrderedByHours = SchedulesTable::getOrderedBy(['schedule_hour_id', 'week_day_id']);
         $weekDays = WeekDaysTable::getAll();
 
-        $services = array_map(fn(BSONDocument $service) => new Service($service->getArrayCopy()), ServicesCollection->find([], ['limit' => 3])->toArray());
+        $services = [];
+        if(MONGODB_FLAG_ENABLED) {
+            $services = array_map(fn(BSONDocument $service) => new Service($service->getArrayCopy()), ServicesCollection->find([], ['limit' => 3])->toArray());
+        }
 
         $feedbacks = self::getAllValidatedFeedbacks();
 
@@ -53,6 +56,8 @@ class HomeController {
 
     public static function createFeedback() : void
     {
+        if(!MONGODB_FLAG_ENABLED) return;
+
         match(null) {
             self::$formData['username'] => UserAlertsContainer::add('Veuillez spécifier un nom d\'utilisateur.'),
             self::$formData['content'] => UserAlertsContainer::add('Veuillez spécifier la description de votre avis.'),
@@ -66,7 +71,6 @@ class HomeController {
 
         self::$formData['date'] = DateTime::createFromFormat('d/m/Y', self::$formData['date']);
 
-
         FeedbacksCollection->insertOne([
             'username' => self::$formData['username'],
             'content' => self::$formData['content'],
@@ -77,6 +81,6 @@ class HomeController {
 
     public static function getAllValidatedFeedbacks() : array
     {
-        return FeedbacksCollection->find(['is_validated' => true], ['sort' => ['date' => -1]])->toArray();
+        return (MONGODB_FLAG_ENABLED) ? FeedbacksCollection->find(['is_validated' => true], ['sort' => ['date' => -1]])->toArray() : [];
     }
 }

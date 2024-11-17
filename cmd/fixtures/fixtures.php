@@ -1,5 +1,7 @@
 <?php
 
+use App\Database;
+
 $rootDir = './';
 
 require_once './config/config.global.php';
@@ -9,9 +11,6 @@ require_once './vendor/autoload.php';
 // ENV VARIABLES
 $dotenv = Dotenv\Dotenv::createImmutable('./', '.env.local');
 $dotenv->load();
-
-require_once './src/Autoloader.php';
-Autoloader::register();
 
 if(!ALLOW_FIXTURES_CREATION) {
     throw new Exception('Fixtures creation is not allowed in this project. If you want to allow this, change ALLOW_FIXTURES_CREATION in config/config.global.php. Be warned : fixtures overwrite data in your database !');

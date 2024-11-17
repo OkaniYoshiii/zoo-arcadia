@@ -50,3 +50,5 @@ define('SRC_FOLDERS', [
     TRAITS_DIR,
     EXCEPTIONS_DIR
 ]);
+
+define('MONGODB_FLAG_ENABLED', false);

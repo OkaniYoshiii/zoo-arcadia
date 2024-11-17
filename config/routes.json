@@ -16,7 +16,7 @@
         "/admin/rapports-veterinaire" : ["admin/veterinarian_reports.html.twig", "App\\Controllers\\Admin\\VeterinarianReportsCrudController", ["ROLE_ADMIN", "ROLE_VETERINARIAN"]],
         "/admin/validation-avis" : ["admin/feedback-validation.html.twig", "App\\Controllers\\Admin\\FeedbackValidationController", ["ROLE_EMPLOYEE"]],
 
-        "/api/feedbacks" : ["NONE", "App\\Controllers\\FeedbackApiController", ["NONE"]]
+        "/api/feedbacks" : ["NONE", "App\\Controllers\\Api\\FeedbackApiController", ["NONE"]]
     },
 
     "POST" : {

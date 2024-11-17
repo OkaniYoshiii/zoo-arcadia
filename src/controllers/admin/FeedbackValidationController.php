@@ -13,9 +13,11 @@ class FeedBackValidationController
 
     public function getVariables() : array
     {
-        $feedbacks = FeedbacksCollection->find();
-
-        $feedbacks = array_map(fn(BSONDocument $feedback) => new Feedback($feedback->getArrayCopy()), $feedbacks->toArray());
+        $feedbacks = [];
+        if(MONGODB_FLAG_ENABLED) {
+            $feedbacks = FeedbacksCollection->find();
+            $feedbacks = array_map(fn(BSONDocument $feedback) => new Feedback($feedback->getArrayCopy()), $feedbacks->toArray());
+        }       
 
         return [
             'feedbacks' => $feedbacks,
@@ -24,6 +26,8 @@ class FeedBackValidationController
 
     public function processFormData() : void
     {
+        if(MONGODB_FLAG_ENABLED) return;
+        
         self::$formData = [
             'feedbackId' => $_POST['feedbackId'] ?? null,
             'isValidated' => $_POST['isValidated'] ?? null,

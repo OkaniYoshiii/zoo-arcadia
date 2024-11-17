@@ -14,9 +14,12 @@ class ServicesCrudController
 
     public function getVariables() : array
     {
-        $services = ServicesCollection->find();
+        $services = [];
+        if(MONGODB_FLAG_ENABLED) {
+            $services = ServicesCollection->find()->toArray();
+        }
 
-        $services = array_map(fn(BSONDocument $service) => new Service($service->getArrayCopy()), $services->toArray());
+        $services = array_map(fn(BSONDocument $service) => new Service($service->getArrayCopy()), $services);
         return [
             'services' => $services,
         ];
@@ -36,6 +39,8 @@ class ServicesCrudController
     
     private function createService() : void
     {
+        if(!MONGODB_FLAG_ENABLED) return;
+
         if(!is_string($_POST['serviceName'])) throw new FormInputException('serviceName', FormInputException::NOT_STRING);
         if(!is_string($_POST['serviceDescription'])) throw new FormInputException('service_description', FormInputException::NOT_STRING);
         if(!isset($_FILES['serviceImg'])) throw new FormInputException('serviceImg', FormInputException::UNDEFINED_VALUE);
@@ -52,11 +57,13 @@ class ServicesCrudController
 
     private function isServiceAlreadyRegistered() : bool 
     {
-        return !empty(ServicesCollection->findOne(['name' => $_POST['serviceName']]));
+        return (MONGODB_FLAG_ENABLED) ? !empty(ServicesCollection->findOne(['name' => $_POST['serviceName']])) : false;
     }
 
     private function updateService() : void
     {
+        if(!MONGODB_FLAG_ENABLED) return;
+
         if(!isset($_POST['serviceId'])) throw new FormInputException('serviceId', FormInputException::UNDEFINED_VALUE);
 
         if(!is_string($_POST['serviceName'])) throw new FormInputException('service_name', FormInputException::NOT_STRING);
@@ -75,6 +82,8 @@ class ServicesCrudController
 
     private function deleteService() : void
     {
+        if(!MONGODB_FLAG_ENABLED) return;
+        
         if(!isset($_POST['serviceId'])) throw new FormInputException('serviceId', FormInputException::UNDEFINED_VALUE);
         
         if(intval($_POST['serviceId']) === 0) throw new FormInputException('serviceId', FormInputException::NOT_NUMERIC);
