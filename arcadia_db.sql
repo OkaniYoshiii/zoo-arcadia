@@ -67,7 +67,7 @@ CREATE TABLE animal_images (
     animal_image_id INT(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     animal_id INT(11) UNSIGNED,
-    FOREIGN KEY (animal_id) REFERENCES animals(animal_id)
+    FOREIGN KEY (animal_id) REFERENCES animals(animal_id) ON DELETE CASCADE
 );
 
 CREATE TABLE habitat_images (

@@ -30,7 +30,7 @@ class ImgUploader
 
         $this->file['name'] = uniqid() . '.' . $this->file['extension'];
         $this->file['path'] = UPLOAD_DIR . '/' . $this->file['name'];
-        if(file_exists($this->file['path'])) UPLOAD_DIR . '/' . $this->file['name'];
+        if(!is_dir(UPLOAD_DIR)) mkdir(UPLOAD_DIR);
         move_uploaded_file($file['tmp_name'], $this->file['path']);
     }
 
