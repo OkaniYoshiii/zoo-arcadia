@@ -77,7 +77,7 @@ class ServicesCrudController
             $updateValues['img'] = $this->imgUploader->getUploadedFileName();
         }
 
-        ServicesCollection->updateOne(['_id' => new MongoDb\BSON\ObjectID($_POST['serviceId'])], ['$set' => $updateValues]);        
+        ServicesCollection->updateOne(['_id' => new \MongoDb\BSON\ObjectID($_POST['serviceId'])], ['$set' => $updateValues]);        
     }
 
     private function deleteService() : void
@@ -88,6 +88,6 @@ class ServicesCrudController
         
         if(intval($_POST['serviceId']) === 0) throw new FormInputException('serviceId', FormInputException::NOT_NUMERIC);
 
-        ServicesCollection->deleteOne(['_id' => new MongoDb\BSON\ObjectID($_POST['serviceId'])]);
+        ServicesCollection->deleteOne(['_id' => new \MongoDb\BSON\ObjectID($_POST['serviceId'])]);
     }
 }

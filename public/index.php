@@ -40,13 +40,20 @@ use App\Router;
 $router = new Router(CONFIG_DIR . '/routes.json', $request);
 define('ROUTE', $router->getCurrentRoute());
 
-if(MONGODB_FLAG_ENABLED) {
+try {
     $client = new MongoDB\Client($_ENV['MONGODB_URI'], [], ['serverApi' => new ServerApi(ServerApi::V1)]);
     define('AnimalViewsCollection', $client->selectDatabase($_ENV['MONGODB_NAME'])->selectCollection('animalViews'));
     define('FeedbacksCollection', $client->selectDatabase($_ENV['MONGODB_NAME'])->selectCollection('feedbacks'));
     define('ServicesCollection', $client->selectDatabase($_ENV['MONGODB_NAME'])->selectCollection('services'));
     define('FormSubmissionCollection', $client->selectDatabase($_ENV['MONGODB_NAME'])->selectCollection('formSubmissions'));
+
+    $isMongoDbEnabled = true;
+} catch(Throwable $e) {
+    $isMongoDbEnabled = false;
 }
+    
+define('MONGODB_FLAG_ENABLED', $isMongoDbEnabled);
+
 
 // CONTROLLERS AUTOINSTANCIATION
 $core = new Core();
